@@ -1,0 +1,42 @@
+# NetTwin configuration. All scripts read from here; no seeds or paths hardcoded elsewhere.
+
+seeds:
+  global: 42
+  topology_split: 1001
+  scenarios: 2002
+  training: 3003
+  agent_eval_sampling: 4004
+
+paths:
+  data: data
+  raw: data/raw
+  scenarios: data/scenarios
+  kg: data/kg
+  models: data/models
+  results: results
+  figures: results/figures
+  runbooks: src/nettwin/agent/runbooks
+
+topologies:
+  train_generator: gabriel     # topohub keys gabriel/<n>/<seed>
+  train_n_range: [15, 60]
+  test:
+    - topozoo/Aarnet
+    - topozoo/Geant2012
+    - sndlib/germany50
+  skip:                        # failed to load in this environment
+    - topozoo/GtsCe
+    - topozoo/Cogentco
+  use_names: true
+
+simulator:
+  step_minutes: 5
+  days: 7
+  target_peak_utilisation: [0.4, 0.7]
+
+agent:
+  # Set before Phase 6 from the current Anthropic docs. Do not fill from memory.
+  dev_model: null
+  eval_model: null
+  max_tool_calls: 15
+  max_tokens_per_incident: null

@@ -1,0 +1,10 @@
+name: nettwin
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - llvm-openmp  # OpenMP runtime required by the LightGBM wheel on macOS
+  - pip
+  - pip:
+      - -r requirements.txt

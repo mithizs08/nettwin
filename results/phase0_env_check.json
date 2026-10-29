@@ -1,0 +1,21 @@
+{
+  "torch": "2.15.0",
+  "torch_geometric": "2.8.1",
+  "topologies": {
+    "topozoo/Aarnet": {
+      "nodes": 19,
+      "edges": 24,
+      "connected": true
+    },
+    "topozoo/Geant2012": {
+      "nodes": 37,
+      "edges": 58,
+      "connected": true
+    },
+    "sndlib/germany50": {
+      "nodes": 50,
+      "edges": 88,
+      "connected": true
+    }
+  }
+}

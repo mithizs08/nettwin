@@ -1,0 +1,24 @@
+.env
+
+# Data and large generated files (regenerated from scripts)
+/data/
+*.parquet
+*.pt
+*.pth
+*.ckpt
+*.npz
+results/**/*.pkl
+results/raw/
+results/agent_logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
