@@ -20,7 +20,7 @@ pytest
 python scripts/phase1_build_kg.py
 ```
 
-Builds the typed knowledge graph (PoP, Link, RoutingPath, Service; Alert, Maintenance and Runbook as schema) for the three test topologies, exports Neo4j-style CSV to `data/kg/`, and writes `results/phase1_kg_summary.json`, `results/figures/aarnet_kg.png` and `results/figures/aarnet_map.png`. Services and SLAs are synthetic.
+Builds the typed knowledge graph (PoP, Link, RoutingPath, Service; Alert, Maintenance and Runbook as schema) for the dev network (AARNet) and the validation_real networks, exports Neo4j-style CSV to `data/kg/`, and writes `results/phase1_kg_summary.json`, `results/figures/aarnet_kg.png` and `results/figures/aarnet_map.png`. Services and SLAs are synthetic.
 
 ## Phase 2: telemetry simulator
 
@@ -28,4 +28,15 @@ Builds the typed knowledge graph (PoP, Link, RoutingPath, Service; Alert, Mainte
 python scripts/phase2_simulate.py
 ```
 
-Simulates synthetic traffic, routing (via the Phase 1 KG), utilisation, latency and loss with six fault types and distractors, deterministic from seed. Writes sanity figures to `results/figures/phase2_*.png`, difficulty and shortcut diagnostics (run on synthetic Gabriel graphs only) to `results/phase2_summary.json`, and demo scenarios to `data/scenarios/phase2_demo/`. All telemetry is synthetic.
+Simulates synthetic traffic, routing (via the Phase 1 KG), utilisation, latency and loss with six fault types and distractors, deterministic from seed. Writes sanity figures to `results/figures/phase2_*.png`, the pre-registered difficulty targets (validation networks only) to `results/phase2_summary.json`, and demo scenarios to `data/scenarios/phase2_demo/` (observable telemetry and ground truth in separate folders). All telemetry is synthetic.
+
+## Topology splits and test-driven decisions
+
+Splits are in `PLAN.md` section 3 and `config.yaml`. AARNet is the dev / demo network: it was used to develop and test the simulator in Phases 1 and 2, so its numbers are reported separately as "seen during development". The clean test set is Geant2012, germany50 and five Topology Zoo networks picked by a rule that was pre-registered in `docs/decision_log.md` before it was run (`scripts/select_topologies.py`).
+
+Decisions that were made while looking at a test (or now-dev) topology, as PLAN.md section 3 requires us to disclose (audit IDs from `docs/audit_phases_0_2.md`):
+- L2: capacity planning from a noisy history week was triggered by AARNet peaks (median 0.78). Also confirmed on a Gabriel graph.
+- L3 / L4: the ECMP cap of 4 was checked against AARNet loads and set with AARNet, Geant2012 and germany50 ECMP counts in view.
+- L5: the routing metric floor of 1 was motivated by AARNet's 0 km links.
+- L6: the rule "0 km links get the largest adjacent capacity" was designed on AARNet. It now also runs on generated graphs with dual-router PoPs.
+- L9: per-PoP time zones were built for real geography. Generated graphs now get pseudo-longitudes, so the feature is exercised in training and validation too.

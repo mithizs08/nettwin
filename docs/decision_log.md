@@ -189,14 +189,138 @@ Stopping rule: if a target is missed, I report the miss. I may make at most two 
 
 **Per-link detection labels (M7), fixed before any baseline.** Per scenario, a (T, L) int8 mask: 2 = root (the root link, or every link incident to a root PoP, during the fault window); 1 = symptomatic (not root, and noise-free |delta util| > 0.009, or link-latency increase > 6%, or counter-loss delta > 0.01 pp vs the counterfactual); 0 = unaffected. RQ1 PR-AUC is reported for root and for symptomatic links separately. Stored with ground truth, never next to observable telemetry.
 
+### 2026-10-29: Audit fixes (Phases 0 to 2), by audit ID
+
+Selection result (rule pre-registered above in commit `6e5491e`, run by `scripts/select_topologies.py`, output `results/topology_selection.json`): 79 family representatives with 15 to 60 nodes.
+- Test added: Garr201201 (48/62), Peer1 (16/20), York (23/24), Belnet2010 (19/20), Ibm (18/24).
+- validation_real: Aconet (17/24), BeyondTheNetwork (29/41), Fccn (23/25), Quest (20/31), Nextgen (16/16).
+- Reference pool: the other 69.
+- No sndlib network matched a picked family.
+- Several picks are sparse and tree-like (York 24 links for 23 PoPs, Nextgen a 16-node ring). They were kept as the rule produced them; swapping them would be cherry-picking.
+
+- **C1 (critical):**
+  - AARNet is now dev / demo (`topologies.dev`), with its results in their own column.
+  - Test is Geant2012, germany50 and the 5 rule picks; `PLAN.md` section 3 is updated.
+  - All L13 near-duplicates are in `topologies.skip`.
+  - Simulator tests now run on topohub's shipped `gabriel/20/1` (in no split) and toy graphs, with elements chosen by rule.
+  - KG and topology tests no longer touch Geant2012 or germany50; they use dev / validation / toy graphs.
+  - Phase 1 builds KGs on dev + validation instead of test. Phase 0 only loads every configured network (sizes and connectivity).
+  - The README now lists the test-driven decisions L2 to L6 and L9.
+- **C2 (critical):** background end-to-end probe loss.
+  - A per-service base rate, log-uniform 0.001% to 0.02% of probes.
+  - Plus bursty probe-host episodes: 0.3 per service per day, mean 3 steps, 0.05% to 1% loss.
+  - Drawn from the `measure` stream with fixed shapes, so the counterfactual shares it.
+  - Justification: the base rate sits well below the ITU-T Y.1541 IP loss objective of 1e-3 (0.1%) for a healthy managed backbone [VERIFY]. Lost probes on healthy paths also come from probe hosts and from router control-plane policing that rate-limits ICMP / TWAMP replies, independent of the data plane [VERIFY].
+  - The result is that one lost probe is no longer a fault signature (see T3 and T8 below).
+- **M1 (major):**
+  - A down interface on a reachable router now reads util 0 and discards 0 (counters readable), with latency missing (the probe fails), as SNMP would show it.
+  - A dead router's links are reported by the neighbours the same way.
+  - Healthy links also lose one-hop latency samples: random probe timeouts at 0.5%, plus 1 to 4 probe-responder gaps per scenario. So "util present, latency missing" is no longer unique to down links.
+  - `pop_status` is now NMS reachability ("unreachable" / "reachable"). It is raised with probability 0.8 after 1 to 3 failed polls, by both node_down and PoP collector outages.
+  - A PoP outage kills the probe responder half the time, so its services show 100% loss with latency missing, exactly like an unreachable PoP.
+  - The twin logs PoP reachability but does not route on it.
+  - The status-blind variant (`spec["status_blind"]`) blanks down links completely and drops all status events.
+- **M2 (major):**
+  - Maintenance is placed first.
+  - 15% of faults are maintenance-linked (during or within an hour after a change window), half of them on the maintained element (`caused_by_maintenance`).
+  - 10% are concurrent with another fault.
+  - 15% of maintenance happens in business hours.
+  - Ground truth is always the fault, and each fault records `placement`.
+  - Set-based scoring for concurrent faults is a Phase 4 task.
+- **M3 (major):**
+  - Carried load now uses a per-path fixed point (4 passes) on any step where some link drops more than 0.1%.
+  - A test checks that a chain with the first hop at rho 2 shows 0.499 of the load on the last hop (the old model gave 1.0).
+  - Each routing state is simulated at full demand and time-shared within the step, so flapping mixtures no longer average loads across states.
+  - Convergence loss (0.05 to 1 s) now hits services crossing a link at link_down / node_down onset and restore. Planned outages stay lossless, because traffic is drained first.
+- **M4 (major):**
+  - 400 generated graphs `gabaug/<n>/<seed>` cover every n from 15 to 60, with seeds from 1,000,000 (outside topohub's shipped scheme).
+  - They are split by graph, stratified by size: 308 train, 92 validation.
+  - Augmentation targets come from a randomly drawn reference-pool network (`src/nettwin/synth.py`): thinning without creating leaves, backbone-km rescaling, leaf spurs, dual-router PoPs and pseudo-longitude time zones.
+  - On a sample of 123 graphs, the generated median average degree is 2.44 against 2.32 in the reference pool, leaf fraction 15.6% against 12.5%, and mean link 349 km against 355 km; 31 of 123 graphs have dual-router PoPs.
+  - Impact thresholds are now relative to each service's latency (subtle < 2%, obvious >= 25%).
+- **M5 (major):** per-fault observability flags `obs_status`, `obs_link_util`, `obs_link_counters`, `obs_e2e` and `observable`, exactly as pre-registered, are stored in each fault's impact.
+- **M6 (major):**
+  - Status changes are reported after a lag of 0 / 1 / 2 steps (p = 0.5 / 0.35 / 0.15), plus a missed poll with probability 0.1. A down and an up that land on the same step cancel.
+  - The twin is rebuilt from the lagged events.
+- **M7 (major):** per-link per-step labels (root / symptomatic / unaffected), exactly as pre-registered, written to `truth/<sid>/labels.parquet`.
+- **M8 (major):**
+  - Targets were pre-registered before this run.
+  - `scripts/phase2_simulate.py --log-tuning <label>` appends the target results with the config hash to `results/tuning_log.jsonl`.
+  - Not done here (parked): the sensitivity run with pre-tuning ranges needs the Phase 4 baselines, and the config hash freeze happens at the start of Phase 3.
+- Minor fixes:
+  - **m1:** gray-failure visibility is per fault window.
+  - **m2:** the flapping lower bound is `min(0.02, max_down_frac)`.
+  - **m3:** the change review includes the event-day factor and a 1.15 margin, and a test asserts it.
+  - **m4:** the simulator docstring was rewritten.
+  - **m5:** PoP-scope gaps hit services at either endpoint.
+  - **m6:** the figure examples are inside the config ranges.
+  - **m7:** impact class for link_down / node_down ignores the root's own drop.
+  - **m8:** a hot link can never have zero capacity.
+  - **m9:** the real-demand branch validates names and is tested on a toy matrix. This found a real bug: an operator-precedence error in the name check.
+  - **m10:** every rate is reported with a 95% Wilson interval, on 188 validation scenarios.
+  - **m11:** fault-free windows are split into maintenance and non-maintenance.
+  - **m12:** `seeds.reserved_ranges` plus `faults.check_fresh_seed` for Phase 3.
+  - Event days ramp over an hour.
+  - Gray failures and surges have optional ramp-downs.
+  - Ground truth (manifest, labels) is written under `truth/`, apart from `observable/`.
+  - Gray loss above 0.5% cuts TCP goodput (1/sqrt(p)), so heavy gray failures show in utilisation.
+  - Flap drops stay out of the interface counters on purpose: a flapping link's drops happen at the upstream router while the link is down, not as discards on the link.
+
+### 2026-10-29: Pre-registered targets, results (validation networks only)
+
+188 scenarios, 370 faults:
+- Networks: 46 generated validation graphs x 3 scenarios, plus 5 validation_real x 10.
+- Seeds: 8601 to 8788, all in the reserved range 8000 to 8999.
+- Placements: 304 isolated, 53 maintenance-linked, 13 concurrent.
+- Every run is in `results/tuning_log.jsonl` with its config hash. The full numbers with 95% Wilson intervals are in `results/phase2_summary.json`.
+
+| Target | Run 0 (no changes) | After adjustment 1 | After adjustment 2 (final) | Final status |
+|---|---|---|---|---|
+| T1 unobservable <= 25% (gray / surge / misconfig) | 5.5% / 4.9% / 1.9% | 11.1% / 8.1% / 5.7% | same | pass |
+| T2 subtle >= 20%, obvious <= 50%: gray | 13% / 46% | 25% / 27% | same | pass |
+| T2: demand surge | 12% / 55% | 21% / 33% | same | pass |
+| T2: routing misconfig | 6% / 62% | 12% / 52% | same | **miss** |
+| T2: flapping | 2% / 80% | 3% / 74% | 0% / 69% | **miss** |
+| T3 max Youden J of any naive rule (gray / surge / misconfig) | 0.40 / 0.32 / 0.43 | 0.37 / 0.10 / 0.35 | same | pass |
+| T4 down share of "util present, latency missing" | 7.7% | 7.6% | 7.6% | pass |
+| T5 link_down status lag: zero-lag fraction, median | 45%, 1 step | 46%, 1 | 46%, 1 | pass |
+| T6 maintenance-linked faults; scenarios with concurrent faults | 14.9%; 5.3% | 14.3%; 6.9% | same | pass |
+| T7 fault-free median peak (5 validation_real, generated pooled) | 0.43 to 0.52 | same | same | pass |
+| T8 service-steps with a lost probe, fault-free | 3.95% | 3.95% | 3.95% | pass |
+
+The two adjustments allowed by the stopping rule:
+1. Adjustment 1, aimed at T2, which every hard type missed in run 0. A breakdown on validation graphs showed which criterion made faults obvious: single-step loss >= 1 pp for gray failures and flapping, util shift >= 0.3 for surges and misconfigs, and latency >= 25% for misconfigs and flapping. Changes:
+   - gray loss 0.01-2% became 0.005-1%. Above about 1% a failure is no longer gray; gray-failure reports describe low-rate silent drops [VERIFY].
+   - flap convergence 0.05-1 s became 0.02-0.5 s, and flaps per step 0.5-6 became 0.2-4. Fast reroute with BFD is typical [VERIFY].
+   - surge factor uniform 1.3-4 became log-uniform 1.1-3. A 4x surge on a whole PoP is extreme.
+   - misconfig near-miss share 0.5 became 0.7.
+   These were tuned to the target and are disclosed as such.
+2. Adjustment 2: flapping down fraction 0.01-0.5 became 0.005-0.15 per step. Up to 50% of a 5-minute step (2.5 min down) is a series of outages, not a flap; real flaps last seconds. It did not reach the target.
+
+No further change is allowed, so the final result has **two misses**:
+- **routing_misconfig**: 12% subtle (CI 6 to 24%), 52% obvious (CI 39 to 65%). Further moves had no realism argument, so I did not make one.
+- **link_flapping**: 0% subtle (CI 0 to 6%), 69% obvious (CI 57 to 79%).
+- Likely cause: the realistic, sparse topologies (median degree about 2.4, many bridges). Flapping or misrouting a link forces long detours (latency >= 25%) or partial loss of reachability, and the obvious class takes the maximum over single steps.
+- Consequence for later phases: report flapping and misconfig difficulty as found. Do not claim a balanced difficulty mix for them.
+- The mix also differs by network. The impact-class counts per validation_real network are in the summary (`by_group`), and the real networks lean more obvious than the generated ones.
+
+Other facts from the same run:
+- On fault-free windows outside maintenance (n = 839), "any lost probe" fires 100% of the time. That rule is dead, as C2 intended.
+- On the same windows, "lost probe on a service clean during warmup" fires 27%, util >= 0.9 fires 8.5%, counters >= 0.05% fire 1.7%, and status events fire 1.3%.
+- Inside maintenance windows (n = 60), status events fire 35% (planned outages) (audit m11).
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
 
 - Done in Phase 2: ECMP cap 4 checked, loads within 3.3% of cap 16, kept.
 - Phase 3 or 4: Alert nodes are still empty. Generate alerts from observed telemetry with simple threshold rules (needed for `get_active_alerts` and B3). Alert CSV columns will mix `value` and `value:float` when some alerts have no value; fix the export then.
-- Phase 3: topohub ships only seeds 0 to 9 per Gabriel size, so n in 15..60 gives 10 sizes x 10 seeds = 100 graphs for train + validation. The six Gabriel graphs used for Phase 2 diagnostics (sizes 20/30/40/50/25/35, seeds 1 to 6) can go in either split; they only tuned the simulator, not any detector.
-- Phase 3: consider a status-blind dataset variant (no status events, down links reported as missing) as an ablation of shortcut 1.
+- Done after the audit: generated graphs replace topohub's 100 shipped Gabriel graphs (400 graphs, every size 15 to 60). The shipped graphs are no longer in any split; `gabriel/20/1` is only a test fixture.
+- Phase 3: build a status-blind dataset variant (now supported: `spec["status_blind"] = True`) as an ablation of shortcut 1.
+- Phase 3: freeze `config.yaml` and record its sha256 here before building datasets (audit M8). Call `faults.check_fresh_seed` for every scenario seed (audit m12). Train on `generated_split(cfg)["train"]` only.
+- Phase 4: score concurrent faults with set-based metrics, and report isolated vs maintenance-linked vs concurrent faults separately (audit M2). Exclude unobservable faults from headline metrics and report them separately (audit M5). Report RQ1 PR-AUC for root and symptomatic labels separately (audit M7).
+- Phase 4: sensitivity run: regenerate validation with the pre-tuning fault ranges and report B1 to B3 on both (audit M8).
+- Phase 4 and 5: report AARNet in a separate 'seen during development' column; never pool it with test.
 - Phase 3: report fault results per type and per impact class; never average link_down / node_down / flapping with the hard types.
 - Phase 4: B3 can be built directly on `shared_elements` plus `paths_through` for the healthy-path penalty.
 - Phase 7 / 10: a coastline basemap for the AARNet map (Natural Earth, or plotly geo in Streamlit) would look better; needs a data download, so ask first.

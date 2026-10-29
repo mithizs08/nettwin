@@ -1,4 +1,4 @@
-"""Phase 1: build the KG for each test topology, export Neo4j CSV, draw AARNet figures.
+"""Phase 1: build the KG for the dev and validation topologies, export Neo4j CSV, draw AARNet figures.
 
 Writes:
   results/phase1_kg_summary.json      counts per kind / rel, plus an AARNet single-link-failure check
@@ -212,7 +212,7 @@ def main():
     figures.mkdir(parents=True, exist_ok=True)
 
     summary = {"topologies": {}}
-    for name in cfg["topologies"]["test"]:
+    for name in cfg["topologies"]["dev"] + cfg["topologies"]["validation_real"]:  # never on test (audit C1, L11)
         topo = load(name, use_names=cfg["topologies"]["use_names"])
         kg = NetTwinKG.from_config(topo, cfg)
         kg.validate()

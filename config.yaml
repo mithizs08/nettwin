@@ -8,6 +8,14 @@ seeds:
   agent_eval_sampling: 4004
   kg_services: 5005
   network: 6006                # per-topology demand weights and capacities (fixed across scenarios)
+  reserved_ranges:             # scenario seeds already viewed; dataset builders must not reuse them (audit m12)
+    - [99, 99]                 # Phase 2 misconfig candidate probe
+    - [2026, 2026]             # Phase 2 AARNet demo
+    - [3000, 3001]
+    - [4040, 4040]
+    - [5000, 5002]
+    - [7000, 7507]             # Phase 2 diagnostics (first round)
+    - [8000, 8999]             # post-audit diagnostics and demos
 
 paths:
   data: data
@@ -21,15 +29,44 @@ paths:
   runbooks: src/nettwin/agent/runbooks
 
 topologies:
-  train_generator: gabriel     # topohub keys gabriel/<n>/<seed>
-  train_n_range: [15, 60]
-  test:
+  dev:                         # seen during development (audit C1): demo only, own results column
     - topozoo/Aarnet
+  test:                        # never touched for design decisions
     - topozoo/Geant2012
     - sndlib/germany50
-  skip:                        # failed to load in this environment
-    - topozoo/GtsCe
-    - topozoo/Cogentco
+    - topozoo/Garr201201       # the next five picked by the pre-registered rule (scripts/select_topologies.py)
+    - topozoo/Peer1
+    - topozoo/York
+    - topozoo/Belnet2010
+    - topozoo/Ibm
+  validation_real:             # picked by the same rule
+    - topozoo/Aconet
+    - topozoo/BeyondTheNetwork
+    - topozoo/Fccn
+    - topozoo/Quest
+    - topozoo/Nextgen
+  reference_pool_file: results/topology_selection.json   # augmentation parameters only
+  synthetic:                   # topohub Gabriel generator plus augmentation (src/nettwin/synth.py)
+    prefix: gabaug
+    count: 400
+    n_range: [15, 60]
+    seed_base: 1000000         # outside topohub's shipped scheme (i * 4096 + n)
+    val_frac: 0.25
+    split_seed: 7171
+  skip:
+    - topozoo/GtsCe            # failed to load in this environment
+    - topozoo/Cogentco         # failed to load in this environment
+    # near-duplicates of test networks (audit L13); never train, validation or reference
+    - topozoo/Geant2001        # GEANT, earlier snapshots of test Geant2012
+    - topozoo/Geant2009
+    - topozoo/Geant2010
+    - sndlib/geant
+    - topozoo/Dfn              # German research network, overlaps test germany50
+    - sndlib/dfn-bwin
+    - sndlib/dfn-gwin
+    - sndlib/nobel-germany     # same German network family as germany50
+    - sndlib/nobel-eu          # same NOBEL project, skipped to be conservative
+    - sndlib/nobel-us
   use_names: true
 
 kg:
@@ -77,6 +114,19 @@ simulator:
     background_prob: 0.02      # random small discard counts on healthy links
     background_mean_pct: 0.005
   probes_per_step: 600         # end-to-end probes per service per 5 min; loss is binomial
+  probe_background:            # healthy end-to-end probe loss (audit C2); see decision log for the rate
+    base_rate: [1.0e-5, 2.0e-4]  # per-service, log-uniform: 0.001% to 0.02% of probes
+    episodes_per_day: 0.3      # bursty probe-host / ICMP rate-limit artefacts
+    episode_mean_steps: 3
+    episode_loss: [0.0005, 0.01] # 0.05% to 1% during an episode
+  probe_missing_prob: 0.005    # one-hop probe timeouts on healthy links (latency missing, counters present)
+  status:                      # polling and NMS reachability (audit M6, M1)
+    lag_probs: [0.5, 0.35, 0.15] # report lag of 0, 1, 2 steps
+    missed_poll_prob: 0.1      # one extra step
+    pop_status_prob: 0.8       # NMS raises 'unreachable' for a router it cannot poll
+    pop_timeout_polls: [1, 3]
+  carried_iterations: 4        # per-path fixed point for traffic dropped upstream (audit M3)
+  gray_goodput_knee_pct: 0.5   # above this gray loss, TCP goodput falls as 1/sqrt(loss)
   util_noise: 0.003
   missing_prob: 0.003
   drain_metric: 1000000
@@ -84,12 +134,12 @@ simulator:
 faults:                        # severity ranges; sampled per fault
   max_per_scenario: 3
   min_gap_steps: 36
-  link_down:         {duration_steps: [3, 72]}
-  node_down:         {duration_steps: [2, 24]}
-  link_degradation:  {duration_steps: [12, 288], loss_pct: [0.01, 2.0], silent_prob: 0.5, ramp_steps: [0, 36], burst_sigma: 0.7}
-  link_flapping:     {duration_steps: [6, 48], active_prob: [0.1, 0.9], max_down_frac: [0.01, 0.5], flaps_per_step: [0.5, 6], convergence_s: [0.05, 1.0]}
-  demand_surge:      {duration_steps: [6, 72], factor: [1.3, 4.0], ramp_steps: [1, 6]}
-  routing_misconfig: {duration_steps: [12, 576], metric_factor: [1.3, 10.0], minimal_prob: 0.5}   # log-uniform factor, or the smallest change that shifts any pair
+  link_down:         {duration_steps: [3, 72], convergence_s: [0.05, 1.0]}
+  node_down:         {duration_steps: [2, 24], convergence_s: [0.05, 1.0]}
+  link_degradation:  {duration_steps: [12, 288], loss_pct: [0.005, 1.0], silent_prob: 0.5, ramp_steps: [0, 36], ramp_down_steps: [0, 24], burst_sigma: 0.7}
+  link_flapping:     {duration_steps: [6, 48], active_prob: [0.1, 0.9], max_down_frac: [0.005, 0.15], flaps_per_step: [0.2, 4], convergence_s: [0.02, 0.5]}
+  demand_surge:      {duration_steps: [6, 72], factor: [1.1, 3.0], ramp_steps: [1, 6], ramp_down_steps: [0, 12]}
+  routing_misconfig: {duration_steps: [12, 576], metric_factor: [1.3, 10.0], minimal_prob: 0.7}   # log-uniform factor, or the smallest change that shifts any pair
 
 distractors:
   maintenance_per_scenario: [1, 3]
@@ -97,15 +147,28 @@ distractors:
   maintenance_actions: {drain: 0.5, down: 0.3, noop: 0.2}
   maintenance_start_hours: [0, 4]    # sim-time hour of day; windows are overnight
   maintenance_max_util: 0.85         # change review: skip a drain / outage that would congest a link
+  maintenance_review_margin: 1.15    # planning margin on the noise-free check (audit m3)
+  maintenance_daytime_prob: 0.15     # some changes happen in business hours (audit M2)
+  maintenance_daytime_hours: [9, 17]
+  overlap_maintenance_prob: 0.15     # fault placed during or just after a change window (audit M2)
+  caused_by_maintenance_prob: 0.5    # ... and on the maintained element
+  concurrent_prob: 0.1               # fault placed during another fault
+  probe_gaps_per_scenario: [1, 4]    # one-hop probe responder outages (latency missing only)
+  gap_responder_down_prob: 0.5       # a PoP outage also kills its probe responder: probes to it are lost
   gaps_per_scenario: [1, 4]
   gap_duration_steps: [1, 24]
   gap_pop_scope_prob: 0.5      # else a single link
   event_day_prob: 0.3          # whole-network traffic day, e.g. a big public event
   event_day_factor: [1.1, 1.25]
 
-impact:                        # thresholds for labelling a fault subtle / moderate / obvious (noise-free deltas)
-  affected_latency_ms: 0.5
+impact:                        # thresholds on noise-free deltas vs the counterfactual (latency relative: audit M4)
+  affected_latency_rel: 0.02
   affected_loss_pct: 0.05
+  subtle_latency_rel: 0.02
+  obvious_latency_rel: 0.25
+  util_delta: 0.009            # 3 sigma of util noise (observability, labels)
+  latency_rel: 0.06            # 3x latency jitter
+  counter_delta_pct: 0.01      # above background discard noise
 
 agent:
   # Set before Phase 6 from the current Anthropic docs. Do not fill from memory.

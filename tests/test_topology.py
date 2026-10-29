@@ -59,6 +59,7 @@ def test_load_gabriel_is_planar():
     assert g.graph["geo"] is False and g.number_of_nodes() == 25
 
 
-def test_germany50_keeps_demands():
-    g = load("sndlib/germany50")
-    assert g.graph["demands"]["Essen"]["Duesseldorf"] == 34.0
+def test_loader_keeps_demand_matrix():
+    data = _data("AB", [("A", "B", 5)])
+    data["graph"]["demands"] = {"A": {"B": 7.0}}
+    assert from_node_link(data, "toy", geo=False).graph["demands"] == {"A": {"B": 7.0}}

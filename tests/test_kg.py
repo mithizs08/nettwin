@@ -320,7 +320,7 @@ def test_generate_services_deterministic(cfg):
     assert all(s["src"] < s["dst"] and s["sla_latency_ms"] > 0 for s in s1)
 
 
-@pytest.mark.parametrize("name", ["topozoo/Aarnet", "topozoo/Geant2012", "sndlib/germany50"])
+@pytest.mark.parametrize("name", ["topozoo/Aarnet", "topozoo/Aconet", "topozoo/BeyondTheNetwork", "topozoo/Quest"])  # dev + validation, never test
 def test_real_topologies(cfg, name):
     topo = load(name)
     kg = NetTwinKG.from_config(topo, cfg)

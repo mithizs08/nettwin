@@ -38,11 +38,12 @@ Headline metrics: link-level PR-AUC for detection (RQ1); root-cause top-1 and to
 
 ## 3. Data and splits
 
-**Topologies**
-- Training pool: synthetic Gabriel graphs from `topohub` (`gabriel/<n>/<seed>`), n between 15 and 60, many seeds. These mimic long-haul optical backbones.
-- Validation: held-out Gabriel graphs (different seeds and sizes).
-- Test (never touched for design decisions): `topozoo/Aarnet` (19/24), `topozoo/Geant2012` (37/58), `sndlib/germany50` (50/88, includes real demand matrix).
-- Already confirmed in this environment: those three load with `use_names=True` and are connected. `topozoo/GtsCe` and `topozoo/Cogentco` failed to load, so skip them.
+**Topologies** (revised 2026-10-29 after the Phase 0 to 2 audit, `docs/audit_phases_0_2.md` C1 / M4; selection rule pre-registered in `docs/decision_log.md`)
+- Training pool: synthetic graphs from topohub's Gabriel generator, n between 15 and 60 (every size, not just multiples of 5), seeds outside topohub's shipped scheme, augmented so link lengths and structure resemble real backbones (edge thinning, leaf spurs, dual-router PoPs, backbone-km distances, pseudo time zones). Augmentation parameters come only from a reference pool of non-test, non-dev Topology Zoo networks.
+- Validation: held-out generated graphs (split by graph, stratified by size, at least 60 graphs) plus `validation_real`: `topozoo/Aconet` (17/24), `topozoo/BeyondTheNetwork` (29/41), `topozoo/Fccn` (23/25), `topozoo/Quest` (20/31), `topozoo/Nextgen` (16/16), picked by the pre-registered rule.
+- Dev / demo (seen during development): `topozoo/Aarnet` (19/24). It was used to develop and test the simulator in Phases 1 and 2, so its results are reported in their own column and never count as held-out evidence for RQ3 or RQ4.
+- Test (never touched for design decisions): `topozoo/Geant2012` (37/58), `sndlib/germany50` (50/88, includes real demand matrix), plus five networks picked by the pre-registered rule: `topozoo/Garr201201` (48/62), `topozoo/Peer1` (16/20), `topozoo/York` (23/24), `topozoo/Belnet2010` (19/20), `topozoo/Ibm` (18/24).
+- Skipped: near-duplicates of test networks (other GEANT snapshots, `sndlib/geant`, the DFN / NOBEL German networks) and anything that fails to load. The full list is `topologies.skip` in `config.yaml`.
 
 **Leakage rules**
 - Split by topology first, then by scenario seed. No test topology appears in training in any form.

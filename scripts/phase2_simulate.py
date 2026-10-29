@@ -4,13 +4,17 @@ Writes:
   results/figures/phase2_link_down_aarnet.png     one AARNet link-down incident end to end
   results/figures/phase2_fault_<type>.png         one figure per fault type, a mild and a severe instance
   results/figures/phase2_distractors_aarnet.png   maintenance drain, telemetry gap, event day
-  results/phase2_summary.json                     demo details, impact classes and shortcut-rule hit rates
-  data/scenarios/phase2_demo/                     Parquet telemetry, observed events, scenarios.json (gitignored)
+  results/phase2_summary.json                     demo details, and the pre-registered difficulty targets T1 to T8
+  data/scenarios/phase2_demo/{observable,truth}/  telemetry and events apart from ground truth (gitignored)
+  results/tuning_log.jsonl                        appended only with --log-tuning (audit M8)
 
-Difficulty and shortcut diagnostics run on synthetic Gabriel graphs, never on the test topologies
-(PLAN.md section 3). AARNet is used only for the illustrative plots.
+AARNet is the dev / demo network (seen during development) and is used only for plots. Difficulty and shortcut
+diagnostics run on validation networks only: held-out generated graphs plus validation_real. Never on test.
 """
+import argparse
+import hashlib
 import json
+import math
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -24,12 +28,12 @@ import yaml  # noqa: E402
 from nettwin.faults import make_fault, sample_scenario  # noqa: E402
 from nettwin.kg import FAULT_TYPES, pop_node  # noqa: E402
 from nettwin.simulator import Simulator, observed_kg, write_manifest, write_scenario  # noqa: E402
+from nettwin.synth import generated_split  # noqa: E402
 from nettwin.topology import load  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 SAVE = {"dpi": 130, "bbox_inches": "tight", "metadata": {"Software": None}}
 H = 5 / 60  # hours per step
-DIAG_TOPOLOGIES = [f"gabriel/{n}/{s}" for n, s in [(20, 1), (30, 2), (40, 3), (50, 4), (25, 5), (35, 6)]]
 
 
 def base_spec(sim, sid, seed, faults=(), **extra):
@@ -220,7 +224,7 @@ def fault_instances(sim):
         ],
         "link_flapping": [
             mk("link_flapping", busy, peak, 36, active_prob=0.3, max_down_frac=0.05, flaps_per_step=1.0, convergence_s=0.1),
-            mk("link_flapping", busy, peak, 36, active_prob=0.9, max_down_frac=0.45, flaps_per_step=7, convergence_s=2.5),
+            mk("link_flapping", busy, peak, 36, active_prob=0.9, max_down_frac=0.15, flaps_per_step=4, convergence_s=0.5)  # audit m6: inside config ranges,
         ],
         "demand_surge": [
             mk("demand_surge", pop_node(small_pop), peak, 36, factor=1.4, ramp_steps=6),
@@ -360,74 +364,151 @@ def plot_distractors(sim, out, scen_dir, entries):
     plt.close(fig)
 
 
-# ---------------------------------------------------------------------- difficulty and shortcut diagnostics (Gabriel only)
+# ---------------------------------------------------------------------- pre-registered targets (validation only)
+
+HARD = ("link_degradation", "demand_surge", "routing_misconfig")
+RULES = ("any_lost_probe", "lost_probe_on_clean_service", "any_link_util_ge_0.9", "any_link_counter_loss_ge_0.05pct", "any_status_event")
 
 
-def shortcut_rules(sim, res, s, e):
-    """Naive rules an over-easy simulator would let through. Returns which fire inside [s, e)."""
+def wilson(k, n, z=1.96):
+    """Rate with a 95% Wilson interval (audit m10)."""
+    if n == 0:
+        return {"k": 0, "n": 0, "rate": None, "ci95": [None, None]}
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    return {"k": int(k), "n": int(n), "rate": round(p, 4), "ci95": [round(max(0, c - h), 4), round(min(1, c + h), 4)]}
+
+
+def naive_rules(res, s, e, clean_services):
     o = res.obs
+    lost = np.nan_to_num(o["svc_loss_pct"][s:e]) > 0
     return {
+        "any_lost_probe": bool(lost.any()),
+        "lost_probe_on_clean_service": bool(lost[:, clean_services].any()) if len(clean_services) else False,
         "any_link_util_ge_0.9": bool(np.nanmax(o["util"][s:e], initial=0) >= 0.9),
-        "any_service_loss_ge_1pct": bool(np.nanmax(o["svc_loss_pct"][s:e], initial=0) >= 1.0),
         "any_link_counter_loss_ge_0.05pct": bool(np.nanmax(o["loss_pct"][s:e], initial=0) >= 0.05),
         "any_status_event": any(ev["type"] in ("link_status", "pop_status") and s <= ev["t"] < e for ev in res.observed_events),
     }
 
 
-def root_counters_elevated(sim, res, f):
-    root = f["root_cause"]
-    idx = [sim.link_idx[root]] if root in sim.link_idx else incident_links(sim, root)
-    w = res.obs["loss_pct"][f["t_start"]:f["t_end"], idx]
-    return bool(np.nanmean(w >= 0.05) >= 0.25) if np.isfinite(w).any() else False
-
-
 def diagnostics(cfg):
-    per_type = defaultdict(lambda: {"n": 0, "impact": Counter(), "rules": Counter(), "status_seen": 0, "root_counters_elevated": 0})
-    fp = {"windows": 0, "rules": Counter()}
-    n_scen = 0
-    for ti, name in enumerate(DIAG_TOPOLOGIES):
-        sim = Simulator(load(name), cfg)
-        for k in range(8):
-            seed = 7000 + 100 * ti + k
+    val_gen = generated_split(cfg)["val"][::2]
+    groups = [(n, "generated_val", 3) for n in val_gen] + [(n, n, 10) for n in cfg["topologies"]["validation_real"]]
+    faults, ff_windows, cells = [], [], {"pattern": 0, "pattern_down": 0}
+    lags, n_scen, n_concurrent = [], 0, 0
+    seed = 8600
+    for ti, (name, group, k_scen) in enumerate(groups):
+        sim = Simulator(load(name, cfg=cfg), cfg)
+        for k in range(k_scen):
+            seed += 1
             spec = sample_scenario(sim, f"diag_{ti}_{k}", seed)
             res = sim.simulate(spec)
             n_scen += 1
+            n_concurrent += any(f["placement"] == "concurrent" for f in spec["faults"])
+            warm = slice(0, sim.warmup_steps)
+            clean = np.flatnonzero(~(np.nan_to_num(res.obs["svc_loss_pct"][warm]) > 0).any(0))
+            pat = ~np.isnan(res.obs["util"]) & np.isnan(res.obs["latency_ms"])
+            cells["pattern"] += int(pat.sum())
+            cells["pattern_down"] += int((pat & res.truth["fully_down"]).sum())
             for f in spec["faults"]:
-                d = per_type[f["type"]]
-                d["n"] += 1
                 im = res.impacts[f["id"]]
-                d["impact"][im["impact_class"]] += 1
-                d["status_seen"] += im["status_change_observed"]
-                d["root_counters_elevated"] += root_counters_elevated(sim, res, f)
-                for r, hit in shortcut_rules(sim, res, f["t_start"], f["t_end"]).items():
-                    d["rules"][r] += hit
-            # false-positive rate of the same rules on fault-free windows (distractors still present)
+                faults.append({"group": group, "type": f["type"], "placement": f["placement"], "impact_class": im["impact_class"],
+                               "observable": im["observable"], **im["observability"], **naive_rules(res, f["t_start"], f["t_end"], clean)})
+                if f["type"] == "link_down":
+                    st = [ev["t"] for ev in res.observed_events if ev["type"] == "link_status" and ev.get("element") == f["root_cause"] and ev["t"] >= f["t_start"]]
+                    if st:
+                        lags.append(st[0] - f["t_start"])
             busy = [(f["t_start"] - 36, f["t_end"] + 36) for f in spec["faults"]]
+            mwin = [(m["t_start"], m["t_end"]) for m in spec["maintenance"]]
             rng = np.random.default_rng(seed)
             for _ in range(6):
                 dur = int(rng.integers(12, 72))
-                s = int(rng.integers(sim.warmup_steps, sim.n_steps - dur))
-                if any(not (s + dur <= a or s >= b) for a, b in busy):
+                s0 = int(rng.integers(sim.warmup_steps, sim.n_steps - dur))
+                if any(not (s0 + dur <= a or s0 >= b) for a, b in busy):
                     continue
-                fp["windows"] += 1
-                for r, hit in shortcut_rules(sim, res, s, s + dur).items():
-                    fp["rules"][r] += hit
-    out = {"topologies": DIAG_TOPOLOGIES, "scenarios": n_scen, "per_fault_type": {}, "fault_free_windows": {}}
+                in_maint = any(not (s0 + dur <= a or s0 >= b) for a, b in mwin)
+                ff_windows.append({"maintenance": in_maint, **naive_rules(res, s0, s0 + dur, clean)})
+    rules = RULES
+
+    def rate(rows, key):
+        return wilson(sum(bool(r[key]) for r in rows), len(rows))
+
+    per_type = {}
     for ft in FAULT_TYPES:
-        d = per_type[ft]
-        n = max(d["n"], 1)
-        out["per_fault_type"][ft] = {
-            "n": d["n"],
-            "impact_class": {c: d["impact"][c] for c in ("subtle", "moderate", "obvious")},
-            "status_change_observed_rate": round(d["status_seen"] / n, 3),
-            "root_counters_elevated_rate": round(d["root_counters_elevated"] / n, 3),
-            "rule_hit_rate": {r: round(v / n, 3) for r, v in sorted(d["rules"].items())},
+        rows = [f for f in faults if f["type"] == ft]
+        obs_rows = [f for f in rows if f["observable"]]
+        per_type[ft] = {
+            "n": len(rows),
+            "unobservable": wilson(sum(not f["observable"] for f in rows), len(rows)),
+            "channels": {c: rate(rows, c) for c in ("obs_status", "obs_link_util", "obs_link_counters", "obs_e2e")},
+            "impact_class_observable": {c: wilson(sum(f["impact_class"] == c for f in obs_rows), len(obs_rows)) for c in ("subtle", "moderate", "obvious")},
+            "rule_hit": {r: rate(rows, r) for r in rules},
+            "by_group": {g: {c: sum(f["impact_class"] == c and f["group"] == g for f in rows) for c in ("subtle", "moderate", "obvious")}
+                         for g in sorted({f["group"] for f in faults})},
         }
-    out["fault_free_windows"] = {"n": fp["windows"], "rule_hit_rate": {r: round(v / max(fp["windows"], 1), 3) for r, v in sorted(fp["rules"].items())}}
-    return out
+    clean_ff = [w for w in ff_windows if not w["maintenance"]]
+    maint_ff = [w for w in ff_windows if w["maintenance"]]
+    ff = {"non_maintenance": {r: rate(clean_ff, r) for r in rules}, "maintenance": {r: rate(maint_ff, r) for r in rules}}
+
+    # T7 / T8 from fault-free weeks with distractors off
+    base = {}
+    pooled_peaks, lost, tot = [], 0, 0
+    for name in cfg["topologies"]["validation_real"] + val_gen[::4]:
+        sim = Simulator(load(name, cfg=cfg), cfg)
+        r = sim.simulate(base_spec(sim, "base", 8999))
+        peaks = r.truth["util"].max(0)
+        lp = np.nan_to_num(r.obs["svc_loss_pct"]) > 0
+        lost += int(lp.sum())
+        tot += lp.size
+        if name in cfg["topologies"]["validation_real"]:
+            base[name] = round(float(np.median(peaks)), 4)
+        else:
+            pooled_peaks.extend(peaks.tolist())
+    base["generated_val_pooled"] = round(float(np.median(pooled_peaks)), 4)
+
+    placements = [f["placement"] for f in faults]
+    t = {}
+    t["T1_unobservable_le_25pct"] = {ft: {"value": per_type[ft]["unobservable"], "pass": (per_type[ft]["unobservable"]["rate"] or 0) <= 0.25} for ft in HARD}
+    t["T2_subtle_ge_20_obvious_le_50"] = {
+        ft: {"subtle": per_type[ft]["impact_class_observable"]["subtle"]["rate"], "obvious": per_type[ft]["impact_class_observable"]["obvious"]["rate"],
+             "pass": (per_type[ft]["impact_class_observable"]["subtle"]["rate"] or 0) >= 0.2 and (per_type[ft]["impact_class_observable"]["obvious"]["rate"] or 1) <= 0.5}
+        for ft in HARD + ("link_flapping",)
+    }
+    t["T3_youden_j_le_0.5"] = {
+        ft: {r: {"j": round(per_type[ft]["rule_hit"][r]["rate"] - ff["non_maintenance"][r]["rate"], 4), "pass": per_type[ft]["rule_hit"][r]["rate"] - ff["non_maintenance"][r]["rate"] <= 0.5} for r in rules}
+        for ft in HARD
+    }
+    frac_down = cells["pattern_down"] / max(cells["pattern"], 1)
+    t["T4_down_share_of_pattern_le_80pct"] = {"value": round(frac_down, 4), **cells, "pass": frac_down <= 0.8}
+    zero = sum(x == 0 for x in lags) / max(len(lags), 1)
+    t["T5_status_lag"] = {"n": len(lags), "zero_lag_frac": round(zero, 4), "median_lag": float(np.median(lags)) if lags else None,
+                          "pass": 0.3 <= zero <= 0.7 and (float(np.median(lags)) >= 1 if lags else False)}
+    linked = sum(p == "maintenance_linked" for p in placements) / max(len(placements), 1)
+    t["T6_overlap"] = {"maintenance_linked_frac": round(linked, 4), "scenarios_with_concurrent_frac": round(n_concurrent / n_scen, 4),
+                       "pass": 0.10 <= linked <= 0.20 and n_concurrent / n_scen >= 0.05}
+    t["T7_baseline_median_peak"] = {"value": base, "pass": all(0.4 <= v <= 0.7 for v in base.values())}
+    t["T8_lost_probe_service_steps"] = {"value": round(lost / tot, 4), "pass": 0.01 <= lost / tot <= 0.10}
+    return {
+        "networks": {"generated_val": len(val_gen), "validation_real": cfg["topologies"]["validation_real"]},
+        "scenarios": n_scen,
+        "faults": len(faults),
+        "placements": {p: placements.count(p) for p in sorted(set(placements))},
+        "per_fault_type": per_type,
+        "fault_free_windows": {"n_non_maintenance": len(clean_ff), "n_maintenance": len(maint_ff), **ff},
+        "targets": t,
+    }
+
+
+def config_hash(root):
+    return hashlib.sha256((root / "config.yaml").read_bytes()).hexdigest()[:16]
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--log-tuning", default=None, help="append the target results to results/tuning_log.jsonl with this label")
+    args = ap.parse_args()
     cfg = yaml.safe_load((ROOT / "config.yaml").read_text())
     figures = ROOT / cfg["paths"]["figures"]
     figures.mkdir(parents=True, exist_ok=True)
@@ -436,7 +517,9 @@ def main():
     entries = []
 
     sim = Simulator(load("topozoo/Aarnet"), cfg)
-    summary = {"aarnet_link_down_demo": plot_link_down_demo(sim, cfg, figures / "phase2_link_down_aarnet.png", scen_dir, entries)}
+    summary = {"note": "AARNet is the dev / demo network, seen during development; its numbers are illustrative only.",
+               "config_hash": config_hash(ROOT),
+               "aarnet_link_down_demo": plot_link_down_demo(sim, cfg, figures / "phase2_link_down_aarnet.png", scen_dir, entries)}
     summary["aarnet_fault_examples"] = {}
     for ftype, faults in fault_instances(sim).items():
         summary["aarnet_fault_examples"][ftype] = plot_fault(sim, ftype, faults, figures / f"phase2_fault_{ftype}.png", scen_dir, entries)
@@ -445,9 +528,12 @@ def main():
         entries.append(write_scenario(sim.simulate(sample_scenario(sim, f"aarnet_sampled_{k}", 5000 + k)), scen_dir))
     write_manifest(entries, scen_dir)
 
-    summary["diagnostics_gabriel"] = diagnostics(cfg)
+    summary["diagnostics_validation"] = diagnostics(cfg)
     (ROOT / cfg["paths"]["results"] / "phase2_summary.json").write_text(json.dumps(summary, indent=2, default=float) + "\n")
-    print(json.dumps({"demo": summary["aarnet_link_down_demo"], "diagnostics": summary["diagnostics_gabriel"]}, indent=1, default=float))
+    if args.log_tuning:
+        with open(ROOT / cfg["paths"]["results"] / "tuning_log.jsonl", "a") as fh:
+            fh.write(json.dumps({"label": args.log_tuning, "config_hash": summary["config_hash"], "targets": summary["diagnostics_validation"]["targets"]}, default=float) + "\n")
+    print(json.dumps(summary["diagnostics_validation"]["targets"], indent=1, default=float))
 
 
 if __name__ == "__main__":

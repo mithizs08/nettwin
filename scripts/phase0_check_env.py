@@ -15,7 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     cfg = yaml.safe_load((ROOT / "config.yaml").read_text())
     out = {"torch": torch.__version__, "torch_geometric": torch_geometric.__version__, "topologies": {}}
-    for name in cfg["topologies"]["test"]:
+    t = cfg["topologies"]
+    for name in t["dev"] + t["validation_real"] + t["test"]:  # loading only: sizes and connectivity
         g = nx.node_link_graph(topohub.get(name, use_names=cfg["topologies"]["use_names"]), edges="edges")
         out["topologies"][name] = {
             "nodes": g.number_of_nodes(),

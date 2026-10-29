@@ -7,6 +7,31 @@
       "edges": 24,
       "connected": true
     },
+    "topozoo/Aconet": {
+      "nodes": 17,
+      "edges": 24,
+      "connected": true
+    },
+    "topozoo/BeyondTheNetwork": {
+      "nodes": 29,
+      "edges": 41,
+      "connected": true
+    },
+    "topozoo/Fccn": {
+      "nodes": 23,
+      "edges": 25,
+      "connected": true
+    },
+    "topozoo/Quest": {
+      "nodes": 20,
+      "edges": 31,
+      "connected": true
+    },
+    "topozoo/Nextgen": {
+      "nodes": 16,
+      "edges": 16,
+      "connected": true
+    },
     "topozoo/Geant2012": {
       "nodes": 37,
       "edges": 58,
@@ -15,6 +40,31 @@
     "sndlib/germany50": {
       "nodes": 50,
       "edges": 88,
+      "connected": true
+    },
+    "topozoo/Garr201201": {
+      "nodes": 48,
+      "edges": 62,
+      "connected": true
+    },
+    "topozoo/Peer1": {
+      "nodes": 16,
+      "edges": 20,
+      "connected": true
+    },
+    "topozoo/York": {
+      "nodes": 23,
+      "edges": 24,
+      "connected": true
+    },
+    "topozoo/Belnet2010": {
+      "nodes": 19,
+      "edges": 20,
+      "connected": true
+    },
+    "topozoo/Ibm": {
+      "nodes": 18,
+      "edges": 24,
       "connected": true
     }
   }
