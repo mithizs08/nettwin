@@ -155,6 +155,40 @@ Outputs
 - `pytest`: 66 passed.
 - Temp clone and throwaway env deleted afterwards.
 
+### 2026-10-29: Pre-registration for the Phase 0 to 2 audit fixes (written before running anything)
+
+This entry is committed before the split selection is run and before any diagnostics are rerun. Audit: `docs/audit_phases_0_2.md`.
+
+**Split selection rule (C1, M4).** Applied mechanically by `scripts/select_topologies.py`; I look only at its printed output.
+1. Universe: every `topozoo/*` key in topohub 1.5.1 (203 names).
+2. Family of a name: lowercase it, strip trailing digits. Two names share a family if their first CamelCase tokens are equal, or if their lowercased stripped names share a prefix of at least 5 characters. Families are closed under this relation (union-find). This over-merges a little (for example Internetmci and Internode); that only makes the rule more conservative.
+3. Excluded: the families of the dev network (Aarnet) and the test networks (Geant2012 gives the Geant family), the family `dfn` (German research network, a near-duplicate of germany50), and everything on `topologies.skip`.
+4. A candidate must load with `topology.load(name)` (connected, simple, coordinates present) and have 15 to 60 nodes.
+5. One representative per family: the eligible member whose name sorts last (usually the latest snapshot).
+6. Sort the representatives by name, permute them with `numpy.random.default_rng(20261029)`. The first 5 go to test (alongside Geant2012 and germany50), the next 5 to `validation_real`, and all remaining representatives form the reference pool used only to set augmentation parameters.
+7. Any `sndlib/*` network whose first `-` token equals a picked family name is added to `topologies.skip`.
+AARNet becomes the dev / demo network: it may be used for development and plots, and its results are reported in their own column marked "seen during development".
+
+**Difficulty targets (M8).** Checked on validation networks only (generated Gabriel validation graphs plus `validation_real`), never on dev or test.
+- T1 observability: for gray failure, demand surge and routing misconfig, the unobservable fraction is at most 25% per type.
+- T2 difficulty mix: among observable faults of each of gray failure, demand surge, routing misconfig and flapping, at least 20% are subtle and at most 50% are obvious.
+- T3 no naive rule detects the hard types. For gray failure, demand surge and routing misconfig, each naive rule's Youden J (hit rate on fault windows minus hit rate on fault-free, non-maintenance windows of matching length) is at most 0.5. The rules: any lost probe on any service; any lost probe on a service with none on the warmup day; any link util >= 0.9; any link counter loss >= 0.05%; any status event.
+- T4 down-link signature: of all link-step cells with util present and latency missing, at most 80% belong to links that are actually down.
+- T5 status lag: for link_down, the fraction of status events with zero lag is between 30% and 70%, and the median lag is at least 1 step on 5-minute polling or explained.
+- T6 overlap: 10% to 20% of faults overlap or immediately follow a maintenance window; at least 5% of scenarios have two concurrent faults.
+- T7 baseline: the fault-free median link peak utilisation is in 0.4 to 0.7 on each validation_real network and on the pooled Gabriel validation graphs.
+- T8 background end-to-end loss: in fault-free weeks, the fraction of service-steps with at least one lost probe is 1% to 10%.
+Stopping rule: if a target is missed, I report the miss. I may make at most two adjustments in total, each logged with before / after numbers in `results/tuning_log.jsonl` with the config hash; after that the result stands as it is.
+
+**Observability flags (M5).** Computed per fault from noise-free truth against the no-fault counterfactual, over the fault window plus the 3-step maximum status lag.
+- `obs_status`: a status event for the root, or for any link incident to a root PoP.
+- `obs_link_util`: some link has |delta util| > 0.009 (3 sigma of util noise) for at least 2 steps.
+- `obs_link_counters`: some link has a counter-loss delta > 0.01 percentage points for at least 2 steps.
+- `obs_e2e`: some service has expected extra lost probes over the window of at least max(3, 3 sqrt(expected background lost probes)), or a relative latency increase above 3x jitter (6%) for at least 2 steps, or becomes unreachable.
+- `observable` = any of the four. Unobservable faults are reported separately and excluded from headline detection and localisation metrics.
+
+**Per-link detection labels (M7), fixed before any baseline.** Per scenario, a (T, L) int8 mask: 2 = root (the root link, or every link incident to a root PoP, during the fault window); 1 = symptomatic (not root, and noise-free |delta util| > 0.009, or link-latency increase > 6%, or counter-loss delta > 0.01 pp vs the counterfactual); 0 = unaffected. RQ1 PR-AUC is reported for root and for symptomatic links separately. Stored with ground truth, never next to observable telemetry.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
