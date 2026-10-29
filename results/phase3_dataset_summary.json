@@ -4,290 +4,490 @@
   "root": "data/datasets/v1",
   "splits": {
     "train": {
-      "disk_gb": 5.243,
+      "disk_gb": 5.248,
       "variants": {
         "with_status": {
           "scenarios": 1232,
-          "faults": 2434,
-          "scenarios_with_concurrent_faults": 117,
+          "faults": 2406,
+          "scenarios_with_concurrent_faults": 133,
           "scenarios_with_maintenance": 1232,
-          "maintenance_windows": 2492,
-          "faults_overlapping_maintenance": 669,
-          "unobservable_faults": 97,
+          "maintenance_windows": 2490,
+          "faults_overlapping_maintenance": 632,
+          "unobservable_faults": 137,
+          "fault_start_hour_bins_3h": [
+            367,
+            423,
+            293,
+            274,
+            319,
+            255,
+            250,
+            225
+          ],
           "by_topology": {
             "generated (train)": {
               "scenarios": 1232,
-              "faults": 2434
+              "faults": 2406
             }
           },
           "by_fault_type": {
             "link_down": {
-              "n": 420,
+              "n": 373,
               "impact_class": {
-                "subtle": 9,
-                "moderate": 35,
-                "obvious": 376
+                "subtle": 12,
+                "moderate": 23,
+                "obvious": 335
               },
-              "observable": 417,
+              "unobservable": 3,
+              "by_source": {
+                "generated": {
+                  "observable": 370,
+                  "subtle": 12,
+                  "moderate": 23,
+                  "obvious": 335
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
+              },
+              "observable": 370,
               "channels": {
-                "obs_status": 416,
-                "obs_link_util": 416,
-                "obs_link_counters": 121,
-                "obs_e2e": 401
+                "obs_status": 370,
+                "obs_link_util": 366,
+                "obs_link_counters": 107,
+                "obs_e2e": 350
               },
-              "overlaps_maintenance": 85,
+              "overlaps_maintenance": 89,
               "placement": {
-                "isolated": 341,
-                "concurrent": 22,
-                "maintenance_linked": 57
+                "maintenance_linked": 57,
+                "isolated": 296,
+                "concurrent": 20
               }
             },
             "node_down": {
-              "n": 405,
+              "n": 440,
               "impact_class": {
-                "subtle": 0,
-                "moderate": 1,
-                "obvious": 404
+                "subtle": 2,
+                "moderate": 0,
+                "obvious": 438
               },
-              "observable": 405,
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 440,
+                  "subtle": 2,
+                  "moderate": 0,
+                  "obvious": 438
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
+              },
+              "observable": 440,
               "channels": {
-                "obs_status": 405,
-                "obs_link_util": 405,
-                "obs_link_counters": 88,
-                "obs_e2e": 404
+                "obs_status": 439,
+                "obs_link_util": 440,
+                "obs_link_counters": 110,
+                "obs_e2e": 438
               },
               "overlaps_maintenance": 84,
               "placement": {
-                "isolated": 326,
-                "maintenance_linked": 60,
-                "concurrent": 19
+                "isolated": 354,
+                "maintenance_linked": 63,
+                "concurrent": 23
               }
             },
             "link_degradation": {
-              "n": 409,
+              "n": 377,
               "impact_class": {
-                "subtle": 133,
-                "moderate": 172,
-                "obvious": 104
+                "subtle": 96,
+                "moderate": 148,
+                "obvious": 95
+              },
+              "unobservable": 38,
+              "by_source": {
+                "generated": {
+                  "observable": 339,
+                  "subtle": 96,
+                  "moderate": 148,
+                  "obvious": 95
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
+              },
+              "observable": 339,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 127,
+                "obs_link_counters": 181,
+                "obs_e2e": 310
+              },
+              "overlaps_maintenance": 115,
+              "placement": {
+                "isolated": 306,
+                "maintenance_linked": 45,
+                "concurrent": 26
+              }
+            },
+            "link_flapping": {
+              "n": 398,
+              "impact_class": {
+                "subtle": 9,
+                "moderate": 118,
+                "obvious": 238
+              },
+              "unobservable": 33,
+              "by_source": {
+                "generated": {
+                  "observable": 365,
+                  "subtle": 9,
+                  "moderate": 118,
+                  "obvious": 238
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
+              },
+              "observable": 365,
+              "channels": {
+                "obs_status": 114,
+                "obs_link_util": 293,
+                "obs_link_counters": 106,
+                "obs_e2e": 348
+              },
+              "overlaps_maintenance": 80,
+              "placement": {
+                "maintenance_linked": 57,
+                "isolated": 319,
+                "concurrent": 22
+              }
+            },
+            "demand_surge": {
+              "n": 406,
+              "impact_class": {
+                "subtle": 94,
+                "moderate": 201,
+                "obvious": 88
+              },
+              "unobservable": 23,
+              "by_source": {
+                "generated": {
+                  "observable": 383,
+                  "subtle": 94,
+                  "moderate": 201,
+                  "obvious": 88
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
               },
               "observable": 383,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 133,
-                "obs_link_counters": 203,
-                "obs_e2e": 354
+                "obs_link_util": 382,
+                "obs_link_counters": 52,
+                "obs_e2e": 99
               },
-              "overlaps_maintenance": 144,
+              "overlaps_maintenance": 88,
               "placement": {
-                "isolated": 325,
-                "maintenance_linked": 63,
-                "concurrent": 21
-              }
-            },
-            "link_flapping": {
-              "n": 380,
-              "impact_class": {
-                "subtle": 25,
-                "moderate": 133,
-                "obvious": 222
-              },
-              "observable": 364,
-              "channels": {
-                "obs_status": 117,
-                "obs_link_util": 274,
-                "obs_link_counters": 101,
-                "obs_e2e": 342
-              },
-              "overlaps_maintenance": 82,
-              "placement": {
-                "maintenance_linked": 57,
-                "isolated": 311,
-                "concurrent": 12
-              }
-            },
-            "demand_surge": {
-              "n": 404,
-              "impact_class": {
-                "subtle": 123,
-                "moderate": 185,
-                "obvious": 96
-              },
-              "observable": 384,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 384,
-                "obs_link_counters": 68,
-                "obs_e2e": 102
-              },
-              "overlaps_maintenance": 91,
-              "placement": {
-                "isolated": 327,
-                "concurrent": 24,
-                "maintenance_linked": 53
+                "isolated": 326,
+                "maintenance_linked": 61,
+                "concurrent": 19
               }
             },
             "routing_misconfig": {
-              "n": 416,
+              "n": 412,
               "impact_class": {
-                "subtle": 97,
-                "moderate": 147,
-                "obvious": 172
+                "subtle": 78,
+                "moderate": 135,
+                "obvious": 159
               },
-              "observable": 384,
+              "unobservable": 40,
+              "by_source": {
+                "generated": {
+                  "observable": 372,
+                  "subtle": 78,
+                  "moderate": 135,
+                  "obvious": 159
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
+              },
+              "observable": 372,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 380,
-                "obs_link_counters": 117,
-                "obs_e2e": 218
+                "obs_link_util": 370,
+                "obs_link_counters": 100,
+                "obs_e2e": 199
               },
-              "overlaps_maintenance": 183,
+              "overlaps_maintenance": 176,
               "placement": {
-                "isolated": 337,
-                "maintenance_linked": 57,
-                "concurrent": 22
+                "isolated": 324,
+                "maintenance_linked": 62,
+                "concurrent": 26
               }
             }
           }
         },
         "status_blind": {
           "scenarios": 1232,
-          "faults": 2434,
-          "scenarios_with_concurrent_faults": 117,
+          "faults": 2406,
+          "scenarios_with_concurrent_faults": 133,
           "scenarios_with_maintenance": 1232,
-          "maintenance_windows": 2492,
-          "faults_overlapping_maintenance": 669,
-          "unobservable_faults": 109,
+          "maintenance_windows": 2490,
+          "faults_overlapping_maintenance": 632,
+          "unobservable_faults": 149,
+          "fault_start_hour_bins_3h": [
+            367,
+            423,
+            293,
+            274,
+            319,
+            255,
+            250,
+            225
+          ],
           "by_topology": {
             "generated (train)": {
               "scenarios": 1232,
-              "faults": 2434
+              "faults": 2406
             }
           },
           "by_fault_type": {
             "link_down": {
-              "n": 420,
+              "n": 373,
               "impact_class": {
-                "subtle": 9,
-                "moderate": 35,
-                "obvious": 376
+                "subtle": 6,
+                "moderate": 23,
+                "obvious": 334
               },
-              "observable": 416,
+              "unobservable": 10,
+              "by_source": {
+                "generated": {
+                  "observable": 363,
+                  "subtle": 6,
+                  "moderate": 23,
+                  "obvious": 334
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
+              },
+              "observable": 363,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 404,
-                "obs_link_counters": 121,
-                "obs_e2e": 401
+                "obs_link_util": 352,
+                "obs_link_counters": 107,
+                "obs_e2e": 350
               },
-              "overlaps_maintenance": 85,
+              "overlaps_maintenance": 89,
               "placement": {
-                "isolated": 341,
-                "concurrent": 22,
-                "maintenance_linked": 57
+                "maintenance_linked": 57,
+                "isolated": 296,
+                "concurrent": 20
               }
             },
             "node_down": {
-              "n": 405,
+              "n": 440,
               "impact_class": {
-                "subtle": 0,
-                "moderate": 1,
-                "obvious": 404
+                "subtle": 1,
+                "moderate": 0,
+                "obvious": 438
               },
-              "observable": 405,
+              "unobservable": 1,
+              "by_source": {
+                "generated": {
+                  "observable": 439,
+                  "subtle": 1,
+                  "moderate": 0,
+                  "obvious": 438
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
+              },
+              "observable": 439,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 388,
-                "obs_link_counters": 88,
-                "obs_e2e": 404
+                "obs_link_util": 421,
+                "obs_link_counters": 110,
+                "obs_e2e": 438
               },
               "overlaps_maintenance": 84,
               "placement": {
-                "isolated": 326,
-                "maintenance_linked": 60,
-                "concurrent": 19
+                "isolated": 354,
+                "maintenance_linked": 63,
+                "concurrent": 23
               }
             },
             "link_degradation": {
-              "n": 409,
+              "n": 377,
               "impact_class": {
-                "subtle": 133,
-                "moderate": 172,
-                "obvious": 104
+                "subtle": 95,
+                "moderate": 148,
+                "obvious": 95
+              },
+              "unobservable": 39,
+              "by_source": {
+                "generated": {
+                  "observable": 338,
+                  "subtle": 95,
+                  "moderate": 148,
+                  "obvious": 95
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
+              },
+              "observable": 338,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 127,
+                "obs_link_counters": 180,
+                "obs_e2e": 310
+              },
+              "overlaps_maintenance": 115,
+              "placement": {
+                "isolated": 306,
+                "maintenance_linked": 45,
+                "concurrent": 26
+              }
+            },
+            "link_flapping": {
+              "n": 398,
+              "impact_class": {
+                "subtle": 8,
+                "moderate": 116,
+                "obvious": 238
+              },
+              "unobservable": 36,
+              "by_source": {
+                "generated": {
+                  "observable": 362,
+                  "subtle": 8,
+                  "moderate": 116,
+                  "obvious": 238
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
+              },
+              "observable": 362,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 293,
+                "obs_link_counters": 106,
+                "obs_e2e": 348
+              },
+              "overlaps_maintenance": 80,
+              "placement": {
+                "maintenance_linked": 57,
+                "isolated": 319,
+                "concurrent": 22
+              }
+            },
+            "demand_surge": {
+              "n": 406,
+              "impact_class": {
+                "subtle": 94,
+                "moderate": 201,
+                "obvious": 88
+              },
+              "unobservable": 23,
+              "by_source": {
+                "generated": {
+                  "observable": 383,
+                  "subtle": 94,
+                  "moderate": 201,
+                  "obvious": 88
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
               },
               "observable": 383,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 133,
-                "obs_link_counters": 203,
-                "obs_e2e": 354
+                "obs_link_util": 382,
+                "obs_link_counters": 52,
+                "obs_e2e": 99
               },
-              "overlaps_maintenance": 144,
+              "overlaps_maintenance": 88,
               "placement": {
-                "isolated": 325,
-                "maintenance_linked": 63,
-                "concurrent": 21
-              }
-            },
-            "link_flapping": {
-              "n": 380,
-              "impact_class": {
-                "subtle": 25,
-                "moderate": 133,
-                "obvious": 222
-              },
-              "observable": 353,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 274,
-                "obs_link_counters": 101,
-                "obs_e2e": 342
-              },
-              "overlaps_maintenance": 82,
-              "placement": {
-                "maintenance_linked": 57,
-                "isolated": 311,
-                "concurrent": 12
-              }
-            },
-            "demand_surge": {
-              "n": 404,
-              "impact_class": {
-                "subtle": 123,
-                "moderate": 185,
-                "obvious": 96
-              },
-              "observable": 384,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 384,
-                "obs_link_counters": 68,
-                "obs_e2e": 102
-              },
-              "overlaps_maintenance": 91,
-              "placement": {
-                "isolated": 327,
-                "concurrent": 24,
-                "maintenance_linked": 53
+                "isolated": 326,
+                "maintenance_linked": 61,
+                "concurrent": 19
               }
             },
             "routing_misconfig": {
-              "n": 416,
+              "n": 412,
               "impact_class": {
-                "subtle": 97,
-                "moderate": 147,
-                "obvious": 172
+                "subtle": 78,
+                "moderate": 135,
+                "obvious": 159
               },
-              "observable": 384,
+              "unobservable": 40,
+              "by_source": {
+                "generated": {
+                  "observable": 372,
+                  "subtle": 78,
+                  "moderate": 135,
+                  "obvious": 159
+                },
+                "real": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                }
+              },
+              "observable": 372,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 380,
-                "obs_link_counters": 117,
-                "obs_e2e": 218
+                "obs_link_util": 370,
+                "obs_link_counters": 100,
+                "obs_e2e": 199
               },
-              "overlaps_maintenance": 183,
+              "overlaps_maintenance": 176,
               "placement": {
-                "isolated": 337,
-                "maintenance_linked": 57,
-                "concurrent": 22
+                "isolated": 324,
+                "maintenance_linked": 62,
+                "concurrent": 26
               }
             }
           }
@@ -295,330 +495,530 @@
       }
     },
     "val": {
-      "disk_gb": 1.868,
+      "disk_gb": 1.87,
       "variants": {
         "with_status": {
           "scenarios": 468,
-          "faults": 937,
-          "scenarios_with_concurrent_faults": 53,
-          "scenarios_with_maintenance": 467,
-          "maintenance_windows": 966,
-          "faults_overlapping_maintenance": 247,
-          "unobservable_faults": 35,
+          "faults": 921,
+          "scenarios_with_concurrent_faults": 42,
+          "scenarios_with_maintenance": 468,
+          "maintenance_windows": 948,
+          "faults_overlapping_maintenance": 232,
+          "unobservable_faults": 43,
+          "fault_start_hour_bins_3h": [
+            147,
+            150,
+            104,
+            104,
+            115,
+            105,
+            104,
+            92
+          ],
           "by_topology": {
             "generated (val)": {
               "scenarios": 368,
-              "faults": 739
+              "faults": 734
             },
             "topozoo/Aconet": {
               "scenarios": 20,
-              "faults": 39
+              "faults": 36
             },
             "topozoo/BeyondTheNetwork": {
               "scenarios": 20,
-              "faults": 36
+              "faults": 40
             },
             "topozoo/Fccn": {
               "scenarios": 20,
-              "faults": 39
+              "faults": 41
             },
             "topozoo/Nextgen": {
               "scenarios": 20,
-              "faults": 44
+              "faults": 34
             },
             "topozoo/Quest": {
               "scenarios": 20,
-              "faults": 40
+              "faults": 36
             }
           },
           "by_fault_type": {
             "link_down": {
-              "n": 158,
+              "n": 162,
               "impact_class": {
-                "subtle": 5,
-                "moderate": 12,
-                "obvious": 141
+                "subtle": 7,
+                "moderate": 19,
+                "obvious": 136
               },
-              "observable": 158,
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 132,
+                  "subtle": 7,
+                  "moderate": 12,
+                  "obvious": 113
+                },
+                "real": {
+                  "observable": 30,
+                  "subtle": 0,
+                  "moderate": 7,
+                  "obvious": 23
+                }
+              },
+              "observable": 162,
               "channels": {
-                "obs_status": 158,
-                "obs_link_util": 155,
-                "obs_link_counters": 44,
-                "obs_e2e": 147
+                "obs_status": 162,
+                "obs_link_util": 159,
+                "obs_link_counters": 52,
+                "obs_e2e": 145
               },
-              "overlaps_maintenance": 28,
+              "overlaps_maintenance": 30,
               "placement": {
-                "isolated": 133,
+                "isolated": 134,
+                "concurrent": 7,
+                "maintenance_linked": 21
+              }
+            },
+            "node_down": {
+              "n": 152,
+              "impact_class": {
+                "subtle": 1,
+                "moderate": 0,
+                "obvious": 151
+              },
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 124,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 124
+                },
+                "real": {
+                  "observable": 28,
+                  "subtle": 1,
+                  "moderate": 0,
+                  "obvious": 27
+                }
+              },
+              "observable": 152,
+              "channels": {
+                "obs_status": 152,
+                "obs_link_util": 151,
+                "obs_link_counters": 36,
+                "obs_e2e": 151
+              },
+              "overlaps_maintenance": 24,
+              "placement": {
+                "isolated": 127,
                 "maintenance_linked": 15,
                 "concurrent": 10
               }
             },
-            "node_down": {
-              "n": 142,
-              "impact_class": {
-                "subtle": 1,
-                "moderate": 0,
-                "obvious": 141
-              },
-              "observable": 142,
-              "channels": {
-                "obs_status": 142,
-                "obs_link_util": 141,
-                "obs_link_counters": 25,
-                "obs_e2e": 141
-              },
-              "overlaps_maintenance": 26,
-              "placement": {
-                "isolated": 120,
-                "maintenance_linked": 14,
-                "concurrent": 8
-              }
-            },
             "link_degradation": {
-              "n": 169,
+              "n": 170,
               "impact_class": {
-                "subtle": 48,
-                "moderate": 84,
-                "obvious": 37
+                "subtle": 36,
+                "moderate": 70,
+                "obvious": 49
               },
-              "observable": 156,
+              "unobservable": 15,
+              "by_source": {
+                "generated": {
+                  "observable": 126,
+                  "subtle": 29,
+                  "moderate": 56,
+                  "obvious": 41
+                },
+                "real": {
+                  "observable": 29,
+                  "subtle": 7,
+                  "moderate": 14,
+                  "obvious": 8
+                }
+              },
+              "observable": 155,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 53,
-                "obs_link_counters": 83,
-                "obs_e2e": 145
+                "obs_link_util": 59,
+                "obs_link_counters": 78,
+                "obs_e2e": 147
               },
-              "overlaps_maintenance": 62,
+              "overlaps_maintenance": 57,
               "placement": {
-                "maintenance_linked": 32,
-                "isolated": 127,
-                "concurrent": 10
+                "isolated": 132,
+                "maintenance_linked": 29,
+                "concurrent": 9
               }
             },
             "link_flapping": {
-              "n": 167,
+              "n": 141,
               "impact_class": {
-                "subtle": 11,
-                "moderate": 60,
-                "obvious": 96
+                "subtle": 6,
+                "moderate": 51,
+                "obvious": 75
               },
-              "observable": 162,
+              "unobservable": 9,
+              "by_source": {
+                "generated": {
+                  "observable": 98,
+                  "subtle": 3,
+                  "moderate": 33,
+                  "obvious": 62
+                },
+                "real": {
+                  "observable": 34,
+                  "subtle": 3,
+                  "moderate": 18,
+                  "obvious": 13
+                }
+              },
+              "observable": 132,
               "channels": {
                 "obs_status": 54,
-                "obs_link_util": 135,
-                "obs_link_counters": 49,
-                "obs_e2e": 150
+                "obs_link_util": 117,
+                "obs_link_counters": 34,
+                "obs_e2e": 125
               },
-              "overlaps_maintenance": 31,
+              "overlaps_maintenance": 28,
               "placement": {
-                "isolated": 136,
-                "maintenance_linked": 23,
+                "maintenance_linked": 20,
+                "isolated": 113,
                 "concurrent": 8
               }
             },
             "demand_surge": {
-              "n": 145,
+              "n": 152,
               "impact_class": {
-                "subtle": 43,
+                "subtle": 42,
                 "moderate": 68,
-                "obvious": 34
+                "obvious": 35
               },
-              "observable": 137,
+              "unobservable": 7,
+              "by_source": {
+                "generated": {
+                  "observable": 117,
+                  "subtle": 36,
+                  "moderate": 57,
+                  "obvious": 24
+                },
+                "real": {
+                  "observable": 28,
+                  "subtle": 6,
+                  "moderate": 11,
+                  "obvious": 11
+                }
+              },
+              "observable": 145,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 136,
-                "obs_link_counters": 21,
-                "obs_e2e": 37
+                "obs_link_util": 145,
+                "obs_link_counters": 13,
+                "obs_e2e": 25
               },
-              "overlaps_maintenance": 31,
+              "overlaps_maintenance": 32,
               "placement": {
-                "isolated": 118,
-                "maintenance_linked": 20,
-                "concurrent": 7
+                "isolated": 126,
+                "maintenance_linked": 23,
+                "concurrent": 3
               }
             },
             "routing_misconfig": {
-              "n": 156,
+              "n": 144,
               "impact_class": {
-                "subtle": 31,
-                "moderate": 47,
-                "obvious": 78
+                "subtle": 22,
+                "moderate": 45,
+                "obvious": 65
               },
-              "observable": 147,
+              "unobservable": 12,
+              "by_source": {
+                "generated": {
+                  "observable": 104,
+                  "subtle": 21,
+                  "moderate": 34,
+                  "obvious": 49
+                },
+                "real": {
+                  "observable": 28,
+                  "subtle": 1,
+                  "moderate": 11,
+                  "obvious": 16
+                }
+              },
+              "observable": 132,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 146,
-                "obs_link_counters": 51,
-                "obs_e2e": 94
+                "obs_link_util": 132,
+                "obs_link_counters": 42,
+                "obs_e2e": 74
               },
-              "overlaps_maintenance": 69,
+              "overlaps_maintenance": 61,
               "placement": {
-                "isolated": 124,
-                "maintenance_linked": 21,
-                "concurrent": 11
+                "isolated": 125,
+                "maintenance_linked": 13,
+                "concurrent": 6
               }
             }
           }
         },
         "status_blind": {
           "scenarios": 468,
-          "faults": 937,
-          "scenarios_with_concurrent_faults": 53,
-          "scenarios_with_maintenance": 467,
-          "maintenance_windows": 966,
-          "faults_overlapping_maintenance": 247,
-          "unobservable_faults": 41,
+          "faults": 921,
+          "scenarios_with_concurrent_faults": 42,
+          "scenarios_with_maintenance": 468,
+          "maintenance_windows": 948,
+          "faults_overlapping_maintenance": 232,
+          "unobservable_faults": 49,
+          "fault_start_hour_bins_3h": [
+            147,
+            150,
+            104,
+            104,
+            115,
+            105,
+            104,
+            92
+          ],
           "by_topology": {
             "generated (val)": {
               "scenarios": 368,
-              "faults": 739
+              "faults": 734
             },
             "topozoo/Aconet": {
               "scenarios": 20,
-              "faults": 39
+              "faults": 36
             },
             "topozoo/BeyondTheNetwork": {
               "scenarios": 20,
-              "faults": 36
+              "faults": 40
             },
             "topozoo/Fccn": {
               "scenarios": 20,
-              "faults": 39
+              "faults": 41
             },
             "topozoo/Nextgen": {
               "scenarios": 20,
-              "faults": 44
+              "faults": 34
             },
             "topozoo/Quest": {
               "scenarios": 20,
-              "faults": 40
+              "faults": 36
             }
           },
           "by_fault_type": {
             "link_down": {
-              "n": 158,
+              "n": 162,
               "impact_class": {
-                "subtle": 5,
-                "moderate": 12,
-                "obvious": 141
+                "subtle": 3,
+                "moderate": 19,
+                "obvious": 136
               },
-              "observable": 156,
+              "unobservable": 4,
+              "by_source": {
+                "generated": {
+                  "observable": 128,
+                  "subtle": 3,
+                  "moderate": 12,
+                  "obvious": 113
+                },
+                "real": {
+                  "observable": 30,
+                  "subtle": 0,
+                  "moderate": 7,
+                  "obvious": 23
+                }
+              },
+              "observable": 158,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 152,
-                "obs_link_counters": 44,
-                "obs_e2e": 147
+                "obs_link_util": 155,
+                "obs_link_counters": 52,
+                "obs_e2e": 145
               },
-              "overlaps_maintenance": 28,
+              "overlaps_maintenance": 30,
               "placement": {
-                "isolated": 133,
+                "isolated": 134,
+                "concurrent": 7,
+                "maintenance_linked": 21
+              }
+            },
+            "node_down": {
+              "n": 152,
+              "impact_class": {
+                "subtle": 0,
+                "moderate": 0,
+                "obvious": 151
+              },
+              "unobservable": 1,
+              "by_source": {
+                "generated": {
+                  "observable": 124,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 124
+                },
+                "real": {
+                  "observable": 27,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 27
+                }
+              },
+              "observable": 151,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 144,
+                "obs_link_counters": 36,
+                "obs_e2e": 151
+              },
+              "overlaps_maintenance": 24,
+              "placement": {
+                "isolated": 127,
                 "maintenance_linked": 15,
                 "concurrent": 10
               }
             },
-            "node_down": {
-              "n": 142,
-              "impact_class": {
-                "subtle": 1,
-                "moderate": 0,
-                "obvious": 141
-              },
-              "observable": 141,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 137,
-                "obs_link_counters": 25,
-                "obs_e2e": 141
-              },
-              "overlaps_maintenance": 26,
-              "placement": {
-                "isolated": 120,
-                "maintenance_linked": 14,
-                "concurrent": 8
-              }
-            },
             "link_degradation": {
-              "n": 169,
+              "n": 170,
               "impact_class": {
-                "subtle": 48,
-                "moderate": 84,
-                "obvious": 37
+                "subtle": 36,
+                "moderate": 70,
+                "obvious": 49
               },
-              "observable": 156,
+              "unobservable": 15,
+              "by_source": {
+                "generated": {
+                  "observable": 126,
+                  "subtle": 29,
+                  "moderate": 56,
+                  "obvious": 41
+                },
+                "real": {
+                  "observable": 29,
+                  "subtle": 7,
+                  "moderate": 14,
+                  "obvious": 8
+                }
+              },
+              "observable": 155,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 53,
-                "obs_link_counters": 83,
-                "obs_e2e": 145
+                "obs_link_util": 59,
+                "obs_link_counters": 78,
+                "obs_e2e": 147
               },
-              "overlaps_maintenance": 62,
+              "overlaps_maintenance": 57,
               "placement": {
-                "maintenance_linked": 32,
-                "isolated": 127,
-                "concurrent": 10
+                "isolated": 132,
+                "maintenance_linked": 29,
+                "concurrent": 9
               }
             },
             "link_flapping": {
-              "n": 167,
+              "n": 141,
               "impact_class": {
-                "subtle": 11,
-                "moderate": 60,
-                "obvious": 96
+                "subtle": 5,
+                "moderate": 51,
+                "obvious": 75
               },
-              "observable": 159,
+              "unobservable": 10,
+              "by_source": {
+                "generated": {
+                  "observable": 97,
+                  "subtle": 2,
+                  "moderate": 33,
+                  "obvious": 62
+                },
+                "real": {
+                  "observable": 34,
+                  "subtle": 3,
+                  "moderate": 18,
+                  "obvious": 13
+                }
+              },
+              "observable": 131,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 135,
-                "obs_link_counters": 49,
-                "obs_e2e": 150
+                "obs_link_util": 117,
+                "obs_link_counters": 34,
+                "obs_e2e": 125
               },
-              "overlaps_maintenance": 31,
+              "overlaps_maintenance": 28,
               "placement": {
-                "isolated": 136,
-                "maintenance_linked": 23,
+                "maintenance_linked": 20,
+                "isolated": 113,
                 "concurrent": 8
               }
             },
             "demand_surge": {
-              "n": 145,
+              "n": 152,
               "impact_class": {
-                "subtle": 43,
+                "subtle": 42,
                 "moderate": 68,
-                "obvious": 34
+                "obvious": 35
               },
-              "observable": 137,
+              "unobservable": 7,
+              "by_source": {
+                "generated": {
+                  "observable": 117,
+                  "subtle": 36,
+                  "moderate": 57,
+                  "obvious": 24
+                },
+                "real": {
+                  "observable": 28,
+                  "subtle": 6,
+                  "moderate": 11,
+                  "obvious": 11
+                }
+              },
+              "observable": 145,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 136,
-                "obs_link_counters": 21,
-                "obs_e2e": 37
+                "obs_link_util": 145,
+                "obs_link_counters": 13,
+                "obs_e2e": 25
               },
-              "overlaps_maintenance": 31,
+              "overlaps_maintenance": 32,
               "placement": {
-                "isolated": 118,
-                "maintenance_linked": 20,
-                "concurrent": 7
+                "isolated": 126,
+                "maintenance_linked": 23,
+                "concurrent": 3
               }
             },
             "routing_misconfig": {
-              "n": 156,
+              "n": 144,
               "impact_class": {
-                "subtle": 31,
-                "moderate": 47,
-                "obvious": 78
+                "subtle": 22,
+                "moderate": 45,
+                "obvious": 65
               },
-              "observable": 147,
+              "unobservable": 12,
+              "by_source": {
+                "generated": {
+                  "observable": 104,
+                  "subtle": 21,
+                  "moderate": 34,
+                  "obvious": 49
+                },
+                "real": {
+                  "observable": 28,
+                  "subtle": 1,
+                  "moderate": 11,
+                  "obvious": 16
+                }
+              },
+              "observable": 132,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 146,
-                "obs_link_counters": 51,
-                "obs_e2e": 94
+                "obs_link_util": 132,
+                "obs_link_counters": 42,
+                "obs_e2e": 74
               },
-              "overlaps_maintenance": 69,
+              "overlaps_maintenance": 61,
               "placement": {
-                "isolated": 124,
-                "maintenance_linked": 21,
-                "concurrent": 11
+                "isolated": 125,
+                "maintenance_linked": 13,
+                "concurrent": 6
               }
             }
           }
@@ -626,336 +1026,536 @@
       }
     },
     "test": {
-      "disk_gb": 0.785,
+      "disk_gb": 0.786,
       "variants": {
         "with_status": {
           "scenarios": 210,
-          "faults": 431,
-          "scenarios_with_concurrent_faults": 14,
+          "faults": 413,
+          "scenarios_with_concurrent_faults": 15,
           "scenarios_with_maintenance": 210,
-          "maintenance_windows": 405,
-          "faults_overlapping_maintenance": 111,
-          "unobservable_faults": 22,
+          "maintenance_windows": 408,
+          "faults_overlapping_maintenance": 99,
+          "unobservable_faults": 23,
+          "fault_start_hour_bins_3h": [
+            57,
+            68,
+            61,
+            57,
+            46,
+            40,
+            36,
+            48
+          ],
           "by_topology": {
             "sndlib/germany50": {
               "scenarios": 30,
-              "faults": 66
+              "faults": 62
             },
             "topozoo/Belnet2010": {
               "scenarios": 30,
-              "faults": 58
+              "faults": 62
             },
             "topozoo/Garr201201": {
               "scenarios": 30,
-              "faults": 60
+              "faults": 59
             },
             "topozoo/Geant2012": {
               "scenarios": 30,
-              "faults": 68
+              "faults": 59
             },
             "topozoo/Ibm": {
               "scenarios": 30,
-              "faults": 66
+              "faults": 56
             },
             "topozoo/Peer1": {
               "scenarios": 30,
-              "faults": 59
+              "faults": 60
             },
             "topozoo/York": {
               "scenarios": 30,
-              "faults": 54
+              "faults": 55
             }
           },
           "by_fault_type": {
             "link_down": {
-              "n": 69,
-              "impact_class": {
-                "subtle": 4,
-                "moderate": 5,
-                "obvious": 60
-              },
-              "observable": 69,
-              "channels": {
-                "obs_status": 69,
-                "obs_link_util": 67,
-                "obs_link_counters": 25,
-                "obs_e2e": 61
-              },
-              "overlaps_maintenance": 11,
-              "placement": {
-                "isolated": 58,
-                "maintenance_linked": 9,
-                "concurrent": 2
-              }
-            },
-            "node_down": {
               "n": 61,
               "impact_class": {
-                "subtle": 0,
-                "moderate": 0,
-                "obvious": 61
+                "subtle": 4,
+                "moderate": 13,
+                "obvious": 44
+              },
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 61,
+                  "subtle": 4,
+                  "moderate": 13,
+                  "obvious": 44
+                }
               },
               "observable": 61,
               "channels": {
-                "obs_status": 61,
-                "obs_link_util": 61,
-                "obs_link_counters": 9,
-                "obs_e2e": 61
-              },
-              "overlaps_maintenance": 16,
-              "placement": {
-                "isolated": 48,
-                "maintenance_linked": 12,
-                "concurrent": 1
-              }
-            },
-            "link_degradation": {
-              "n": 76,
-              "impact_class": {
-                "subtle": 24,
-                "moderate": 29,
-                "obvious": 23
-              },
-              "observable": 69,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 32,
-                "obs_link_counters": 33,
-                "obs_e2e": 62
-              },
-              "overlaps_maintenance": 26,
-              "placement": {
-                "isolated": 63,
-                "maintenance_linked": 9,
-                "concurrent": 4
-              }
-            },
-            "link_flapping": {
-              "n": 75,
-              "impact_class": {
-                "subtle": 8,
-                "moderate": 35,
-                "obvious": 32
-              },
-              "observable": 72,
-              "channels": {
-                "obs_status": 28,
-                "obs_link_util": 52,
+                "obs_status": 60,
+                "obs_link_util": 60,
                 "obs_link_counters": 12,
-                "obs_e2e": 66
+                "obs_e2e": 52
               },
-              "overlaps_maintenance": 16,
+              "overlaps_maintenance": 15,
               "placement": {
-                "maintenance_linked": 12,
-                "isolated": 60,
+                "isolated": 47,
+                "maintenance_linked": 11,
                 "concurrent": 3
               }
             },
-            "demand_surge": {
-              "n": 77,
+            "node_down": {
+              "n": 66,
+              "impact_class": {
+                "subtle": 0,
+                "moderate": 0,
+                "obvious": 66
+              },
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 66,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 66
+                }
+              },
+              "observable": 66,
+              "channels": {
+                "obs_status": 66,
+                "obs_link_util": 66,
+                "obs_link_counters": 24,
+                "obs_e2e": 66
+              },
+              "overlaps_maintenance": 10,
+              "placement": {
+                "isolated": 53,
+                "maintenance_linked": 7,
+                "concurrent": 6
+              }
+            },
+            "link_degradation": {
+              "n": 72,
               "impact_class": {
                 "subtle": 19,
-                "moderate": 37,
-                "obvious": 21
+                "moderate": 30,
+                "obvious": 13
               },
-              "observable": 73,
+              "unobservable": 10,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 62,
+                  "subtle": 19,
+                  "moderate": 30,
+                  "obvious": 13
+                }
+              },
+              "observable": 62,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 73,
-                "obs_link_counters": 16,
-                "obs_e2e": 25
+                "obs_link_util": 13,
+                "obs_link_counters": 28,
+                "obs_e2e": 60
               },
-              "overlaps_maintenance": 17,
+              "overlaps_maintenance": 24,
               "placement": {
-                "concurrent": 4,
-                "maintenance_linked": 13,
-                "isolated": 60
+                "isolated": 60,
+                "concurrent": 2,
+                "maintenance_linked": 10
+              }
+            },
+            "link_flapping": {
+              "n": 62,
+              "impact_class": {
+                "subtle": 3,
+                "moderate": 22,
+                "obvious": 33
+              },
+              "unobservable": 4,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 58,
+                  "subtle": 3,
+                  "moderate": 22,
+                  "obvious": 33
+                }
+              },
+              "observable": 58,
+              "channels": {
+                "obs_status": 17,
+                "obs_link_util": 41,
+                "obs_link_counters": 15,
+                "obs_e2e": 52
+              },
+              "overlaps_maintenance": 8,
+              "placement": {
+                "isolated": 54,
+                "maintenance_linked": 8
+              }
+            },
+            "demand_surge": {
+              "n": 73,
+              "impact_class": {
+                "subtle": 14,
+                "moderate": 35,
+                "obvious": 23
+              },
+              "unobservable": 1,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 72,
+                  "subtle": 14,
+                  "moderate": 35,
+                  "obvious": 23
+                }
+              },
+              "observable": 72,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 72,
+                "obs_link_counters": 13,
+                "obs_e2e": 24
+              },
+              "overlaps_maintenance": 14,
+              "placement": {
+                "maintenance_linked": 8,
+                "isolated": 62,
+                "concurrent": 3
               }
             },
             "routing_misconfig": {
-              "n": 73,
+              "n": 79,
               "impact_class": {
-                "subtle": 12,
-                "moderate": 29,
-                "obvious": 32
+                "subtle": 6,
+                "moderate": 34,
+                "obvious": 31
               },
-              "observable": 65,
+              "unobservable": 8,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 71,
+                  "subtle": 6,
+                  "moderate": 34,
+                  "obvious": 31
+                }
+              },
+              "observable": 71,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 64,
-                "obs_link_counters": 23,
-                "obs_e2e": 36
+                "obs_link_util": 69,
+                "obs_link_counters": 16,
+                "obs_e2e": 43
               },
-              "overlaps_maintenance": 25,
+              "overlaps_maintenance": 28,
               "placement": {
-                "isolated": 63,
-                "maintenance_linked": 10
+                "isolated": 65,
+                "maintenance_linked": 13,
+                "concurrent": 1
               }
             }
           }
         },
         "status_blind": {
           "scenarios": 210,
-          "faults": 431,
-          "scenarios_with_concurrent_faults": 14,
+          "faults": 413,
+          "scenarios_with_concurrent_faults": 15,
           "scenarios_with_maintenance": 210,
-          "maintenance_windows": 405,
-          "faults_overlapping_maintenance": 111,
-          "unobservable_faults": 26,
+          "maintenance_windows": 408,
+          "faults_overlapping_maintenance": 99,
+          "unobservable_faults": 27,
+          "fault_start_hour_bins_3h": [
+            57,
+            68,
+            61,
+            57,
+            46,
+            40,
+            36,
+            48
+          ],
           "by_topology": {
             "sndlib/germany50": {
               "scenarios": 30,
-              "faults": 66
+              "faults": 62
             },
             "topozoo/Belnet2010": {
               "scenarios": 30,
-              "faults": 58
+              "faults": 62
             },
             "topozoo/Garr201201": {
               "scenarios": 30,
-              "faults": 60
+              "faults": 59
             },
             "topozoo/Geant2012": {
               "scenarios": 30,
-              "faults": 68
+              "faults": 59
             },
             "topozoo/Ibm": {
               "scenarios": 30,
-              "faults": 66
+              "faults": 56
             },
             "topozoo/Peer1": {
               "scenarios": 30,
-              "faults": 59
+              "faults": 60
             },
             "topozoo/York": {
               "scenarios": 30,
-              "faults": 54
+              "faults": 55
             }
           },
           "by_fault_type": {
             "link_down": {
-              "n": 69,
+              "n": 61,
               "impact_class": {
-                "subtle": 4,
-                "moderate": 5,
-                "obvious": 60
+                "subtle": 3,
+                "moderate": 13,
+                "obvious": 44
+              },
+              "unobservable": 1,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 60,
+                  "subtle": 3,
+                  "moderate": 13,
+                  "obvious": 44
+                }
+              },
+              "observable": 60,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 59,
+                "obs_link_counters": 12,
+                "obs_e2e": 52
+              },
+              "overlaps_maintenance": 15,
+              "placement": {
+                "isolated": 47,
+                "maintenance_linked": 11,
+                "concurrent": 3
+              }
+            },
+            "node_down": {
+              "n": 66,
+              "impact_class": {
+                "subtle": 0,
+                "moderate": 0,
+                "obvious": 66
+              },
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 66,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 66
+                }
               },
               "observable": 66,
               "channels": {
                 "obs_status": 0,
                 "obs_link_util": 64,
-                "obs_link_counters": 25,
-                "obs_e2e": 61
+                "obs_link_counters": 24,
+                "obs_e2e": 66
               },
-              "overlaps_maintenance": 11,
+              "overlaps_maintenance": 10,
               "placement": {
-                "isolated": 58,
-                "maintenance_linked": 9,
-                "concurrent": 2
-              }
-            },
-            "node_down": {
-              "n": 61,
-              "impact_class": {
-                "subtle": 0,
-                "moderate": 0,
-                "obvious": 61
-              },
-              "observable": 61,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 59,
-                "obs_link_counters": 9,
-                "obs_e2e": 61
-              },
-              "overlaps_maintenance": 16,
-              "placement": {
-                "isolated": 48,
-                "maintenance_linked": 12,
-                "concurrent": 1
+                "isolated": 53,
+                "maintenance_linked": 7,
+                "concurrent": 6
               }
             },
             "link_degradation": {
-              "n": 76,
+              "n": 72,
               "impact_class": {
-                "subtle": 24,
-                "moderate": 29,
-                "obvious": 23
+                "subtle": 19,
+                "moderate": 30,
+                "obvious": 13
               },
-              "observable": 69,
+              "unobservable": 10,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 62,
+                  "subtle": 19,
+                  "moderate": 30,
+                  "obvious": 13
+                }
+              },
+              "observable": 62,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 32,
-                "obs_link_counters": 33,
-                "obs_e2e": 62
+                "obs_link_util": 13,
+                "obs_link_counters": 28,
+                "obs_e2e": 60
               },
-              "overlaps_maintenance": 26,
+              "overlaps_maintenance": 24,
               "placement": {
-                "isolated": 63,
-                "maintenance_linked": 9,
-                "concurrent": 4
+                "isolated": 60,
+                "concurrent": 2,
+                "maintenance_linked": 10
               }
             },
             "link_flapping": {
-              "n": 75,
+              "n": 62,
               "impact_class": {
-                "subtle": 8,
+                "subtle": 1,
+                "moderate": 21,
+                "obvious": 33
+              },
+              "unobservable": 7,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 55,
+                  "subtle": 1,
+                  "moderate": 21,
+                  "obvious": 33
+                }
+              },
+              "observable": 55,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 41,
+                "obs_link_counters": 15,
+                "obs_e2e": 52
+              },
+              "overlaps_maintenance": 8,
+              "placement": {
+                "isolated": 54,
+                "maintenance_linked": 8
+              }
+            },
+            "demand_surge": {
+              "n": 73,
+              "impact_class": {
+                "subtle": 14,
                 "moderate": 35,
-                "obvious": 32
+                "obvious": 23
+              },
+              "unobservable": 1,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 72,
+                  "subtle": 14,
+                  "moderate": 35,
+                  "obvious": 23
+                }
+              },
+              "observable": 72,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 72,
+                "obs_link_counters": 13,
+                "obs_e2e": 24
+              },
+              "overlaps_maintenance": 14,
+              "placement": {
+                "maintenance_linked": 8,
+                "isolated": 62,
+                "concurrent": 3
+              }
+            },
+            "routing_misconfig": {
+              "n": 79,
+              "impact_class": {
+                "subtle": 6,
+                "moderate": 34,
+                "obvious": 31
+              },
+              "unobservable": 8,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 71,
+                  "subtle": 6,
+                  "moderate": 34,
+                  "obvious": 31
+                }
               },
               "observable": 71,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 52,
-                "obs_link_counters": 12,
-                "obs_e2e": 66
-              },
-              "overlaps_maintenance": 16,
-              "placement": {
-                "maintenance_linked": 12,
-                "isolated": 60,
-                "concurrent": 3
-              }
-            },
-            "demand_surge": {
-              "n": 77,
-              "impact_class": {
-                "subtle": 19,
-                "moderate": 37,
-                "obvious": 21
-              },
-              "observable": 73,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 73,
+                "obs_link_util": 69,
                 "obs_link_counters": 16,
-                "obs_e2e": 25
+                "obs_e2e": 43
               },
-              "overlaps_maintenance": 17,
+              "overlaps_maintenance": 28,
               "placement": {
-                "concurrent": 4,
+                "isolated": 65,
                 "maintenance_linked": 13,
-                "isolated": 60
-              }
-            },
-            "routing_misconfig": {
-              "n": 73,
-              "impact_class": {
-                "subtle": 12,
-                "moderate": 29,
-                "obvious": 32
-              },
-              "observable": 65,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 64,
-                "obs_link_counters": 23,
-                "obs_e2e": 36
-              },
-              "overlaps_maintenance": 25,
-              "placement": {
-                "isolated": 63,
-                "maintenance_linked": 10
+                "concurrent": 1
               }
             }
           }
@@ -967,274 +1567,476 @@
       "variants": {
         "with_status": {
           "scenarios": 30,
-          "faults": 55,
-          "scenarios_with_concurrent_faults": 3,
+          "faults": 58,
+          "scenarios_with_concurrent_faults": 4,
           "scenarios_with_maintenance": 30,
-          "maintenance_windows": 60,
+          "maintenance_windows": 56,
           "faults_overlapping_maintenance": 11,
-          "unobservable_faults": 5,
+          "unobservable_faults": 2,
+          "fault_start_hour_bins_3h": [
+            4,
+            15,
+            13,
+            4,
+            12,
+            4,
+            3,
+            3
+          ],
           "by_topology": {
             "topozoo/Aarnet": {
               "scenarios": 30,
-              "faults": 55
+              "faults": 58
             }
           },
           "by_fault_type": {
             "link_down": {
+              "n": 9,
+              "impact_class": {
+                "subtle": 1,
+                "moderate": 2,
+                "obvious": 6
+              },
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 9,
+                  "subtle": 1,
+                  "moderate": 2,
+                  "obvious": 6
+                }
+              },
+              "observable": 9,
+              "channels": {
+                "obs_status": 9,
+                "obs_link_util": 8,
+                "obs_link_counters": 1,
+                "obs_e2e": 7
+              },
+              "overlaps_maintenance": 3,
+              "placement": {
+                "isolated": 7,
+                "maintenance_linked": 2
+              }
+            },
+            "node_down": {
               "n": 10,
               "impact_class": {
                 "subtle": 0,
-                "moderate": 3,
-                "obvious": 7
+                "moderate": 0,
+                "obvious": 10
+              },
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 10,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 10
+                }
               },
               "observable": 10,
               "channels": {
                 "obs_status": 10,
                 "obs_link_util": 10,
-                "obs_link_counters": 1,
-                "obs_e2e": 9
-              },
-              "overlaps_maintenance": 2,
-              "placement": {
-                "isolated": 10
-              }
-            },
-            "node_down": {
-              "n": 9,
-              "impact_class": {
-                "subtle": 0,
-                "moderate": 0,
-                "obvious": 9
-              },
-              "observable": 9,
-              "channels": {
-                "obs_status": 9,
-                "obs_link_util": 9,
                 "obs_link_counters": 2,
-                "obs_e2e": 9
+                "obs_e2e": 10
               },
               "overlaps_maintenance": 1,
               "placement": {
-                "isolated": 7,
-                "concurrent": 1,
+                "isolated": 9,
                 "maintenance_linked": 1
               }
             },
             "link_degradation": {
               "n": 8,
               "impact_class": {
-                "subtle": 4,
-                "moderate": 3,
-                "obvious": 1
+                "subtle": 3,
+                "moderate": 1,
+                "obvious": 3
               },
-              "observable": 5,
+              "unobservable": 1,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 7,
+                  "subtle": 3,
+                  "moderate": 1,
+                  "obvious": 3
+                }
+              },
+              "observable": 7,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 2,
-                "obs_link_counters": 4,
-                "obs_e2e": 5
+                "obs_link_util": 3,
+                "obs_link_counters": 5,
+                "obs_e2e": 6
               },
               "overlaps_maintenance": 1,
               "placement": {
-                "isolated": 8
+                "isolated": 6,
+                "concurrent": 1,
+                "maintenance_linked": 1
               }
             },
             "link_flapping": {
-              "n": 8,
+              "n": 10,
               "impact_class": {
-                "subtle": 1,
-                "moderate": 4,
-                "obvious": 3
+                "subtle": 0,
+                "moderate": 7,
+                "obvious": 2
               },
-              "observable": 6,
+              "unobservable": 1,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 9,
+                  "subtle": 0,
+                  "moderate": 7,
+                  "obvious": 2
+                }
+              },
+              "observable": 9,
               "channels": {
-                "obs_status": 0,
-                "obs_link_util": 2,
-                "obs_link_counters": 1,
-                "obs_e2e": 6
+                "obs_status": 3,
+                "obs_link_util": 6,
+                "obs_link_counters": 0,
+                "obs_e2e": 9
               },
-              "overlaps_maintenance": 2,
+              "overlaps_maintenance": 1,
               "placement": {
-                "isolated": 8
+                "isolated": 10
               }
             },
             "demand_surge": {
-              "n": 12,
+              "n": 13,
               "impact_class": {
-                "subtle": 2,
+                "subtle": 4,
                 "moderate": 8,
-                "obvious": 2
+                "obvious": 1
               },
-              "observable": 12,
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 13,
+                  "subtle": 4,
+                  "moderate": 8,
+                  "obvious": 1
+                }
+              },
+              "observable": 13,
               "channels": {
                 "obs_status": 0,
-                "obs_link_util": 12,
-                "obs_link_counters": 2,
-                "obs_e2e": 3
+                "obs_link_util": 13,
+                "obs_link_counters": 1,
+                "obs_e2e": 1
               },
-              "overlaps_maintenance": 4,
+              "overlaps_maintenance": 2,
               "placement": {
-                "isolated": 9,
-                "maintenance_linked": 2,
-                "concurrent": 1
+                "concurrent": 2,
+                "isolated": 10,
+                "maintenance_linked": 1
               }
             },
             "routing_misconfig": {
               "n": 8,
               "impact_class": {
                 "subtle": 0,
-                "moderate": 3,
-                "obvious": 5
+                "moderate": 1,
+                "obvious": 7
+              },
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 8,
+                  "subtle": 0,
+                  "moderate": 1,
+                  "obvious": 7
+                }
               },
               "observable": 8,
               "channels": {
                 "obs_status": 0,
                 "obs_link_util": 8,
                 "obs_link_counters": 1,
-                "obs_e2e": 3
+                "obs_e2e": 4
               },
-              "overlaps_maintenance": 1,
+              "overlaps_maintenance": 3,
               "placement": {
-                "concurrent": 1,
-                "isolated": 6,
-                "maintenance_linked": 1
+                "isolated": 7,
+                "concurrent": 1
               }
             }
           }
         },
         "status_blind": {
           "scenarios": 30,
-          "faults": 55,
-          "scenarios_with_concurrent_faults": 3,
+          "faults": 58,
+          "scenarios_with_concurrent_faults": 4,
           "scenarios_with_maintenance": 30,
-          "maintenance_windows": 60,
+          "maintenance_windows": 56,
           "faults_overlapping_maintenance": 11,
-          "unobservable_faults": 5,
+          "unobservable_faults": 3,
+          "fault_start_hour_bins_3h": [
+            4,
+            15,
+            13,
+            4,
+            12,
+            4,
+            3,
+            3
+          ],
           "by_topology": {
             "topozoo/Aarnet": {
               "scenarios": 30,
-              "faults": 55
+              "faults": 58
             }
           },
           "by_fault_type": {
             "link_down": {
-              "n": 10,
-              "impact_class": {
-                "subtle": 0,
-                "moderate": 3,
-                "obvious": 7
-              },
-              "observable": 10,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 10,
-                "obs_link_counters": 1,
-                "obs_e2e": 9
-              },
-              "overlaps_maintenance": 2,
-              "placement": {
-                "isolated": 10
-              }
-            },
-            "node_down": {
               "n": 9,
               "impact_class": {
                 "subtle": 0,
-                "moderate": 0,
-                "obvious": 9
+                "moderate": 2,
+                "obvious": 6
               },
-              "observable": 9,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 9,
-                "obs_link_counters": 2,
-                "obs_e2e": 9
-              },
-              "overlaps_maintenance": 1,
-              "placement": {
-                "isolated": 7,
-                "concurrent": 1,
-                "maintenance_linked": 1
-              }
-            },
-            "link_degradation": {
-              "n": 8,
-              "impact_class": {
-                "subtle": 4,
-                "moderate": 3,
-                "obvious": 1
-              },
-              "observable": 5,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 2,
-                "obs_link_counters": 4,
-                "obs_e2e": 5
-              },
-              "overlaps_maintenance": 1,
-              "placement": {
-                "isolated": 8
-              }
-            },
-            "link_flapping": {
-              "n": 8,
-              "impact_class": {
-                "subtle": 1,
-                "moderate": 4,
-                "obvious": 3
-              },
-              "observable": 6,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 2,
-                "obs_link_counters": 1,
-                "obs_e2e": 6
-              },
-              "overlaps_maintenance": 2,
-              "placement": {
-                "isolated": 8
-              }
-            },
-            "demand_surge": {
-              "n": 12,
-              "impact_class": {
-                "subtle": 2,
-                "moderate": 8,
-                "obvious": 2
-              },
-              "observable": 12,
-              "channels": {
-                "obs_status": 0,
-                "obs_link_util": 12,
-                "obs_link_counters": 2,
-                "obs_e2e": 3
-              },
-              "overlaps_maintenance": 4,
-              "placement": {
-                "isolated": 9,
-                "maintenance_linked": 2,
-                "concurrent": 1
-              }
-            },
-            "routing_misconfig": {
-              "n": 8,
-              "impact_class": {
-                "subtle": 0,
-                "moderate": 3,
-                "obvious": 5
+              "unobservable": 1,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 8,
+                  "subtle": 0,
+                  "moderate": 2,
+                  "obvious": 6
+                }
               },
               "observable": 8,
               "channels": {
                 "obs_status": 0,
                 "obs_link_util": 8,
                 "obs_link_counters": 1,
-                "obs_e2e": 3
+                "obs_e2e": 7
+              },
+              "overlaps_maintenance": 3,
+              "placement": {
+                "isolated": 7,
+                "maintenance_linked": 2
+              }
+            },
+            "node_down": {
+              "n": 10,
+              "impact_class": {
+                "subtle": 0,
+                "moderate": 0,
+                "obvious": 10
+              },
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 10,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 10
+                }
+              },
+              "observable": 10,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 9,
+                "obs_link_counters": 2,
+                "obs_e2e": 10
               },
               "overlaps_maintenance": 1,
               "placement": {
-                "concurrent": 1,
-                "isolated": 6,
+                "isolated": 9,
                 "maintenance_linked": 1
+              }
+            },
+            "link_degradation": {
+              "n": 8,
+              "impact_class": {
+                "subtle": 3,
+                "moderate": 1,
+                "obvious": 3
+              },
+              "unobservable": 1,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 7,
+                  "subtle": 3,
+                  "moderate": 1,
+                  "obvious": 3
+                }
+              },
+              "observable": 7,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 3,
+                "obs_link_counters": 5,
+                "obs_e2e": 6
+              },
+              "overlaps_maintenance": 1,
+              "placement": {
+                "isolated": 6,
+                "concurrent": 1,
+                "maintenance_linked": 1
+              }
+            },
+            "link_flapping": {
+              "n": 10,
+              "impact_class": {
+                "subtle": 0,
+                "moderate": 7,
+                "obvious": 2
+              },
+              "unobservable": 1,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 9,
+                  "subtle": 0,
+                  "moderate": 7,
+                  "obvious": 2
+                }
+              },
+              "observable": 9,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 6,
+                "obs_link_counters": 0,
+                "obs_e2e": 9
+              },
+              "overlaps_maintenance": 1,
+              "placement": {
+                "isolated": 10
+              }
+            },
+            "demand_surge": {
+              "n": 13,
+              "impact_class": {
+                "subtle": 4,
+                "moderate": 8,
+                "obvious": 1
+              },
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 13,
+                  "subtle": 4,
+                  "moderate": 8,
+                  "obvious": 1
+                }
+              },
+              "observable": 13,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 13,
+                "obs_link_counters": 1,
+                "obs_e2e": 1
+              },
+              "overlaps_maintenance": 2,
+              "placement": {
+                "concurrent": 2,
+                "isolated": 10,
+                "maintenance_linked": 1
+              }
+            },
+            "routing_misconfig": {
+              "n": 8,
+              "impact_class": {
+                "subtle": 0,
+                "moderate": 1,
+                "obvious": 7
+              },
+              "unobservable": 0,
+              "by_source": {
+                "generated": {
+                  "observable": 0,
+                  "subtle": 0,
+                  "moderate": 0,
+                  "obvious": 0
+                },
+                "real": {
+                  "observable": 8,
+                  "subtle": 0,
+                  "moderate": 1,
+                  "obvious": 7
+                }
+              },
+              "observable": 8,
+              "channels": {
+                "obs_status": 0,
+                "obs_link_util": 8,
+                "obs_link_counters": 1,
+                "obs_e2e": 4
+              },
+              "overlaps_maintenance": 3,
+              "placement": {
+                "isolated": 7,
+                "concurrent": 1
               }
             }
           }

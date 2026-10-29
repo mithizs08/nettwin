@@ -6,17 +6,23 @@ Layout under `dataset.root` (default data/datasets/v1):
   truth/<split>/<variant>/<sid>/labels.parquet
   truth/<split>/<variant>/manifest.json         ground truth per scenario: faults, impact, observability, topology, seed
 
-Detectors and the agent are only ever given `observable/`. Variants: `with_status` (status events, SNMP-style down links)
+Detectors and the agent are only ever given `observable/`. Seeds and ids are derived from a secret local key
+(`.nettwin_dataset_key`, gitignored), so the repo alone cannot re-run the sampler to recover faults (audit P1). Variants: `with_status` (status events, SNMP-style down links)
 and `status_blind` (down links fully missing, no status or reachability events). Scenario ids are neutral
-(`tr00001`, `va00001`, `te00001`, `dv00001`) and say nothing about topology or faults.
+(`tr00000`, `va00000`, ...: a keyed permutation within the split) and say nothing about topology, order, seed or
+faults.
 
 The builder refuses to run when the simulator code or config differs from the frozen hashes in
 `results/simulator_freeze.json`, unless a reason is passed (and then recorded in the summary).
 """
 import hashlib
+import hmac
 import json
 from multiprocessing import Pool
 from pathlib import Path
+
+import numpy as np
+import pandas as pd
 
 from nettwin.faults import check_fresh_seed, sample_scenario
 from nettwin.simulator import Simulator, write_scenario
@@ -58,11 +64,37 @@ def check_frozen(root=ROOT, reason=None):
     return {"changed_files": changed, "reason": reason}
 
 
-def plan(cfg):
-    """Every (split, topology, n_scenarios, first_seed). Split by topology first, then by scenario seed."""
-    dc, t = cfg["dataset"], cfg["topologies"]
+KEY_FILE = ".nettwin_dataset_key"   # gitignored; holds the secret that seeds and ids are derived from (audit P1)
+
+
+def load_key(root=ROOT):
+    """The local dataset key. Without it nobody, including the repo itself, can rebuild or re-identify scenarios."""
+    path = Path(root) / KEY_FILE
+    if not path.exists():
+        raise FileNotFoundError(f"{path} not found: the dataset key is local only (see README, 'Reproducing the datasets')")
+    key = path.read_text().strip()
+    if len(bytes.fromhex(key)) < 32:
+        raise ValueError("dataset key must be at least 32 bytes of hex")
+    return key
+
+
+def _keyed(key, msg):
+    return hmac.new(bytes.fromhex(key), msg.encode(), hashlib.sha256).digest()
+
+
+def scenario_seed(key, split, topology, k):
+    """Secret seed for one scenario slot: HMAC-SHA256(key, slot), 60 bits. Without the key the seed space cannot be
+    enumerated, so the sampler cannot be re-run to recover faults (audit P1)."""
+    return int.from_bytes(_keyed(key, f"seed|{split}|{topology}|{k}")[:8], "big") >> 4
+
+
+def plan(cfg, key=None):
+    """Every (split, topology, n_scenarios). Split by topology first, then by scenario seed. With the key, each task
+    also gets its secret per-scenario seeds and its opaque scenario ids: a keyed permutation of all slots within the
+    split, so an id says nothing about topology, position or seed."""
+    t = cfg["topologies"]
     gen = generated_split(cfg)
-    n = dc["scenarios_per_topology"]
+    n = cfg["dataset"]["scenarios_per_topology"]
     groups = [
         ("train", gen["train"], n["train"]),
         ("val", gen["val"], n["val_generated"]),
@@ -70,23 +102,47 @@ def plan(cfg):
         ("test", t["test"], n["test"]),
         ("dev", t["dev"], n["dev"]),
     ]
-    tasks, per_split = [], {}
-    for split, names, k in groups:
-        for name in names:
-            i = per_split.get(split, 0)
-            per_split[split] = i + 1
-            tasks.append({"split": split, "topology": name, "n": k, "first_seed": dc["seed_base"][split] + i * 1000, "index": i})
+    tasks = [{"split": split, "topology": name, "n": k} for split, names, k in groups for name in names]
+    if key is None:
+        return tasks
+    for split in SPLIT_CODES:
+        slots = [(task, k) for task in tasks if task["split"] == split for k in range(task["n"])]
+        order = sorted(range(len(slots)), key=lambda i: _keyed(key, f"id|{split}|{slots[i][0]['topology']}|{slots[i][1]}"))
+        for rank, i in enumerate(order):
+            task, k = slots[i]
+            task.setdefault("sids", [None] * task["n"])[k] = f"{SPLIT_CODES[split]}{rank:05d}"
+    for task in tasks:
+        task["seeds"] = [scenario_seed(key, task["split"], task["topology"], k) for k in range(task["n"])]
     return tasks
 
 
-def lean_subset(cfg):
-    """Tasks the lean fresh-clone check rebuilds: every real network (validation_real, test, dev) plus a fixed sample of
-    generated graphs. Ids and seeds are those of the full plan, so files compare byte for byte."""
+def lean_subset(cfg, key=None):
+    """Every real network (validation_real, test, dev) plus a fixed sample of generated graphs. Ids and seeds are those
+    of the full plan, so files compare byte for byte with a full build."""
     real = set(cfg["topologies"]["validation_real"]) | set(cfg["topologies"]["test"]) | set(cfg["topologies"]["dev"])
-    tasks = plan(cfg)
+    tasks = plan(cfg, key)
     gen = {s: [t for t in tasks if t["split"] == s and t["topology"].startswith("gabaug/")] for s in ("train", "val")}
-    sample = gen["train"][::40] + gen["val"][::15]
-    return [t for t in tasks if t["topology"] in real] + sample
+    return [t for t in tasks if t["topology"] in real] + gen["train"][::40] + gen["val"][::15]
+
+
+def _truth_entry(entry, res, sim, root, split, variant, slot):
+    """Ground-truth extras the simulator does not write (no frozen file touched):
+    - P5: an unobservable fault's impact class becomes "unobservable" (its symptom-size class stays as `symptom_class`)
+    - P6: labels.parquet gets `telemetry_present`, which differs between variants (status_blind blanks down links)
+    - the slot (topology, scenario number) that the secret seed was derived from"""
+    for f in entry["faults"]:
+        im = f["impact"]
+        im["symptom_class"] = im["impact_class"]
+        if not im["observable"]:
+            im["impact_class"] = "unobservable"
+    entry["n_links"], entry["n_services"] = len(sim.links), len(sim.services)
+    entry["slot"] = slot
+    present = ~(np.isnan(res.obs["util"]) & np.isnan(res.obs["latency_ms"]) & np.isnan(res.obs["loss_pct"]))
+    path = root / "truth" / split / variant / entry["files"]["labels"]
+    labels = pd.read_parquet(path)
+    labels["telemetry_present"] = present.ravel()
+    labels.to_parquet(path, index=False)
+    return entry
 
 
 def _build_topology(args):
@@ -94,25 +150,23 @@ def _build_topology(args):
     sim = Simulator(load(task["topology"], cfg=cfg), cfg)
     out = {v: [] for v in VARIANTS}
     for k in range(task["n"]):
-        seed = task["first_seed"] + k
+        seed, sid = task["seeds"][k], task["sids"][k]
         check_fresh_seed(cfg, seed)
-        sid = f"{SPLIT_CODES[task['split']]}{task['index'] * 1000 + k:07d}"
         spec = sample_scenario(sim, sid, seed)
         res, blind = sim.simulate(spec, with_blind=True)
         for variant, r in (("with_status", res), ("status_blind", blind)):
-            entry = write_scenario(
-                r,
-                obs_dir=root / "observable" / task["split"] / variant,
-                truth_dir=root / "truth" / task["split"] / variant,
-            )
-            entry["n_links"], entry["n_services"] = len(sim.links), len(sim.services)
-            out[variant].append(entry)
+            entry = write_scenario(r, obs_dir=root / "observable" / task["split"] / variant, truth_dir=root / "truth" / task["split"] / variant)
+            out[variant].append(_truth_entry(entry, r, sim, root, task["split"], variant, {"topology": task["topology"], "k": k}))
     return task, out
 
 
-def build(cfg, root, tasks=None, workers=1):
-    """Build the scenarios for `tasks` (default: the whole plan). Returns {split: {variant: [manifest entries]}}."""
-    tasks = plan(cfg) if tasks is None else tasks   # each task carries its plan index, so ids never depend on the subset
+def build(cfg, root, key, tasks=None, workers=1):
+    """Build the scenarios for `tasks` (default: the whole plan) with the secret key. Returns
+    {split: {variant: [manifest entries]}}. Each task carries its keyed ids and seeds, so a subset build produces the
+    same files as the full build."""
+    tasks = plan(cfg, key) if tasks is None else tasks
+    if any("seeds" not in t for t in tasks):
+        raise ValueError("tasks must come from plan(cfg, key)")
     root = Path(root)
     manifests = {}
     jobs = [(t, cfg, root) for t in tasks]

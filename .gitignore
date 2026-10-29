@@ -22,3 +22,6 @@ __pycache__/
 .DS_Store
 .vscode/
 .idea/
+
+# secret dataset key: seeds and scenario ids derive from it (docs/audit_phase3.md P1); back it up, never commit it
+.nettwin_dataset_key

@@ -10,14 +10,14 @@ Simulator frozen at hash `dcdea81026a02ad6` (sha256 over `config.yaml`, `simulat
 
 ## Splits
 
-Split by topology first, then by scenario seed (`PLAN.md` section 3). Seed blocks per split are disjoint and outside every reserved (previously viewed) range.
+Split by topology first, then by scenario seed (`PLAN.md` section 3). Every scenario has its own secret seed (keyed hash of its split, topology and slot), checked against every reserved (previously viewed) range; `config.dataset.seed_base` is no longer used.
 
 | Split | Topologies | Scenarios | Faults | Disk (both variants) |
 |---|---|---|---|---|
-| train | 308 generated graphs (15 to 60 nodes) | 1232 | 2434 | 5.243 GB |
-| val | 92 generated graphs (15 to 60 nodes) + validation_real: Aconet, BeyondTheNetwork, Fccn, Quest, Nextgen | 468 | 937 | 1.868 GB |
-| test | Geant2012, germany50, Garr201201, Peer1, York, Belnet2010, Ibm | 210 | 431 | 0.785 GB |
-| dev | AARNet (seen during development; report separately, never pool with test) | 30 | 55 | 0.067 GB |
+| train | 308 generated graphs (15 to 60 nodes) | 1232 | 2406 | 5.248 GB |
+| val | 92 generated graphs (15 to 60 nodes) + validation_real: Aconet, BeyondTheNetwork, Fccn, Quest, Nextgen | 468 | 921 | 1.87 GB |
+| test | Geant2012, germany50, Garr201201, Peer1, York, Belnet2010, Ibm | 210 | 413 | 0.786 GB |
+| dev | AARNet (seen during development; report separately, never pool with test) | 30 | 58 | 0.067 GB |
 
 ## Variants
 
@@ -28,90 +28,117 @@ Results for link_down and node_down must be reported on both variants.
 
 ## Faults by split and type (with_status variant)
 
-Severity class is the impact class from noise-free deltas against a counterfactual with only that fault removed. Percentages are of all faults of that type in the split.
+Severity class is the impact class from noise-free deltas against a counterfactual with only that fault removed. As in the pre-registered target T2, subtle / moderate / obvious are percentages of the **observable** faults of that type (audit P2). Unobservable faults have the class `unobservable` (audit P5) and are shown on their own, as a count and as a percentage of all faults. Channel and maintenance columns are percentages of all faults.
 
 ### train
 
-| Fault type | n | subtle | moderate | obvious | unobservable | status | link util | link counters | end-to-end | overlaps maintenance |
-|---|---|---|---|---|---|---|---|---|---|---|
-| link_down | 420 | 2.1% | 8.3% | 89.5% | 0.7% | 99.0% | 99.0% | 28.8% | 95.5% | 20.2% |
-| node_down | 405 | 0.0% | 0.2% | 99.8% | 0.0% | 100.0% | 100.0% | 21.7% | 99.8% | 20.7% |
-| link_degradation | 409 | 32.5% | 42.1% | 25.4% | 6.4% | 0.0% | 32.5% | 49.6% | 86.6% | 35.2% |
-| link_flapping | 380 | 6.6% | 35.0% | 58.4% | 4.2% | 30.8% | 72.1% | 26.6% | 90.0% | 21.6% |
-| demand_surge | 404 | 30.4% | 45.8% | 23.8% | 5.0% | 0.0% | 95.0% | 16.8% | 25.2% | 22.5% |
-| routing_misconfig | 416 | 23.3% | 35.3% | 41.3% | 7.7% | 0.0% | 91.3% | 28.1% | 52.4% | 44.0% |
+| Fault type | n | observable | subtle | moderate | obvious | unobservable | status | link util | link counters | end-to-end | overlaps maintenance |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| link_down | 373 | 370 | 3.2% | 6.2% | 90.5% | 3 (0.8%) | 99.2% | 98.1% | 28.7% | 93.8% | 23.9% |
+| node_down | 440 | 440 | 0.5% | 0.0% | 99.5% | 0 (0.0%) | 99.8% | 100.0% | 25.0% | 99.5% | 19.1% |
+| link_degradation | 377 | 339 | 28.3% | 43.7% | 28.0% | 38 (10.1%) | 0.0% | 33.7% | 48.0% | 82.2% | 30.5% |
+| link_flapping | 398 | 365 | 2.5% | 32.3% | 65.2% | 33 (8.3%) | 28.6% | 73.6% | 26.6% | 87.4% | 20.1% |
+| demand_surge | 406 | 383 | 24.5% | 52.5% | 23.0% | 23 (5.7%) | 0.0% | 94.1% | 12.8% | 24.4% | 21.7% |
+| routing_misconfig | 412 | 372 | 21.0% | 36.3% | 42.7% | 40 (9.7%) | 0.0% | 89.8% | 24.3% | 48.3% | 42.7% |
 
-Scenarios with concurrent faults: 117 of 1232 (9.5%). Faults overlapping or right after a maintenance window: 669 of 2434 (27.5%). Maintenance windows: 2492 in 1232 scenarios. Unobservable faults: 97 (4.0%).
-Status-blind variant: unobservable faults 109 (4.5%); link_down observable 416 of 420, node_down observable 405 of 405.
+Scenarios with concurrent faults: 133 of 1232 (10.8%). Faults overlapping or right after a maintenance window: 632 of 2406 (26.3%). Maintenance windows: 2490 in 1232 scenarios. Unobservable faults: 137 (5.7%).
+Status-blind variant: unobservable faults 149 (6.2%); link_down observable 363 of 373, node_down observable 439 of 440.
 
 ### val
 
-| Fault type | n | subtle | moderate | obvious | unobservable | status | link util | link counters | end-to-end | overlaps maintenance |
-|---|---|---|---|---|---|---|---|---|---|---|
-| link_down | 158 | 3.2% | 7.6% | 89.2% | 0.0% | 100.0% | 98.1% | 27.8% | 93.0% | 17.7% |
-| node_down | 142 | 0.7% | 0.0% | 99.3% | 0.0% | 100.0% | 99.3% | 17.6% | 99.3% | 18.3% |
-| link_degradation | 169 | 28.4% | 49.7% | 21.9% | 7.7% | 0.0% | 31.4% | 49.1% | 85.8% | 36.7% |
-| link_flapping | 167 | 6.6% | 35.9% | 57.5% | 3.0% | 32.3% | 80.8% | 29.3% | 89.8% | 18.6% |
-| demand_surge | 145 | 29.7% | 46.9% | 23.4% | 5.5% | 0.0% | 93.8% | 14.5% | 25.5% | 21.4% |
-| routing_misconfig | 156 | 19.9% | 30.1% | 50.0% | 5.8% | 0.0% | 93.6% | 32.7% | 60.3% | 44.2% |
+| Fault type | n | observable | subtle | moderate | obvious | unobservable | status | link util | link counters | end-to-end | overlaps maintenance |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| link_down | 162 | 162 | 4.3% | 11.7% | 84.0% | 0 (0.0%) | 100.0% | 98.1% | 32.1% | 89.5% | 18.5% |
+| node_down | 152 | 152 | 0.7% | 0.0% | 99.3% | 0 (0.0%) | 100.0% | 99.3% | 23.7% | 99.3% | 15.8% |
+| link_degradation | 170 | 155 | 23.2% | 45.2% | 31.6% | 15 (8.8%) | 0.0% | 34.7% | 45.9% | 86.5% | 33.5% |
+| link_flapping | 141 | 132 | 4.5% | 38.6% | 56.8% | 9 (6.4%) | 38.3% | 83.0% | 24.1% | 88.7% | 19.9% |
+| demand_surge | 152 | 145 | 29.0% | 46.9% | 24.1% | 7 (4.6%) | 0.0% | 95.4% | 8.6% | 16.4% | 21.1% |
+| routing_misconfig | 144 | 132 | 16.7% | 34.1% | 49.2% | 12 (8.3%) | 0.0% | 91.7% | 29.2% | 51.4% | 42.4% |
 
-Scenarios with concurrent faults: 53 of 468 (11.3%). Faults overlapping or right after a maintenance window: 247 of 937 (26.4%). Maintenance windows: 966 in 467 scenarios. Unobservable faults: 35 (3.7%).
-Status-blind variant: unobservable faults 41 (4.4%); link_down observable 156 of 158, node_down observable 141 of 142.
+Scenarios with concurrent faults: 42 of 468 (9.0%). Faults overlapping or right after a maintenance window: 232 of 921 (25.2%). Maintenance windows: 948 in 468 scenarios. Unobservable faults: 43 (4.7%).
+Status-blind variant: unobservable faults 49 (5.3%); link_down observable 158 of 162, node_down observable 151 of 152.
 
 ### test
 
-| Fault type | n | subtle | moderate | obvious | unobservable | status | link util | link counters | end-to-end | overlaps maintenance |
-|---|---|---|---|---|---|---|---|---|---|---|
-| link_down | 69 | 5.8% | 7.2% | 87.0% | 0.0% | 100.0% | 97.1% | 36.2% | 88.4% | 15.9% |
-| node_down | 61 | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 100.0% | 14.8% | 100.0% | 26.2% |
-| link_degradation | 76 | 31.6% | 38.2% | 30.3% | 9.2% | 0.0% | 42.1% | 43.4% | 81.6% | 34.2% |
-| link_flapping | 75 | 10.7% | 46.7% | 42.7% | 4.0% | 37.3% | 69.3% | 16.0% | 88.0% | 21.3% |
-| demand_surge | 77 | 24.7% | 48.1% | 27.3% | 5.2% | 0.0% | 94.8% | 20.8% | 32.5% | 22.1% |
-| routing_misconfig | 73 | 16.4% | 39.7% | 43.8% | 11.0% | 0.0% | 87.7% | 31.5% | 49.3% | 34.2% |
+| Fault type | n | observable | subtle | moderate | obvious | unobservable | status | link util | link counters | end-to-end | overlaps maintenance |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| link_down | 61 | 61 | 6.6% | 21.3% | 72.1% | 0 (0.0%) | 98.4% | 98.4% | 19.7% | 85.2% | 24.6% |
+| node_down | 66 | 66 | 0.0% | 0.0% | 100.0% | 0 (0.0%) | 100.0% | 100.0% | 36.4% | 100.0% | 15.2% |
+| link_degradation | 72 | 62 | 30.6% | 48.4% | 21.0% | 10 (13.9%) | 0.0% | 18.1% | 38.9% | 83.3% | 33.3% |
+| link_flapping | 62 | 58 | 5.2% | 37.9% | 56.9% | 4 (6.5%) | 27.4% | 66.1% | 24.2% | 83.9% | 12.9% |
+| demand_surge | 73 | 72 | 19.4% | 48.6% | 31.9% | 1 (1.4%) | 0.0% | 98.6% | 17.8% | 32.9% | 19.2% |
+| routing_misconfig | 79 | 71 | 8.5% | 47.9% | 43.7% | 8 (10.1%) | 0.0% | 87.3% | 20.3% | 54.4% | 35.4% |
 
-Scenarios with concurrent faults: 14 of 210 (6.7%). Faults overlapping or right after a maintenance window: 111 of 431 (25.8%). Maintenance windows: 405 in 210 scenarios. Unobservable faults: 22 (5.1%).
-Status-blind variant: unobservable faults 26 (6.0%); link_down observable 66 of 69, node_down observable 61 of 61.
+Scenarios with concurrent faults: 15 of 210 (7.1%). Faults overlapping or right after a maintenance window: 99 of 413 (24.0%). Maintenance windows: 408 in 210 scenarios. Unobservable faults: 23 (5.6%).
+Status-blind variant: unobservable faults 27 (6.5%); link_down observable 60 of 61, node_down observable 66 of 66.
 
 ### dev
 
-| Fault type | n | subtle | moderate | obvious | unobservable | status | link util | link counters | end-to-end | overlaps maintenance |
-|---|---|---|---|---|---|---|---|---|---|---|
-| link_down | 10 | 0.0% | 30.0% | 70.0% | 0.0% | 100.0% | 100.0% | 10.0% | 90.0% | 20.0% |
-| node_down | 9 | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 100.0% | 22.2% | 100.0% | 11.1% |
-| link_degradation | 8 | 50.0% | 37.5% | 12.5% | 37.5% | 0.0% | 25.0% | 50.0% | 62.5% | 12.5% |
-| link_flapping | 8 | 12.5% | 50.0% | 37.5% | 25.0% | 0.0% | 25.0% | 12.5% | 75.0% | 25.0% |
-| demand_surge | 12 | 16.7% | 66.7% | 16.7% | 0.0% | 0.0% | 100.0% | 16.7% | 25.0% | 33.3% |
-| routing_misconfig | 8 | 0.0% | 37.5% | 62.5% | 0.0% | 0.0% | 100.0% | 12.5% | 37.5% | 12.5% |
+| Fault type | n | observable | subtle | moderate | obvious | unobservable | status | link util | link counters | end-to-end | overlaps maintenance |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| link_down | 9 | 9 | 11.1% | 22.2% | 66.7% | 0 (0.0%) | 100.0% | 88.9% | 11.1% | 77.8% | 33.3% |
+| node_down | 10 | 10 | 0.0% | 0.0% | 100.0% | 0 (0.0%) | 100.0% | 100.0% | 20.0% | 100.0% | 10.0% |
+| link_degradation | 8 | 7 | 42.9% | 14.3% | 42.9% | 1 (12.5%) | 0.0% | 37.5% | 62.5% | 75.0% | 12.5% |
+| link_flapping | 10 | 9 | 0.0% | 77.8% | 22.2% | 1 (10.0%) | 30.0% | 60.0% | 0.0% | 90.0% | 10.0% |
+| demand_surge | 13 | 13 | 30.8% | 61.5% | 7.7% | 0 (0.0%) | 0.0% | 100.0% | 7.7% | 7.7% | 15.4% |
+| routing_misconfig | 8 | 8 | 0.0% | 12.5% | 87.5% | 0 (0.0%) | 0.0% | 100.0% | 12.5% | 50.0% | 37.5% |
 
-Scenarios with concurrent faults: 3 of 30 (10.0%). Faults overlapping or right after a maintenance window: 11 of 55 (20.0%). Maintenance windows: 60 in 30 scenarios. Unobservable faults: 5 (9.1%).
-Status-blind variant: unobservable faults 5 (9.1%); link_down observable 10 of 10, node_down observable 9 of 9.
+Scenarios with concurrent faults: 4 of 30 (13.3%). Faults overlapping or right after a maintenance window: 11 of 58 (19.0%). Maintenance windows: 56 in 30 scenarios. Unobservable faults: 2 (3.4%).
+Status-blind variant: unobservable faults 3 (5.2%); link_down observable 8 of 9, node_down observable 10 of 10.
+
+## Difficulty mix against T2, by source (with_status variant)
+
+T2 (pre-registered, checked on validation only): at least 20% subtle and at most 50% obvious among observable faults. Shown for every split so the mix can be compared, generated graphs and real networks separately; only the val rows are a T2 check.
+
+| Split | Source | Fault type | observable | subtle | obvious | T2 |
+|---|---|---|---|---|---|---|
+| train | generated | link_degradation | 339 | 28.3% | 28.0% | n/a |
+| train | generated | demand_surge | 383 | 24.5% | 23.0% | n/a |
+| train | generated | routing_misconfig | 372 | 21.0% | 42.7% | n/a |
+| train | generated | link_flapping | 365 | 2.5% | 65.2% | n/a |
+| val | generated | link_degradation | 126 | 23.0% | 32.5% | hit |
+| val | generated | demand_surge | 117 | 30.8% | 20.5% | hit |
+| val | generated | routing_misconfig | 104 | 20.2% | 47.1% | hit |
+| val | generated | link_flapping | 98 | 3.1% | 63.3% | miss |
+| val | real | link_degradation | 29 | 24.1% | 27.6% | hit |
+| val | real | demand_surge | 28 | 21.4% | 39.3% | hit |
+| val | real | routing_misconfig | 28 | 3.6% | 57.1% | miss |
+| val | real | link_flapping | 34 | 8.8% | 38.2% | miss |
+| test | real | link_degradation | 62 | 30.6% | 21.0% | n/a |
+| test | real | demand_surge | 72 | 19.4% | 31.9% | n/a |
+| test | real | routing_misconfig | 71 | 8.5% | 43.7% | n/a |
+| test | real | link_flapping | 58 | 5.2% | 56.9% | n/a |
+| dev | real | link_degradation | 7 | 42.9% | 42.9% | n/a |
+| dev | real | demand_surge | 13 | 30.8% | 7.7% | n/a |
+| dev | real | routing_misconfig | 8 | 0.0% | 87.5% | n/a |
+| dev | real | link_flapping | 9 | 0.0% | 22.2% | n/a |
 
 ## Scenarios and faults by topology (with_status variant)
 
 | Split | Topology | Scenarios | Faults |
 |---|---|---|---|
-| train | generated (train) | 1232 | 2434 |
-| val | generated (val) | 368 | 739 |
-| val | topozoo/Aconet | 20 | 39 |
-| val | topozoo/BeyondTheNetwork | 20 | 36 |
-| val | topozoo/Fccn | 20 | 39 |
-| val | topozoo/Nextgen | 20 | 44 |
-| val | topozoo/Quest | 20 | 40 |
-| test | sndlib/germany50 | 30 | 66 |
-| test | topozoo/Belnet2010 | 30 | 58 |
-| test | topozoo/Garr201201 | 30 | 60 |
-| test | topozoo/Geant2012 | 30 | 68 |
-| test | topozoo/Ibm | 30 | 66 |
-| test | topozoo/Peer1 | 30 | 59 |
-| test | topozoo/York | 30 | 54 |
-| dev | topozoo/Aarnet | 30 | 55 |
+| train | generated (train) | 1232 | 2406 |
+| val | generated (val) | 368 | 734 |
+| val | topozoo/Aconet | 20 | 36 |
+| val | topozoo/BeyondTheNetwork | 20 | 40 |
+| val | topozoo/Fccn | 20 | 41 |
+| val | topozoo/Nextgen | 20 | 34 |
+| val | topozoo/Quest | 20 | 36 |
+| test | sndlib/germany50 | 30 | 62 |
+| test | topozoo/Belnet2010 | 30 | 62 |
+| test | topozoo/Garr201201 | 30 | 59 |
+| test | topozoo/Geant2012 | 30 | 59 |
+| test | topozoo/Ibm | 30 | 56 |
+| test | topozoo/Peer1 | 30 | 60 |
+| test | topozoo/York | 30 | 55 |
+| dev | topozoo/Aarnet | 30 | 58 |
 
 ## Layout and use
 
 Root `data/datasets/v1` (gitignored; rebuild with the script):
 - `observable/<split>/<variant>/<sid>/`: `links.parquet` (t, link, util, latency_ms, loss_pct), `services.parquet` (t, service, latency_ms, loss_pct), `observed_events.json`, `meta.json` (scenario id, topology, step count, step length, variant). This is the only tree detectors and the agent may read.
 - `truth/<split>/<variant>/manifest.json`: per scenario the seed, faults with params, placement, impact, observability flags, maintenance, gaps and event days; `truth/<split>/<variant>/<sid>/labels.parquet`: per-link per-step labels (2 root, 1 symptomatic, 0 unaffected).
-- Scenario ids are neutral (`tr`, `va`, `te`, `dv` plus a number). The observable tree holds no seed, since the seed plus the config would let anyone re-run the sampler and recover the faults.
+- Scenario ids are neutral (`tr`, `va`, `te`, `dv` plus a number). The observable tree holds no seed, since the seed plus the config would let anyone re-run the sampler and recover the faults. Seeds are secret: each is derived from a local key (`.nettwin_dataset_key`, gitignored) and the scenario's slot, so the repo alone cannot enumerate them (audit P1). The id to seed mapping is only in `truth/`.
 
 ## Known limitations (see `docs/decision_log.md`)
 
@@ -120,3 +147,7 @@ Root `data/datasets/v1` (gitignored; rebuild with the script):
 - link_down, node_down and most flapping are easy in the with_status variant (status events and the down-link signature). Report them per type, never averaged with the hard types, and on both variants.
 - Impact classes use relative latency thresholds tuned on validation; the mix differs by topology (see the per-topology breakdown in the summary JSON). Sparse, tree-like test networks (York, Peer1, Belnet2010) produce more unreachable services.
 - AARNet (dev) was used to develop the simulator; its numbers are illustrative only.
+- The variants differ in two ways, not one (audit P3): status_blind drops status and reachability events, and it also reports down links as fully missing instead of util 0 / discards 0 / latency missing. Services and maintenance are identical.
+- Fault start times lean toward night (audit P4). Fault starts per 3-hour bin of sim time, 00:00 onward, all splits: 575, 656, 471, 439, 492, 404, 393, 368. The excess comes from maintenance-linked placement (most change windows start 00:00 to 04:00). So time of day carries a weak fault prior. Models must not be given absolute time of day in a way that lets them learn this maintenance-timing pattern; diurnal-normalised traffic features are fine. Faults never start on day 0 (warmup), so time since the scenario start must not be a feature either.
+- File sizes carry a weak signal (audit P7: within-topology size of `links.parquet` separates scenarios with a gray failure at AUC 0.62, from `docs/audit_phase3.md`). Parquet output is a deterministic function of the content, so sizes leak nothing beyond the telemetry, but file metadata must never be a model input.
+- Labels per variant (audit P6): `labels.parquet` has `label` (2 root, 1 symptomatic, 0 unaffected; identical in both variants) and `telemetry_present` (some link metric observed in that cell; differs by variant, since status_blind blanks down links). RQ1 scoring must state whether cells without telemetry are scored and treat them the same way for every method.

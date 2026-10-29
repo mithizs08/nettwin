@@ -436,6 +436,38 @@ Rerun (same 188 validation scenarios and seeds, 369 faults; `results/tuning_log.
 - `pytest`: 96 passed.
 - Clone (about 7.6 GB) and env deleted afterwards.
 
+### 2026-10-30: Phase 3 audit fixes, by ID (`docs/audit_phase3.md`)
+
+No frozen file changed (`test_simulator_is_frozen` still passes against freeze `dcdea810...`). Only `src/nettwin/dataset.py`, `scripts/phase3_build_dataset.py`, tests and docs changed.
+
+- **P1 (major):**
+  - Keyed scenario ids alone would not have fixed this. Before changing anything I checked the leak on validation only: reading just the topology from `meta.json`, running the public sampler for that topology's few public candidate seeds, and matching the observed maintenance log recovered the exact faults for 5 of 5 val scenarios, without using the id at all. The maintenance schedule fingerprints the seed, and the seed blocks were public.
+  - I reported this to Zareen, who chose secret seeds and accepted that this means regenerating telemetry.
+  - Fix:
+    - Each scenario seed is now HMAC-SHA256(key, split | topology | slot), 60 bits.
+    - Scenario ids are a separate keyed permutation within each split (`tr00000`..), so an id reveals neither topology, order nor seed.
+    - The key is a 32-byte local secret in `.nettwin_dataset_key`, gitignored and never printed. The builder refuses to run without it.
+    - The id to seed and slot mapping is only in `truth/` manifests.
+    - `config.dataset.seed_base` is now unused; it was left in the frozen config rather than edited.
+  - The dataset was rebuilt in full (20.2 minutes, 7.5 GB, same frozen simulator, new random draws).
+  - Test `test_no_key_cannot_recover_faults`: on a real keyed build, an attacker with only the repo enumerates every seed the repo makes public for that topology (the old seed block, the id as a number, all reserved ranges) and runs the sampler. The true seed is never among them, and no candidate reproduces the observed maintenance log. With the key, the slot gives the seed back.
+  - README section "Reproducing the datasets (needs the key)".
+- **P2 (minor):**
+  - The card's severity table now uses observable faults as the denominator, as T2 does, with unobservable counts in their own column.
+  - A new table shows the T2 mix by split and by source (generated vs real).
+  - Rebuilt val, observable only: routing_misconfig is 16.7% subtle / 49.2% obvious overall, a **miss**, matching the earlier T2 result. Generated graphs alone hit (20.2% / 47.1%). The real validation networks miss badly (3.6% / 57.1%).
+- **P3 (minor):** the card now states that the variants differ in two ways: status events, and how down links are reported.
+- **P4 (minor):**
+  - The card reports fault starts per 3-hour bin of sim time, computed by the script, and the reason for the night excess (maintenance-linked placement).
+  - It also states that models must not get absolute time of day in a way that encodes the maintenance-timing pattern, nor time since scenario start. Diurnal-normalised traffic features are fine. This is a parked item for Phases 4 to 6.
+- **P5 (minor):** the dataset manifests give unobservable faults the impact class `unobservable`. The original symptom-size class is kept as `symptom_class`. This is done in `dataset.py`; the simulator's own output is unchanged.
+- **P6 (minor):**
+  - Labels are now written per variant with a new `telemetry_present` column: some link metric was observed in that cell, in that variant.
+  - It differs between variants, because status_blind blanks down links. `label` itself is identical in both.
+  - RQ1 scoring must state whether cells without telemetry are scored.
+- **P7 (minor):** the card's limitations note the file-size signal (audit AUC 0.62) and that file metadata must never be a model input.
+- The test count is now 99: 3 new dataset tests replace and extend the earlier ones.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
@@ -451,6 +483,7 @@ Ideas that came up early, with the phase they belong to. Do not act on them befo
 - Phase 4, 5 and 6: report every result for link_down and node_down twice, with status events (default telemetry) and with the status-blind variant (audit re-verify N2). Never present the default-telemetry numbers for these types as evidence of hard detection.
 - Phase 3: the dataset builder must use neutral scenario ids (`simulator.check_neutral_id` enforces this) and keep any description in the ground-truth manifest (audit re-verify N7).
 - Phase 3: report fault results per type and per impact class; never average link_down / node_down / flapping with the hard types.
+- Phases 4 to 6 (audit P4, P7): never give a model absolute time of day, day of week from scenario start, or time since scenario start in a way that lets it learn when faults or maintenance happen (fault starts lean toward night; faults never start on day 0). Diurnal traffic modelling, for example comparing a value with the same time on earlier days, is fine. Never use file metadata (sizes, timestamps, paths) as features. Per-class tables must exclude `impact_class == "unobservable"` faults (audit P5), and RQ1 must state how cells with `telemetry_present == False` are scored (audit P6).
 - Phase 4: B3 can be built directly on `shared_elements` plus `paths_through` for the healthy-path penalty.
 - Phase 7 / 10: a coastline basemap for the AARNet map (Natural Earth, or plotly geo in Streamlit) would look better; needs a data download, so ask first.
 - Optional, first to cut: test-import the CSV into a real Neo4j instance.

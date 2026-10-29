@@ -53,3 +53,15 @@ python scripts/phase3_build_dataset.py --workers 6    # full build into data/dat
 ```
 
 Builds train (generated graphs), val (generated validation graphs plus validation_real), test (the 7 test networks) and dev (AARNet) scenarios, each in a `with_status` and a `status_blind` variant, with observable data and ground truth in separate trees. The simulator is frozen first (`results/simulator_freeze.json`), and the builder refuses to run if it changed without a logged reason. Counts are in `docs/dataset_card.md` and `results/phase3_dataset_summary.json`.
+
+### Reproducing the datasets (needs the key)
+
+Scenario seeds and ids are derived from a secret 32-byte key, so the repo alone cannot re-run the sampler and recover the faults behind the observable files (`docs/audit_phase3.md`, P1). The key lives only in `.nettwin_dataset_key` at the repo root, which is gitignored. Back it up somewhere safe outside the repo: without it, the datasets can be rebuilt with the same statistics but not byte for byte.
+
+To reproduce `data/datasets/v1` exactly:
+1. Clone the repo, create the env, and run `pip install -e .` (see Setup).
+2. Copy your key file into the clone root as `.nettwin_dataset_key` (one line of hex, permissions 600).
+3. Run `python scripts/phase3_build_dataset.py --workers 6`. The builder refuses to run without the key, and refuses if the frozen simulator files changed.
+4. Each scenario's slot (topology and scenario number) and seed are in `data/datasets/v1/truth/<split>/<variant>/manifest.json`. `scenario_seed(key, split, topology, k)` in `src/nettwin/dataset.py` recomputes the seed from the slot.
+
+To start a fresh dataset with a new key (different random draws, same distributions), write 32 random bytes as hex to `.nettwin_dataset_key`, for example with `python -c "import secrets; print(secrets.token_hex(32))" > .nettwin_dataset_key`.
