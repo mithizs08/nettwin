@@ -309,6 +309,17 @@ Other facts from the same run:
 - On the same windows, "lost probe on a service clean during warmup" fires 27%, util >= 0.9 fires 8.5%, counters >= 0.05% fire 1.7%, and status events fire 1.3%.
 - Inside maintenance windows (n = 60), status events fire 35% (planned outages) (audit m11).
 
+### 2026-10-29: Audit-fix fresh-clone check: passed
+
+- Cloned `origin/main` at `94e1bcb`. No `.env` and no `data/`.
+- New throwaway env `nettwin-freshcheck` from `environment.yml`, including the new `scipy` pin.
+- `scripts/phase0_check_env.py`, `phase1_build_kg.py` and `phase2_simulate.py` all exited 0.
+- `git status` was clean after regeneration: every committed result and figure is byte-identical.
+- All 117 files under `data/` are byte-identical to the local build.
+- `pytest`: 80 passed.
+- Clone and env deleted afterwards.
+- Correction: the `94e1bcb` commit message says "6 of 8 pass". The correct count is 7 of 8 targets pass; T2 misses for two of its four fault types (routing_misconfig, link_flapping). The table above is authoritative.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
