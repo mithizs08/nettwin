@@ -468,6 +468,17 @@ No frozen file changed (`test_simulator_is_frozen` still passes against freeze `
 - **P7 (minor):** the card's limitations note the file-size signal (audit AUC 0.62) and that file metadata must never be a model input.
 - The test count is now 99: 3 new dataset tests replace and extend the earlier ones.
 
+### 2026-10-30: Phase 3 audit-fix fresh-clone check (with the key): passed
+
+- Cloned `origin/main` at `2752660`. No `.env`, no `data/`, no key.
+- New throwaway env `nettwin-freshcheck` from `environment.yml`.
+- Without the key, `scripts/phase3_build_dataset.py` refused to run (exit 1, "the dataset key is local only").
+- With the local key copied in, the Phase 0, 1, 2 and 3 scripts all exited 0.
+- `git status` was clean after regeneration.
+- All 19,543 files under `data/` are byte-identical to the local build, so reproduction with the key is exact.
+- `pytest`: 99 passed.
+- Clone (including its copy of the key) and env deleted afterwards.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
