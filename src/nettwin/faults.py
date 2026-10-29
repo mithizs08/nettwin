@@ -62,7 +62,7 @@ def make_fault(sim, ftype, root, t_start, duration, rng, fault_id="F0", **overri
         p = {"convergence_s": _uniform(rng, fc["convergence_s"])}
     p.update(overrides)
     return {"id": fault_id, "type": ftype, "root_cause": root, "t_start": int(t_start), "t_end": int(t_start + duration), "params": p,
-            "placement": "isolated", "linked_maintenance": None, "caused_by_maintenance": False}
+            "placement": "isolated", "linked_maintenance": None, "caused_by_maintenance": False, "overlaps_maintenance": False}
 
 
 def _misconfig_params(sim, link, rng, fc, new_metric=None):
@@ -192,7 +192,9 @@ def sample_scenario(sim, scenario_id, seed, n_faults=None, fault_types=None, dis
                 start = int(rng.integers(other["t_start"], other["t_end"]))
                 ok = start + dur <= T and start >= warm
             else:
-                start = _place(rng, f_windows + m_windows, warm, T, dur, gap)
+                # isolated faults avoid other faults only, not change windows: no fault-free buffer around maintenance
+                # (audit re-verify N6). Incidental overlaps are recorded in overlaps_maintenance.
+                start = _place(rng, f_windows, warm, T, dur, gap)
                 ok = start is not None
             if ok and ftype == "link_flapping" and not _clear(flapping_windows, start, start + dur, 0):
                 ok = False          # the simulator allows one partially-down link per step
@@ -213,7 +215,9 @@ def sample_scenario(sim, scenario_id, seed, n_faults=None, fault_types=None, dis
                 continue
         else:
             continue
-        f.update(placement=mode, linked_maintenance=linked, caused_by_maintenance=caused and f["root_cause"] == root)
+        overlaps = any(start < m["t_end"] + 12 and start + dur > m["t_start"] for m in maintenance)
+        f.update(placement=mode, linked_maintenance=linked, caused_by_maintenance=caused and f["root_cause"] == root,
+                 overlaps_maintenance=bool(overlaps))
         faults.append(f)
         f_windows.append((start, start + dur))
 

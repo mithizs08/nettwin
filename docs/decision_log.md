@@ -320,6 +320,62 @@ Other facts from the same run:
 - Clone and env deleted afterwards.
 - Correction: the `94e1bcb` commit message says "6 of 8 pass". The correct count is 7 of 8 targets pass; T2 misses for two of its four fault types (routing_misconfig, link_flapping). The table above is authoritative.
 
+### 2026-10-30: Re-verification fixes, by ID (`docs/audit_phases_0_2_reverify.md`)
+
+No difficulty parameter was changed. The rerun below reflects measurement and placement fixes only.
+
+- **N1 (major):**
+  - Each fault's impact and observability now use a counterfactual with only that fault removed. All other faults and all maintenance stay in, and each fault's own RNG stream keeps the others identical. Labels still use the all-faults-removed run.
+  - `obs_status` and `status_change_observed` count only status events that are absent from that leave-one-out run. So a planned outage on the same link, or another fault's events, are no longer credited to the fault.
+  - Tests:
+    - `test_concurrent_fault_does_not_make_undetectable_one_observable` reproduces the auditor's case: a silent 0.3% gray failure on a service-free link stays unobservable, subtle, with 0 services affected, when a link_down overlaps it. Reverting to the old counterfactual fails this test.
+    - `test_planned_outage_status_is_not_credited_to_a_fault`.
+- **N2 (major): correction of an earlier claim.**
+  - The M1 entry above said "util present, latency missing" is no longer unique to down links. That is literally true, but the down-link signature is not gone: util exactly 0 with latency missing is 98.7% down-link cells in the rerun (7,476 of 7,574).
+  - This is realistic SNMP behaviour (a down interface reads 0 traffic and its probe fails), so the physics stays. It is documented in the README and now reported next to T4 in the summary.
+  - link_down and node_down are easy to detect from default telemetry even without status events. Telemetry changes at the start step, so the status lag does not delay onset for telemetry-based detectors.
+  - Parked for Phases 4 to 6: report link_down and node_down both with status events and with the status-blind variant.
+- **N3 (minor):** T3 now uses, for each fault, a fault-free non-maintenance window of the same length in the same scenario, as pre-registered.
+  - Matched windows: 54 of 55 gray, 63 of 63 surge, 43 of 51 misconfig (the longest misconfigs sometimes had no free window).
+  - Result: **pass** for all three types. Max J: gray 0.36 (counters >= 0.05%), surge 0.14 (counters), misconfig 0.33 (counters).
+  - Same-scope correction to T6: it previously counted the deliberate `maintenance_linked` placement. The pre-registration says "overlap or immediately follow", so T6 now counts actual overlap from each fault's new `overlaps_maintenance` flag (window intersects, or starts within 12 steps after, a change window).
+- **N4 (minor):**
+  - The tuning hash is now sha256 over `config.yaml`, `src/nettwin/simulator.py` and `src/nettwin/faults.py`, with the per-file hashes stored. Tuning-log entries also record the git HEAD before the run.
+  - Correction to the tuning history: adjustment 1 also changed `demand_surge.factor` sampling from uniform to log-uniform in `faults.py`. That was code tuning, which the earlier config-only hash did not capture.
+  - The three earlier `tuning_log.jsonl` entries are left as written; their `config_hash` covers config only.
+- **N5 (minor):** all 37 older snapshots of test networks are on `topologies.skip`: 30 Garr snapshots older than Garr201201 (the audit counted 12; topohub ships 30) and Belnet2003 to Belnet2009.
+- **N6 (minor):**
+  - Isolated faults now avoid other faults only, not change windows, so there is no fault-free buffer around maintenance. Incidental overlaps are flagged with `overlaps_maintenance`.
+  - Test: `test_no_fault_free_buffer_around_maintenance`.
+  - Consequence: more faults now overlap or follow a change window (see T6 below).
+- **N7 (minor):**
+  - Demo scenarios use neutral ids `demo_0001`..; their descriptions are in `truth/scenario_index.json` and in the manifest only.
+  - `simulator.check_neutral_id` makes `write_scenario` refuse ids containing a fault-type or severity word.
+  - Test: `test_observable_paths_are_neutral` checks every observable path and the observed-events text.
+- **N8 (minor):**
+  - A channel's delta counts only on cells whose observed value exists. So a channel fully covered by a gap (or blanked by the status-blind variant) is unobservable.
+  - Test: `test_gap_covered_channels_are_unobservable`. Removing the mask fails it.
+
+Rerun (same 188 validation scenarios and seeds, 369 faults; `results/tuning_log.jsonl` entry 4, label "re-verify fixes N1 N3 N6 N8"):
+
+| Target | Before (54c8ad3) | After | Status |
+|---|---|---|---|
+| T1 unobservable (gray / surge / misconfig) | 11.1% / 8.1% / 5.7% | 10.9% / 6.3% / 7.8% | pass |
+| T2 gray (subtle / obvious) | 25% / 27% | 29% / 22% | pass |
+| T2 surge | 21% / 33% | 25% / 25% | pass |
+| T2 routing misconfig | 12% / 52% | 17% / 49% | **miss** (subtle < 20%) |
+| T2 flapping | 0% / 69% | 2% / 63% | **miss** |
+| T3 (now length-matched) | pass (unmatched windows) | pass, max J 0.36 | pass |
+| T4 literal pattern | 7.6% | 8.0% | pass (see N2: the zero-util refinement is 98.7%) |
+| T5 status lag | 46% zero, median 1 | 47% zero, median 1 | pass |
+| T6 overlap or follow a change window; concurrent scenarios | 14.3% (deliberate only); 6.9% | **25.5%** actual (14.6% deliberate); 6.9% | **miss** (above 20%) |
+| T7 baseline | pass | unchanged | pass |
+| T8 lost-probe steps | 3.95% | 3.95% | pass |
+
+- The T6 miss is a direct consequence of N6. Isolated faults now land on change windows by chance, on top of the 15% placed there deliberately.
+- I did not lower `overlap_maintenance_prob` to bring it back into range, because that would be tuning to target.
+- Phase 4 should report isolated, maintenance-overlapping and concurrent faults separately anyway.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
@@ -332,6 +388,8 @@ Ideas that came up early, with the phase they belong to. Do not act on them befo
 - Phase 4: score concurrent faults with set-based metrics, and report isolated vs maintenance-linked vs concurrent faults separately (audit M2). Exclude unobservable faults from headline metrics and report them separately (audit M5). Report RQ1 PR-AUC for root and symptomatic labels separately (audit M7).
 - Phase 4: sensitivity run: regenerate validation with the pre-tuning fault ranges and report B1 to B3 on both (audit M8).
 - Phase 4 and 5: report AARNet in a separate 'seen during development' column; never pool it with test.
+- Phase 4, 5 and 6: report every result for link_down and node_down twice, with status events (default telemetry) and with the status-blind variant (audit re-verify N2). Never present the default-telemetry numbers for these types as evidence of hard detection.
+- Phase 3: the dataset builder must use neutral scenario ids (`simulator.check_neutral_id` enforces this) and keep any description in the ground-truth manifest (audit re-verify N7).
 - Phase 3: report fault results per type and per impact class; never average link_down / node_down / flapping with the hard types.
 - Phase 4: B3 can be built directly on `shared_elements` plus `paths_through` for the healthy-path penalty.
 - Phase 7 / 10: a coastline basemap for the AARNet map (Natural Earth, or plotly geo in Streamlit) would look better; needs a data download, so ask first.

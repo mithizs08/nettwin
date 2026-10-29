@@ -36,6 +36,15 @@ SAVE = {"dpi": 130, "bbox_inches": "tight", "metadata": {"Software": None}}
 H = 5 / 60  # hours per step
 
 
+DEMO_INDEX = {}  # neutral demo id -> description; written to ground truth only (audit re-verify N7)
+
+
+def demo_id(description):
+    sid = f"demo_{len(DEMO_INDEX) + 1:04d}"
+    DEMO_INDEX[sid] = description
+    return sid
+
+
 def base_spec(sim, sid, seed, faults=(), **extra):
     s = {"scenario_id": sid, "topology": sim.name, "seed": seed, "n_steps": sim.n_steps, "step_minutes": sim.step_minutes,
          "faults": list(faults), "maintenance": [], "gaps": [], "event_days": []}
@@ -101,7 +110,7 @@ def plot_link_down_demo(sim, cfg, out, scen_dir, entries):
     t1 = t0 + 48
     link = choose_demo_link(sim, t0, t1)
     f = make_fault(sim, "link_down", link, t0, t1 - t0, np.random.default_rng(0), fault_id="F0")
-    spec = base_spec(sim, "aarnet_link_down_demo", 2026, [f])
+    spec = base_spec(sim, demo_id("AARNet link-down end-to-end demo"), 2026, [f])
     res = sim.simulate(spec)
     cf = sim._run({**spec, "faults": []})
     entries.append(write_scenario(res, scen_dir))
@@ -251,7 +260,7 @@ def plot_fault(sim, ftype, faults, out, scen_dir, entries):
     fig, axes = plt.subplots(4, 2, figsize=(14, 11.5), sharex="col", layout="constrained")
     info = []
     for col, f in enumerate(faults):
-        sid = f"aarnet_{ftype}_{'mild' if col == 0 else 'severe'}"
+        sid = demo_id(f"AARNet {ftype} example, {'mild' if col == 0 else 'severe'}")
         spec = base_spec(sim, sid, 3000 + col)
         spec["faults"] = [f]
         res = sim.simulate(spec)
@@ -318,7 +327,7 @@ def plot_distractors(sim, out, scen_dir, entries):
     busy = "link:Canberra1--Melbourne1"
     t_m = peak_start(sim, 2, 1.0)  # overnight, as planned work is
     spec = base_spec(
-        sim, "aarnet_distractors", 4040,
+        sim, demo_id("AARNet distractors"), 4040,
         maintenance=[{"id": "M0", "target": busy, "t_start": t_m, "t_end": t_m + 36, "action": "drain", "description": "planned traffic drain"}],
         gaps=[{"id": "G0", "scope": "pop", "target": pop_node("Perth1"), "t_start": peak_start(sim, 4, 10), "t_end": peak_start(sim, 4, 10) + 18}],
         event_days=[{"day": 3, "factor": 1.2}],
@@ -396,7 +405,8 @@ def naive_rules(res, s, e, clean_services):
 def diagnostics(cfg):
     val_gen = generated_split(cfg)["val"][::2]
     groups = [(n, "generated_val", 3) for n in val_gen] + [(n, n, 10) for n in cfg["topologies"]["validation_real"]]
-    faults, ff_windows, cells = [], [], {"pattern": 0, "pattern_down": 0}
+    faults, ff_windows, matched = [], [], []
+    cells = {"pattern": 0, "pattern_down": 0, "zero_util_pattern": 0, "zero_util_pattern_down": 0}
     lags, n_scen, n_concurrent = [], 0, 0
     seed = 8600
     for ti, (name, group, k_scen) in enumerate(groups):
@@ -412,16 +422,30 @@ def diagnostics(cfg):
             pat = ~np.isnan(res.obs["util"]) & np.isnan(res.obs["latency_ms"])
             cells["pattern"] += int(pat.sum())
             cells["pattern_down"] += int((pat & res.truth["fully_down"]).sum())
+            zpat = pat & (res.obs["util"] == 0)          # the refined signature from audit re-verify N2
+            cells["zero_util_pattern"] += int(zpat.sum())
+            cells["zero_util_pattern_down"] += int((zpat & res.truth["fully_down"]).sum())
+            busy = [(f["t_start"] - 36, f["t_end"] + 36) for f in spec["faults"]]
+            mwin = [(m["t_start"], m["t_end"]) for m in spec["maintenance"]]
+            mrng = np.random.default_rng([seed, 77])
             for f in spec["faults"]:
                 im = res.impacts[f["id"]]
-                faults.append({"group": group, "type": f["type"], "placement": f["placement"], "impact_class": im["impact_class"],
-                               "observable": im["observable"], **im["observability"], **naive_rules(res, f["t_start"], f["t_end"], clean)})
+                faults.append({"group": group, "type": f["type"], "placement": f["placement"], "overlaps_maintenance": f["overlaps_maintenance"],
+                               "impact_class": im["impact_class"], "observable": im["observable"], **im["observability"],
+                               **naive_rules(res, f["t_start"], f["t_end"], clean)})
+                # T3 as pre-registered (N3): a fault-free, non-maintenance window of the same length in the same scenario
+                dur = f["t_end"] - f["t_start"]
+                for _ in range(50):
+                    if sim.n_steps - dur <= sim.warmup_steps:
+                        break
+                    s0 = int(mrng.integers(sim.warmup_steps, sim.n_steps - dur))
+                    if all(s0 + dur <= a or s0 >= b for a, b in busy + mwin):
+                        matched.append({"type": f["type"], **naive_rules(res, s0, s0 + dur, clean)})
+                        break
                 if f["type"] == "link_down":
                     st = [ev["t"] for ev in res.observed_events if ev["type"] == "link_status" and ev.get("element") == f["root_cause"] and ev["t"] >= f["t_start"]]
                     if st:
                         lags.append(st[0] - f["t_start"])
-            busy = [(f["t_start"] - 36, f["t_end"] + 36) for f in spec["faults"]]
-            mwin = [(m["t_start"], m["t_end"]) for m in spec["maintenance"]]
             rng = np.random.default_rng(seed)
             for _ in range(6):
                 dur = int(rng.integers(12, 72))
@@ -476,18 +500,31 @@ def diagnostics(cfg):
              "pass": (per_type[ft]["impact_class_observable"]["subtle"]["rate"] or 0) >= 0.2 and (per_type[ft]["impact_class_observable"]["obvious"]["rate"] or 1) <= 0.5}
         for ft in HARD + ("link_flapping",)
     }
-    t["T3_youden_j_le_0.5"] = {
-        ft: {r: {"j": round(per_type[ft]["rule_hit"][r]["rate"] - ff["non_maintenance"][r]["rate"], 4), "pass": per_type[ft]["rule_hit"][r]["rate"] - ff["non_maintenance"][r]["rate"] <= 0.5} for r in rules}
-        for ft in HARD
-    }
+    t3 = {}
+    for ft in HARD:
+        mrows = [m for m in matched if m["type"] == ft]
+        t3[ft] = {"n_faults": per_type[ft]["n"], "n_matched_windows": len(mrows)}
+        for r in rules:
+            fault_rate = per_type[ft]["rule_hit"][r]["rate"]
+            ff_rate = rate(mrows, r)["rate"]
+            j = None if ff_rate is None else round(fault_rate - ff_rate, 4)
+            t3[ft][r] = {"fault_hit": fault_rate, "matched_fault_free_hit": ff_rate, "j": j, "pass": j is not None and j <= 0.5}
+    t["T3_youden_j_le_0.5"] = t3
     frac_down = cells["pattern_down"] / max(cells["pattern"], 1)
-    t["T4_down_share_of_pattern_le_80pct"] = {"value": round(frac_down, 4), **cells, "pass": frac_down <= 0.8}
+    t["T4_down_share_of_pattern_le_80pct"] = {
+        "value": round(frac_down, 4), **cells, "pass": frac_down <= 0.8,
+        "note": "T4 tests the literal pattern only. With util exactly 0 added, the pattern is a near-unique down-link signature "
+                "(see zero_util_pattern_down / zero_util_pattern); this is realistic SNMP behaviour, documented under re-verify N2.",
+        "zero_util_down_share": round(cells["zero_util_pattern_down"] / max(cells["zero_util_pattern"], 1), 4),
+    }
     zero = sum(x == 0 for x in lags) / max(len(lags), 1)
     t["T5_status_lag"] = {"n": len(lags), "zero_lag_frac": round(zero, 4), "median_lag": float(np.median(lags)) if lags else None,
                           "pass": 0.3 <= zero <= 0.7 and (float(np.median(lags)) >= 1 if lags else False)}
     linked = sum(p == "maintenance_linked" for p in placements) / max(len(placements), 1)
-    t["T6_overlap"] = {"maintenance_linked_frac": round(linked, 4), "scenarios_with_concurrent_frac": round(n_concurrent / n_scen, 4),
-                       "pass": 0.10 <= linked <= 0.20 and n_concurrent / n_scen >= 0.05}
+    overl = sum(f["overlaps_maintenance"] for f in faults) / max(len(faults), 1)
+    t["T6_overlap"] = {"overlap_or_follow_frac": round(overl, 4), "deliberately_linked_frac": round(linked, 4),
+                       "scenarios_with_concurrent_frac": round(n_concurrent / n_scen, 4),
+                       "pass": 0.10 <= overl <= 0.20 and n_concurrent / n_scen >= 0.05}
     t["T7_baseline_median_peak"] = {"value": base, "pass": all(0.4 <= v <= 0.7 for v in base.values())}
     t["T8_lost_probe_service_steps"] = {"value": round(lost / tot, 4), "pass": 0.01 <= lost / tot <= 0.10}
     return {
@@ -501,8 +538,23 @@ def diagnostics(cfg):
     }
 
 
-def config_hash(root):
-    return hashlib.sha256((root / "config.yaml").read_bytes()).hexdigest()[:16]
+TUNED_FILES = ("config.yaml", "src/nettwin/simulator.py", "src/nettwin/faults.py")
+
+
+def tuning_hashes(root):
+    """Hash of everything that decides the simulated data: config plus simulator and fault code (audit re-verify N4)."""
+    parts = {f: hashlib.sha256((root / f).read_bytes()).hexdigest()[:16] for f in TUNED_FILES}
+    combined = hashlib.sha256("".join(parts[f] for f in TUNED_FILES).encode()).hexdigest()[:16]
+    return combined, parts
+
+
+def git_head(root):
+    import subprocess
+
+    try:
+        return subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=root, capture_output=True, text=True, check=True).stdout.strip()
+    except Exception:  # noqa: BLE001
+        return None
 
 
 def main():
@@ -518,21 +570,26 @@ def main():
 
     sim = Simulator(load("topozoo/Aarnet"), cfg)
     summary = {"note": "AARNet is the dev / demo network, seen during development; its numbers are illustrative only.",
-               "config_hash": config_hash(ROOT),
+               "tuning_hash": tuning_hashes(ROOT)[0],
+               "tuning_hash_parts": tuning_hashes(ROOT)[1],
                "aarnet_link_down_demo": plot_link_down_demo(sim, cfg, figures / "phase2_link_down_aarnet.png", scen_dir, entries)}
     summary["aarnet_fault_examples"] = {}
     for ftype, faults in fault_instances(sim).items():
         summary["aarnet_fault_examples"][ftype] = plot_fault(sim, ftype, faults, figures / f"phase2_fault_{ftype}.png", scen_dir, entries)
     plot_distractors(sim, figures / "phase2_distractors_aarnet.png", scen_dir, entries)
     for k in range(3):
-        entries.append(write_scenario(sim.simulate(sample_scenario(sim, f"aarnet_sampled_{k}", 5000 + k)), scen_dir))
+        entries.append(write_scenario(sim.simulate(sample_scenario(sim, demo_id(f"AARNet sampled scenario {k}"), 5000 + k)), scen_dir))
+    for e in entries:
+        e["description"] = DEMO_INDEX[e["scenario_id"]]
     write_manifest(entries, scen_dir)
+    (scen_dir / "truth" / "scenario_index.json").write_text(json.dumps(DEMO_INDEX, indent=1) + "\n")
 
     summary["diagnostics_validation"] = diagnostics(cfg)
     (ROOT / cfg["paths"]["results"] / "phase2_summary.json").write_text(json.dumps(summary, indent=2, default=float) + "\n")
     if args.log_tuning:
         with open(ROOT / cfg["paths"]["results"] / "tuning_log.jsonl", "a") as fh:
-            fh.write(json.dumps({"label": args.log_tuning, "config_hash": summary["config_hash"], "targets": summary["diagnostics_validation"]["targets"]}, default=float) + "\n")
+            fh.write(json.dumps({"label": args.log_tuning, "tuning_hash": summary["tuning_hash"], "tuning_hash_parts": summary["tuning_hash_parts"],
+                                 "git_head_before_run": git_head(ROOT), "targets": summary["diagnostics_validation"]["targets"]}, default=float) + "\n")
     print(json.dumps(summary["diagnostics_validation"]["targets"], indent=1, default=float))
 
 

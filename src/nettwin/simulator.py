@@ -325,11 +325,18 @@ class Simulator:
     # ------------------------------------------------------------------ simulation
 
     def simulate(self, spec, counterfactual=True):
+        """Run a scenario. With counterfactual=True, each fault's impact and observability are measured against a run
+        with only that fault removed: every other fault and all maintenance stay in (audit re-verify N1). Labels are
+        measured against a run with every fault removed. Each fault has its own RNG stream, so removing one leaves the
+        others unchanged."""
         res = self._run(spec)
         if counterfactual:
-            cf = self._run({**spec, "faults": []}) if spec["faults"] else res
-            res.impacts = {f["id"]: self._impact(res, cf, f) for f in spec["faults"]}
-            res.labels = self._labels(res, cf)
+            faults = spec["faults"]
+            cf_all = self._run({**spec, "faults": []}) if faults else res
+            res.labels = self._labels(res, cf_all)
+            for f in faults:
+                cf = cf_all if len(faults) == 1 else self._run({**spec, "faults": [g for g in faults if g["id"] != f["id"]]})
+                res.impacts[f["id"]] = self._impact(res, cf, f)
         return res
 
     def _rngs(self, seed):
@@ -647,19 +654,30 @@ class Simulator:
         others = np.setdiff1d(np.arange(len(self.links)), root_idx)
         affected = (rel.max(0) > ic["affected_latency_rel"]) | (dloss.max(0) > ic["affected_loss_pct"]) | unreachable.any(0)
         root_links = {self.links[i] for i in root_idx}
+        # only status changes this fault caused: events absent from its leave-one-out counterfactual (N1). Planned
+        # outages and other faults produce the same events in both runs, so they no longer count.
+        key = lambda ev: (ev["t"], ev["type"], ev.get("element"), ev.get("status"))  # noqa: E731
+        cf_events = {key(ev) for ev in cf.observed_events}
         status_seen = any(
-            ev["type"] in ("link_status", "pop_status") and s <= ev["t"] < w.stop and (ev["element"] == fault["root_cause"] or ev["element"] in root_links)
+            ev["type"] in ("link_status", "pop_status") and s <= ev["t"] < w.stop and key(ev) not in cf_events
+            and (ev["element"] == fault["root_cause"] or ev["element"] in root_links)
             for ev in res.observed_events
         )
-        # observability channels (pre-registered, audit M5)
+        # observability channels (pre-registered, audit M5). A delta only counts on a cell whose observed value exists,
+        # so a channel fully covered by a telemetry gap (or blanked by the status-blind variant) is unobservable (N8).
         du, dlat_l, dctr = (x[w] for x in self._symptoms(res, cf))
-        extra = (dloss / 100 * probes).sum(0)
-        bg_exp = (res.truth["svc_bg_loss"][w] * probes).sum(0)
+        du &= ~np.isnan(res.obs["util"][w])
+        dctr &= ~np.isnan(res.obs["loss_pct"][w])
+        loss_seen = ~np.isnan(res.obs["svc_loss_pct"][w])
+        lat_seen = ~np.isnan(res.obs["svc_latency_ms"][w])
+        extra = (dloss / 100 * probes * loss_seen).sum(0)
+        bg_exp = (res.truth["svc_bg_loss"][w] * probes * loss_seen).sum(0)
         obs = {
             "obs_status": bool(status_seen),
             "obs_link_util": bool((du.sum(0) >= 2).any()),
             "obs_link_counters": bool((dctr.sum(0) >= 2).any()),
-            "obs_e2e": bool((extra >= np.maximum(3, 3 * np.sqrt(bg_exp))).any() or ((rel > ic["latency_rel"]).sum(0) >= 2).any() or unreachable.any()),
+            "obs_e2e": bool((extra >= np.maximum(3, 3 * np.sqrt(bg_exp))).any() or (((rel > ic["latency_rel"]) & lat_seen).sum(0) >= 2).any()
+                            or (unreachable & loss_seen).any()),
         }
         out = {
             "max_service_latency_delta_ms": float(np.nan_to_num(lat - lat0, nan=0.0).max()) if lat.size else 0.0,
@@ -742,10 +760,24 @@ def to_frames(res):
     return links, services
 
 
+# words that must never appear in an observable path (audit re-verify N7)
+LEAKY_WORDS = ("link_down", "node_down", "degradation", "gray", "grey", "flap", "surge", "misconfig", "fault", "mild",
+               "severe", "subtle", "moderate", "obvious", "distractor", "incident")
+
+
+def check_neutral_id(sid):
+    low = sid.lower()
+    bad = [w for w in LEAKY_WORDS if w in low]
+    if bad:
+        raise ValueError(f"scenario id {sid!r} leaks ground truth through the observable path: {bad}")
+
+
 def write_scenario(res, out_dir):
     """Observable files under <out>/observable/<sid>/, ground truth under <out>/truth/<sid>/ (audit minor: keep ground
-    truth out of reach of detectors and agent tools). Returns the manifest entry (ground truth)."""
+    truth out of reach of detectors and agent tools). The scenario id must be neutral (N7); any description of what
+    the scenario contains belongs in the ground-truth manifest. Returns the manifest entry (ground truth)."""
     sid = res.spec["scenario_id"]
+    check_neutral_id(sid)
     od, td = Path(out_dir) / "observable" / sid, Path(out_dir) / "truth" / sid
     od.mkdir(parents=True, exist_ok=True)
     td.mkdir(parents=True, exist_ok=True)

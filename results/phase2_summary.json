@@ -1,6 +1,11 @@
 {
   "note": "AARNet is the dev / demo network, seen during development; its numbers are illustrative only.",
-  "config_hash": "425a5f41a9cef7af",
+  "tuning_hash": "edfbd485badbc712",
+  "tuning_hash_parts": {
+    "config.yaml": "aa542a9a28c41346",
+    "src/nettwin/simulator.py": "3f66e87bdf3de072",
+    "src/nettwin/faults.py": "03516a58aa0a8ade"
+  },
   "aarnet_link_down_demo": {
     "link": "link:Hobart--Melbourne2",
     "t_start": 786,
@@ -66,7 +71,7 @@
   "aarnet_fault_examples": {
     "link_down": [
       {
-        "scenario": "aarnet_link_down_mild",
+        "scenario": "demo_0002",
         "fault": {
           "id": "F0",
           "type": "link_down",
@@ -78,7 +83,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 0.002179468750757252,
@@ -102,7 +108,7 @@
         }
       },
       {
-        "scenario": "aarnet_link_down_severe",
+        "scenario": "demo_0003",
         "fault": {
           "id": "F0",
           "type": "link_down",
@@ -114,7 +120,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 0.3658167651452686,
@@ -140,7 +147,7 @@
     ],
     "node_down": [
       {
-        "scenario": "aarnet_node_down_mild",
+        "scenario": "demo_0004",
         "fault": {
           "id": "F0",
           "type": "node_down",
@@ -152,7 +159,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 0.0,
@@ -176,7 +184,7 @@
         }
       },
       {
-        "scenario": "aarnet_node_down_severe",
+        "scenario": "demo_0005",
         "fault": {
           "id": "F0",
           "type": "node_down",
@@ -188,7 +196,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 0.27810356236297373,
@@ -214,7 +223,7 @@
     ],
     "link_degradation": [
       {
-        "scenario": "aarnet_link_degradation_mild",
+        "scenario": "demo_0006",
         "fault": {
           "id": "F0",
           "type": "link_degradation",
@@ -230,7 +239,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 3.552713678800501e-15,
@@ -254,7 +264,7 @@
         }
       },
       {
-        "scenario": "aarnet_link_degradation_severe",
+        "scenario": "demo_0007",
         "fault": {
           "id": "F0",
           "type": "link_degradation",
@@ -270,7 +280,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 3.552713678800501e-15,
@@ -296,7 +307,7 @@
     ],
     "link_flapping": [
       {
-        "scenario": "aarnet_link_flapping_mild",
+        "scenario": "demo_0008",
         "fault": {
           "id": "F0",
           "type": "link_flapping",
@@ -311,7 +322,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 0.014710113806790659,
@@ -335,7 +347,7 @@
         }
       },
       {
-        "scenario": "aarnet_link_flapping_severe",
+        "scenario": "demo_0009",
         "fault": {
           "id": "F0",
           "type": "link_flapping",
@@ -350,7 +362,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 0.05036641223184013,
@@ -376,7 +389,7 @@
     ],
     "demand_surge": [
       {
-        "scenario": "aarnet_demand_surge_mild",
+        "scenario": "demo_0010",
         "fault": {
           "id": "F0",
           "type": "demand_surge",
@@ -390,7 +403,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 0.2868019948878775,
@@ -414,7 +428,7 @@
         }
       },
       {
-        "scenario": "aarnet_demand_surge_severe",
+        "scenario": "demo_0011",
         "fault": {
           "id": "F0",
           "type": "demand_surge",
@@ -428,7 +442,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 50.29276564277514,
@@ -454,7 +469,7 @@
     ],
     "routing_misconfig": [
       {
-        "scenario": "aarnet_routing_misconfig_mild",
+        "scenario": "demo_0012",
         "fault": {
           "id": "F0",
           "type": "routing_misconfig",
@@ -469,7 +484,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 0.013156093748399655,
@@ -493,7 +509,7 @@
         }
       },
       {
-        "scenario": "aarnet_routing_misconfig_severe",
+        "scenario": "demo_0013",
         "fault": {
           "id": "F0",
           "type": "routing_misconfig",
@@ -508,7 +524,8 @@
           },
           "placement": "isolated",
           "linked_maintenance": null,
-          "caused_by_maintenance": false
+          "caused_by_maintenance": false,
+          "overlaps_maintenance": false
         },
         "impact": {
           "max_service_latency_delta_ms": 62.95711500759752,
@@ -545,143 +562,143 @@
       ]
     },
     "scenarios": 188,
-    "faults": 370,
+    "faults": 369,
     "placements": {
       "concurrent": 13,
-      "isolated": 304,
-      "maintenance_linked": 53
+      "isolated": 302,
+      "maintenance_linked": 54
     },
     "per_fault_type": {
       "link_down": {
-        "n": 52,
+        "n": 51,
         "unobservable": {
           "k": 0,
-          "n": 52,
+          "n": 51,
           "rate": 0.0,
           "ci95": [
             0,
-            0.0688
+            0.07
           ]
         },
         "channels": {
           "obs_status": {
-            "k": 52,
-            "n": 52,
+            "k": 51,
+            "n": 51,
             "rate": 1.0,
             "ci95": [
-              0.9312,
-              1
+              0.93,
+              1.0
             ]
           },
           "obs_link_util": {
-            "k": 52,
-            "n": 52,
+            "k": 51,
+            "n": 51,
             "rate": 1.0,
             "ci95": [
-              0.9312,
-              1
+              0.93,
+              1.0
             ]
           },
           "obs_link_counters": {
-            "k": 12,
-            "n": 52,
-            "rate": 0.2308,
+            "k": 11,
+            "n": 51,
+            "rate": 0.2157,
             "ci95": [
-              0.1372,
-              0.3613
+              0.1249,
+              0.3463
             ]
           },
           "obs_e2e": {
             "k": 46,
-            "n": 52,
-            "rate": 0.8846,
+            "n": 51,
+            "rate": 0.902,
             "ci95": [
-              0.7703,
-              0.946
+              0.7902,
+              0.9574
             ]
           }
         },
         "impact_class_observable": {
           "subtle": {
             "k": 3,
-            "n": 52,
-            "rate": 0.0577,
+            "n": 51,
+            "rate": 0.0588,
             "ci95": [
-              0.0198,
-              0.1564
+              0.0202,
+              0.1592
             ]
           },
           "moderate": {
-            "k": 5,
-            "n": 52,
-            "rate": 0.0962,
+            "k": 4,
+            "n": 51,
+            "rate": 0.0784,
             "ci95": [
-              0.0418,
-              0.2061
+              0.0309,
+              0.185
             ]
           },
           "obvious": {
             "k": 44,
-            "n": 52,
-            "rate": 0.8462,
+            "n": 51,
+            "rate": 0.8627,
             "ci95": [
-              0.7248,
-              0.9199
+              0.7428,
+              0.9319
             ]
           }
         },
         "rule_hit": {
           "any_lost_probe": {
-            "k": 52,
-            "n": 52,
+            "k": 51,
+            "n": 51,
             "rate": 1.0,
             "ci95": [
-              0.9312,
-              1
+              0.93,
+              1.0
             ]
           },
           "lost_probe_on_clean_service": {
-            "k": 14,
-            "n": 52,
-            "rate": 0.2692,
+            "k": 15,
+            "n": 51,
+            "rate": 0.2941,
             "ci95": [
-              0.1677,
-              0.4025
+              0.1871,
+              0.43
             ]
           },
           "any_link_util_ge_0.9": {
-            "k": 13,
-            "n": 52,
-            "rate": 0.25,
+            "k": 12,
+            "n": 51,
+            "rate": 0.2353,
             "ci95": [
-              0.1523,
-              0.3821
+              0.14,
+              0.3676
             ]
           },
           "any_link_counter_loss_ge_0.05pct": {
-            "k": 11,
-            "n": 52,
-            "rate": 0.2115,
+            "k": 10,
+            "n": 51,
+            "rate": 0.1961,
             "ci95": [
-              0.1224,
-              0.3403
+              0.1102,
+              0.3246
             ]
           },
           "any_status_event": {
-            "k": 52,
-            "n": 52,
+            "k": 51,
+            "n": 51,
             "rate": 1.0,
             "ci95": [
-              0.9312,
-              1
+              0.93,
+              1.0
             ]
           }
         },
         "by_group": {
           "generated_val": {
             "subtle": 3,
-            "moderate": 3,
-            "obvious": 31
+            "moderate": 2,
+            "obvious": 32
           },
           "topozoo/Aconet": {
             "subtle": 0,
@@ -696,141 +713,141 @@
           "topozoo/Fccn": {
             "subtle": 0,
             "moderate": 0,
-            "obvious": 3
+            "obvious": 2
           },
           "topozoo/Nextgen": {
             "subtle": 0,
             "moderate": 0,
-            "obvious": 5
+            "obvious": 4
           },
           "topozoo/Quest": {
             "subtle": 0,
             "moderate": 0,
-            "obvious": 1
+            "obvious": 2
           }
         }
       },
       "node_down": {
-        "n": 80,
+        "n": 82,
         "unobservable": {
           "k": 0,
-          "n": 80,
+          "n": 82,
           "rate": 0.0,
           "ci95": [
             0,
-            0.0458
+            0.0448
           ]
         },
         "channels": {
           "obs_status": {
-            "k": 80,
-            "n": 80,
+            "k": 82,
+            "n": 82,
             "rate": 1.0,
             "ci95": [
-              0.9542,
+              0.9552,
               1
             ]
           },
           "obs_link_util": {
-            "k": 80,
-            "n": 80,
+            "k": 82,
+            "n": 82,
             "rate": 1.0,
             "ci95": [
-              0.9542,
+              0.9552,
               1
             ]
           },
           "obs_link_counters": {
             "k": 14,
-            "n": 80,
-            "rate": 0.175,
+            "n": 82,
+            "rate": 0.1707,
             "ci95": [
-              0.1072,
-              0.2726
+              0.1045,
+              0.2664
             ]
           },
           "obs_e2e": {
-            "k": 78,
-            "n": 80,
-            "rate": 0.975,
+            "k": 81,
+            "n": 82,
+            "rate": 0.9878,
             "ci95": [
-              0.9134,
-              0.9931
+              0.9341,
+              0.9978
             ]
           }
         },
         "impact_class_observable": {
           "subtle": {
             "k": 1,
-            "n": 80,
-            "rate": 0.0125,
+            "n": 82,
+            "rate": 0.0122,
             "ci95": [
               0.0022,
-              0.0675
+              0.0659
             ]
           },
           "moderate": {
-            "k": 1,
-            "n": 80,
-            "rate": 0.0125,
+            "k": 0,
+            "n": 82,
+            "rate": 0.0,
             "ci95": [
-              0.0022,
-              0.0675
+              0,
+              0.0448
             ]
           },
           "obvious": {
-            "k": 78,
-            "n": 80,
-            "rate": 0.975,
+            "k": 81,
+            "n": 82,
+            "rate": 0.9878,
             "ci95": [
-              0.9134,
-              0.9931
+              0.9341,
+              0.9978
             ]
           }
         },
         "rule_hit": {
           "any_lost_probe": {
-            "k": 80,
-            "n": 80,
+            "k": 82,
+            "n": 82,
             "rate": 1.0,
             "ci95": [
-              0.9542,
+              0.9552,
               1
             ]
           },
           "lost_probe_on_clean_service": {
-            "k": 19,
-            "n": 80,
-            "rate": 0.2375,
+            "k": 21,
+            "n": 82,
+            "rate": 0.2561,
             "ci95": [
-              0.1576,
-              0.3414
+              0.174,
+              0.36
             ]
           },
           "any_link_util_ge_0.9": {
-            "k": 16,
-            "n": 80,
-            "rate": 0.2,
+            "k": 17,
+            "n": 82,
+            "rate": 0.2073,
             "ci95": [
-              0.127,
-              0.3005
+              0.1337,
+              0.3072
             ]
           },
           "any_link_counter_loss_ge_0.05pct": {
             "k": 14,
-            "n": 80,
-            "rate": 0.175,
+            "n": 82,
+            "rate": 0.1707,
             "ci95": [
-              0.1072,
-              0.2726
+              0.1045,
+              0.2664
             ]
           },
           "any_status_event": {
-            "k": 80,
-            "n": 80,
+            "k": 82,
+            "n": 82,
             "rate": 1.0,
             "ci95": [
-              0.9542,
+              0.9552,
               1
             ]
           }
@@ -838,13 +855,13 @@
         "by_group": {
           "generated_val": {
             "subtle": 1,
-            "moderate": 1,
-            "obvious": 56
+            "moderate": 0,
+            "obvious": 59
           },
           "topozoo/Aconet": {
             "subtle": 0,
             "moderate": 0,
-            "obvious": 5
+            "obvious": 4
           },
           "topozoo/BeyondTheNetwork": {
             "subtle": 0,
@@ -854,7 +871,7 @@
           "topozoo/Fccn": {
             "subtle": 0,
             "moderate": 0,
-            "obvious": 4
+            "obvious": 5
           },
           "topozoo/Nextgen": {
             "subtle": 0,
@@ -869,135 +886,135 @@
         }
       },
       "link_degradation": {
-        "n": 54,
+        "n": 55,
         "unobservable": {
           "k": 6,
-          "n": 54,
-          "rate": 0.1111,
+          "n": 55,
+          "rate": 0.1091,
           "ci95": [
-            0.0519,
-            0.2219
+            0.051,
+            0.2183
           ]
         },
         "channels": {
           "obs_status": {
-            "k": 2,
-            "n": 54,
-            "rate": 0.037,
+            "k": 0,
+            "n": 55,
+            "rate": 0.0,
             "ci95": [
-              0.0102,
-              0.1254
+              0,
+              0.0653
             ]
           },
           "obs_link_util": {
-            "k": 17,
-            "n": 54,
-            "rate": 0.3148,
+            "k": 15,
+            "n": 55,
+            "rate": 0.2727,
             "ci95": [
-              0.2068,
-              0.4474
+              0.1728,
+              0.4023
             ]
           },
           "obs_link_counters": {
             "k": 23,
-            "n": 54,
-            "rate": 0.4259,
+            "n": 55,
+            "rate": 0.4182,
             "ci95": [
-              0.3033,
-              0.5584
+              0.2974,
+              0.5497
             ]
           },
           "obs_e2e": {
-            "k": 45,
-            "n": 54,
-            "rate": 0.8333,
+            "k": 46,
+            "n": 55,
+            "rate": 0.8364,
             "ci95": [
-              0.7126,
-              0.9098
+              0.7174,
+              0.9114
             ]
           }
         },
         "impact_class_observable": {
           "subtle": {
-            "k": 12,
-            "n": 48,
-            "rate": 0.25,
+            "k": 14,
+            "n": 49,
+            "rate": 0.2857,
             "ci95": [
-              0.1492,
-              0.3878
+              0.1785,
+              0.4241
             ]
           },
           "moderate": {
-            "k": 23,
-            "n": 48,
-            "rate": 0.4792,
+            "k": 24,
+            "n": 49,
+            "rate": 0.4898,
             "ci95": [
-              0.3447,
-              0.6167
+              0.3557,
+              0.6253
             ]
           },
           "obvious": {
-            "k": 13,
-            "n": 48,
-            "rate": 0.2708,
+            "k": 11,
+            "n": 49,
+            "rate": 0.2245,
             "ci95": [
-              0.1657,
-              0.41
+              0.1302,
+              0.3588
             ]
           }
         },
         "rule_hit": {
           "any_lost_probe": {
-            "k": 54,
-            "n": 54,
+            "k": 55,
+            "n": 55,
             "rate": 1.0,
             "ci95": [
-              0.9336,
-              1
+              0.9347,
+              1.0
             ]
           },
           "lost_probe_on_clean_service": {
-            "k": 33,
-            "n": 54,
-            "rate": 0.6111,
+            "k": 32,
+            "n": 55,
+            "rate": 0.5818,
             "ci95": [
-              0.4779,
-              0.7296
+              0.4503,
+              0.7026
             ]
           },
           "any_link_util_ge_0.9": {
-            "k": 10,
-            "n": 54,
-            "rate": 0.1852,
+            "k": 7,
+            "n": 55,
+            "rate": 0.1273,
             "ci95": [
-              0.1038,
-              0.3084
+              0.063,
+              0.2402
             ]
           },
           "any_link_counter_loss_ge_0.05pct": {
-            "k": 21,
-            "n": 54,
-            "rate": 0.3889,
+            "k": 20,
+            "n": 55,
+            "rate": 0.3636,
             "ci95": [
-              0.2704,
-              0.5221
+              0.2493,
+              0.4958
             ]
           },
           "any_status_event": {
             "k": 7,
-            "n": 54,
-            "rate": 0.1296,
+            "n": 55,
+            "rate": 0.1273,
             "ci95": [
-              0.0642,
-              0.2442
+              0.063,
+              0.2402
             ]
           }
         },
         "by_group": {
           "generated_val": {
-            "subtle": 15,
-            "moderate": 15,
-            "obvious": 11
+            "subtle": 17,
+            "moderate": 16,
+            "obvious": 9
           },
           "topozoo/Aconet": {
             "subtle": 0,
@@ -1005,8 +1022,8 @@
             "obvious": 0
           },
           "topozoo/BeyondTheNetwork": {
-            "subtle": 2,
-            "moderate": 0,
+            "subtle": 1,
+            "moderate": 1,
             "obvious": 0
           },
           "topozoo/Fccn": {
@@ -1020,162 +1037,162 @@
             "obvious": 0
           },
           "topozoo/Quest": {
-            "subtle": 1,
-            "moderate": 4,
+            "subtle": 2,
+            "moderate": 3,
             "obvious": 0
           }
         }
       },
       "link_flapping": {
-        "n": 69,
+        "n": 67,
         "unobservable": {
           "k": 4,
-          "n": 69,
-          "rate": 0.058,
+          "n": 67,
+          "rate": 0.0597,
           "ci95": [
-            0.0228,
-            0.1398
+            0.0235,
+            0.1437
           ]
         },
         "channels": {
           "obs_status": {
-            "k": 21,
-            "n": 69,
-            "rate": 0.3043,
+            "k": 18,
+            "n": 67,
+            "rate": 0.2687,
             "ci95": [
-              0.2085,
-              0.4208
+              0.1772,
+              0.3852
             ]
           },
           "obs_link_util": {
-            "k": 49,
-            "n": 69,
-            "rate": 0.7101,
+            "k": 51,
+            "n": 67,
+            "rate": 0.7612,
             "ci95": [
-              0.5943,
-              0.8038
+              0.6467,
+              0.8473
             ]
           },
           "obs_link_counters": {
-            "k": 17,
-            "n": 69,
-            "rate": 0.2464,
+            "k": 20,
+            "n": 67,
+            "rate": 0.2985,
             "ci95": [
-              0.1599,
-              0.3596
+              0.2023,
+              0.4166
             ]
           },
           "obs_e2e": {
-            "k": 65,
-            "n": 69,
-            "rate": 0.942,
+            "k": 62,
+            "n": 67,
+            "rate": 0.9254,
             "ci95": [
-              0.8602,
-              0.9772
+              0.8369,
+              0.9677
             ]
           }
         },
         "impact_class_observable": {
           "subtle": {
-            "k": 0,
-            "n": 65,
-            "rate": 0.0,
+            "k": 1,
+            "n": 63,
+            "rate": 0.0159,
             "ci95": [
-              0,
-              0.0558
+              0.0028,
+              0.0846
             ]
           },
           "moderate": {
-            "k": 20,
-            "n": 65,
-            "rate": 0.3077,
+            "k": 22,
+            "n": 63,
+            "rate": 0.3492,
             "ci95": [
-              0.2089,
-              0.428
+              0.2433,
+              0.4725
             ]
           },
           "obvious": {
-            "k": 45,
-            "n": 65,
-            "rate": 0.6923,
+            "k": 40,
+            "n": 63,
+            "rate": 0.6349,
             "ci95": [
-              0.572,
-              0.7911
+              0.5115,
+              0.7428
             ]
           }
         },
         "rule_hit": {
           "any_lost_probe": {
-            "k": 69,
-            "n": 69,
+            "k": 67,
+            "n": 67,
             "rate": 1.0,
             "ci95": [
-              0.9473,
-              1
+              0.9458,
+              1.0
             ]
           },
           "lost_probe_on_clean_service": {
-            "k": 22,
-            "n": 69,
-            "rate": 0.3188,
+            "k": 23,
+            "n": 67,
+            "rate": 0.3433,
             "ci95": [
-              0.2209,
-              0.4358
+              0.2409,
+              0.4627
             ]
           },
           "any_link_util_ge_0.9": {
-            "k": 5,
-            "n": 69,
-            "rate": 0.0725,
+            "k": 4,
+            "n": 67,
+            "rate": 0.0597,
             "ci95": [
-              0.0313,
-              0.1587
+              0.0235,
+              0.1437
             ]
           },
           "any_link_counter_loss_ge_0.05pct": {
-            "k": 20,
-            "n": 69,
-            "rate": 0.2899,
+            "k": 22,
+            "n": 67,
+            "rate": 0.3284,
             "ci95": [
-              0.1962,
-              0.4057
+              0.2279,
+              0.4474
             ]
           },
           "any_status_event": {
-            "k": 25,
-            "n": 69,
-            "rate": 0.3623,
+            "k": 23,
+            "n": 67,
+            "rate": 0.3433,
             "ci95": [
-              0.259,
-              0.4802
+              0.2409,
+              0.4627
             ]
           }
         },
         "by_group": {
           "generated_val": {
-            "subtle": 2,
-            "moderate": 10,
-            "obvious": 32
+            "subtle": 3,
+            "moderate": 9,
+            "obvious": 28
           },
           "topozoo/Aconet": {
             "subtle": 1,
-            "moderate": 1,
+            "moderate": 2,
             "obvious": 2
           },
           "topozoo/BeyondTheNetwork": {
             "subtle": 0,
             "moderate": 4,
-            "obvious": 0
+            "obvious": 1
           },
           "topozoo/Fccn": {
             "subtle": 0,
             "moderate": 0,
-            "obvious": 6
+            "obvious": 5
           },
           "topozoo/Nextgen": {
             "subtle": 1,
-            "moderate": 2,
-            "obvious": 4
+            "moderate": 4,
+            "obvious": 3
           },
           "topozoo/Quest": {
             "subtle": 0,
@@ -1185,135 +1202,135 @@
         }
       },
       "demand_surge": {
-        "n": 62,
+        "n": 63,
         "unobservable": {
-          "k": 5,
-          "n": 62,
-          "rate": 0.0806,
+          "k": 4,
+          "n": 63,
+          "rate": 0.0635,
           "ci95": [
-            0.0349,
-            0.1753
+            0.025,
+            0.1522
           ]
         },
         "channels": {
           "obs_status": {
-            "k": 2,
-            "n": 62,
-            "rate": 0.0323,
+            "k": 0,
+            "n": 63,
+            "rate": 0.0,
             "ci95": [
-              0.0089,
-              0.1102
+              0,
+              0.0575
             ]
           },
           "obs_link_util": {
-            "k": 57,
-            "n": 62,
-            "rate": 0.9194,
+            "k": 59,
+            "n": 63,
+            "rate": 0.9365,
             "ci95": [
-              0.8247,
-              0.9651
+              0.8478,
+              0.975
             ]
           },
           "obs_link_counters": {
-            "k": 8,
-            "n": 62,
-            "rate": 0.129,
+            "k": 9,
+            "n": 63,
+            "rate": 0.1429,
             "ci95": [
-              0.0669,
-              0.2345
+              0.077,
+              0.2497
             ]
           },
           "obs_e2e": {
-            "k": 15,
-            "n": 62,
-            "rate": 0.2419,
+            "k": 14,
+            "n": 63,
+            "rate": 0.2222,
             "ci95": [
-              0.1525,
-              0.3615
+              0.1372,
+              0.3391
             ]
           }
         },
         "impact_class_observable": {
           "subtle": {
-            "k": 12,
-            "n": 57,
-            "rate": 0.2105,
+            "k": 15,
+            "n": 59,
+            "rate": 0.2542,
             "ci95": [
-              0.1247,
-              0.3329
+              0.1606,
+              0.378
             ]
           },
           "moderate": {
-            "k": 26,
-            "n": 57,
-            "rate": 0.4561,
+            "k": 29,
+            "n": 59,
+            "rate": 0.4915,
             "ci95": [
-              0.3337,
-              0.5841
+              0.3684,
+              0.6157
             ]
           },
           "obvious": {
-            "k": 19,
-            "n": 57,
-            "rate": 0.3333,
+            "k": 15,
+            "n": 59,
+            "rate": 0.2542,
             "ci95": [
-              0.2249,
-              0.4628
+              0.1606,
+              0.378
             ]
           }
         },
         "rule_hit": {
           "any_lost_probe": {
-            "k": 62,
-            "n": 62,
+            "k": 63,
+            "n": 63,
             "rate": 1.0,
             "ci95": [
-              0.9417,
-              1
+              0.9425,
+              1.0
             ]
           },
           "lost_probe_on_clean_service": {
-            "k": 15,
-            "n": 62,
-            "rate": 0.2419,
+            "k": 16,
+            "n": 63,
+            "rate": 0.254,
             "ci95": [
-              0.1525,
-              0.3615
+              0.1628,
+              0.3734
             ]
           },
           "any_link_util_ge_0.9": {
-            "k": 10,
-            "n": 62,
-            "rate": 0.1613,
+            "k": 11,
+            "n": 63,
+            "rate": 0.1746,
             "ci95": [
-              0.09,
-              0.2721
+              0.1004,
+              0.2862
             ]
           },
           "any_link_counter_loss_ge_0.05pct": {
-            "k": 7,
-            "n": 62,
-            "rate": 0.1129,
+            "k": 9,
+            "n": 63,
+            "rate": 0.1429,
             "ci95": [
-              0.0558,
-              0.2152
+              0.077,
+              0.2497
             ]
           },
           "any_status_event": {
-            "k": 4,
-            "n": 62,
-            "rate": 0.0645,
+            "k": 5,
+            "n": 63,
+            "rate": 0.0794,
             "ci95": [
-              0.0254,
-              0.1545
+              0.0344,
+              0.1727
             ]
           }
         },
         "by_group": {
           "generated_val": {
-            "subtle": 17,
-            "moderate": 17,
-            "obvious": 12
+            "subtle": 16,
+            "moderate": 21,
+            "obvious": 10
           },
           "topozoo/Aconet": {
             "subtle": 0,
@@ -1321,9 +1338,9 @@
             "obvious": 3
           },
           "topozoo/BeyondTheNetwork": {
-            "subtle": 0,
+            "subtle": 1,
             "moderate": 4,
-            "obvious": 1
+            "obvious": 0
           },
           "topozoo/Fccn": {
             "subtle": 0,
@@ -1331,147 +1348,147 @@
             "obvious": 0
           },
           "topozoo/Nextgen": {
-            "subtle": 0,
+            "subtle": 1,
             "moderate": 1,
             "obvious": 0
           },
           "topozoo/Quest": {
-            "subtle": 0,
-            "moderate": 1,
-            "obvious": 3
+            "subtle": 1,
+            "moderate": 0,
+            "obvious": 2
           }
         }
       },
       "routing_misconfig": {
-        "n": 53,
+        "n": 51,
         "unobservable": {
-          "k": 3,
-          "n": 53,
-          "rate": 0.0566,
+          "k": 4,
+          "n": 51,
+          "rate": 0.0784,
           "ci95": [
-            0.0194,
-            0.1537
+            0.0309,
+            0.185
           ]
         },
         "channels": {
           "obs_status": {
-            "k": 2,
-            "n": 53,
-            "rate": 0.0377,
+            "k": 0,
+            "n": 51,
+            "rate": 0.0,
             "ci95": [
-              0.0104,
-              0.1275
+              0,
+              0.07
             ]
           },
           "obs_link_util": {
-            "k": 50,
-            "n": 53,
-            "rate": 0.9434,
+            "k": 46,
+            "n": 51,
+            "rate": 0.902,
             "ci95": [
-              0.8463,
-              0.9806
+              0.7902,
+              0.9574
             ]
           },
           "obs_link_counters": {
-            "k": 13,
-            "n": 53,
-            "rate": 0.2453,
+            "k": 14,
+            "n": 51,
+            "rate": 0.2745,
             "ci95": [
-              0.1493,
-              0.3757
+              0.1711,
+              0.4095
             ]
           },
           "obs_e2e": {
-            "k": 28,
-            "n": 53,
-            "rate": 0.5283,
+            "k": 25,
+            "n": 51,
+            "rate": 0.4902,
             "ci95": [
-              0.3966,
-              0.6562
+              0.3586,
+              0.6232
             ]
           }
         },
         "impact_class_observable": {
           "subtle": {
-            "k": 6,
-            "n": 50,
-            "rate": 0.12,
+            "k": 8,
+            "n": 47,
+            "rate": 0.1702,
             "ci95": [
-              0.0562,
-              0.2381
+              0.0889,
+              0.3014
             ]
           },
           "moderate": {
-            "k": 18,
-            "n": 50,
-            "rate": 0.36,
+            "k": 16,
+            "n": 47,
+            "rate": 0.3404,
             "ci95": [
-              0.2414,
-              0.4986
+              0.2217,
+              0.4833
             ]
           },
           "obvious": {
-            "k": 26,
-            "n": 50,
-            "rate": 0.52,
+            "k": 23,
+            "n": 47,
+            "rate": 0.4894,
             "ci95": [
-              0.3851,
-              0.652
+              0.3528,
+              0.6276
             ]
           }
         },
         "rule_hit": {
           "any_lost_probe": {
-            "k": 53,
-            "n": 53,
+            "k": 51,
+            "n": 51,
             "rate": 1.0,
             "ci95": [
-              0.9324,
-              1
+              0.93,
+              1.0
             ]
           },
           "lost_probe_on_clean_service": {
-            "k": 27,
-            "n": 53,
-            "rate": 0.5094,
+            "k": 26,
+            "n": 51,
+            "rate": 0.5098,
             "ci95": [
-              0.3788,
-              0.6388
+              0.3768,
+              0.6414
             ]
           },
           "any_link_util_ge_0.9": {
-            "k": 23,
-            "n": 53,
-            "rate": 0.434,
+            "k": 28,
+            "n": 51,
+            "rate": 0.549,
             "ci95": [
-              0.3095,
-              0.5673
+              0.4138,
+              0.6773
             ]
           },
           "any_link_counter_loss_ge_0.05pct": {
-            "k": 14,
-            "n": 53,
-            "rate": 0.2642,
+            "k": 18,
+            "n": 51,
+            "rate": 0.3529,
             "ci95": [
-              0.1644,
-              0.3958
+              0.2363,
+              0.4901
             ]
           },
           "any_status_event": {
-            "k": 11,
-            "n": 53,
-            "rate": 0.2075,
+            "k": 13,
+            "n": 51,
+            "rate": 0.2549,
             "ci95": [
-              0.12,
-              0.3346
+              0.1555,
+              0.3887
             ]
           }
         },
         "by_group": {
           "generated_val": {
-            "subtle": 7,
-            "moderate": 18,
-            "obvious": 19
+            "subtle": 11,
+            "moderate": 14,
+            "obvious": 18
           },
           "topozoo/Aconet": {
             "subtle": 0,
@@ -1481,120 +1498,120 @@
           "topozoo/BeyondTheNetwork": {
             "subtle": 1,
             "moderate": 0,
-            "obvious": 1
+            "obvious": 0
           },
           "topozoo/Fccn": {
             "subtle": 0,
             "moderate": 0,
-            "obvious": 1
+            "obvious": 2
           },
           "topozoo/Nextgen": {
             "subtle": 0,
             "moderate": 1,
-            "obvious": 1
+            "obvious": 0
           },
           "topozoo/Quest": {
             "subtle": 0,
-            "moderate": 0,
-            "obvious": 2
+            "moderate": 1,
+            "obvious": 1
           }
         }
       }
     },
     "fault_free_windows": {
-      "n_non_maintenance": 839,
-      "n_maintenance": 60,
+      "n_non_maintenance": 860,
+      "n_maintenance": 47,
       "non_maintenance": {
         "any_lost_probe": {
-          "k": 839,
-          "n": 839,
+          "k": 860,
+          "n": 860,
           "rate": 1.0,
           "ci95": [
-            0.9954,
-            1
+            0.9956,
+            1.0
           ]
         },
         "lost_probe_on_clean_service": {
-          "k": 226,
-          "n": 839,
-          "rate": 0.2694,
+          "k": 234,
+          "n": 860,
+          "rate": 0.2721,
           "ci95": [
-            0.2405,
-            0.3004
+            0.2434,
+            0.3028
           ]
         },
         "any_link_util_ge_0.9": {
-          "k": 71,
-          "n": 839,
-          "rate": 0.0846,
+          "k": 80,
+          "n": 860,
+          "rate": 0.093,
           "ci95": [
-            0.0676,
-            0.1054
+            0.0754,
+            0.1143
           ]
         },
         "any_link_counter_loss_ge_0.05pct": {
-          "k": 14,
-          "n": 839,
-          "rate": 0.0167,
+          "k": 16,
+          "n": 860,
+          "rate": 0.0186,
           "ci95": [
-            0.01,
-            0.0278
+            0.0115,
+            0.03
           ]
         },
         "any_status_event": {
-          "k": 11,
-          "n": 839,
-          "rate": 0.0131,
+          "k": 10,
+          "n": 860,
+          "rate": 0.0116,
           "ci95": [
-            0.0073,
-            0.0233
+            0.0063,
+            0.0213
           ]
         }
       },
       "maintenance": {
         "any_lost_probe": {
-          "k": 60,
-          "n": 60,
+          "k": 47,
+          "n": 47,
           "rate": 1.0,
           "ci95": [
-            0.9398,
-            1.0
+            0.9244,
+            1
           ]
         },
         "lost_probe_on_clean_service": {
-          "k": 16,
-          "n": 60,
-          "rate": 0.2667,
+          "k": 14,
+          "n": 47,
+          "rate": 0.2979,
           "ci95": [
-            0.1713,
-            0.3901
+            0.1865,
+            0.4398
           ]
         },
         "any_link_util_ge_0.9": {
-          "k": 1,
-          "n": 60,
-          "rate": 0.0167,
+          "k": 0,
+          "n": 47,
+          "rate": 0.0,
           "ci95": [
-            0.0029,
-            0.0886
+            0.0,
+            0.0756
           ]
         },
         "any_link_counter_loss_ge_0.05pct": {
           "k": 0,
-          "n": 60,
+          "n": 47,
           "rate": 0.0,
           "ci95": [
-            0,
-            0.0602
+            0.0,
+            0.0756
           ]
         },
         "any_status_event": {
-          "k": 21,
-          "n": 60,
-          "rate": 0.35,
+          "k": 14,
+          "n": 47,
+          "rate": 0.2979,
           "ci95": [
-            0.2417,
-            0.4764
+            0.1865,
+            0.4398
           ]
         }
       }
@@ -1604,35 +1621,35 @@
         "link_degradation": {
           "value": {
             "k": 6,
-            "n": 54,
-            "rate": 0.1111,
+            "n": 55,
+            "rate": 0.1091,
             "ci95": [
-              0.0519,
-              0.2219
+              0.051,
+              0.2183
             ]
           },
           "pass": true
         },
         "demand_surge": {
           "value": {
-            "k": 5,
-            "n": 62,
-            "rate": 0.0806,
+            "k": 4,
+            "n": 63,
+            "rate": 0.0635,
             "ci95": [
-              0.0349,
-              0.1753
+              0.025,
+              0.1522
             ]
           },
           "pass": true
         },
         "routing_misconfig": {
           "value": {
-            "k": 3,
-            "n": 53,
-            "rate": 0.0566,
+            "k": 4,
+            "n": 51,
+            "rate": 0.0784,
             "ci95": [
-              0.0194,
-              0.1537
+              0.0309,
+              0.185
             ]
           },
           "pass": true
@@ -1640,110 +1657,151 @@
       },
       "T2_subtle_ge_20_obvious_le_50": {
         "link_degradation": {
-          "subtle": 0.25,
-          "obvious": 0.2708,
+          "subtle": 0.2857,
+          "obvious": 0.2245,
           "pass": true
         },
         "demand_surge": {
-          "subtle": 0.2105,
-          "obvious": 0.3333,
+          "subtle": 0.2542,
+          "obvious": 0.2542,
           "pass": true
         },
         "routing_misconfig": {
-          "subtle": 0.12,
-          "obvious": 0.52,
+          "subtle": 0.1702,
+          "obvious": 0.4894,
           "pass": false
         },
         "link_flapping": {
-          "subtle": 0.0,
-          "obvious": 0.6923,
+          "subtle": 0.0159,
+          "obvious": 0.6349,
           "pass": false
         }
       },
       "T3_youden_j_le_0.5": {
         "link_degradation": {
+          "n_faults": 55,
+          "n_matched_windows": 54,
           "any_lost_probe": {
+            "fault_hit": 1.0,
+            "matched_fault_free_hit": 1.0,
             "j": 0.0,
             "pass": true
           },
           "lost_probe_on_clean_service": {
-            "j": 0.3417,
+            "fault_hit": 0.5818,
+            "matched_fault_free_hit": 0.4815,
+            "j": 0.1003,
             "pass": true
           },
           "any_link_util_ge_0.9": {
-            "j": 0.1006,
+            "fault_hit": 0.1273,
+            "matched_fault_free_hit": 0.1667,
+            "j": -0.0394,
             "pass": true
           },
           "any_link_counter_loss_ge_0.05pct": {
-            "j": 0.3722,
+            "fault_hit": 0.3636,
+            "matched_fault_free_hit": 0.0,
+            "j": 0.3636,
             "pass": true
           },
           "any_status_event": {
-            "j": 0.1165,
+            "fault_hit": 0.1273,
+            "matched_fault_free_hit": 0.037,
+            "j": 0.0903,
             "pass": true
           }
         },
         "demand_surge": {
+          "n_faults": 63,
+          "n_matched_windows": 63,
           "any_lost_probe": {
+            "fault_hit": 1.0,
+            "matched_fault_free_hit": 1.0,
             "j": 0.0,
             "pass": true
           },
           "lost_probe_on_clean_service": {
-            "j": -0.0275,
+            "fault_hit": 0.254,
+            "matched_fault_free_hit": 0.2698,
+            "j": -0.0158,
             "pass": true
           },
           "any_link_util_ge_0.9": {
-            "j": 0.0767,
+            "fault_hit": 0.1746,
+            "matched_fault_free_hit": 0.127,
+            "j": 0.0476,
             "pass": true
           },
           "any_link_counter_loss_ge_0.05pct": {
-            "j": 0.0962,
+            "fault_hit": 0.1429,
+            "matched_fault_free_hit": 0.0,
+            "j": 0.1429,
             "pass": true
           },
           "any_status_event": {
-            "j": 0.0514,
+            "fault_hit": 0.0794,
+            "matched_fault_free_hit": 0.0317,
+            "j": 0.0477,
             "pass": true
           }
         },
         "routing_misconfig": {
+          "n_faults": 51,
+          "n_matched_windows": 43,
           "any_lost_probe": {
+            "fault_hit": 1.0,
+            "matched_fault_free_hit": 1.0,
             "j": 0.0,
             "pass": true
           },
           "lost_probe_on_clean_service": {
-            "j": 0.24,
+            "fault_hit": 0.5098,
+            "matched_fault_free_hit": 0.4651,
+            "j": 0.0447,
             "pass": true
           },
           "any_link_util_ge_0.9": {
-            "j": 0.3494,
+            "fault_hit": 0.549,
+            "matched_fault_free_hit": 0.3721,
+            "j": 0.1769,
             "pass": true
           },
           "any_link_counter_loss_ge_0.05pct": {
-            "j": 0.2475,
+            "fault_hit": 0.3529,
+            "matched_fault_free_hit": 0.0233,
+            "j": 0.3296,
             "pass": true
           },
           "any_status_event": {
-            "j": 0.1944,
+            "fault_hit": 0.2549,
+            "matched_fault_free_hit": 0.1395,
+            "j": 0.1154,
             "pass": true
           }
         }
       },
       "T4_down_share_of_pattern_le_80pct": {
-        "value": 0.0757,
-        "pattern": 93612,
-        "pattern_down": 7090,
-        "pass": true
+        "value": 0.0795,
+        "pattern": 94001,
+        "pattern_down": 7476,
+        "zero_util_pattern": 7574,
+        "zero_util_pattern_down": 7476,
+        "pass": true,
+        "note": "T4 tests the literal pattern only. With util exactly 0 added, the pattern is a near-unique down-link signature (see zero_util_pattern_down / zero_util_pattern); this is realistic SNMP behaviour, documented under re-verify N2.",
+        "zero_util_down_share": 0.9871
       },
       "T5_status_lag": {
-        "n": 52,
-        "zero_lag_frac": 0.4615,
+        "n": 51,
+        "zero_lag_frac": 0.4706,
         "median_lag": 1.0,
         "pass": true
       },
       "T6_overlap": {
-        "maintenance_linked_frac": 0.1432,
+        "overlap_or_follow_frac": 0.2547,
+        "deliberately_linked_frac": 0.1463,
         "scenarios_with_concurrent_frac": 0.0691,
-        "pass": true
+        "pass": false
       },
       "T7_baseline_median_peak": {
         "value": {

@@ -40,3 +40,7 @@ Decisions that were made while looking at a test (or now-dev) topology, as PLAN.
 - L5: the routing metric floor of 1 was motivated by AARNet's 0 km links.
 - L6: the rule "0 km links get the largest adjacent capacity" was designed on AARNet. It now also runs on generated graphs with dual-router PoPs.
 - L9: per-PoP time zones were built for real geography. Generated graphs now get pseudo-longitudes, so the feature is exercised in training and validation too.
+
+## Known realistic signatures (read before Phases 4 to 6)
+
+A down interface on a reachable router reads exactly 0 traffic and 0 discards, and its one-hop probe fails. So in the default (non-blind) telemetry, "util exactly 0 with latency missing" identifies a down link almost perfectly: 99.7% of such cells are down links in the audit's re-check (`docs/audit_phases_0_2_reverify.md`, N2). This is what real SNMP shows, so it stays, but it means link_down and node_down are easy to detect from link telemetry alone, even without status events. Telemetry also changes at the fault's start step, so the status-event lag does not delay onset for a telemetry-based detector. Results for link_down and node_down must therefore be reported twice: with status events and the default telemetry, and with the status-blind variant (`spec["status_blind"] = True`, where down links are fully missing and no status or reachability events exist).

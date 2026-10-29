@@ -370,3 +370,76 @@ def test_reserved_seeds_are_refused(cfg):
     with pytest.raises(ValueError, match="reserved"):
         check_fresh_seed(cfg, 2026)
     check_fresh_seed(cfg, 123456)
+
+
+# ------------------------------------------------------------------ audit re-verify fixes
+
+
+def test_concurrent_fault_does_not_make_undetectable_one_observable(sim, busy):
+    """N1, the auditor's case: a silent gray failure on a service-free link stays unobservable and subtle when a
+    link_down elsewhere overlaps it."""
+    idle = [l for l in sim.links if not sim.kg.services_on(l) and l != busy]
+    if not idle:
+        pytest.skip("fixture has no service-free link")
+    gray = fault(sim, "link_degradation", idle[0], loss_pct=0.3, silent=True, ramp_steps=0, ramp_down_steps=0, burst_sigma=0.0)
+    gray["id"] = "G"
+    down = fault(sim, "link_down", busy, t0=T0 + 6, t1=T1 - 6)
+    down["id"] = "D"
+    alone = sim.simulate(spec(sim, [gray])).impacts["G"]
+    both = sim.simulate(spec(sim, [gray, down])).impacts
+    assert not alone["observable"] and alone["impact_class"] == "subtle"
+    assert not both["G"]["observable"] and not any(both["G"]["observability"].values())
+    assert both["G"]["impact_class"] == "subtle" and both["G"]["services_affected"] == 0
+    assert both["D"]["observable"] and both["D"]["observability"]["obs_status"]
+
+
+def test_planned_outage_status_is_not_credited_to_a_fault(sim, busy):
+    """N1: a status event from a planned outage on the same link is not the fault's doing."""
+    m = [{"id": "M0", "target": busy, "t_start": T0, "t_end": T1, "action": "down", "description": "planned link outage"}]
+    g = fault(sim, "link_degradation", busy, loss_pct=0.3, silent=True, ramp_steps=0, ramp_down_steps=0, burst_sigma=0.0)
+    im = sim.simulate(spec(sim, [g], maintenance=m)).impacts["F0"]
+    assert not im["observability"]["obs_status"] and not im["status_change_observed"]
+
+
+def test_gap_covered_channels_are_unobservable(sim, busy):
+    """N8: a fault whose only symptom sits under a telemetry gap is not observable on that channel."""
+    idle = [l for l in sim.links if not sim.kg.services_on(l)]
+    if not idle:
+        pytest.skip("fixture has no service-free link")
+    g = fault(sim, "link_degradation", idle[0], loss_pct=0.8, silent=False, ramp_steps=0, ramp_down_steps=0, burst_sigma=0.0)
+    open_ = sim.simulate(spec(sim, [g])).impacts["F0"]
+    gap = [{"id": "G0", "scope": "link", "target": idle[0], "t_start": T0 - 2, "t_end": T1 + 5}]
+    covered = sim.simulate(spec(sim, [g], gaps=gap)).impacts["F0"]
+    assert open_["observability"]["obs_link_counters"]
+    assert not covered["observability"]["obs_link_counters"] and not covered["observability"]["obs_link_util"]
+
+
+def test_no_fault_free_buffer_around_maintenance(sim):
+    """N6: isolated faults may sit right next to (or on) a change window."""
+    near = 0
+    for seed in range(8600, 8700):
+        s = sample_scenario(sim, "b", seed)
+        for f in s["faults"]:
+            if f["placement"] != "isolated":
+                continue
+            for m in s["maintenance"]:
+                if -36 < f["t_start"] - m["t_end"] < 36 or (f["t_start"] < m["t_end"] and f["t_end"] > m["t_start"]):
+                    near += 1
+    assert near > 0
+
+
+def test_observable_paths_are_neutral(sim, tmp_path):
+    """N7: no observable path or filename carries a fault type or severity word."""
+    from nettwin.simulator import LEAKY_WORDS
+
+    with pytest.raises(ValueError, match="leaks ground truth"):
+        write_scenario(sim.simulate({**spec(sim), "scenario_id": "aarnet_link_down_severe"}), tmp_path)
+    for k, seed in enumerate(range(8710, 8714)):
+        res = sim.simulate(sample_scenario(sim, f"demo_{k:04d}", seed))
+        write_scenario(res, tmp_path)
+    paths = [p.relative_to(tmp_path).as_posix().lower() for p in (tmp_path / "observable").rglob("*")]
+    words = set(LEAKY_WORDS) | {ft.lower() for ft in FAULT_TYPES} | {"mild", "severe", "subtle", "moderate", "obvious"}
+    assert paths and not [p for p in paths for w in words if w in p]
+    for ev_file in (tmp_path / "observable").rglob("observed_events.json"):
+        text = ev_file.read_text().lower()
+        assert not [ft for ft in FAULT_TYPES if ft in text]

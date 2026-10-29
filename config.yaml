@@ -67,6 +67,44 @@ topologies:
     - sndlib/nobel-germany     # same German network family as germany50
     - sndlib/nobel-eu          # same NOBEL project, skipped to be conservative
     - sndlib/nobel-us
+    # older snapshots of test networks Garr201201 and Belnet2010 (audit re-verify N5)
+    - topozoo/Garr199901
+    - topozoo/Garr199904
+    - topozoo/Garr199905
+    - topozoo/Garr200109
+    - topozoo/Garr200112
+    - topozoo/Garr200212
+    - topozoo/Garr200404
+    - topozoo/Garr200902
+    - topozoo/Garr200908
+    - topozoo/Garr200909
+    - topozoo/Garr200912
+    - topozoo/Garr201001
+    - topozoo/Garr201003
+    - topozoo/Garr201004
+    - topozoo/Garr201005
+    - topozoo/Garr201007
+    - topozoo/Garr201008
+    - topozoo/Garr201010
+    - topozoo/Garr201012
+    - topozoo/Garr201101
+    - topozoo/Garr201102
+    - topozoo/Garr201103
+    - topozoo/Garr201104
+    - topozoo/Garr201105
+    - topozoo/Garr201107
+    - topozoo/Garr201108
+    - topozoo/Garr201109
+    - topozoo/Garr201110
+    - topozoo/Garr201111
+    - topozoo/Garr201112
+    - topozoo/Belnet2003
+    - topozoo/Belnet2004
+    - topozoo/Belnet2005
+    - topozoo/Belnet2006
+    - topozoo/Belnet2007
+    - topozoo/Belnet2008
+    - topozoo/Belnet2009
   use_names: true
 
 kg:
