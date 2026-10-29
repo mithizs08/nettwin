@@ -6,6 +6,7 @@ seeds:
   scenarios: 2002
   training: 3003
   agent_eval_sampling: 4004
+  kg_services: 5005
 
 paths:
   data: data
@@ -28,6 +29,15 @@ topologies:
     - topozoo/GtsCe
     - topozoo/Cogentco
   use_names: true
+
+kg:
+  ecmp_max_paths: 4            # cap on equal-cost paths kept per PoP pair
+  fibre_km_per_ms: 200.0       # propagation in fibre, about 5 us per km
+  services_per_pop: 2          # synthetic customer services = this x number of PoPs
+  service_classes:             # synthetic SLA tiers; sla_latency = prop latency x factor + margin
+    gold:   {share: 0.2, latency_factor: 1.2, latency_margin_ms: 1.0, loss_pct: 0.1}
+    silver: {share: 0.3, latency_factor: 1.5, latency_margin_ms: 2.0, loss_pct: 0.5}
+    bronze: {share: 0.5, latency_factor: 2.0, latency_margin_ms: 5.0, loss_pct: 1.0}
 
 simulator:
   step_minutes: 5

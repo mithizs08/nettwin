@@ -1,0 +1,100 @@
+{
+  "topologies": {
+    "topozoo/Aarnet": {
+      "topology": "topozoo/Aarnet",
+      "nodes_by_kind": {
+        "PoP": 19,
+        "Link": 24,
+        "RoutingPath": 281,
+        "Service": 38,
+        "Alert": 0,
+        "Maintenance": 0,
+        "Runbook": 0,
+        "FaultType": 6
+      },
+      "edges_by_rel": {
+        "CONNECTS": 48,
+        "TRAVERSES": 1216,
+        "USES": 61,
+        "ON": 0,
+        "AFFECTS": 0,
+        "APPLIES_TO": 0
+      },
+      "pop_pairs": 171,
+      "reachable_pairs": 171,
+      "ecmp_pairs": 59,
+      "services_by_class": {
+        "bronze": 18,
+        "gold": 6,
+        "silver": 14
+      }
+    },
+    "topozoo/Geant2012": {
+      "topology": "topozoo/Geant2012",
+      "nodes_by_kind": {
+        "PoP": 37,
+        "Link": 58,
+        "RoutingPath": 666,
+        "Service": 74,
+        "Alert": 0,
+        "Maintenance": 0,
+        "Runbook": 0,
+        "FaultType": 6
+      },
+      "edges_by_rel": {
+        "CONNECTS": 116,
+        "TRAVERSES": 2435,
+        "USES": 74,
+        "ON": 0,
+        "AFFECTS": 0,
+        "APPLIES_TO": 0
+      },
+      "pop_pairs": 666,
+      "reachable_pairs": 666,
+      "ecmp_pairs": 0,
+      "services_by_class": {
+        "bronze": 40,
+        "gold": 14,
+        "silver": 20
+      }
+    },
+    "sndlib/germany50": {
+      "topology": "sndlib/germany50",
+      "nodes_by_kind": {
+        "PoP": 50,
+        "Link": 88,
+        "RoutingPath": 1228,
+        "Service": 100,
+        "Alert": 0,
+        "Maintenance": 0,
+        "Runbook": 0,
+        "FaultType": 6
+      },
+      "edges_by_rel": {
+        "CONNECTS": 176,
+        "TRAVERSES": 5486,
+        "USES": 100,
+        "ON": 0,
+        "AFFECTS": 0,
+        "APPLIES_TO": 0
+      },
+      "pop_pairs": 1225,
+      "reachable_pairs": 1225,
+      "ecmp_pairs": 3,
+      "services_by_class": {
+        "bronze": 52,
+        "gold": 19,
+        "silver": 29
+      }
+    }
+  },
+  "aarnet_single_link_failure": {
+    "link": "link:Canberra1--Melbourne1",
+    "paths_through_before": 105,
+    "services_on_before": 16,
+    "pairs_rerouted": 75,
+    "pairs_unreachable": 0,
+    "services_without_path": 0,
+    "paths_restored_after_link_up": true
+  }
+}
