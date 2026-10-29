@@ -426,6 +426,16 @@ Rerun (same 188 validation scenarios and seeds, 369 faults; `results/tuning_log.
   - the built dataset's train / val manifests contain no test or dev topology.
 - Not done in Phase 3 (parked): Alert nodes from threshold rules, and the sensitivity run with pre-tuning ranges. Both belong to Phase 4.
 
+### 2026-10-30: Phase 3 fresh-clone check (full, as chosen by Zareen): passed
+
+- Cloned `origin/main` at `4dab96c`. No `.env` and no `data/`.
+- New throwaway env `nettwin-freshcheck` from `environment.yml`.
+- Phase 0, 1, 2 and 3 scripts all exited 0; the Phase 3 build took 21.8 minutes on 6 workers.
+- `git status` was clean after regeneration: every committed result, figure, `docs/dataset_card.md` and `results/phase3_dataset_summary.json` are byte-identical.
+- All 19,543 files under `data/` (KG CSV, Phase 2 demo, the full v1 dataset in both variants) are byte-identical to the local build.
+- `pytest`: 96 passed.
+- Clone (about 7.6 GB) and env deleted afterwards.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
