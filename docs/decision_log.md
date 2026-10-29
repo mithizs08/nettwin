@@ -59,6 +59,16 @@ Figures and outputs (`scripts/phase1_build_kg.py`)
 - Outputs are byte-deterministic across runs. Two set-iteration orders in the figure code (string hashing is randomised per process) made the PNG change between runs; fixed by sorting.
 - Tests: `tests/test_topology.py` and `tests/test_kg.py` (47 tests in total with Phase 0) cover every query function on a 5-node toy topology with hand-computed answers, plus failure, restore, metric override, unreachable pairs, schema rejection, CSV export and the three real topologies. A mutation check (forcing every path active at all times) fails 7 tests, so the time filtering is actually tested.
 
+### 2026-10-29: Phase 1 fresh-clone check: passed
+
+- Cloned `origin/main` at commit `4fcb91e` into a temp folder. No `.env` and no `data/` in the clone.
+- New throwaway env `nettwin-freshcheck` from the clone's `environment.yml` (did not reuse `nettwin`); matplotlib 3.11.2 installed from the new pin.
+- `pip install -e .`, then `scripts/phase0_check_env.py` and `scripts/phase1_build_kg.py` both exited 0.
+- After regeneration `git status` in the clone was clean: `results/phase1_kg_summary.json`, `results/figures/aarnet_kg.png` and `results/figures/aarnet_map.png` are byte-identical to the committed files.
+- All 24 CSVs under `data/kg/` are byte-identical to the ones built locally.
+- `pytest`: 47 passed.
+- Temp clone and throwaway env deleted afterwards.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
