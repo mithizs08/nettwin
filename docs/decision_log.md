@@ -145,6 +145,16 @@ Outputs
 - Outputs are byte-deterministic across runs.
 - Tests: `tests/test_simulator.py` (19 tests) covers physics, determinism, baseline band and diurnal shape, propagation for every fault type, distractors, sampler rules, no ground-truth leakage, and Parquet round trip. Mutation checks: removing gray loss from the path drop fails 2 tests; freezing routing to the intended state fails 4.
 
+### 2026-10-29: Phase 2 fresh-clone check: passed
+
+- Cloned `origin/main` at commit `ad950f7` into a temp folder. No `.env` and no `data/` in the clone.
+- New throwaway env `nettwin-freshcheck` from the clone's `environment.yml` (did not reuse `nettwin`).
+- `pip install -e .`, then `scripts/phase0_check_env.py`, `scripts/phase1_build_kg.py` and `scripts/phase2_simulate.py` all exited 0.
+- After regeneration `git status` in the clone was clean: every committed result and figure (Phases 0 to 2) is byte-identical.
+- All 76 files under `data/kg/` and `data/scenarios/` (Parquet, observed events, manifest, CSV) are byte-identical to the ones built locally.
+- `pytest`: 66 passed.
+- Temp clone and throwaway env deleted afterwards.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
