@@ -1,0 +1,500 @@
+{
+  "aarnet_link_down_demo": {
+    "link": "link:Hobart--Melbourne2",
+    "t_start": 786,
+    "t_end": 834,
+    "impact": {
+      "max_service_latency_delta_ms": 1.8207517034324336,
+      "max_service_loss_delta_pct": 0.07590960362542365,
+      "services_unreachable": 0,
+      "services_affected": 7,
+      "max_root_util_delta": 0.43656473500050635,
+      "max_other_util_delta": 0.5740718524800678,
+      "max_util_in_window": 0.9724028357129761,
+      "status_change_observed": true,
+      "root_counters_show_loss": false,
+      "impact_class": "obvious"
+    },
+    "twin_pairs_rerouted_at_onset": 7,
+    "top_gaining_links": [
+      {
+        "link": "link:Hobart--Melbourne1",
+        "max_util_gain": 0.5741,
+        "max_observed_util": 0.9705
+      },
+      {
+        "link": "link:Melbourne1--Melbourne2",
+        "max_util_gain": 0.0548,
+        "max_observed_util": 0.3532
+      },
+      {
+        "link": "link:Adelaide1--Melbourne1",
+        "max_util_gain": 0.0105,
+        "max_observed_util": 0.3523
+      },
+      {
+        "link": "link:Adelaide1--Adelaide2",
+        "max_util_gain": 0.0098,
+        "max_observed_util": 0.2624
+      }
+    ],
+    "services_with_largest_latency_increase": [
+      {
+        "service": "svc:S009",
+        "max_latency_delta_ms": 1.821
+      },
+      {
+        "service": "svc:S018",
+        "max_latency_delta_ms": 1.729
+      },
+      {
+        "service": "svc:S012",
+        "max_latency_delta_ms": 1.729
+      }
+    ]
+  },
+  "aarnet_fault_examples": {
+    "link_down": [
+      {
+        "scenario": "aarnet_link_down_mild",
+        "fault": {
+          "id": "F0",
+          "type": "link_down",
+          "root_cause": "link:Alice Springs--Darwin",
+          "t_start": 876,
+          "t_end": 900,
+          "params": {}
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 0.002179468750757252,
+          "max_service_loss_delta_pct": 0.0,
+          "services_unreachable": 0,
+          "services_affected": 0,
+          "max_root_util_delta": 0.028693488283717122,
+          "max_other_util_delta": 0.025464143732165184,
+          "max_util_in_window": 0.3286086015390344,
+          "status_change_observed": true,
+          "root_counters_show_loss": false,
+          "impact_class": "subtle"
+        }
+      },
+      {
+        "scenario": "aarnet_link_down_severe",
+        "fault": {
+          "id": "F0",
+          "type": "link_down",
+          "root_cause": "link:Adelaide2--Melbourne2",
+          "t_start": 786,
+          "t_end": 834,
+          "params": {}
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 0.3658167651452686,
+          "max_service_loss_delta_pct": 0.0,
+          "services_unreachable": 0,
+          "services_affected": 0,
+          "max_root_util_delta": 0.5335995726350707,
+          "max_other_util_delta": 0.47401876839895873,
+          "max_util_in_window": 0.8490291889877846,
+          "status_change_observed": true,
+          "root_counters_show_loss": false,
+          "impact_class": "obvious"
+        }
+      }
+    ],
+    "node_down": [
+      {
+        "scenario": "aarnet_node_down_mild",
+        "fault": {
+          "id": "F0",
+          "type": "node_down",
+          "root_cause": "pop:Armidale",
+          "t_start": 876,
+          "t_end": 882,
+          "params": {}
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 0.0,
+          "max_service_loss_delta_pct": 100.0,
+          "services_unreachable": 5,
+          "services_affected": 5,
+          "max_root_util_delta": 0.2724198363116347,
+          "max_other_util_delta": 0.03139020263135328,
+          "max_util_in_window": 0.32072072684954117,
+          "status_change_observed": true,
+          "root_counters_show_loss": false,
+          "impact_class": "obvious"
+        }
+      },
+      {
+        "scenario": "aarnet_node_down_severe",
+        "fault": {
+          "id": "F0",
+          "type": "node_down",
+          "root_cause": "pop:Sydney2",
+          "t_start": 786,
+          "t_end": 798,
+          "params": {}
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 0.27810356236297373,
+          "max_service_loss_delta_pct": 100.0,
+          "services_unreachable": 7,
+          "services_affected": 7,
+          "max_root_util_delta": 0.6703072945717853,
+          "max_other_util_delta": 0.17408021539269186,
+          "max_util_in_window": 0.7838806230628964,
+          "status_change_observed": true,
+          "root_counters_show_loss": false,
+          "impact_class": "obvious"
+        }
+      }
+    ],
+    "link_degradation": [
+      {
+        "scenario": "aarnet_link_degradation_mild",
+        "fault": {
+          "id": "F0",
+          "type": "link_degradation",
+          "root_cause": "link:Adelaide2--Melbourne2",
+          "t_start": 690,
+          "t_end": 930,
+          "params": {
+            "loss_pct": 0.03,
+            "silent": true,
+            "ramp_steps": 24,
+            "burst_sigma": 0.7
+          }
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 0.0,
+          "max_service_loss_delta_pct": 0.17420881218755957,
+          "services_unreachable": 0,
+          "services_affected": 8,
+          "max_root_util_delta": 0.0,
+          "max_other_util_delta": 0.0,
+          "max_util_in_window": 0.7853680602708157,
+          "status_change_observed": false,
+          "root_counters_show_loss": false,
+          "impact_class": "moderate"
+        }
+      },
+      {
+        "scenario": "aarnet_link_degradation_severe",
+        "fault": {
+          "id": "F0",
+          "type": "link_degradation",
+          "root_cause": "link:Adelaide2--Melbourne2",
+          "t_start": 690,
+          "t_end": 930,
+          "params": {
+            "loss_pct": 1.0,
+            "silent": false,
+            "ramp_steps": 36,
+            "burst_sigma": 0.7
+          }
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 0.0,
+          "max_service_loss_delta_pct": 4.599406899572889,
+          "services_unreachable": 0,
+          "services_affected": 9,
+          "max_root_util_delta": 0.0,
+          "max_other_util_delta": 0.0,
+          "max_util_in_window": 0.8490291889877846,
+          "status_change_observed": false,
+          "root_counters_show_loss": true,
+          "impact_class": "obvious"
+        }
+      }
+    ],
+    "link_flapping": [
+      {
+        "scenario": "aarnet_link_flapping_mild",
+        "fault": {
+          "id": "F0",
+          "type": "link_flapping",
+          "root_cause": "link:Adelaide2--Melbourne2",
+          "t_start": 786,
+          "t_end": 822,
+          "params": {
+            "active_prob": 0.3,
+            "max_down_frac": 0.05,
+            "flaps_per_step": 1.0,
+            "convergence_s": 0.1
+          }
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 0.005591271168640333,
+          "max_service_loss_delta_pct": 0.1273936604673918,
+          "services_unreachable": 0,
+          "services_affected": 8,
+          "max_root_util_delta": 0.024944370817974904,
+          "max_other_util_delta": 0.022052380598211574,
+          "max_util_in_window": 0.7853680602708158,
+          "status_change_observed": false,
+          "root_counters_show_loss": false,
+          "impact_class": "moderate"
+        }
+      },
+      {
+        "scenario": "aarnet_link_flapping_severe",
+        "fault": {
+          "id": "F0",
+          "type": "link_flapping",
+          "root_cause": "link:Adelaide2--Melbourne2",
+          "t_start": 786,
+          "t_end": 822,
+          "params": {
+            "active_prob": 0.9,
+            "max_down_frac": 0.45,
+            "flaps_per_step": 7,
+            "convergence_s": 2.5
+          }
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 0.06547872503798402,
+          "max_service_loss_delta_pct": 8.541114807427745,
+          "services_unreachable": 0,
+          "services_affected": 9,
+          "max_root_util_delta": 0.22863129485747552,
+          "max_other_util_delta": 0.2031027203987626,
+          "max_util_in_window": 0.8490291889877843,
+          "status_change_observed": true,
+          "root_counters_show_loss": false,
+          "impact_class": "obvious"
+        }
+      }
+    ],
+    "demand_surge": [
+      {
+        "scenario": "aarnet_demand_surge_mild",
+        "fault": {
+          "id": "F0",
+          "type": "demand_surge",
+          "root_cause": "pop:Townsville",
+          "t_start": 786,
+          "t_end": 822,
+          "params": {
+            "factor": 1.4,
+            "ramp_steps": 6
+          }
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 0.2868019948878775,
+          "max_service_loss_delta_pct": 0.0,
+          "services_unreachable": 0,
+          "services_affected": 0,
+          "max_root_util_delta": 0.13142995197913387,
+          "max_other_util_delta": 0.03395902893263858,
+          "max_util_in_window": 0.8977275665827925,
+          "status_change_observed": false,
+          "root_counters_show_loss": false,
+          "impact_class": "moderate"
+        }
+      },
+      {
+        "scenario": "aarnet_demand_surge_severe",
+        "fault": {
+          "id": "F0",
+          "type": "demand_surge",
+          "root_cause": "pop:Melbourne2",
+          "t_start": 786,
+          "t_end": 822,
+          "params": {
+            "factor": 3.0,
+            "ramp_steps": 2
+          }
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 51.06469441446457,
+          "max_service_loss_delta_pct": 36.88799689157506,
+          "services_unreachable": 0,
+          "services_affected": 27,
+          "max_root_util_delta": 0.5285690083142818,
+          "max_other_util_delta": 0.49989957467262025,
+          "max_util_in_window": 1.0,
+          "status_change_observed": false,
+          "root_counters_show_loss": false,
+          "impact_class": "obvious"
+        }
+      }
+    ],
+    "routing_misconfig": [
+      {
+        "scenario": "aarnet_routing_misconfig_mild",
+        "fault": {
+          "id": "F0",
+          "type": "routing_misconfig",
+          "root_cause": "link:Perth1--Perth2",
+          "t_start": 738,
+          "t_end": 882,
+          "params": {
+            "old_metric": 1,
+            "new_metric": 9,
+            "direction": "up",
+            "minimal": false
+          }
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 0.013156093748399655,
+          "max_service_loss_delta_pct": 0.0,
+          "services_unreachable": 0,
+          "services_affected": 0,
+          "max_root_util_delta": 0.13671479871510803,
+          "max_other_util_delta": 0.10761861952735435,
+          "max_util_in_window": 0.7853680602708157,
+          "status_change_observed": false,
+          "root_counters_show_loss": false,
+          "impact_class": "moderate"
+        }
+      },
+      {
+        "scenario": "aarnet_routing_misconfig_severe",
+        "fault": {
+          "id": "F0",
+          "type": "routing_misconfig",
+          "root_cause": "link:Brisbane1--Sydney1",
+          "t_start": 738,
+          "t_end": 882,
+          "params": {
+            "old_metric": 733,
+            "new_metric": 2948,
+            "direction": "up",
+            "minimal": false
+          }
+        },
+        "impact": {
+          "max_service_latency_delta_ms": 25.059159853115645,
+          "max_service_loss_delta_pct": 38.96546761888865,
+          "services_unreachable": 0,
+          "services_affected": 21,
+          "max_root_util_delta": 0.48381402150883573,
+          "max_other_util_delta": 0.7153397041646485,
+          "max_util_in_window": 1.0,
+          "status_change_observed": false,
+          "root_counters_show_loss": false,
+          "impact_class": "obvious"
+        }
+      }
+    ]
+  },
+  "diagnostics_gabriel": {
+    "topologies": [
+      "gabriel/20/1",
+      "gabriel/30/2",
+      "gabriel/40/3",
+      "gabriel/50/4",
+      "gabriel/25/5",
+      "gabriel/35/6"
+    ],
+    "scenarios": 48,
+    "per_fault_type": {
+      "link_down": {
+        "n": 21,
+        "impact_class": {
+          "subtle": 0,
+          "moderate": 8,
+          "obvious": 13
+        },
+        "status_change_observed_rate": 1.0,
+        "root_counters_elevated_rate": 0.0,
+        "rule_hit_rate": {
+          "any_link_counter_loss_ge_0.05pct": 0.286,
+          "any_link_util_ge_0.9": 0.333,
+          "any_service_loss_ge_1pct": 0.286,
+          "any_status_event": 1.0
+        }
+      },
+      "node_down": {
+        "n": 11,
+        "impact_class": {
+          "subtle": 0,
+          "moderate": 0,
+          "obvious": 11
+        },
+        "status_change_observed_rate": 1.0,
+        "root_counters_elevated_rate": 0.0,
+        "rule_hit_rate": {
+          "any_link_counter_loss_ge_0.05pct": 0.182,
+          "any_link_util_ge_0.9": 0.182,
+          "any_service_loss_ge_1pct": 1.0,
+          "any_status_event": 1.0
+        }
+      },
+      "link_degradation": {
+        "n": 12,
+        "impact_class": {
+          "subtle": 3,
+          "moderate": 6,
+          "obvious": 3
+        },
+        "status_change_observed_rate": 0.0,
+        "root_counters_elevated_rate": 0.417,
+        "rule_hit_rate": {
+          "any_link_counter_loss_ge_0.05pct": 0.583,
+          "any_link_util_ge_0.9": 0.167,
+          "any_service_loss_ge_1pct": 0.333,
+          "any_status_event": 0.0
+        }
+      },
+      "link_flapping": {
+        "n": 19,
+        "impact_class": {
+          "subtle": 1,
+          "moderate": 12,
+          "obvious": 6
+        },
+        "status_change_observed_rate": 0.789,
+        "root_counters_elevated_rate": 0.0,
+        "rule_hit_rate": {
+          "any_link_counter_loss_ge_0.05pct": 0.158,
+          "any_link_util_ge_0.9": 0.158,
+          "any_service_loss_ge_1pct": 0.579,
+          "any_status_event": 0.789
+        }
+      },
+      "demand_surge": {
+        "n": 18,
+        "impact_class": {
+          "subtle": 5,
+          "moderate": 11,
+          "obvious": 2
+        },
+        "status_change_observed_rate": 0.0,
+        "root_counters_elevated_rate": 0.056,
+        "rule_hit_rate": {
+          "any_link_counter_loss_ge_0.05pct": 0.167,
+          "any_link_util_ge_0.9": 0.222,
+          "any_service_loss_ge_1pct": 0.056,
+          "any_status_event": 0.0
+        }
+      },
+      "routing_misconfig": {
+        "n": 20,
+        "impact_class": {
+          "subtle": 4,
+          "moderate": 6,
+          "obvious": 10
+        },
+        "status_change_observed_rate": 0.0,
+        "root_counters_elevated_rate": 0.05,
+        "rule_hit_rate": {
+          "any_link_counter_loss_ge_0.05pct": 0.45,
+          "any_link_util_ge_0.9": 0.55,
+          "any_service_loss_ge_1pct": 0.35,
+          "any_status_event": 0.0
+        }
+      }
+    },
+    "fault_free_windows": {
+      "n": 215,
+      "rule_hit_rate": {
+        "any_link_counter_loss_ge_0.05pct": 0.005,
+        "any_link_util_ge_0.9": 0.07,
+        "any_service_loss_ge_1pct": 0.005,
+        "any_status_event": 0.014
+      }
+    }
+  }
+}
