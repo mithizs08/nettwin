@@ -1,9 +1,9 @@
 {
   "note": "AARNet is the dev / demo network, seen during development; its numbers are illustrative only.",
-  "tuning_hash": "edfbd485badbc712",
+  "tuning_hash": "12db63b086170df6",
   "tuning_hash_parts": {
-    "config.yaml": "aa542a9a28c41346",
-    "src/nettwin/simulator.py": "3f66e87bdf3de072",
+    "config.yaml": "af30553441138f33",
+    "src/nettwin/simulator.py": "82a6ce984a9b0fc5",
     "src/nettwin/faults.py": "03516a58aa0a8ade"
   },
   "aarnet_link_down_demo": {

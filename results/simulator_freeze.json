@@ -1,0 +1,13 @@
+{
+  "frozen_on": "2026-10-30",
+  "reason": "Phase 3 freeze (audit M8 parked item): no simulator changes without a logged reason",
+  "files": {
+    "config.yaml": "af30553441138f33b9a19141f21e8ce49a4070988c45d9c32866ce3a176de3a9",
+    "src/nettwin/simulator.py": "82a6ce984a9b0fc53f3a7e9186889877b5f612691dbef8cba4297ffce2eb6d12",
+    "src/nettwin/faults.py": "03516a58aa0a8ade0e69359fc97e8af223d2249d3d3496af8030cca3cf914cd2",
+    "src/nettwin/synth.py": "5a9d0d1e4f71ddad194c24cbf7d53db4f8366b702472a32fdb656e0ae6892fee",
+    "src/nettwin/topology.py": "1aa75083ed2235ff65288c5a4ef7d67bc214334f140c1ed2e90b56676118c600",
+    "src/nettwin/kg.py": "811e2d4df993415a2a2be9995e5ad6b9867585cc77b48d866cdfd756a018b1ca"
+  },
+  "combined": "dcdea81026a02ad67ab0c1488a84c028d0a16d8fd5cf330fd9b1dbc82c13077e"
+}

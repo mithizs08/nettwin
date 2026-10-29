@@ -208,6 +208,20 @@ impact:                        # thresholds on noise-free deltas vs the counterf
   latency_rel: 0.06            # 3x latency jitter
   counter_delta_pct: 0.01      # above background discard noise
 
+dataset:                       # Phase 3 (src/nettwin/dataset.py, scripts/phase3_build_dataset.py)
+  root: data/datasets/v1
+  scenarios_per_topology:
+    train: 4                   # x 308 generated train graphs
+    val_generated: 4           # x 92 generated validation graphs
+    validation_real: 20        # x 5 networks
+    test: 30                   # x 7 networks
+    dev: 30                    # AARNet, seen during development
+  seed_base:                   # disjoint per split, far from every reserved range
+    train: 20000000
+    val: 21000000
+    test: 22000000
+    dev: 23000000
+
 agent:
   # Set before Phase 6 from the current Anthropic docs. Do not fill from memory.
   dev_model: null

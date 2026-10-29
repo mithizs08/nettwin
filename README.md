@@ -44,3 +44,12 @@ Decisions that were made while looking at a test (or now-dev) topology, as PLAN.
 ## Known realistic signatures (read before Phases 4 to 6)
 
 A down interface on a reachable router reads exactly 0 traffic and 0 discards, and its one-hop probe fails. So in the default (non-blind) telemetry, "util exactly 0 with latency missing" identifies a down link almost perfectly: 99.7% of such cells are down links in the audit's re-check (`docs/audit_phases_0_2_reverify.md`, N2). This is what real SNMP shows, so it stays, but it means link_down and node_down are easy to detect from link telemetry alone, even without status events. Telemetry also changes at the fault's start step, so the status-event lag does not delay onset for a telemetry-based detector. Results for link_down and node_down must therefore be reported twice: with status events and the default telemetry, and with the status-blind variant (`spec["status_blind"] = True`, where down links are fully missing and no status or reachability events exist).
+
+## Phase 3: datasets
+
+```bash
+python scripts/phase3_build_dataset.py --estimate     # disk and time estimate first (about 8 GB, 3.6 CPU-hours)
+python scripts/phase3_build_dataset.py --workers 6    # full build into data/datasets/v1 (gitignored)
+```
+
+Builds train (generated graphs), val (generated validation graphs plus validation_real), test (the 7 test networks) and dev (AARNet) scenarios, each in a `with_status` and a `status_blind` variant, with observable data and ground truth in separate trees. The simulator is frozen first (`results/simulator_freeze.json`), and the builder refuses to run if it changed without a logged reason. Counts are in `docs/dataset_card.md` and `results/phase3_dataset_summary.json`.

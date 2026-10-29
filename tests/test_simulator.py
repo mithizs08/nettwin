@@ -359,7 +359,9 @@ def test_write_scenario_separates_truth(sim, tmp_path):
     write_manifest([entry], tmp_path)
     links = pd.read_parquet(tmp_path / "observable" / "rt" / "links.parquet")
     pd.testing.assert_frame_equal(links, to_frames(res)[0])
-    assert sorted(p.name for p in (tmp_path / "observable" / "rt").iterdir()) == ["links.parquet", "observed_events.json", "services.parquet"]
+    assert sorted(p.name for p in (tmp_path / "observable" / "rt").iterdir()) == ["links.parquet", "meta.json", "observed_events.json", "services.parquet"]
+    meta = json.loads((tmp_path / "observable" / "rt" / "meta.json").read_text())
+    assert set(meta) == {"scenario_id", "topology", "n_steps", "step_minutes", "status_blind"}   # no seed: it would let one re-run the sampler
     labels = pd.read_parquet(tmp_path / "truth" / "rt" / "labels.parquet")
     assert len(labels) == sim.n_steps * len(sim.links)
     manifest = json.loads((tmp_path / "truth" / "scenarios.json").read_text())
@@ -443,3 +445,18 @@ def test_observable_paths_are_neutral(sim, tmp_path):
     for ev_file in (tmp_path / "observable").rglob("observed_events.json"):
         text = ev_file.read_text().lower()
         assert not [ft for ft in FAULT_TYPES if ft in text]
+
+
+def test_blind_view_equals_a_status_blind_run(sim, busy):
+    """The dataset derives the blind variant from the default run; it must match simulating with status_blind."""
+    f = fault(sim, "link_down", busy)
+    g = fault(sim, "node_down", pop_node(sim.pops[0]), t0=T1 + 40, t1=T1 + 60)
+    g["id"] = "F1"
+    sp = spec(sim, [f, g], gaps=[{"id": "G0", "scope": "pop", "target": pop_node(sim.pops[1]), "t_start": 50, "t_end": 80, "responder_down": True}])
+    default, blind = sim.simulate(sp, with_blind=True)
+    real = sim.simulate({**sp, "status_blind": True})
+    for k in real.obs:
+        np.testing.assert_array_equal(blind.obs[k], real.obs[k])
+    assert blind.observed_events == real.observed_events
+    assert blind.impacts == real.impacts and default.impacts != blind.impacts
+    np.testing.assert_array_equal(blind.labels, real.labels)

@@ -324,12 +324,16 @@ class Simulator:
 
     # ------------------------------------------------------------------ simulation
 
-    def simulate(self, spec, counterfactual=True):
+    def simulate(self, spec, counterfactual=True, with_blind=False):
         """Run a scenario. With counterfactual=True, each fault's impact and observability are measured against a run
         with only that fault removed: every other fault and all maintenance stay in (audit re-verify N1). Labels are
         measured against a run with every fault removed. Each fault has its own RNG stream, so removing one leaves the
-        others unchanged."""
+        others unchanged.
+
+        with_blind=True also returns the status-blind view of the same run (see `blind_view`), with its own
+        observability; returns (default, blind)."""
         res = self._run(spec)
+        blind = self.blind_view(res) if with_blind else None
         if counterfactual:
             faults = spec["faults"]
             cf_all = self._run({**spec, "faults": []}) if faults else res
@@ -337,7 +341,22 @@ class Simulator:
             for f in faults:
                 cf = cf_all if len(faults) == 1 else self._run({**spec, "faults": [g for g in faults if g["id"] != f["id"]]})
                 res.impacts[f["id"]] = self._impact(res, cf, f)
-        return res
+                if blind is not None:
+                    blind.impacts[f["id"]] = self._impact(blind, cf, f)
+            if blind is not None:
+                blind.labels = res.labels
+        return (res, blind) if with_blind else res
+
+    @staticmethod
+    def blind_view(res):
+        """The status-blind variant of a finished run: down links fully missing and no status or reachability events,
+        exactly what `spec["status_blind"] = True` produces (tested), without simulating twice."""
+        obs = {k: v.copy() for k, v in res.obs.items()}
+        down = res.truth["fully_down"]
+        for k in ("util", "latency_ms", "loss_pct"):
+            obs[k][down] = np.nan
+        return SimResult(spec={**res.spec, "status_blind": True}, links=res.links, services=res.services, obs=obs, truth=res.truth,
+                         observed_events=[e for e in res.observed_events if e["type"] == "maintenance"])
 
     def _rngs(self, seed):
         return {k: np.random.default_rng([seed, i]) for i, k in enumerate(["demand", "measure", "missing", "faults", "status"], 1)}
@@ -772,19 +791,27 @@ def check_neutral_id(sid):
         raise ValueError(f"scenario id {sid!r} leaks ground truth through the observable path: {bad}")
 
 
-def write_scenario(res, out_dir):
+OBSERVABLE_META_KEYS = ("scenario_id", "topology", "n_steps", "step_minutes", "status_blind")
+
+
+def write_scenario(res, out_dir=None, obs_dir=None, truth_dir=None):
     """Observable files under <out>/observable/<sid>/, ground truth under <out>/truth/<sid>/ (audit minor: keep ground
-    truth out of reach of detectors and agent tools). The scenario id must be neutral (N7); any description of what
-    the scenario contains belongs in the ground-truth manifest. Returns the manifest entry (ground truth)."""
+    truth out of reach of detectors and agent tools); `obs_dir` / `truth_dir` override the two roots. The scenario id
+    must be neutral (N7); any description belongs in the ground-truth manifest. The observable `meta.json` carries no
+    seed, since the seed plus the config would let anyone re-run the sampler and recover the faults. Returns the
+    manifest entry (ground truth)."""
     sid = res.spec["scenario_id"]
     check_neutral_id(sid)
-    od, td = Path(out_dir) / "observable" / sid, Path(out_dir) / "truth" / sid
+    od = Path(obs_dir or Path(out_dir) / "observable") / sid
+    td = Path(truth_dir or Path(out_dir) / "truth") / sid
     od.mkdir(parents=True, exist_ok=True)
     td.mkdir(parents=True, exist_ok=True)
     links, services = to_frames(res)
     links.to_parquet(od / "links.parquet", index=False)
     services.to_parquet(od / "services.parquet", index=False)
     (od / "observed_events.json").write_text(json.dumps(res.observed_events, indent=1, default=_json_default) + "\n")
+    meta = {k: res.spec.get(k, False) for k in OBSERVABLE_META_KEYS}
+    (od / "meta.json").write_text(json.dumps(meta, indent=1, default=_json_default) + "\n")
     if res.labels is not None:
         T = res.spec["n_steps"]
         pd.DataFrame(
@@ -798,10 +825,11 @@ def write_scenario(res, out_dir):
         **res.spec,
         "faults": [{**f, "impact": res.impacts.get(f["id"])} for f in res.spec["faults"]],
         "files": {
-            "links": f"observable/{sid}/links.parquet",
-            "services": f"observable/{sid}/services.parquet",
-            "observed_events": f"observable/{sid}/observed_events.json",
-            "labels": f"truth/{sid}/labels.parquet",
+            "links": f"{sid}/links.parquet",
+            "services": f"{sid}/services.parquet",
+            "observed_events": f"{sid}/observed_events.json",
+            "meta": f"{sid}/meta.json",
+            "labels": f"{sid}/labels.parquet",
         },
     }
     return json.loads(json.dumps(entry, default=_json_default))

@@ -386,6 +386,46 @@ Rerun (same 188 validation scenarios and seeds, 369 faults; `results/tuning_log.
 - `pytest`: 85 passed.
 - Clone and env deleted afterwards.
 
+### 2026-10-30: Simulator freeze (audit M8 parked item)
+
+- Frozen before any Phase 3 dataset was generated. Combined sha256 `dcdea81026a02ad67ab0c1488a84c028d0a16d8fd5cf330fd9b1dbc82c13077e` over `config.yaml`, `src/nettwin/simulator.py`, `faults.py`, `synth.py`, `topology.py` and `kg.py`. Per-file hashes are in `results/simulator_freeze.json`.
+- The freeze also covers `topology.py`, `synth.py` and `kg.py`, wider than the Phase 2 tuning hash, because they decide which graphs and routes the data comes from.
+- **Rule from here on:** no change to any frozen file without an entry in this log giving the reason. The test `test_simulator_is_frozen` fails on any unlogged change. The builder refuses to run unless `--unfrozen-reason` is passed, and records that reason in the summary.
+- Changes made just before the freeze, as part of Phase 3 plumbing:
+  - `Simulator.simulate(..., with_blind=True)` plus `blind_view`. The status-blind variant comes from the same run, and a test checks it equals simulating with `status_blind` (telemetry, events, impacts, labels).
+  - `write_scenario` takes separate observable / truth roots and writes an observable `meta.json` without the seed. The seed plus the config would let anyone re-run the sampler and recover the faults.
+  - New `dataset` config section.
+  - None of these changes simulated physics or difficulty.
+
+### 2026-10-30: Phase 3 datasets
+
+- Plan (`config.yaml` `dataset`, `src/nettwin/dataset.py`):
+  - train: 4 scenarios x 308 generated train graphs.
+  - val: 4 x 92 generated validation graphs plus 20 x 5 validation_real.
+  - test: 30 x 7 test networks.
+  - dev: 30 x AARNet.
+  - Total 1,940 scenarios, each in two variants (`with_status`, `status_blind`) from the same run.
+- Seeds: one block per split (train 20,000,000+, val 21,000,000+, test 22,000,000+, dev 23,000,000+, 1,000 per topology). Every seed is checked with `check_fresh_seed`, and a test proves they are disjoint.
+- Scenario ids are neutral and stable: `tr` / `va` / `te` / `dv` plus the topology's plan index and scenario number.
+- The variant was first named `default`; the observable-path scan caught that it contains "fault", so it was renamed `with_status`.
+- Observable `meta.json` carries no seed: the seed plus the frozen config would let anyone re-run the sampler and recover the faults.
+- Disk check before building:
+  - `--estimate` on 6 train graphs projected 7.95 GB and 3.6 CPU-hours. That was reported to Zareen before generating.
+  - Free space was 21 GB at first, later 26 GB and then 45 GB after Zareen freed space.
+  - Choice made by Zareen: full build, and a full fresh-clone rebuild.
+  - Actual: 7.5 GB on disk, 21.4 minutes on 6 workers.
+- Result: 1,232 / 468 / 210 / 30 scenarios with 2,434 / 937 / 431 / 55 faults (train / val / test / dev).
+- Every count by split, topology, fault type, severity class, observability channel, maintenance overlap and concurrency is in `docs/dataset_card.md`, generated from `results/phase3_dataset_summary.json`.
+- Phase 2 rerun after the plumbing changes: only the three hash fields in `results/phase2_summary.json` changed. Every diagnostic number is identical.
+- Tests (`tests/test_dataset.py`):
+  - no test or dev topology, and no test or dev family, in train or val; train is generated graphs only.
+  - seeds are fresh and disjoint.
+  - a real small build (one train graph, Nextgen) is scanned: the observable tree has only the expected files, columns, event keys and meta keys, no ground-truth words, and no labels or manifests.
+  - the status-blind variant has no status events.
+  - the freeze holds, and the freeze guard refuses changes.
+  - the built dataset's train / val manifests contain no test or dev topology.
+- Not done in Phase 3 (parked): Alert nodes from threshold rules, and the sensitivity run with pre-tuning ranges. Both belong to Phase 4.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.

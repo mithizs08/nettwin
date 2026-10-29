@@ -1,0 +1,49 @@
+{
+  "sample": [
+    {
+      "links": 16,
+      "services": 30,
+      "bytes_both_variants": 1629599,
+      "seconds": 0.55
+    },
+    {
+      "links": 25,
+      "services": 46,
+      "bytes_both_variants": 2485757,
+      "seconds": 0.71
+    },
+    {
+      "links": 34,
+      "services": 64,
+      "bytes_both_variants": 3414647,
+      "seconds": 1.76
+    },
+    {
+      "links": 43,
+      "services": 82,
+      "bytes_both_variants": 4329337,
+      "seconds": 17.5
+    },
+    {
+      "links": 63,
+      "services": 100,
+      "bytes_both_variants": 5816249,
+      "seconds": 7.93
+    },
+    {
+      "links": 67,
+      "services": 120,
+      "bytes_both_variants": 6551581,
+      "seconds": 7.96
+    }
+  ],
+  "estimated_total_gb": 7.95,
+  "estimated_gb_by_split": {
+    "train": 5.24,
+    "val": 1.86,
+    "test": 0.78,
+    "dev": 0.07
+  },
+  "estimated_cpu_hours_single_process": 3.57,
+  "free_disk_gb": 21.4
+}
