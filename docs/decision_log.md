@@ -14,6 +14,14 @@ Every change to the plan, research questions, metrics or data splits goes here w
 - Known issue: torch bundles its own `libomp.dylib`. If `torch` is imported before `lightgbm` and LightGBM trains multithreaded, the process segfaults (exit 139). `KMP_DUPLICATE_LIB_OK=TRUE` does not help. Either import `lightgbm` before `torch`, or pass `n_jobs=1` to LightGBM. Only matters for Phase 8.
 - Agent model IDs in `config.yaml` left as `null` on purpose; fill from current docs before Phase 6 (PLAN.md section 7).
 
+### 2026-10-29: Phase 0 fresh-clone check: passed
+
+- Cloned `origin/main` at commit `1a57a5d` into a temp folder. No `.env` in the clone.
+- Built a new throwaway env `nettwin-freshcheck` from the clone's `environment.yml` (did not reuse `nettwin`). Took about 1 minute. Python 3.11.18, same pinned versions, `libomp.dylib` present.
+- `pip install -e .`, then `python scripts/phase0_check_env.py` exited 0 and regenerated `results/phase0_env_check.json` byte-identical to the committed file (19/24, 37/58, 50/88, all connected).
+- `pytest`: 5 passed. LightGBM also imports and trains in the fresh env.
+- Temp clone and throwaway env deleted afterwards.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
