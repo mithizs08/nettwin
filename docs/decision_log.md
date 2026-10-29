@@ -376,6 +376,16 @@ Rerun (same 188 validation scenarios and seeds, 369 faults; `results/tuning_log.
 - I did not lower `overlap_maintenance_prob` to bring it back into range, because that would be tuning to target.
 - Phase 4 should report isolated, maintenance-overlapping and concurrent faults separately anyway.
 
+### 2026-10-30: Re-verification fresh-clone check: passed
+
+- Cloned `origin/main` at `7fd2253`. No `.env` and no `data/`.
+- New throwaway env `nettwin-freshcheck` from `environment.yml`.
+- Phase 0, 1 and 2 scripts all exited 0.
+- `git status` was clean after regeneration: every committed result and figure is byte-identical.
+- All 118 files under `data/` are byte-identical to the local build.
+- `pytest`: 85 passed.
+- Clone and env deleted afterwards.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
