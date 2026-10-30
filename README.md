@@ -65,3 +65,17 @@ To reproduce `data/datasets/v1` exactly:
 4. Each scenario's slot (topology and scenario number) and seed are in `data/datasets/v1/truth/<split>/<variant>/manifest.json`. `scenario_seed(key, split, topology, k)` in `src/nettwin/dataset.py` recomputes the seed from the slot.
 
 To start a fresh dataset with a new key (different random draws, same distributions), write 32 random bytes as hex to `.nettwin_dataset_key`, for example with `python -c "import secrets; print(secrets.token_hex(32))" > .nettwin_dataset_key`.
+
+## Phase 4: alerts, baselines and the evaluation harness (validation only)
+
+```bash
+python scripts/phase4_baselines.py --workers 6                 # B1 to B3 on val; fits and calibrates on train only
+python scripts/phase4_build_pretune.py --workers 6             # sensitivity data: val with the pre-tuning fault ranges
+python scripts/phase4_baselines.py --dataset data/datasets/v1_pretune --calib data/models/phase4 --out results/phase4_sensitivity_pretune.json
+python scripts/phase4_tables.py                                # results/phase4_tables.md and the E1 to E12 checks
+```
+
+- `src/nettwin/alerts.py`: threshold alerts an operator would have (interface status, PoP reachability, high utilisation, discards, one-hop latency, probe failures, service SLA breaches), built from observable files only.
+- `src/nettwin/evaluation.py`: the shared harness for Phases 4 to 6. Link-level PR-AUC (root and symptomatic separately), root-cause top-1 / top-3 on an oracle window with set-based scoring for concurrent faults, and false-alarm rates on fault-free and maintenance-only hours. Every result is split by fault type, severity class, observability, variant, generated vs real network and concurrency, with scenario-bootstrap CIs. The definitions and the expectations for the baselines were committed before the first validation run (`docs/decision_log.md`, Phase 4 pre-registration).
+- `src/nettwin/baselines.py`: B1 EWMA z-score, B2 Isolation Forest, B3 tomography over alerts. None uses time of day, time since the scenario start or file metadata.
+- The sensitivity run needs the dataset key too (it rebuilds validation scenarios from their slots).
