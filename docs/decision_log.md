@@ -714,6 +714,19 @@ The registered verdicts stand as the pre-registered result. The CI verdicts are 
 - The flapping explanation was withdrawn: link telemetry carries little flapping signal under any aggregation.
 - Five expectation verdicts are inside the noise.
 
+### 2026-10-30: Phase 4 audit-fix fresh-clone check (with the key): passed
+
+- Cloned `origin/main` at `3e855f9`. No `.env`, no `data/`, no key. New throwaway env `nettwin-freshcheck` from `environment.yml`.
+- Without the key, `scripts/phase4_build_pretune.py` refused to run (exit 1).
+- With the key copied in, these all exited 0:
+  - Phase 0, 1, 2 and 3 scripts
+  - `phase4_build_pretune.py`
+  - `phase4_baselines.py`
+  - `phase4_tables.py`
+- `git status` was clean after regeneration: every committed result (including the claims file, the tables and the regenerated dataset card) is byte-identical.
+- All 24,225 files under `data/kg`, `data/scenarios`, `data/datasets/v1` and `data/datasets/v1_pretune` are byte-identical to the local build. `pytest`: 113 passed.
+- Clone (including its copy of the key) and env deleted afterwards.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
