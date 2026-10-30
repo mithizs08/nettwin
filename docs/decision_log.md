@@ -604,6 +604,21 @@ Val is 468 scenarios. With status events, it has 432 observable hard faults, 446
 
 **Sensitivity run (parked M8 item, done).** Validation was rebuilt with the pre-tuning fault ranges in `data/datasets/v1_pretune`, with the same key, slots and ids. It took 4.8 minutes and 1.8 GB. No frozen file was edited; the ranges were overridden in memory, plus a runtime patch to restore uniform surge sampling. The fault mix is harsher: demand_surge is 8.7% subtle against 29.0% in v1, and routing_misconfig 60.2% obvious against 49.2%. Baselines were re-scored with the v1 train calibration; the comparison is in `results/phase4_tables.md`.
 
+### 2026-10-30: Phase 4 fresh-clone check (with the key): passed after one fix
+
+- Cloned `origin/main` at `25ace04`. No `.env`, no `data/`, no key. New throwaway env `nettwin-freshcheck` from `environment.yml`.
+- Without the key, `scripts/phase4_build_pretune.py` refused to run (exit 1).
+- With the key copied in, these all exited 0:
+  - Phase 0, 1, 2 and 3 scripts
+  - `phase4_baselines.py`
+  - `phase4_build_pretune.py`
+  - the sensitivity run
+  - `phase4_tables.py`
+- All 24,225 files under `data/kg`, `data/scenarios`, `data/datasets/v1` and `data/datasets/v1_pretune` are byte-identical to the local build. `pytest`: 108 passed.
+- Every committed Phase 4 result reproduced byte for byte except one: `results/phase4_pretune_dataset.json`, which included the build's run time. Fix (`53e6f8c`): the timing is now printed, not stored. Rebuilding locally gave the same file apart from that field.
+- A clean clone at `53e6f8c` then rebuilt the pre-tuning data with the key and left `git status` clean. To save time, that re-check reused the `nettwin` env with the clone's own `src` on the path.
+- Clones (including their copies of the key) and the throwaway env were deleted.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
