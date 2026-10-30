@@ -368,8 +368,11 @@ def aggregate(records, scen_meta, nb, threshold, n_boot=1000, seed=0, extra_grou
                         sel &= r["pos_present"]
                     _, first = np.unique(r["pos_cell"][sel], return_index=True)   # a cell owned by two faults counts once
                     posM[i] = np.bincount(r["pos_bin"][sel][first], minlength=nb)
-                ap = ap_from_hists(Wg @ posM, Wg @ negH["neg_present" if present_only else "neg"])
-                g[f"pr_auc_{tname}{suffix}"] = {"value": _val(ap[0]), "ci": ci(ap[1:]), "n_pos": int(posM.sum())}
+                nh = negH["neg_present" if present_only else "neg"]
+                ap = ap_from_hists(Wg @ posM, Wg @ nh)
+                n_pos, n_neg = int(posM.sum()), int(nh[smask].sum())
+                g[f"pr_auc_{tname}{suffix}"] = {"value": _val(ap[0]), "ci": ci(ap[1:]), "n_pos": n_pos,
+                                                "base_rate": _val(n_pos / (n_pos + n_neg)) if n_pos + n_neg else None}
                 boots[(name, f"pr_auc_{tname}{suffix}")] = ap
         out["groups"][name] = g
     out["symptomatic_cells"] = {k: int(sum(r[k] for r in records)) for k in ("sym_unowned", "sym_reassigned", "sym_ambiguous")}

@@ -77,7 +77,7 @@ def _select_one(args):
 def _calibrate_one(args):
     """Validation pass 1 (no labels used): a random sample of each method's cell scores and its fault-free window maxima."""
     variant, entry = args
-    obs, kg, ix, _, _ = _load(CTX["root"], "val", variant, entry)
+    obs, kg, ix, _, _ = _load(CTX["root"], CTX.get("split", "val"), variant, entry)
     rng = np.random.default_rng(int(entry["scenario_id"][2:]))
     out = {}
     for name in METHOD_NAMES:

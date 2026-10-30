@@ -727,6 +727,60 @@ The registered verdicts stand as the pre-registered result. The CI verdicts are 
 - All 24,225 files under `data/kg`, `data/scenarios`, `data/datasets/v1` and `data/datasets/v1_pretune` are byte-identical to the local build. `pytest`: 113 passed.
 - Clone (including its copy of the key) and env deleted afterwards.
 
+### 2026-10-30: Phase 5 pre-registration (written before any training run that is evaluated)
+
+Committed before `scripts/phase5_gnn.py` trains or evaluates anything on validation. What I ran before this entry, all on train scenarios only, none on validation:
+- a timing smoke test: 60 train scenarios, 1 epoch per architecture, no evaluation;
+- a crash test of the whole script with `--smoke`: 1 epoch, train scenarios standing in for validation, written to a scratch folder and not used for any choice. Its K override did not reach the worker processes, so it used K = 12; that only affected the crash test.
+
+**Model (`src/nettwin/gnn/`), fixed before training.**
+- Graph: the line graph (nodes are links; two links are adjacent when they share a PoP; edge attribute = log degree of that PoP).
+- Inputs per link per step: the 10 B2 window features over the last W = 12 steps, standardised with train statistics. These carry the same banned-feature rules as Phase 4 (no clock, no time since the start, no file metadata, causal).
+- Static per-link inputs: log length and mean log end-PoP degree; the "static path features" are log normal-path count and log service count.
+- The model sees link telemetry only: no status events and no service probes. That is a known handicap against B3, which uses alerts from both.
+- Architecture: causal temporal encoder (two 1D convs, kernel 3, last step plus mean), then 2 message-passing layers with residuals and LayerNorm: GraphSAGE, GAT (4 heads, edge attribute) or GINE (edge attribute).
+- Detection head: per link per step, trained on label >= 1.
+- Localisation head: one logit per link and per PoP (a PoP gets the mean of its links' embeddings plus its log degree), softmax over the elements of the graph. The target is the uniform distribution over the roots of the observable faults active at that step.
+- Loss: BCE + cross-entropy.
+- Ablations at the selected configuration:
+  - MLP: same features and heads, per-link layers instead of message passing. PoP pooling stays, because it defines the PoP elements.
+  - No static path features.
+  - Shuffled edges: line-graph edges relabelled by a fixed random permutation per topology, at training and at evaluation.
+- One model per run is trained on both variants mixed. It is evaluated on each variant separately.
+- Localisation uses the same oracle incident window as every other method, with the element probabilities aggregated over it by q90, max and mean.
+
+**Tuning budget, fixed now. Nothing outside it will be trained or evaluated.**
+- Training data: train split only. K = 12 steps per train scenario and variant (half inside observable fault windows, half anywhere after day 0): 29,568 samples. AdamW, lr 2e-3, weight decay 1e-4, batch 32, 6 epochs, gradient clipping 5. These are not tuned.
+- Phase A: 6 configurations, {SAGE, GAT, GINE} x hidden {32, 64}, seed 0.
+- Selection is on validation only, on a fixed subset of 60 val scenarios (`default_rng(3008)`, both variants). Selection score = mean of hard-type and easy-type expected top-3 (q90) over observable faults.
+  - Each architecture keeps its better hidden size (ties go to the smaller one).
+  - The best architecture is the one with the highest score.
+- Phase B: seeds 1 and 2 for each architecture at its chosen hidden size (6 runs), and the 3 ablations at the best configuration with seeds 0, 1, 2 (9 runs).
+- Total: 21 training runs. CPU only, 4 threads, one run at a time in the main process. A first attempt at 2 parallel runs stalled the 8 GB machine in swap, so the samples are now held once. Measured: about 70 s per epoch, so about 7 minutes per run and 2.5 hours in all. Measured times are reported.
+- Full-scenario prediction encodes each link's sequence once instead of re-encoding every 12-step window. A test checks it equals the window-by-window model for all four layer types.
+- Final evaluation: the 9 architecture models and the 9 ablation models are run with B1, B2, B3 and B3+ in one pass over all 468 val scenarios, so all bootstrap draws are paired.
+- If a run crashes or a bug is found, it is fixed and the run repeated, and this is logged. No configuration is added.
+
+**Scoring.** The shared Phase 4 harness, unchanged, with every breakdown.
+- Bins for the GNN are a fixed label-free logit grid on its probabilities. Its alarm threshold comes from its own validation fault-free windows (5%).
+- Every PR-AUC is shown next to its base rate.
+- Per-network numbers for the 5 real validation networks.
+- Seed variance (per-seed values, mean and sd).
+- Verdicts against B1, B2, B3 and B3+ use the seed-mean GNN, whose bootstrap arrays share the baselines' draws.
+
+**Expectations (GNN = the selected configuration, seed mean; checked under q90, max and mean where localisation is involved).** "met" means every component is supported, "not met" means one is contradicted, otherwise "inconclusive".
+- X1. GNN beats B2 on hard-type top-3, both variants.
+- X2. GNN beats B2 on hard-type root PR-AUC, both variants.
+- X3. Easy types: with status events, GNN top-3 >= B3 - 0.05; status-blind, GNN top-3 > B3.
+- X4. B3 beats the GNN on link_flapping top-3 with status events (the GNN sees no status events or service probes).
+- X5. Synthetic-to-real transfer holds: real minus generated top-3 > -0.10 for hard and easy types, both variants.
+- X6. The graph helps: GNN beats the MLP ablation on hard top-3 and easy top-1, both variants.
+- X7. Shuffled edges hurt: GNN beats the shuffled-edges ablation on hard and easy top-3, both variants.
+- X8. GNN has the best symptomatic PR-AUC against all four baselines, hard and easy, both variants.
+- X9. At 5% fault-free alarms, the GNN alarms less than B2 in maintenance-only hours, both variants.
+- X10. No architecture is clearly better: every pairwise hard top-3 difference between SAGE, GAT and GINE is inconclusive.
+- Not an expectation, reported descriptively: the effect of dropping static path features, and the seed sd.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
