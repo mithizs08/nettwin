@@ -1,0 +1,973 @@
+{
+ "X1": {
+  "expectation": "GNN beats B2 on hard-type top-3, both variants",
+  "by_window_aggregation": {
+   "q90": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: GNN - B2",
+      "verdict": "supported",
+      "point": 0.2458,
+      "ci": [
+       0.2008,
+       0.2943
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B2",
+      "verdict": "supported",
+      "point": 0.235,
+      "ci": [
+       0.1883,
+       0.2812
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: GNN - B2",
+      "verdict": "supported",
+      "point": 0.2685,
+      "ci": [
+       0.2212,
+       0.3186
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B2",
+      "verdict": "supported",
+      "point": 0.2407,
+      "ci": [
+       0.1922,
+       0.2853
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: GNN - B2",
+      "verdict": "supported",
+      "point": 0.2218,
+      "ci": [
+       0.1778,
+       0.2696
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B2",
+      "verdict": "supported",
+      "point": 0.2265,
+      "ci": [
+       0.1808,
+       0.2752
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "X2": {
+  "expectation": "GNN beats B2 on hard-type root PR-AUC, both variants",
+  "by_window_aggregation": {
+   "any": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: GNN - B2",
+      "verdict": "supported",
+      "point": 0.0259,
+      "ci": [
+       0.0115,
+       0.0395
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B2",
+      "verdict": "supported",
+      "point": 0.032,
+      "ci": [
+       0.0187,
+       0.0455
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "X3": {
+  "expectation": "Easy types: with status events GNN top-3 >= B3 - 0.05; status-blind GNN top-3 > B3",
+  "by_window_aggregation": {
+   "q90": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: GNN - B3 + 0.05",
+      "verdict": "supported",
+      "point": 0.0622,
+      "ci": [
+       0.0258,
+       0.0968
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B3",
+      "verdict": "supported",
+      "point": 0.1753,
+      "ci": [
+       0.1252,
+       0.2253
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: GNN - B3 + 0.05",
+      "verdict": "supported",
+      "point": 0.0637,
+      "ci": [
+       0.028,
+       0.0979
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B3",
+      "verdict": "supported",
+      "point": 0.1738,
+      "ci": [
+       0.1246,
+       0.2238
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: GNN - B3 + 0.05",
+      "verdict": "supported",
+      "point": 0.0607,
+      "ci": [
+       0.0235,
+       0.0944
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B3",
+      "verdict": "supported",
+      "point": 0.1745,
+      "ci": [
+       0.124,
+       0.2252
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "X4": {
+  "expectation": "B3 beats the GNN on link_flapping top-3 with status events",
+  "by_window_aggregation": {
+   "q90": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "B3 - GNN",
+      "verdict": "supported",
+      "point": 0.1361,
+      "ci": [
+       0.0429,
+       0.2343
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "B3 - GNN",
+      "verdict": "supported",
+      "point": 0.131,
+      "ci": [
+       0.0444,
+       0.227
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "B3 - GNN",
+      "verdict": "supported",
+      "point": 0.1411,
+      "ci": [
+       0.0468,
+       0.2396
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "X5": {
+  "expectation": "Synthetic-to-real transfer: real minus generated top-3 > -0.10 for hard and easy, both variants",
+  "by_window_aggregation": {
+   "q90": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: hard real - generated + 0.10",
+      "verdict": "supported",
+      "point": 0.1471,
+      "ci": [
+       0.0512,
+       0.2468
+      ]
+     },
+     {
+      "component": "with_status: easy real - generated + 0.10",
+      "verdict": "inconclusive",
+      "point": 0.0416,
+      "ci": [
+       -0.0379,
+       0.1082
+      ]
+     },
+     {
+      "component": "status_blind: hard real - generated + 0.10",
+      "verdict": "supported",
+      "point": 0.149,
+      "ci": [
+       0.054,
+       0.2487
+      ]
+     },
+     {
+      "component": "status_blind: easy real - generated + 0.10",
+      "verdict": "inconclusive",
+      "point": 0.0371,
+      "ci": [
+       -0.0424,
+       0.1069
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: hard real - generated + 0.10",
+      "verdict": "supported",
+      "point": 0.1698,
+      "ci": [
+       0.0662,
+       0.2689
+      ]
+     },
+     {
+      "component": "with_status: easy real - generated + 0.10",
+      "verdict": "inconclusive",
+      "point": 0.0443,
+      "ci": [
+       -0.0361,
+       0.1151
+      ]
+     },
+     {
+      "component": "status_blind: hard real - generated + 0.10",
+      "verdict": "supported",
+      "point": 0.1698,
+      "ci": [
+       0.0645,
+       0.2679
+      ]
+     },
+     {
+      "component": "status_blind: easy real - generated + 0.10",
+      "verdict": "inconclusive",
+      "point": 0.0297,
+      "ci": [
+       -0.0515,
+       0.0977
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: hard real - generated + 0.10",
+      "verdict": "supported",
+      "point": 0.146,
+      "ci": [
+       0.051,
+       0.2468
+      ]
+     },
+     {
+      "component": "with_status: easy real - generated + 0.10",
+      "verdict": "inconclusive",
+      "point": 0.0344,
+      "ci": [
+       -0.0428,
+       0.1004
+      ]
+     },
+     {
+      "component": "status_blind: hard real - generated + 0.10",
+      "verdict": "supported",
+      "point": 0.1509,
+      "ci": [
+       0.0556,
+       0.2519
+      ]
+     },
+     {
+      "component": "status_blind: easy real - generated + 0.10",
+      "verdict": "inconclusive",
+      "point": 0.0288,
+      "ci": [
+       -0.0483,
+       0.097
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "X6": {
+  "expectation": "The graph helps: GNN beats the MLP ablation on hard top-3 and easy top-1, both variants",
+  "by_window_aggregation": {
+   "q90": {
+    "verdict": "not met",
+    "components": [
+     {
+      "component": "with_status: GNN - MLP hard top-3",
+      "verdict": "inconclusive",
+      "point": 0.0139,
+      "ci": [
+       -0.0107,
+       0.0396
+      ]
+     },
+     {
+      "component": "status_blind: GNN - MLP hard top-3",
+      "verdict": "inconclusive",
+      "point": 0.0123,
+      "ci": [
+       -0.0126,
+       0.0385
+      ]
+     },
+     {
+      "component": "with_status: GNN - MLP easy top-1",
+      "verdict": "contradicted",
+      "point": -0.0232,
+      "ci": [
+       -0.0445,
+       -0.0023
+      ]
+     },
+     {
+      "component": "status_blind: GNN - MLP easy top-1",
+      "verdict": "inconclusive",
+      "point": 0.0008,
+      "ci": [
+       -0.0203,
+       0.0226
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "not met",
+    "components": [
+     {
+      "component": "with_status: GNN - MLP hard top-3",
+      "verdict": "inconclusive",
+      "point": 0.0116,
+      "ci": [
+       -0.0112,
+       0.0343
+      ]
+     },
+     {
+      "component": "status_blind: GNN - MLP hard top-3",
+      "verdict": "inconclusive",
+      "point": 0.0116,
+      "ci": [
+       -0.0108,
+       0.0342
+      ]
+     },
+     {
+      "component": "with_status: GNN - MLP easy top-1",
+      "verdict": "contradicted",
+      "point": -0.0247,
+      "ci": [
+       -0.0456,
+       -0.0044
+      ]
+     },
+     {
+      "component": "status_blind: GNN - MLP easy top-1",
+      "verdict": "inconclusive",
+      "point": 0.0098,
+      "ci": [
+       -0.0122,
+       0.032
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "not met",
+    "components": [
+     {
+      "component": "with_status: GNN - MLP hard top-3",
+      "verdict": "inconclusive",
+      "point": 0.0039,
+      "ci": [
+       -0.0211,
+       0.0284
+      ]
+     },
+     {
+      "component": "status_blind: GNN - MLP hard top-3",
+      "verdict": "inconclusive",
+      "point": 0.0031,
+      "ci": [
+       -0.0222,
+       0.0279
+      ]
+     },
+     {
+      "component": "with_status: GNN - MLP easy top-1",
+      "verdict": "contradicted",
+      "point": -0.0396,
+      "ci": [
+       -0.0615,
+       -0.0188
+      ]
+     },
+     {
+      "component": "status_blind: GNN - MLP easy top-1",
+      "verdict": "inconclusive",
+      "point": -0.0098,
+      "ci": [
+       -0.0293,
+       0.011
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "X7": {
+  "expectation": "Shuffled edges hurt: GNN beats the shuffled-edges ablation on hard and easy top-3, both variants",
+  "by_window_aggregation": {
+   "q90": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: GNN - shuffled hard",
+      "verdict": "inconclusive",
+      "point": 0.0224,
+      "ci": [
+       -0.0008,
+       0.0436
+      ]
+     },
+     {
+      "component": "with_status: GNN - shuffled easy",
+      "verdict": "inconclusive",
+      "point": 0.009,
+      "ci": [
+       -0.0044,
+       0.0231
+      ]
+     },
+     {
+      "component": "status_blind: GNN - shuffled hard",
+      "verdict": "inconclusive",
+      "point": 0.0208,
+      "ci": [
+       -0.0029,
+       0.042
+      ]
+     },
+     {
+      "component": "status_blind: GNN - shuffled easy",
+      "verdict": "inconclusive",
+      "point": 0.0068,
+      "ci": [
+       -0.0062,
+       0.0199
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: GNN - shuffled hard",
+      "verdict": "supported",
+      "point": 0.0247,
+      "ci": [
+       0.0023,
+       0.0468
+      ]
+     },
+     {
+      "component": "with_status: GNN - shuffled easy",
+      "verdict": "inconclusive",
+      "point": 0.0142,
+      "ci": [
+       0.0,
+       0.0286
+      ]
+     },
+     {
+      "component": "status_blind: GNN - shuffled hard",
+      "verdict": "supported",
+      "point": 0.0239,
+      "ci": [
+       0.0024,
+       0.0451
+      ]
+     },
+     {
+      "component": "status_blind: GNN - shuffled easy",
+      "verdict": "inconclusive",
+      "point": 0.0136,
+      "ci": [
+       -0.0015,
+       0.0272
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: GNN - shuffled hard",
+      "verdict": "inconclusive",
+      "point": 0.017,
+      "ci": [
+       -0.0047,
+       0.037
+      ]
+     },
+     {
+      "component": "with_status: GNN - shuffled easy",
+      "verdict": "inconclusive",
+      "point": 0.0075,
+      "ci": [
+       -0.0054,
+       0.0198
+      ]
+     },
+     {
+      "component": "status_blind: GNN - shuffled hard",
+      "verdict": "inconclusive",
+      "point": 0.017,
+      "ci": [
+       -0.0046,
+       0.0374
+      ]
+     },
+     {
+      "component": "status_blind: GNN - shuffled easy",
+      "verdict": "inconclusive",
+      "point": 0.009,
+      "ci": [
+       -0.0039,
+       0.0216
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "X8": {
+  "expectation": "GNN has the best symptomatic PR-AUC, hard and easy, both variants",
+  "by_window_aggregation": {
+   "any": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: GNN - B1 hard",
+      "verdict": "supported",
+      "point": 0.1144,
+      "ci": [
+       0.0882,
+       0.144
+      ]
+     },
+     {
+      "component": "with_status: GNN - B2 hard",
+      "verdict": "supported",
+      "point": 0.0963,
+      "ci": [
+       0.0738,
+       0.1212
+      ]
+     },
+     {
+      "component": "with_status: GNN - B3 hard",
+      "verdict": "supported",
+      "point": 0.097,
+      "ci": [
+       0.0751,
+       0.1209
+      ]
+     },
+     {
+      "component": "with_status: GNN - B3+ hard",
+      "verdict": "supported",
+      "point": 0.097,
+      "ci": [
+       0.0751,
+       0.121
+      ]
+     },
+     {
+      "component": "with_status: GNN - B1 easy",
+      "verdict": "supported",
+      "point": 0.1775,
+      "ci": [
+       0.1381,
+       0.2162
+      ]
+     },
+     {
+      "component": "with_status: GNN - B2 easy",
+      "verdict": "supported",
+      "point": 0.1566,
+      "ci": [
+       0.1212,
+       0.1912
+      ]
+     },
+     {
+      "component": "with_status: GNN - B3 easy",
+      "verdict": "supported",
+      "point": 0.17,
+      "ci": [
+       0.135,
+       0.2027
+      ]
+     },
+     {
+      "component": "with_status: GNN - B3+ easy",
+      "verdict": "supported",
+      "point": 0.1701,
+      "ci": [
+       0.1351,
+       0.2029
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B1 hard",
+      "verdict": "supported",
+      "point": 0.1168,
+      "ci": [
+       0.0904,
+       0.1468
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B2 hard",
+      "verdict": "supported",
+      "point": 0.0996,
+      "ci": [
+       0.0768,
+       0.1249
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B3 hard",
+      "verdict": "supported",
+      "point": 0.099,
+      "ci": [
+       0.0768,
+       0.1231
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B3+ hard",
+      "verdict": "supported",
+      "point": 0.099,
+      "ci": [
+       0.0768,
+       0.1231
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B1 easy",
+      "verdict": "supported",
+      "point": 0.1828,
+      "ci": [
+       0.1423,
+       0.2225
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B2 easy",
+      "verdict": "supported",
+      "point": 0.1617,
+      "ci": [
+       0.1251,
+       0.1971
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B3 easy",
+      "verdict": "supported",
+      "point": 0.1712,
+      "ci": [
+       0.1346,
+       0.2049
+      ]
+     },
+     {
+      "component": "status_blind: GNN - B3+ easy",
+      "verdict": "supported",
+      "point": 0.1712,
+      "ci": [
+       0.1346,
+       0.2049
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "X9": {
+  "expectation": "GNN alarms less than B2 in maintenance-only hours (at 5% fault-free alarms), both variants",
+  "by_window_aggregation": {
+   "any": {
+    "verdict": "not met",
+    "components": [
+     {
+      "component": "with_status: B2 - GNN",
+      "verdict": "contradicted",
+      "point": -0.2682,
+      "ci": [
+       -0.2919,
+       -0.2437
+      ]
+     },
+     {
+      "component": "status_blind: B2 - GNN",
+      "verdict": "contradicted",
+      "point": -0.3256,
+      "ci": [
+       -0.3515,
+       -0.299
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "X10": {
+  "expectation": "No architecture is clearly better: SAGE, GAT and GINE pairwise hard top-3 differences are all inconclusive",
+  "by_window_aggregation": {
+   "q90": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: sage - gat",
+      "verdict": "inconclusive",
+      "point": 0.0015,
+      "ci": [
+       -0.0162,
+       0.0193
+      ]
+     },
+     {
+      "component": "with_status: sage - gine",
+      "verdict": "inconclusive",
+      "point": 0.0139,
+      "ci": [
+       -0.0031,
+       0.0302
+      ]
+     },
+     {
+      "component": "with_status: gat - gine",
+      "verdict": "inconclusive",
+      "point": 0.0123,
+      "ci": [
+       -0.0074,
+       0.0299
+      ]
+     },
+     {
+      "component": "status_blind: sage - gat",
+      "verdict": "inconclusive",
+      "point": 0.0039,
+      "ci": [
+       -0.0138,
+       0.0227
+      ]
+     },
+     {
+      "component": "status_blind: sage - gine",
+      "verdict": "inconclusive",
+      "point": 0.0154,
+      "ci": [
+       -0.0016,
+       0.0309
+      ]
+     },
+     {
+      "component": "status_blind: gat - gine",
+      "verdict": "inconclusive",
+      "point": 0.0116,
+      "ci": [
+       -0.0081,
+       0.0294
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: sage - gat",
+      "verdict": "inconclusive",
+      "point": -0.0077,
+      "ci": [
+       -0.0286,
+       0.0117
+      ]
+     },
+     {
+      "component": "with_status: sage - gine",
+      "verdict": "inconclusive",
+      "point": -0.0046,
+      "ci": [
+       -0.0264,
+       0.0149
+      ]
+     },
+     {
+      "component": "with_status: gat - gine",
+      "verdict": "inconclusive",
+      "point": 0.0031,
+      "ci": [
+       -0.0141,
+       0.0201
+      ]
+     },
+     {
+      "component": "status_blind: sage - gat",
+      "verdict": "inconclusive",
+      "point": -0.0085,
+      "ci": [
+       -0.0291,
+       0.0106
+      ]
+     },
+     {
+      "component": "status_blind: sage - gine",
+      "verdict": "inconclusive",
+      "point": -0.0039,
+      "ci": [
+       -0.0256,
+       0.0171
+      ]
+     },
+     {
+      "component": "status_blind: gat - gine",
+      "verdict": "inconclusive",
+      "point": 0.0046,
+      "ci": [
+       -0.0113,
+       0.0201
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: sage - gat",
+      "verdict": "inconclusive",
+      "point": 0.0031,
+      "ci": [
+       -0.0161,
+       0.0229
+      ]
+     },
+     {
+      "component": "with_status: sage - gine",
+      "verdict": "inconclusive",
+      "point": 0.0093,
+      "ci": [
+       -0.0106,
+       0.0285
+      ]
+     },
+     {
+      "component": "with_status: gat - gine",
+      "verdict": "inconclusive",
+      "point": 0.0062,
+      "ci": [
+       -0.0123,
+       0.0248
+      ]
+     },
+     {
+      "component": "status_blind: sage - gat",
+      "verdict": "inconclusive",
+      "point": 0.0008,
+      "ci": [
+       -0.0194,
+       0.0207
+      ]
+     },
+     {
+      "component": "status_blind: sage - gine",
+      "verdict": "inconclusive",
+      "point": 0.0077,
+      "ci": [
+       -0.011,
+       0.0262
+      ]
+     },
+     {
+      "component": "status_blind: gat - gine",
+      "verdict": "inconclusive",
+      "point": 0.0069,
+      "ci": [
+       -0.0134,
+       0.0257
+      ]
+     }
+    ]
+   }
+  }
+ }
+}

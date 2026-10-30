@@ -1,0 +1,28 @@
+{
+ "build_samples_s": 210.6,
+ "train_runs_s": {
+  "sage-h32-s0": 547.2,
+  "sage-h64-s0": 740.8,
+  "gat-h32-s0": 478.6,
+  "gat-h64-s0": 726.3,
+  "gine-h32-s0": 485.1,
+  "gine-h64-s0": 696.5,
+  "sage-h32-s1": 438.1,
+  "sage-h32-s2": 444.8,
+  "gat-h32-s1": 509.6,
+  "gat-h32-s2": 467.3,
+  "gine-h32-s1": 450.5,
+  "gine-h32-s2": 458.4,
+  "gat-h32-s0-mlp": 458.1,
+  "gat-h32-s1-mlp": 426.2,
+  "gat-h32-s2-mlp": 426.4,
+  "gat-h32-s0-no_path_static": 462.1,
+  "gat-h32-s1-no_path_static": 499.0,
+  "gat-h32-s2-no_path_static": 477.8,
+  "gat-h32-s0-shuffled_edges": 459.8,
+  "gat-h32-s1-shuffled_edges": 456.6,
+  "gat-h32-s2-shuffled_edges": 460.0
+ },
+ "evaluate_s": 4526.5,
+ "total_s": 15685.0
+}

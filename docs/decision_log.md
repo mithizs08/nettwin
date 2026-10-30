@@ -781,6 +781,74 @@ Committed before `scripts/phase5_gnn.py` trains or evaluates anything on validat
 - X10. No architecture is clearly better: every pairwise hard top-3 difference between SAGE, GAT and GINE is inconclusive.
 - Not an expectation, reported descriptively: the effect of dropping static path features, and the seed sd.
 
+### 2026-10-31: Phase 5 results (validation only)
+
+Run after the pre-registration commit `495d470`, exactly within the budget: 21 training runs, no extra configuration, no rerun. Outputs:
+- `results/phase5_gnn_val.json` (every model and baseline, every breakdown, seed summaries, paired verdicts)
+- `results/phase5_expectations.json` (X1 to X10)
+- `results/phase5_tables.md`
+- `results/phase5_timings.json` (wall-clock; the only file that does not reproduce byte for byte)
+
+No test or dev data was read. Models are in `data/models/phase5/` (gitignored, rebuilt by the script).
+
+**Training and selection.**
+- 29,568 training samples from train, built in 211 s.
+- Runs took 426 to 741 s each on 4 CPU threads, 2.4 hours for all 21. Evaluating 18 GNN models and 4 baselines on both variants took 75 minutes; the whole script took 4.4 hours.
+- Parameter counts: GAT-h32 12,099; SAGE-h32 13,891; GINE-h32 14,083; the MLP ablation 11,843.
+- Selection subset scores (60 val scenarios, seed 0) for h32 / h64: SAGE 0.765 / 0.744, GAT 0.807 / 0.757, GINE 0.783 / 0.770. Every architecture keeps h32, and **GAT-h32 is the selected configuration**.
+- Seed sd of hard top-3 is 0.006 to 0.016 for every configuration. Seed sd of hard root PR-AUC is larger (0.007 to 0.034).
+
+**Headline against the baselines (q90 window, GAT-h32 mean of 3 seeds).**
+
+| | B1 | B2 | B3 | B3+ | GAT-h32 |
+|---|---|---|---|---|---|
+| Hard top-1 / top-3, with status | 0.13 / 0.23 | 0.26 / 0.38 | 0.12 / 0.20 | 0.14 / 0.20 | **0.49 / 0.63** |
+| Easy top-1 / top-3, with status | 0.18 / 0.41 | 0.25 / 0.57 | 0.63 / 0.87 | 0.74 / 0.88 | 0.75 / 0.88 |
+| Easy top-1 / top-3, status-blind | 0.01 / 0.03 | 0.08 / 0.26 | 0.44 / 0.70 | 0.42 / 0.72 | **0.76 / 0.88** |
+| Hard root PR-AUC, with status (base rate 0.0023) | 0.006 | 0.050 | 0.032 | 0.032 | **0.076** |
+| Easy root PR-AUC, with status (base rate 0.0004) | 0.037 | 0.069 | 0.175 | 0.175 | 0.218 |
+| Maintenance-only alarm rate at 5% fault-free alarms, with status | 28% | 22% | 19% | 19% | **48%** |
+
+Paired verdicts, GAT-h32 minus each baseline:
+- Hard types: every top-1, top-3 (all three window aggregations), root PR-AUC and symptomatic PR-AUC difference is supported against B1, B2, B3 and B3+, in both variants. Hard top-3 against B2 is +0.25 (CI +0.20 to +0.29) with status.
+- Easy types with status events: the differences against B3 and B3+ are inconclusive for top-3 (+0.01, CI -0.02 to +0.05). Top-1 beats B3 but not B3+.
+- Easy types status-blind: every difference is supported.
+
+**Pre-registered expectations.**
+
+| ID | Expectation | Verdict (q90 / max / mean) |
+|---|---|---|
+| X1 | GNN beats B2 on hard top-3, both variants | met / met / met |
+| X2 | GNN beats B2 on hard root PR-AUC | met |
+| X3 | Easy: GNN >= B3 - 0.05 with status, > B3 status-blind | met / met / met |
+| X4 | B3 beats the GNN on flapping top-3 with status | met / met / met (B3 - GNN +0.14, CI +0.04 to +0.23) |
+| X5 | Transfer: real minus generated top-3 > -0.10, hard and easy | **inconclusive**. Hard types are better on real networks (0.67 against 0.62). Easy types are lower on real networks (0.83 against 0.89), and the CI of the margin crosses 0 |
+| X6 | The graph helps: GNN beats the MLP ablation on hard top-3 and easy top-1 | **not met**. Hard top-3 +0.014 (CI -0.011 to +0.040), inconclusive. Easy top-1 with status -0.023 (CI -0.045 to -0.002): the MLP is better |
+| X7 | Shuffled edges hurt | **inconclusive**. Hard +0.022 (CI -0.001 to +0.044), easy +0.009 |
+| X8 | GNN has the best symptomatic PR-AUC | met (both variants, hard and easy, against all four) |
+| X9 | GNN alarms less than B2 in maintenance hours | **not met** (contradicted). 48% against 22% with status, 47% against 14% status-blind |
+| X10 | No architecture is clearly better | met (all pairwise differences inconclusive) |
+
+**What this means, and what was surprising.**
+- **The large gain over the baselines comes from supervised training, not from message passing.**
+  - The MLP ablation (same features and heads, no message passing) reaches hard top-3 0.615 against 0.629, with no detectable difference. Shuffled edges cost at most 0.02, and dropping static path features costs about 0.02.
+  - For RQ1 and RQ2 the honest reading is that "learning which element is the root" is what helps. On this data the graph structure adds little beyond PoP pooling (link-to-PoP incidence, which every variant keeps).
+  - This must be stated in the write-up rather than credited to the GNN.
+- **The GNN localises demand surges far better than anything else**: top-3 0.67 against at most 0.25 (B2, status-blind). Surge roots are PoPs, and the trained PoP head learns the "all incident links rise together" pattern that no baseline encodes.
+- **The GNN is no better than B3 on easy faults when status events exist.** It never sees status events or service probes. It is worse on flapping (0.59 against 0.73 top-3), and worse than B3+ on node_down top-1 (0.87 against 0.95).
+- **Without status events the GNN keeps its easy-type accuracy** (top-3 0.88), because the missing-data flags make blanked links stand out. B3 drops to 0.70 and B2 to 0.26.
+- **The GNN's detection head raises far more false alarms in maintenance hours**: 48%, against 19% to 28% for the baselines, at the same 5% fault-free rate. Maintenance-only hours supply 35% of its false alarms.
+  - Drains and planned outages shift traffic exactly like faults. Since those cells are label 0, the model has no input that tells them apart (it does not see the change log).
+  - The maintenance log is the obvious missing input. It is a Phase 6 tool, and was deliberately not given to the GNN.
+- **Per-cell root PR-AUC improves but stays low** (hard 0.076, base rate 0.0023). On link_degradation it is below B2 (-0.015, CI -0.026 to -0.005). Localisation on an oracle window is far easier than per-cell detection.
+- **Unobservable faults**: GNN top-3 is 0.11 (hard, with status), below B2's 0.18. There is no sign that it localises from a prior on which elements tend to be roots.
+- **Real validation networks**: GNN hard top-3 per network is 0.42 (Quest) to 0.84 (Aconet), at or above every baseline on each network.
+- Binned against exact AP for the GNN on the first 40 val scenarios: 0.146 / 0.1462 with status, 0.1444 / 0.1446 status-blind.
+
+**Not done in Phase 5.**
+- GNNExplainer / gradient attribution (PLAN section 6), parked for Phase 6, where the agent's `explain_gnn` tool needs it.
+- No test-set run, as instructed. RQ3 on test is for after this review.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
@@ -804,3 +872,5 @@ Ideas that came up early, with the phase they belong to. Do not act on them befo
 - Phase 6: maintenance-only hours have the highest false-alarm rate for every baseline (19% to 27% with status events), though they supply only about a fifth to a quarter of all false alarms (audit Q4). The agent's change-log tool should be measured on exactly these windows.
 - Phase 5: report the GNN under q90, max and mean window scores, with expected-rank ties, link and PoP roots separately, calibration on validation scores only, and paired-CI claim verdicts (`evaluation.verdict`). Compare against both B3 and B3+.
 - Phase 6: agent tools must return alerts through `alerts.alerts_at(alerts, t)` (audit Q9). The agent and the localisers it is compared with must get the same window (audit section 6).
+- Phase 6: implement `explain_gnn` (gradient attribution over the GAT-h32 models) and give the agent the change log. The GNN's maintenance-hour false alarms (48%) are the clearest case for it.
+- Write-up: credit the GNN's localisation gain to supervised training, not to message passing (Phase 5, X6 and X7). Any RQ1 claim that "graph-aware beats per-link" must cite the MLP ablation.
