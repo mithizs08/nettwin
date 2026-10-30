@@ -849,6 +849,21 @@ Paired verdicts, GAT-h32 minus each baseline:
 - GNNExplainer / gradient attribution (PLAN section 6), parked for Phase 6, where the agent's `explain_gnn` tool needs it.
 - No test-set run, as instructed. RQ3 on test is for after this review.
 
+### 2026-10-31: Phase 5 fresh-clone check (with the key): passed
+
+- Cloned `origin/main` at `3b8846a`. No `.env`, no `data/`, no key. New throwaway env from `environment.yml`.
+- Without the key, `scripts/phase4_build_pretune.py` refused to run (exit 1).
+- With the key copied in, these all exited 0:
+  - Phase 0, 1, 2 and 3 scripts
+  - `phase4_build_pretune.py`, `phase4_baselines.py`, `phase4_tables.py`
+  - `phase5_gnn.py` (all 21 training runs plus evaluation, about 4.3 h), `phase5_tables.py`
+- `git status` after regeneration showed two changed files:
+  - `results/phase5_timings.json`: wall-clock, expected.
+  - `results/phase5_tables.md`: it prints the train seconds per run and the wall-clock line from the timings file.
+- Every other committed result is byte-identical, including `results/phase5_gnn_val.json` and `results/phase5_expectations.json`, so all metrics, verdicts and seed values reproduce exactly. The tables script reads only those two files plus the timings file, and rerunning it locally reproduces the committed tables byte for byte, so the table difference comes from the timings alone. The clone was deleted before I could diff the table, so this is inferred, not observed line by line.
+- All 24,225 files under `data/kg`, `data/scenarios`, `data/datasets/v1` and `data/datasets/v1_pretune` are byte-identical to the local build. `pytest`: 122 passed.
+- Clone (including its copy of the key) and env deleted afterwards.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
@@ -874,3 +889,4 @@ Ideas that came up early, with the phase they belong to. Do not act on them befo
 - Phase 6: agent tools must return alerts through `alerts.alerts_at(alerts, t)` (audit Q9). The agent and the localisers it is compared with must get the same window (audit section 6).
 - Phase 6: implement `explain_gnn` (gradient attribution over the GAT-h32 models) and give the agent the change log. The GNN's maintenance-hour false alarms (48%) are the clearest case for it.
 - Write-up: credit the GNN's localisation gain to supervised training, not to message passing (Phase 5, X6 and X7). Any RQ1 claim that "graph-aware beats per-link" must cite the MLP ablation.
+- Next phase: move the wall-clock columns out of `results/phase5_tables.md` (train seconds, wall-clock line) so the committed tables are byte-reproducible like the Phase 4 ones.
