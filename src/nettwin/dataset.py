@@ -125,13 +125,59 @@ def lean_subset(cfg, key=None):
     return [t for t in tasks if t["topology"] in real] + gen["train"][::40] + gen["val"][::15]
 
 
-def _truth_entry(entry, res, sim, root, split, variant, slot):
+ABSENCE_LAG = 3      # same window extension as the simulator's other channels (status lag)
+ABSENCE_STEPS = 2    # consecutive blanked steps needed, like the other channels
+
+
+def blanked_cells(res, blind):
+    """(T, L) link cells blanked by the status-blind view: some metric present with status, every metric missing blind.
+    These are exactly the down links (audit P3)."""
+    def none(o):
+        return np.isnan(o["util"]) & np.isnan(o["latency_ms"]) & np.isnan(o["loss_pct"])
+    return none(blind.obs) & ~none(res.obs)
+
+
+def absence_channel(fault, entry, sim, blanked):
+    """Audit Phase 4 follow-up: 'telemetry absence' observability channel. True if one of the fault's root links is
+    blanked for >= ABSENCE_STEPS consecutive steps inside [t_start, t_end + ABSENCE_LAG), outside every planned change
+    window on that link or its end PoPs. Missing telemetry is itself visible, so a status-blind down link whose only
+    symptom is the blanking counts as observable. In with_status nothing is blanked, so the channel is always False."""
+    T = blanked.shape[0]
+    root = fault["root_cause"]
+    if root.startswith("link:"):
+        idx = [sim.link_idx[root]]
+    else:
+        p = sim.pop_idx[root.split(":", 1)[1]]
+        idx = [j for j, (a, b) in enumerate(sim.link_ends) if p in (a, b)]
+    s, e = fault["t_start"], min(fault["t_end"] + ABSENCE_LAG, T)
+    for j in idx:
+        link = sim.links[j]
+        ends = {f"pop:{sim.pops[i]}" for i in sim.link_ends[j]}
+        col = blanked[s:e, j].copy()
+        for m in entry["maintenance"]:
+            if m["target"] == link or m["target"] in ends:
+                lo, hi = max(m["t_start"], s), min(m["t_end"], e)
+                if lo < hi:
+                    col[lo - s:hi - s] = False
+        run = 0
+        for x in col:
+            run = run + 1 if x else 0
+            if run >= ABSENCE_STEPS:
+                return True
+    return False
+
+
+def _truth_entry(entry, res, sim, root, split, variant, slot, blanked=None):
     """Ground-truth extras the simulator does not write (no frozen file touched):
+    - Phase 4 audit: the `obs_telemetry_absence` channel (see `absence_channel`) joins the observability flags, and
+      `observable` is recomputed as any channel
     - P5: an unobservable fault's impact class becomes "unobservable" (its symptom-size class stays as `symptom_class`)
     - P6: labels.parquet gets `telemetry_present`, which differs between variants (status_blind blanks down links)
     - the slot (topology, scenario number) that the secret seed was derived from"""
     for f in entry["faults"]:
         im = f["impact"]
+        im["observability"]["obs_telemetry_absence"] = bool(blanked is not None and absence_channel(f, entry, sim, blanked))
+        im["observable"] = any(im["observability"].values())
         im["symptom_class"] = im["impact_class"]
         if not im["observable"]:
             im["impact_class"] = "unobservable"
@@ -154,9 +200,11 @@ def _build_topology(args):
         check_fresh_seed(cfg, seed)
         spec = sample_scenario(sim, sid, seed)
         res, blind = sim.simulate(spec, with_blind=True)
+        blanked = blanked_cells(res, blind)
         for variant, r in (("with_status", res), ("status_blind", blind)):
             entry = write_scenario(r, obs_dir=root / "observable" / task["split"] / variant, truth_dir=root / "truth" / task["split"] / variant)
-            out[variant].append(_truth_entry(entry, r, sim, root, task["split"], variant, {"topology": task["topology"], "k": k}))
+            out[variant].append(_truth_entry(entry, r, sim, root, task["split"], variant, {"topology": task["topology"], "k": k},
+                                             blanked if variant == "status_blind" else None))
     return task, out
 
 

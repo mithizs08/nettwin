@@ -23,7 +23,7 @@ Split by topology first, then by scenario seed (`PLAN.md` section 3). Every scen
 
 Every scenario is stored twice, from the same simulation run:
 - `with_status`: status events and SNMP-style down links (util exactly 0, discards 0, one-hop latency missing). "util exactly 0 with latency missing" is a near-unique, realistic down-link signature (audit re-verify N2).
-- `status_blind`: down links fully missing (like a telemetry gap) and no status or reachability events; the maintenance log stays. Observability flags are recomputed for this view.
+- `status_blind`: down links fully missing (like a telemetry gap) and no status or reachability events; the maintenance log stays. Observability flags are recomputed for this view, including a fifth channel, telemetry absence: a root link fully missing for 2+ steps inside the fault window and outside planned changes. Missing telemetry is itself visible, so such faults count as observable (Phase 4 audit follow-up; the channel is always false in with_status, where nothing is blanked).
 Results for link_down and node_down must be reported on both variants.
 
 ## Faults by split and type (with_status variant)
@@ -42,7 +42,7 @@ Severity class is the impact class from noise-free deltas against a counterfactu
 | routing_misconfig | 412 | 372 | 21.0% | 36.3% | 42.7% | 40 (9.7%) | 0.0% | 89.8% | 24.3% | 48.3% | 42.7% |
 
 Scenarios with concurrent faults: 133 of 1232 (10.8%). Faults overlapping or right after a maintenance window: 632 of 2406 (26.3%). Maintenance windows: 2490 in 1232 scenarios. Unobservable faults: 137 (5.7%).
-Status-blind variant: unobservable faults 149 (6.2%); link_down observable 363 of 373, node_down observable 439 of 440.
+Status-blind variant: unobservable faults 141 (5.9%); link_down observable 369 of 373, node_down observable 440 of 440. Faults with the telemetry-absence channel (a root link blanked for 2+ steps, Phase 4 audit): 809.
 
 ### val
 
@@ -56,7 +56,7 @@ Status-blind variant: unobservable faults 149 (6.2%); link_down observable 363 o
 | routing_misconfig | 144 | 132 | 16.7% | 34.1% | 49.2% | 12 (8.3%) | 0.0% | 91.7% | 29.2% | 51.4% | 42.4% |
 
 Scenarios with concurrent faults: 42 of 468 (9.0%). Faults overlapping or right after a maintenance window: 232 of 921 (25.2%). Maintenance windows: 948 in 468 scenarios. Unobservable faults: 43 (4.7%).
-Status-blind variant: unobservable faults 49 (5.3%); link_down observable 158 of 162, node_down observable 151 of 152.
+Status-blind variant: unobservable faults 47 (5.1%); link_down observable 160 of 162, node_down observable 151 of 152. Faults with the telemetry-absence channel (a root link blanked for 2+ steps, Phase 4 audit): 312.
 
 ### test
 
@@ -70,7 +70,7 @@ Status-blind variant: unobservable faults 49 (5.3%); link_down observable 158 of
 | routing_misconfig | 79 | 71 | 8.5% | 47.9% | 43.7% | 8 (10.1%) | 0.0% | 87.3% | 20.3% | 54.4% | 35.4% |
 
 Scenarios with concurrent faults: 15 of 210 (7.1%). Faults overlapping or right after a maintenance window: 99 of 413 (24.0%). Maintenance windows: 408 in 210 scenarios. Unobservable faults: 23 (5.6%).
-Status-blind variant: unobservable faults 27 (6.5%); link_down observable 60 of 61, node_down observable 66 of 66.
+Status-blind variant: unobservable faults 27 (6.5%); link_down observable 60 of 61, node_down observable 66 of 66. Faults with the telemetry-absence channel (a root link blanked for 2+ steps, Phase 4 audit): 126.
 
 ### dev
 
@@ -84,7 +84,7 @@ Status-blind variant: unobservable faults 27 (6.5%); link_down observable 60 of 
 | routing_misconfig | 8 | 8 | 0.0% | 12.5% | 87.5% | 0 (0.0%) | 0.0% | 100.0% | 12.5% | 50.0% | 37.5% |
 
 Scenarios with concurrent faults: 4 of 30 (13.3%). Faults overlapping or right after a maintenance window: 11 of 58 (19.0%). Maintenance windows: 56 in 30 scenarios. Unobservable faults: 2 (3.4%).
-Status-blind variant: unobservable faults 3 (5.2%); link_down observable 8 of 9, node_down observable 10 of 10.
+Status-blind variant: unobservable faults 3 (5.2%); link_down observable 8 of 9, node_down observable 10 of 10. Faults with the telemetry-absence channel (a root link blanked for 2+ steps, Phase 4 audit): 18.
 
 ## Difficulty mix against T2, by source (with_status variant)
 

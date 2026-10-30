@@ -58,7 +58,8 @@
                 "obs_status": 370,
                 "obs_link_util": 366,
                 "obs_link_counters": 107,
-                "obs_e2e": 350
+                "obs_e2e": 350,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 89,
               "placement": {
@@ -94,7 +95,8 @@
                 "obs_status": 439,
                 "obs_link_util": 440,
                 "obs_link_counters": 110,
-                "obs_e2e": 438
+                "obs_e2e": 438,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 84,
               "placement": {
@@ -130,7 +132,8 @@
                 "obs_status": 0,
                 "obs_link_util": 127,
                 "obs_link_counters": 181,
-                "obs_e2e": 310
+                "obs_e2e": 310,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 115,
               "placement": {
@@ -166,7 +169,8 @@
                 "obs_status": 114,
                 "obs_link_util": 293,
                 "obs_link_counters": 106,
-                "obs_e2e": 348
+                "obs_e2e": 348,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 80,
               "placement": {
@@ -202,7 +206,8 @@
                 "obs_status": 0,
                 "obs_link_util": 382,
                 "obs_link_counters": 52,
-                "obs_e2e": 99
+                "obs_e2e": 99,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 88,
               "placement": {
@@ -238,7 +243,8 @@
                 "obs_status": 0,
                 "obs_link_util": 370,
                 "obs_link_counters": 100,
-                "obs_e2e": 199
+                "obs_e2e": 199,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 176,
               "placement": {
@@ -256,7 +262,7 @@
           "scenarios_with_maintenance": 1232,
           "maintenance_windows": 2490,
           "faults_overlapping_maintenance": 632,
-          "unobservable_faults": 149,
+          "unobservable_faults": 141,
           "fault_start_hour_bins_3h": [
             367,
             423,
@@ -277,15 +283,15 @@
             "link_down": {
               "n": 373,
               "impact_class": {
-                "subtle": 6,
+                "subtle": 12,
                 "moderate": 23,
                 "obvious": 334
               },
-              "unobservable": 10,
+              "unobservable": 4,
               "by_source": {
                 "generated": {
-                  "observable": 363,
-                  "subtle": 6,
+                  "observable": 369,
+                  "subtle": 12,
                   "moderate": 23,
                   "obvious": 334
                 },
@@ -296,12 +302,13 @@
                   "obvious": 0
                 }
               },
-              "observable": 363,
+              "observable": 369,
               "channels": {
                 "obs_status": 0,
                 "obs_link_util": 352,
                 "obs_link_counters": 107,
-                "obs_e2e": 350
+                "obs_e2e": 350,
+                "obs_telemetry_absence": 368
               },
               "overlaps_maintenance": 89,
               "placement": {
@@ -313,15 +320,15 @@
             "node_down": {
               "n": 440,
               "impact_class": {
-                "subtle": 1,
+                "subtle": 2,
                 "moderate": 0,
                 "obvious": 438
               },
-              "unobservable": 1,
+              "unobservable": 0,
               "by_source": {
                 "generated": {
-                  "observable": 439,
-                  "subtle": 1,
+                  "observable": 440,
+                  "subtle": 2,
                   "moderate": 0,
                   "obvious": 438
                 },
@@ -332,12 +339,13 @@
                   "obvious": 0
                 }
               },
-              "observable": 439,
+              "observable": 440,
               "channels": {
                 "obs_status": 0,
                 "obs_link_util": 421,
                 "obs_link_counters": 110,
-                "obs_e2e": 438
+                "obs_e2e": 438,
+                "obs_telemetry_absence": 439
               },
               "overlaps_maintenance": 84,
               "placement": {
@@ -349,15 +357,15 @@
             "link_degradation": {
               "n": 377,
               "impact_class": {
-                "subtle": 95,
+                "subtle": 96,
                 "moderate": 148,
                 "obvious": 95
               },
-              "unobservable": 39,
+              "unobservable": 38,
               "by_source": {
                 "generated": {
-                  "observable": 338,
-                  "subtle": 95,
+                  "observable": 339,
+                  "subtle": 96,
                   "moderate": 148,
                   "obvious": 95
                 },
@@ -368,12 +376,13 @@
                   "obvious": 0
                 }
               },
-              "observable": 338,
+              "observable": 339,
               "channels": {
                 "obs_status": 0,
                 "obs_link_util": 127,
                 "obs_link_counters": 180,
-                "obs_e2e": 310
+                "obs_e2e": 310,
+                "obs_telemetry_absence": 1
               },
               "overlaps_maintenance": 115,
               "placement": {
@@ -409,7 +418,8 @@
                 "obs_status": 0,
                 "obs_link_util": 293,
                 "obs_link_counters": 106,
-                "obs_e2e": 348
+                "obs_e2e": 348,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 80,
               "placement": {
@@ -445,7 +455,8 @@
                 "obs_status": 0,
                 "obs_link_util": 382,
                 "obs_link_counters": 52,
-                "obs_e2e": 99
+                "obs_e2e": 99,
+                "obs_telemetry_absence": 1
               },
               "overlaps_maintenance": 88,
               "placement": {
@@ -481,7 +492,8 @@
                 "obs_status": 0,
                 "obs_link_util": 370,
                 "obs_link_counters": 100,
-                "obs_e2e": 199
+                "obs_e2e": 199,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 176,
               "placement": {
@@ -569,7 +581,8 @@
                 "obs_status": 162,
                 "obs_link_util": 159,
                 "obs_link_counters": 52,
-                "obs_e2e": 145
+                "obs_e2e": 145,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 30,
               "placement": {
@@ -605,7 +618,8 @@
                 "obs_status": 152,
                 "obs_link_util": 151,
                 "obs_link_counters": 36,
-                "obs_e2e": 151
+                "obs_e2e": 151,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 24,
               "placement": {
@@ -641,7 +655,8 @@
                 "obs_status": 0,
                 "obs_link_util": 59,
                 "obs_link_counters": 78,
-                "obs_e2e": 147
+                "obs_e2e": 147,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 57,
               "placement": {
@@ -677,7 +692,8 @@
                 "obs_status": 54,
                 "obs_link_util": 117,
                 "obs_link_counters": 34,
-                "obs_e2e": 125
+                "obs_e2e": 125,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 28,
               "placement": {
@@ -713,7 +729,8 @@
                 "obs_status": 0,
                 "obs_link_util": 145,
                 "obs_link_counters": 13,
-                "obs_e2e": 25
+                "obs_e2e": 25,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 32,
               "placement": {
@@ -749,7 +766,8 @@
                 "obs_status": 0,
                 "obs_link_util": 132,
                 "obs_link_counters": 42,
-                "obs_e2e": 74
+                "obs_e2e": 74,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 61,
               "placement": {
@@ -767,7 +785,7 @@
           "scenarios_with_maintenance": 468,
           "maintenance_windows": 948,
           "faults_overlapping_maintenance": 232,
-          "unobservable_faults": 49,
+          "unobservable_faults": 47,
           "fault_start_hour_bins_3h": [
             147,
             150,
@@ -808,15 +826,15 @@
             "link_down": {
               "n": 162,
               "impact_class": {
-                "subtle": 3,
+                "subtle": 5,
                 "moderate": 19,
                 "obvious": 136
               },
-              "unobservable": 4,
+              "unobservable": 2,
               "by_source": {
                 "generated": {
-                  "observable": 128,
-                  "subtle": 3,
+                  "observable": 130,
+                  "subtle": 5,
                   "moderate": 12,
                   "obvious": 113
                 },
@@ -827,12 +845,13 @@
                   "obvious": 23
                 }
               },
-              "observable": 158,
+              "observable": 160,
               "channels": {
                 "obs_status": 0,
                 "obs_link_util": 155,
                 "obs_link_counters": 52,
-                "obs_e2e": 145
+                "obs_e2e": 145,
+                "obs_telemetry_absence": 160
               },
               "overlaps_maintenance": 30,
               "placement": {
@@ -868,7 +887,8 @@
                 "obs_status": 0,
                 "obs_link_util": 144,
                 "obs_link_counters": 36,
-                "obs_e2e": 151
+                "obs_e2e": 151,
+                "obs_telemetry_absence": 151
               },
               "overlaps_maintenance": 24,
               "placement": {
@@ -904,7 +924,8 @@
                 "obs_status": 0,
                 "obs_link_util": 59,
                 "obs_link_counters": 78,
-                "obs_e2e": 147
+                "obs_e2e": 147,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 57,
               "placement": {
@@ -940,7 +961,8 @@
                 "obs_status": 0,
                 "obs_link_util": 117,
                 "obs_link_counters": 34,
-                "obs_e2e": 125
+                "obs_e2e": 125,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 28,
               "placement": {
@@ -976,7 +998,8 @@
                 "obs_status": 0,
                 "obs_link_util": 145,
                 "obs_link_counters": 13,
-                "obs_e2e": 25
+                "obs_e2e": 25,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 32,
               "placement": {
@@ -1012,7 +1035,8 @@
                 "obs_status": 0,
                 "obs_link_util": 132,
                 "obs_link_counters": 42,
-                "obs_e2e": 74
+                "obs_e2e": 74,
+                "obs_telemetry_absence": 1
               },
               "overlaps_maintenance": 61,
               "placement": {
@@ -1104,7 +1128,8 @@
                 "obs_status": 60,
                 "obs_link_util": 60,
                 "obs_link_counters": 12,
-                "obs_e2e": 52
+                "obs_e2e": 52,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 15,
               "placement": {
@@ -1140,7 +1165,8 @@
                 "obs_status": 66,
                 "obs_link_util": 66,
                 "obs_link_counters": 24,
-                "obs_e2e": 66
+                "obs_e2e": 66,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 10,
               "placement": {
@@ -1176,7 +1202,8 @@
                 "obs_status": 0,
                 "obs_link_util": 13,
                 "obs_link_counters": 28,
-                "obs_e2e": 60
+                "obs_e2e": 60,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 24,
               "placement": {
@@ -1212,7 +1239,8 @@
                 "obs_status": 17,
                 "obs_link_util": 41,
                 "obs_link_counters": 15,
-                "obs_e2e": 52
+                "obs_e2e": 52,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 8,
               "placement": {
@@ -1247,7 +1275,8 @@
                 "obs_status": 0,
                 "obs_link_util": 72,
                 "obs_link_counters": 13,
-                "obs_e2e": 24
+                "obs_e2e": 24,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 14,
               "placement": {
@@ -1283,7 +1312,8 @@
                 "obs_status": 0,
                 "obs_link_util": 69,
                 "obs_link_counters": 16,
-                "obs_e2e": 43
+                "obs_e2e": 43,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 28,
               "placement": {
@@ -1370,7 +1400,8 @@
                 "obs_status": 0,
                 "obs_link_util": 59,
                 "obs_link_counters": 12,
-                "obs_e2e": 52
+                "obs_e2e": 52,
+                "obs_telemetry_absence": 60
               },
               "overlaps_maintenance": 15,
               "placement": {
@@ -1406,7 +1437,8 @@
                 "obs_status": 0,
                 "obs_link_util": 64,
                 "obs_link_counters": 24,
-                "obs_e2e": 66
+                "obs_e2e": 66,
+                "obs_telemetry_absence": 66
               },
               "overlaps_maintenance": 10,
               "placement": {
@@ -1442,7 +1474,8 @@
                 "obs_status": 0,
                 "obs_link_util": 13,
                 "obs_link_counters": 28,
-                "obs_e2e": 60
+                "obs_e2e": 60,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 24,
               "placement": {
@@ -1478,7 +1511,8 @@
                 "obs_status": 0,
                 "obs_link_util": 41,
                 "obs_link_counters": 15,
-                "obs_e2e": 52
+                "obs_e2e": 52,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 8,
               "placement": {
@@ -1513,7 +1547,8 @@
                 "obs_status": 0,
                 "obs_link_util": 72,
                 "obs_link_counters": 13,
-                "obs_e2e": 24
+                "obs_e2e": 24,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 14,
               "placement": {
@@ -1549,7 +1584,8 @@
                 "obs_status": 0,
                 "obs_link_util": 69,
                 "obs_link_counters": 16,
-                "obs_e2e": 43
+                "obs_e2e": 43,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 28,
               "placement": {
@@ -1617,7 +1653,8 @@
                 "obs_status": 9,
                 "obs_link_util": 8,
                 "obs_link_counters": 1,
-                "obs_e2e": 7
+                "obs_e2e": 7,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 3,
               "placement": {
@@ -1652,7 +1689,8 @@
                 "obs_status": 10,
                 "obs_link_util": 10,
                 "obs_link_counters": 2,
-                "obs_e2e": 10
+                "obs_e2e": 10,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 1,
               "placement": {
@@ -1687,7 +1725,8 @@
                 "obs_status": 0,
                 "obs_link_util": 3,
                 "obs_link_counters": 5,
-                "obs_e2e": 6
+                "obs_e2e": 6,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 1,
               "placement": {
@@ -1723,7 +1762,8 @@
                 "obs_status": 3,
                 "obs_link_util": 6,
                 "obs_link_counters": 0,
-                "obs_e2e": 9
+                "obs_e2e": 9,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 1,
               "placement": {
@@ -1757,7 +1797,8 @@
                 "obs_status": 0,
                 "obs_link_util": 13,
                 "obs_link_counters": 1,
-                "obs_e2e": 1
+                "obs_e2e": 1,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 2,
               "placement": {
@@ -1793,7 +1834,8 @@
                 "obs_status": 0,
                 "obs_link_util": 8,
                 "obs_link_counters": 1,
-                "obs_e2e": 4
+                "obs_e2e": 4,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 3,
               "placement": {
@@ -1855,7 +1897,8 @@
                 "obs_status": 0,
                 "obs_link_util": 8,
                 "obs_link_counters": 1,
-                "obs_e2e": 7
+                "obs_e2e": 7,
+                "obs_telemetry_absence": 8
               },
               "overlaps_maintenance": 3,
               "placement": {
@@ -1890,7 +1933,8 @@
                 "obs_status": 0,
                 "obs_link_util": 9,
                 "obs_link_counters": 2,
-                "obs_e2e": 10
+                "obs_e2e": 10,
+                "obs_telemetry_absence": 10
               },
               "overlaps_maintenance": 1,
               "placement": {
@@ -1925,7 +1969,8 @@
                 "obs_status": 0,
                 "obs_link_util": 3,
                 "obs_link_counters": 5,
-                "obs_e2e": 6
+                "obs_e2e": 6,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 1,
               "placement": {
@@ -1961,7 +2006,8 @@
                 "obs_status": 0,
                 "obs_link_util": 6,
                 "obs_link_counters": 0,
-                "obs_e2e": 9
+                "obs_e2e": 9,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 1,
               "placement": {
@@ -1995,7 +2041,8 @@
                 "obs_status": 0,
                 "obs_link_util": 13,
                 "obs_link_counters": 1,
-                "obs_e2e": 1
+                "obs_e2e": 1,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 2,
               "placement": {
@@ -2031,7 +2078,8 @@
                 "obs_status": 0,
                 "obs_link_util": 8,
                 "obs_link_counters": 1,
-                "obs_e2e": 4
+                "obs_e2e": 4,
+                "obs_telemetry_absence": 0
               },
               "overlaps_maintenance": 3,
               "placement": {

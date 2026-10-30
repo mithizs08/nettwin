@@ -69,13 +69,18 @@ To start a fresh dataset with a new key (different random draws, same distributi
 ## Phase 4: alerts, baselines and the evaluation harness (validation only)
 
 ```bash
-python scripts/phase4_baselines.py --workers 6                 # B1 to B3 on val; fits and calibrates on train only
-python scripts/phase4_build_pretune.py --workers 6             # sensitivity data: val with the pre-tuning fault ranges
-python scripts/phase4_baselines.py --dataset data/datasets/v1_pretune --calib data/models/phase4 --out results/phase4_sensitivity_pretune.json
-python scripts/phase4_tables.py                                # results/phase4_tables.md and the E1 to E12 checks
+python scripts/phase4_build_pretune.py --workers 6   # sensitivity data: val with the pre-tuning fault ranges (needs the key)
+python scripts/phase4_baselines.py --workers 6       # B1, B2, B3, B3+ on val (and on the sensitivity copy if built)
+python scripts/phase4_tables.py                      # results/phase4_tables.md: tables, claim and expectation verdicts
 ```
 
-- `src/nettwin/alerts.py`: threshold alerts an operator would have (interface status, PoP reachability, high utilisation, discards, one-hop latency, probe failures, service SLA breaches), built from observable files only.
-- `src/nettwin/evaluation.py`: the shared harness for Phases 4 to 6. Link-level PR-AUC (root and symptomatic separately), root-cause top-1 / top-3 on an oracle window with set-based scoring for concurrent faults, and false-alarm rates on fault-free and maintenance-only hours. Every result is split by fault type, severity class, observability, variant, generated vs real network and concurrency, with scenario-bootstrap CIs. The definitions and the expectations for the baselines were committed before the first validation run (`docs/decision_log.md`, Phase 4 pre-registration).
-- `src/nettwin/baselines.py`: B1 EWMA z-score, B2 Isolation Forest, B3 tomography over alerts. None uses time of day, time since the scenario start or file metadata.
-- The sensitivity run needs the dataset key too (it rebuilds validation scenarios from their slots).
+- `src/nettwin/alerts.py`: threshold alerts an operator would have (interface status, PoP reachability, high utilisation, discards, one-hop latency, probe failures, service SLA breaches), built from observable files only. Every field is causal; `alerts_at(alerts, t)` gives the list as known at step t.
+- `src/nettwin/evaluation.py`: the shared harness for Phases 4 to 6.
+  - Detection: link-level PR-AUC, root and symptomatic separately. Symptoms of concurrent faults are attributed by time and KG neighbourhood.
+  - Localisation: root-cause top-1 / top-3 on an oracle window, with expected ranks under ties and set-based scoring for concurrent faults, under three window aggregations.
+  - False alarms: rates on fault-free and maintenance-only hours.
+  - Calibration: bins and thresholds come from each method's own validation scores. A supervised model is calibrated on validation, never on its training scenarios.
+  - Breakdowns: every result is split by fault type, severity class, observability, variant, generated vs real network, root kind and concurrency, with scenario-bootstrap CIs.
+  - Verdicts: claims and expectations get a paired-bootstrap verdict (supported, contradicted or inconclusive).
+- `src/nettwin/baselines.py`: B1 EWMA z-score, B2 Isolation Forest, B3 tomography over alerts as pre-registered, and B3+, a disclosed variant whose link paths include the end routers. None uses time of day, time since the scenario start or file metadata.
+- The definitions and expectations were committed before the first validation run. The revisions after the independent audit (`docs/audit_phase4.md`) are logged by ID in `docs/decision_log.md`.

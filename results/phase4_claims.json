@@ -1,0 +1,3368 @@
+{
+ "claims": [
+  {
+   "id": "C1",
+   "claim": "B2 has the best hard-type top-3",
+   "by_window_aggregation": {
+    "q90": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "with_status: B2 - B1",
+       "verdict": "supported",
+       "point": 0.1501,
+       "ci": [
+        0.1036,
+        0.1978
+       ]
+      },
+      {
+       "component": "with_status: B2 - B3",
+       "verdict": "supported",
+       "point": 0.1883,
+       "ci": [
+        0.1424,
+        0.2351
+       ]
+      },
+      {
+       "component": "with_status: B2 - B3+",
+       "verdict": "supported",
+       "point": 0.1862,
+       "ci": [
+        0.1381,
+        0.2322
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B1",
+       "verdict": "supported",
+       "point": 0.1559,
+       "ci": [
+        0.1112,
+        0.2055
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B3",
+       "verdict": "supported",
+       "point": 0.1952,
+       "ci": [
+        0.149,
+        0.2438
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B3+",
+       "verdict": "supported",
+       "point": 0.1943,
+       "ci": [
+        0.1469,
+        0.2418
+       ]
+      }
+     ]
+    },
+    "max": {
+     "overall": "inconclusive",
+     "components": [
+      {
+       "component": "with_status: B2 - B1",
+       "verdict": "inconclusive",
+       "point": -0.0181,
+       "ci": [
+        -0.0656,
+        0.0274
+       ]
+      },
+      {
+       "component": "with_status: B2 - B3",
+       "verdict": "supported",
+       "point": 0.1315,
+       "ci": [
+        0.0856,
+        0.1785
+       ]
+      },
+      {
+       "component": "with_status: B2 - B3+",
+       "verdict": "supported",
+       "point": 0.1295,
+       "ci": [
+        0.0834,
+        0.1771
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B1",
+       "verdict": "inconclusive",
+       "point": 0.005,
+       "ci": [
+        -0.0408,
+        0.0527
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B3",
+       "verdict": "supported",
+       "point": 0.157,
+       "ci": [
+        0.1126,
+        0.2069
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B3+",
+       "verdict": "supported",
+       "point": 0.1561,
+       "ci": [
+        0.1107,
+        0.2072
+       ]
+      }
+     ]
+    },
+    "mean": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "with_status: B2 - B1",
+       "verdict": "supported",
+       "point": 0.1678,
+       "ci": [
+        0.1176,
+        0.2148
+       ]
+      },
+      {
+       "component": "with_status: B2 - B3",
+       "verdict": "supported",
+       "point": 0.2091,
+       "ci": [
+        0.1603,
+        0.2586
+       ]
+      },
+      {
+       "component": "with_status: B2 - B3+",
+       "verdict": "supported",
+       "point": 0.207,
+       "ci": [
+        0.1577,
+        0.2549
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B1",
+       "verdict": "supported",
+       "point": 0.1632,
+       "ci": [
+        0.1138,
+        0.2114
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B3",
+       "verdict": "supported",
+       "point": 0.2021,
+       "ci": [
+        0.1525,
+        0.2504
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B3+",
+       "verdict": "supported",
+       "point": 0.2012,
+       "ci": [
+        0.1512,
+        0.2495
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "C2",
+   "claim": "B3 has the best easy-type top-3 (with status events)",
+   "by_window_aggregation": {
+    "q90": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "B3 - B1",
+       "verdict": "supported",
+       "point": 0.4627,
+       "ci": [
+        0.4121,
+        0.5156
+       ]
+      },
+      {
+       "component": "B3 - B2",
+       "verdict": "supported",
+       "point": 0.3007,
+       "ci": [
+        0.2503,
+        0.3516
+       ]
+      }
+     ]
+    },
+    "max": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "B3 - B1",
+       "verdict": "supported",
+       "point": 0.453,
+       "ci": [
+        0.4044,
+        0.5042
+       ]
+      },
+      {
+       "component": "B3 - B2",
+       "verdict": "supported",
+       "point": 0.3441,
+       "ci": [
+        0.2975,
+        0.3967
+       ]
+      }
+     ]
+    },
+    "mean": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "B3 - B1",
+       "verdict": "supported",
+       "point": 0.4661,
+       "ci": [
+        0.4168,
+        0.5157
+       ]
+      },
+      {
+       "component": "B3 - B2",
+       "verdict": "supported",
+       "point": 0.2878,
+       "ci": [
+        0.2385,
+        0.3426
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "C3",
+   "claim": "B3 has the best easy-type root PR-AUC (with status events)",
+   "by_window_aggregation": {
+    "any": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "B3 - B1",
+       "verdict": "supported",
+       "point": 0.1384,
+       "ci": [
+        0.1064,
+        0.1782
+       ]
+      },
+      {
+       "component": "B3 - B2",
+       "verdict": "supported",
+       "point": 0.1066,
+       "ci": [
+        0.0718,
+        0.1431
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "C4",
+   "claim": "B2 has the best hard-type root PR-AUC",
+   "by_window_aggregation": {
+    "any": {
+     "overall": "inconclusive",
+     "components": [
+      {
+       "component": "with_status: B2 - B1",
+       "verdict": "supported",
+       "point": 0.044,
+       "ci": [
+        0.0264,
+        0.0649
+       ]
+      },
+      {
+       "component": "with_status: B2 - B3",
+       "verdict": "supported",
+       "point": 0.0173,
+       "ci": [
+        0.0009,
+        0.0341
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B1",
+       "verdict": "supported",
+       "point": 0.0395,
+       "ci": [
+        0.0238,
+        0.0582
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B3",
+       "verdict": "inconclusive",
+       "point": 0.0107,
+       "ci": [
+        -0.005,
+        0.026
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "C5",
+   "claim": "B3 localises hard faults worse than B1 and B2 (top-3)",
+   "by_window_aggregation": {
+    "q90": {
+     "overall": "inconclusive",
+     "components": [
+      {
+       "component": "with_status: B1 - B3",
+       "verdict": "inconclusive",
+       "point": 0.0382,
+       "ci": [
+        -0.01,
+        0.0839
+       ]
+      },
+      {
+       "component": "with_status: B2 - B3",
+       "verdict": "supported",
+       "point": 0.1883,
+       "ci": [
+        0.1424,
+        0.2351
+       ]
+      },
+      {
+       "component": "status_blind: B1 - B3",
+       "verdict": "inconclusive",
+       "point": 0.0393,
+       "ci": [
+        -0.0068,
+        0.0859
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B3",
+       "verdict": "supported",
+       "point": 0.1952,
+       "ci": [
+        0.149,
+        0.2438
+       ]
+      }
+     ]
+    },
+    "max": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "with_status: B1 - B3",
+       "verdict": "supported",
+       "point": 0.1497,
+       "ci": [
+        0.1024,
+        0.1991
+       ]
+      },
+      {
+       "component": "with_status: B2 - B3",
+       "verdict": "supported",
+       "point": 0.1315,
+       "ci": [
+        0.0856,
+        0.1785
+       ]
+      },
+      {
+       "component": "status_blind: B1 - B3",
+       "verdict": "supported",
+       "point": 0.152,
+       "ci": [
+        0.1034,
+        0.2014
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B3",
+       "verdict": "supported",
+       "point": 0.157,
+       "ci": [
+        0.1126,
+        0.2069
+       ]
+      }
+     ]
+    },
+    "mean": {
+     "overall": "inconclusive",
+     "components": [
+      {
+       "component": "with_status: B1 - B3",
+       "verdict": "inconclusive",
+       "point": 0.0413,
+       "ci": [
+        -0.0048,
+        0.0859
+       ]
+      },
+      {
+       "component": "with_status: B2 - B3",
+       "verdict": "supported",
+       "point": 0.2091,
+       "ci": [
+        0.1603,
+        0.2586
+       ]
+      },
+      {
+       "component": "status_blind: B1 - B3",
+       "verdict": "inconclusive",
+       "point": 0.0389,
+       "ci": [
+        -0.0071,
+        0.084
+       ]
+      },
+      {
+       "component": "status_blind: B2 - B3",
+       "verdict": "supported",
+       "point": 0.2021,
+       "ci": [
+        0.1525,
+        0.2504
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "C6",
+   "claim": "B3 localises flapping better than B1 and B2 (top-3)",
+   "by_window_aggregation": {
+    "q90": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "with_status: B3 - B1",
+       "verdict": "supported",
+       "point": 0.6651,
+       "ci": [
+        0.569,
+        0.7519
+       ]
+      },
+      {
+       "component": "with_status: B3 - B2",
+       "verdict": "supported",
+       "point": 0.6651,
+       "ci": [
+        0.5717,
+        0.7543
+       ]
+      },
+      {
+       "component": "status_blind: B3 - B1",
+       "verdict": "supported",
+       "point": 0.5408,
+       "ci": [
+        0.4453,
+        0.6362
+       ]
+      },
+      {
+       "component": "status_blind: B3 - B2",
+       "verdict": "supported",
+       "point": 0.579,
+       "ci": [
+        0.4868,
+        0.6663
+       ]
+      }
+     ]
+    },
+    "max": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "with_status: B3 - B1",
+       "verdict": "supported",
+       "point": 0.6386,
+       "ci": [
+        0.542,
+        0.7258
+       ]
+      },
+      {
+       "component": "with_status: B3 - B2",
+       "verdict": "supported",
+       "point": 0.6803,
+       "ci": [
+        0.5854,
+        0.7634
+       ]
+      },
+      {
+       "component": "status_blind: B3 - B1",
+       "verdict": "supported",
+       "point": 0.5294,
+       "ci": [
+        0.4325,
+        0.6227
+       ]
+      },
+      {
+       "component": "status_blind: B3 - B2",
+       "verdict": "supported",
+       "point": 0.579,
+       "ci": [
+        0.4801,
+        0.6697
+       ]
+      }
+     ]
+    },
+    "mean": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "with_status: B3 - B1",
+       "verdict": "supported",
+       "point": 0.6689,
+       "ci": [
+        0.5796,
+        0.7508
+       ]
+      },
+      {
+       "component": "with_status: B3 - B2",
+       "verdict": "supported",
+       "point": 0.6613,
+       "ci": [
+        0.5667,
+        0.7476
+       ]
+      },
+      {
+       "component": "status_blind: B3 - B1",
+       "verdict": "supported",
+       "point": 0.5676,
+       "ci": [
+        0.4755,
+        0.6549
+       ]
+      },
+      {
+       "component": "status_blind: B3 - B2",
+       "verdict": "supported",
+       "point": 0.5676,
+       "ci": [
+        0.4724,
+        0.6549
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "C7",
+   "claim": "Maintenance-only hours alarm more often than fault-free hours (every method)",
+   "by_window_aggregation": {
+    "any": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "with_status: B1",
+       "verdict": "supported",
+       "point": 0.2336,
+       "ci": [
+        0.2163,
+        0.2514
+       ]
+      },
+      {
+       "component": "with_status: B2",
+       "verdict": "supported",
+       "point": 0.1658,
+       "ci": [
+        0.1493,
+        0.183
+       ]
+      },
+      {
+       "component": "with_status: B3",
+       "verdict": "supported",
+       "point": 0.1389,
+       "ci": [
+        0.1157,
+        0.1621
+       ]
+      },
+      {
+       "component": "with_status: B3+",
+       "verdict": "supported",
+       "point": 0.1389,
+       "ci": [
+        0.1157,
+        0.1621
+       ]
+      },
+      {
+       "component": "status_blind: B1",
+       "verdict": "supported",
+       "point": 0.1951,
+       "ci": [
+        0.1774,
+        0.2134
+       ]
+      },
+      {
+       "component": "status_blind: B2",
+       "verdict": "supported",
+       "point": 0.0941,
+       "ci": [
+        0.0801,
+        0.1088
+       ]
+      },
+      {
+       "component": "status_blind: B3",
+       "verdict": "supported",
+       "point": 0.0984,
+       "ci": [
+        0.0778,
+        0.1205
+       ]
+      },
+      {
+       "component": "status_blind: B3+",
+       "verdict": "supported",
+       "point": 0.0984,
+       "ci": [
+        0.0778,
+        0.1205
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "C8",
+   "claim": "Without status events link_down top-3 drops (every method)",
+   "by_window_aggregation": {
+    "q90": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "B1",
+       "verdict": "supported",
+       "point": 0.6265,
+       "ci": [
+        0.5463,
+        0.7
+       ]
+      },
+      {
+       "component": "B2",
+       "verdict": "supported",
+       "point": 0.5423,
+       "ci": [
+        0.4649,
+        0.6136
+       ]
+      },
+      {
+       "component": "B3",
+       "verdict": "supported",
+       "point": 0.3446,
+       "ci": [
+        0.275,
+        0.4163
+       ]
+      },
+      {
+       "component": "B3+",
+       "verdict": "supported",
+       "point": 0.3114,
+       "ci": [
+        0.2486,
+        0.3847
+       ]
+      }
+     ]
+    },
+    "max": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "B1",
+       "verdict": "supported",
+       "point": 0.6389,
+       "ci": [
+        0.5621,
+        0.7094
+       ]
+      },
+      {
+       "component": "B2",
+       "verdict": "supported",
+       "point": 0.6745,
+       "ci": [
+        0.6017,
+        0.7415
+       ]
+      },
+      {
+       "component": "B3",
+       "verdict": "supported",
+       "point": 0.3446,
+       "ci": [
+        0.275,
+        0.4163
+       ]
+      },
+      {
+       "component": "B3+",
+       "verdict": "supported",
+       "point": 0.3114,
+       "ci": [
+        0.2486,
+        0.3847
+       ]
+      }
+     ]
+    },
+    "mean": {
+     "overall": "supported",
+     "components": [
+      {
+       "component": "B1",
+       "verdict": "supported",
+       "point": 0.6235,
+       "ci": [
+        0.5454,
+        0.6981
+       ]
+      },
+      {
+       "component": "B2",
+       "verdict": "supported",
+       "point": 0.2518,
+       "ci": [
+        0.1899,
+        0.3144
+       ]
+      },
+      {
+       "component": "B3",
+       "verdict": "supported",
+       "point": 0.3446,
+       "ci": [
+        0.275,
+        0.4163
+       ]
+      },
+      {
+       "component": "B3+",
+       "verdict": "supported",
+       "point": 0.3114,
+       "ci": [
+        0.2486,
+        0.3847
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "C9",
+   "claim": "B3+ ranks node_down roots first more often than B3 (top-1)",
+   "by_window_aggregation": {
+    "q90": {
+     "overall": "contradicted",
+     "components": [
+      {
+       "component": "with_status",
+       "verdict": "supported",
+       "point": 0.3377,
+       "ci": [
+        0.2812,
+        0.4012
+       ]
+      },
+      {
+       "component": "status_blind",
+       "verdict": "contradicted",
+       "point": -0.3333,
+       "ci": [
+        -0.3875,
+        -0.2818
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "C10",
+   "claim": "Hard faults on real validation networks differ from generated graphs (top-3, real - generated)",
+   "by_window_aggregation": {
+    "q90": {
+     "overall": "inconclusive",
+     "components": [
+      {
+       "component": "with_status: B1",
+       "verdict": "inconclusive",
+       "point": 0.0419,
+       "ci": [
+        -0.0663,
+        0.1597
+       ]
+      },
+      {
+       "component": "with_status: B2",
+       "verdict": "inconclusive",
+       "point": 0.021,
+       "ci": [
+        -0.0915,
+        0.1335
+       ]
+      },
+      {
+       "component": "with_status: B3",
+       "verdict": "inconclusive",
+       "point": 0.0557,
+       "ci": [
+        -0.0326,
+        0.1494
+       ]
+      },
+      {
+       "component": "with_status: B3+",
+       "verdict": "inconclusive",
+       "point": 0.0446,
+       "ci": [
+        -0.0437,
+        0.1363
+       ]
+      },
+      {
+       "component": "status_blind: B1",
+       "verdict": "inconclusive",
+       "point": 0.0376,
+       "ci": [
+        -0.0714,
+        0.1562
+       ]
+      },
+      {
+       "component": "status_blind: B2",
+       "verdict": "inconclusive",
+       "point": 0.0242,
+       "ci": [
+        -0.0947,
+        0.1441
+       ]
+      },
+      {
+       "component": "status_blind: B3",
+       "verdict": "inconclusive",
+       "point": 0.0675,
+       "ci": [
+        -0.023,
+        0.1598
+       ]
+      },
+      {
+       "component": "status_blind: B3+",
+       "verdict": "inconclusive",
+       "point": 0.0578,
+       "ci": [
+        -0.0327,
+        0.1526
+       ]
+      }
+     ]
+    },
+    "max": {
+     "overall": "inconclusive",
+     "components": [
+      {
+       "component": "with_status: B1",
+       "verdict": "inconclusive",
+       "point": 0.0105,
+       "ci": [
+        -0.1166,
+        0.1319
+       ]
+      },
+      {
+       "component": "with_status: B2",
+       "verdict": "inconclusive",
+       "point": 0.0257,
+       "ci": [
+        -0.0878,
+        0.148
+       ]
+      },
+      {
+       "component": "with_status: B3",
+       "verdict": "inconclusive",
+       "point": 0.0557,
+       "ci": [
+        -0.0326,
+        0.1494
+       ]
+      },
+      {
+       "component": "with_status: B3+",
+       "verdict": "inconclusive",
+       "point": 0.0446,
+       "ci": [
+        -0.0437,
+        0.1363
+       ]
+      },
+      {
+       "component": "status_blind: B1",
+       "verdict": "inconclusive",
+       "point": 0.0047,
+       "ci": [
+        -0.1221,
+        0.1278
+       ]
+      },
+      {
+       "component": "status_blind: B2",
+       "verdict": "inconclusive",
+       "point": 0.0351,
+       "ci": [
+        -0.0844,
+        0.1607
+       ]
+      },
+      {
+       "component": "status_blind: B3",
+       "verdict": "inconclusive",
+       "point": 0.0675,
+       "ci": [
+        -0.023,
+        0.1598
+       ]
+      },
+      {
+       "component": "status_blind: B3+",
+       "verdict": "inconclusive",
+       "point": 0.0578,
+       "ci": [
+        -0.0327,
+        0.1526
+       ]
+      }
+     ]
+    },
+    "mean": {
+     "overall": "inconclusive",
+     "components": [
+      {
+       "component": "with_status: B1",
+       "verdict": "inconclusive",
+       "point": 0.0429,
+       "ci": [
+        -0.0668,
+        0.1567
+       ]
+      },
+      {
+       "component": "with_status: B2",
+       "verdict": "inconclusive",
+       "point": 0.0244,
+       "ci": [
+        -0.0998,
+        0.1396
+       ]
+      },
+      {
+       "component": "with_status: B3",
+       "verdict": "inconclusive",
+       "point": 0.0557,
+       "ci": [
+        -0.0326,
+        0.1494
+       ]
+      },
+      {
+       "component": "with_status: B3+",
+       "verdict": "inconclusive",
+       "point": 0.0446,
+       "ci": [
+        -0.0437,
+        0.1363
+       ]
+      },
+      {
+       "component": "status_blind: B1",
+       "verdict": "inconclusive",
+       "point": 0.0429,
+       "ci": [
+        -0.0668,
+        0.1567
+       ]
+      },
+      {
+       "component": "status_blind: B2",
+       "verdict": "inconclusive",
+       "point": 0.0302,
+       "ci": [
+        -0.0948,
+        0.1434
+       ]
+      },
+      {
+       "component": "status_blind: B3",
+       "verdict": "inconclusive",
+       "point": 0.0675,
+       "ci": [
+        -0.023,
+        0.1598
+       ]
+      },
+      {
+       "component": "status_blind: B3+",
+       "verdict": "inconclusive",
+       "point": 0.0578,
+       "ci": [
+        -0.0327,
+        0.1526
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ],
+ "expectations": {
+  "E1": {
+   "any": {
+    "verdict": "not met",
+    "components": [
+     {
+      "component": "with_status: B1 0.10 - hard",
+      "verdict": "supported",
+      "point": 0.0943,
+      "ci": [
+       0.0928,
+       0.0954
+      ]
+     },
+     {
+      "component": "with_status: B2 0.10 - hard",
+      "verdict": "supported",
+      "point": 0.0503,
+      "ci": [
+       0.0287,
+       0.0686
+      ]
+     },
+     {
+      "component": "with_status: B3 0.10 - hard",
+      "verdict": "supported",
+      "point": 0.0676,
+      "ci": [
+       0.0509,
+       0.0792
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.10 - hard",
+      "verdict": "supported",
+      "point": 0.0941,
+      "ci": [
+       0.0926,
+       0.0953
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.10 - hard",
+      "verdict": "supported",
+      "point": 0.0546,
+      "ci": [
+       0.0347,
+       0.0709
+      ]
+     },
+     {
+      "component": "status_blind: B3 0.10 - hard",
+      "verdict": "supported",
+      "point": 0.0653,
+      "ci": [
+       0.0478,
+       0.078
+      ]
+     },
+     {
+      "component": "with_status: B1 easy - hard",
+      "verdict": "supported",
+      "point": 0.0312,
+      "ci": [
+       0.0231,
+       0.0407
+      ]
+     },
+     {
+      "component": "with_status: B2 easy - hard",
+      "verdict": "inconclusive",
+      "point": 0.0191,
+      "ci": [
+       -0.0041,
+       0.0436
+      ]
+     },
+     {
+      "component": "with_status: B3 easy - hard",
+      "verdict": "supported",
+      "point": 0.143,
+      "ci": [
+       0.1072,
+       0.1824
+      ]
+     },
+     {
+      "component": "status_blind: B1 easy - hard",
+      "verdict": "contradicted",
+      "point": -0.0055,
+      "ci": [
+       -0.007,
+       -0.0044
+      ]
+     },
+     {
+      "component": "status_blind: B2 easy - hard",
+      "verdict": "contradicted",
+      "point": -0.0329,
+      "ci": [
+       -0.0532,
+       -0.0164
+      ]
+     },
+     {
+      "component": "status_blind: B3 easy - hard",
+      "verdict": "supported",
+      "point": 0.0719,
+      "ci": [
+       0.0418,
+       0.1047
+      ]
+     }
+    ]
+   }
+  },
+  "E2": {
+   "q90": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "B3 - B1 easy root PR-AUC",
+      "verdict": "supported",
+      "point": 0.1384,
+      "ci": [
+       0.1064,
+       0.1782
+      ]
+     },
+     {
+      "component": "B3 - B2 easy root PR-AUC",
+      "verdict": "supported",
+      "point": 0.1066,
+      "ci": [
+       0.0718,
+       0.1431
+      ]
+     },
+     {
+      "component": "B3 - B1 easy top-3",
+      "verdict": "supported",
+      "point": 0.4627,
+      "ci": [
+       0.4121,
+       0.5156
+      ]
+     },
+     {
+      "component": "B3 - B2 easy top-3",
+      "verdict": "supported",
+      "point": 0.3007,
+      "ci": [
+       0.2503,
+       0.3516
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "B3 - B1 easy root PR-AUC",
+      "verdict": "supported",
+      "point": 0.1384,
+      "ci": [
+       0.1064,
+       0.1782
+      ]
+     },
+     {
+      "component": "B3 - B2 easy root PR-AUC",
+      "verdict": "supported",
+      "point": 0.1066,
+      "ci": [
+       0.0718,
+       0.1431
+      ]
+     },
+     {
+      "component": "B3 - B1 easy top-3",
+      "verdict": "supported",
+      "point": 0.453,
+      "ci": [
+       0.4044,
+       0.5042
+      ]
+     },
+     {
+      "component": "B3 - B2 easy top-3",
+      "verdict": "supported",
+      "point": 0.3441,
+      "ci": [
+       0.2975,
+       0.3967
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "B3 - B1 easy root PR-AUC",
+      "verdict": "supported",
+      "point": 0.1384,
+      "ci": [
+       0.1064,
+       0.1782
+      ]
+     },
+     {
+      "component": "B3 - B2 easy root PR-AUC",
+      "verdict": "supported",
+      "point": 0.1066,
+      "ci": [
+       0.0718,
+       0.1431
+      ]
+     },
+     {
+      "component": "B3 - B1 easy top-3",
+      "verdict": "supported",
+      "point": 0.4661,
+      "ci": [
+       0.4168,
+       0.5157
+      ]
+     },
+     {
+      "component": "B3 - B2 easy top-3",
+      "verdict": "supported",
+      "point": 0.2878,
+      "ci": [
+       0.2385,
+       0.3426
+      ]
+     }
+    ]
+   }
+  },
+  "E3": {
+   "q90": {
+    "verdict": "not met",
+    "components": [
+     {
+      "component": "B3 drop - 0.15",
+      "verdict": "supported",
+      "point": 0.1946,
+      "ci": [
+       0.125,
+       0.2663
+      ]
+     },
+     {
+      "component": "B3 drop - B2 drop",
+      "verdict": "contradicted",
+      "point": -0.1976,
+      "ci": [
+       -0.2956,
+       -0.086
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "not met",
+    "components": [
+     {
+      "component": "B3 drop - 0.15",
+      "verdict": "supported",
+      "point": 0.1946,
+      "ci": [
+       0.125,
+       0.2663
+      ]
+     },
+     {
+      "component": "B3 drop - B2 drop",
+      "verdict": "contradicted",
+      "point": -0.3298,
+      "ci": [
+       -0.4214,
+       -0.2277
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "B3 drop - 0.15",
+      "verdict": "supported",
+      "point": 0.1946,
+      "ci": [
+       0.125,
+       0.2663
+      ]
+     },
+     {
+      "component": "B3 drop - B2 drop",
+      "verdict": "inconclusive",
+      "point": 0.0928,
+      "ci": [
+       -0.011,
+       0.2007
+      ]
+     }
+    ]
+   }
+  },
+  "E4": {
+   "q90": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: B1 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.2157,
+      "ci": [
+       0.1818,
+       0.2461
+      ]
+     },
+     {
+      "component": "with_status: B2 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.0942,
+      "ci": [
+       0.0559,
+       0.132
+      ]
+     },
+     {
+      "component": "with_status: B3 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.2304,
+      "ci": [
+       0.1987,
+       0.2598
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.2134,
+      "ci": [
+       0.1794,
+       0.2436
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.1012,
+      "ci": [
+       0.0614,
+       0.1409
+      ]
+     },
+     {
+      "component": "status_blind: B3 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.2315,
+      "ci": [
+       0.1999,
+       0.2607
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: B1 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.1174,
+      "ci": [
+       0.075,
+       0.1572
+      ]
+     },
+     {
+      "component": "with_status: B2 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.1579,
+      "ci": [
+       0.1206,
+       0.1913
+      ]
+     },
+     {
+      "component": "with_status: B3 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.2304,
+      "ci": [
+       0.1987,
+       0.2598
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.115,
+      "ci": [
+       0.0733,
+       0.1553
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.1509,
+      "ci": [
+       0.1128,
+       0.1857
+      ]
+     },
+     {
+      "component": "status_blind: B3 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.2315,
+      "ci": [
+       0.1999,
+       0.2607
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: B1 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.1972,
+      "ci": [
+       0.1626,
+       0.2284
+      ]
+     },
+     {
+      "component": "with_status: B2 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.078,
+      "ci": [
+       0.0362,
+       0.1192
+      ]
+     },
+     {
+      "component": "with_status: B3 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.2304,
+      "ci": [
+       0.1987,
+       0.2598
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.1926,
+      "ci": [
+       0.1585,
+       0.2228
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.0803,
+      "ci": [
+       0.0382,
+       0.1236
+      ]
+     },
+     {
+      "component": "status_blind: B3 0.35 - hard top-1",
+      "verdict": "supported",
+      "point": 0.2315,
+      "ci": [
+       0.1999,
+       0.2607
+      ]
+     }
+    ]
+   }
+  },
+  "E5": {
+   "q90": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: B1 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.3,
+      "ci": [
+       0.3,
+       0.3
+      ]
+     },
+     {
+      "component": "with_status: B2 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.2062,
+      "ci": [
+       0.1708,
+       0.2383
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.3,
+      "ci": [
+       0.3,
+       0.3
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.2393,
+      "ci": [
+       0.2116,
+       0.2637
+      ]
+     },
+     {
+      "component": "with_status: B3 - B1 node_down top-1",
+      "verdict": "supported",
+      "point": 0.6096,
+      "ci": [
+       0.5441,
+       0.671
+      ]
+     },
+     {
+      "component": "with_status: B3 - B2 node_down top-1",
+      "verdict": "supported",
+      "point": 0.5159,
+      "ci": [
+       0.4421,
+       0.5867
+      ]
+     },
+     {
+      "component": "status_blind: B3 - B1 node_down top-1",
+      "verdict": "supported",
+      "point": 0.7009,
+      "ci": [
+       0.645,
+       0.7533
+      ]
+     },
+     {
+      "component": "status_blind: B3 - B2 node_down top-1",
+      "verdict": "supported",
+      "point": 0.6402,
+      "ci": [
+       0.5762,
+       0.7031
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: B1 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.3,
+      "ci": [
+       0.3,
+       0.3
+      ]
+     },
+     {
+      "component": "with_status: B2 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.2062,
+      "ci": [
+       0.1714,
+       0.237
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.3,
+      "ci": [
+       0.3,
+       0.3
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.2934,
+      "ci": [
+       0.2818,
+       0.3
+      ]
+     },
+     {
+      "component": "with_status: B3 - B1 node_down top-1",
+      "verdict": "supported",
+      "point": 0.6096,
+      "ci": [
+       0.5441,
+       0.671
+      ]
+     },
+     {
+      "component": "with_status: B3 - B2 node_down top-1",
+      "verdict": "supported",
+      "point": 0.5159,
+      "ci": [
+       0.4421,
+       0.5866
+      ]
+     },
+     {
+      "component": "status_blind: B3 - B1 node_down top-1",
+      "verdict": "supported",
+      "point": 0.7009,
+      "ci": [
+       0.645,
+       0.7533
+      ]
+     },
+     {
+      "component": "status_blind: B3 - B2 node_down top-1",
+      "verdict": "supported",
+      "point": 0.6943,
+      "ci": [
+       0.6359,
+       0.7469
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: B1 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.3,
+      "ci": [
+       0.3,
+       0.3
+      ]
+     },
+     {
+      "component": "with_status: B2 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.2123,
+      "ci": [
+       0.18,
+       0.2414
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.3,
+      "ci": [
+       0.3,
+       0.3
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.30 - node_down top-1",
+      "verdict": "supported",
+      "point": 0.2272,
+      "ci": [
+       0.2,
+       0.2546
+      ]
+     },
+     {
+      "component": "with_status: B3 - B1 node_down top-1",
+      "verdict": "supported",
+      "point": 0.6096,
+      "ci": [
+       0.5441,
+       0.671
+      ]
+     },
+     {
+      "component": "with_status: B3 - B2 node_down top-1",
+      "verdict": "supported",
+      "point": 0.5219,
+      "ci": [
+       0.447,
+       0.5907
+      ]
+     },
+     {
+      "component": "status_blind: B3 - B1 node_down top-1",
+      "verdict": "supported",
+      "point": 0.7009,
+      "ci": [
+       0.645,
+       0.7533
+      ]
+     },
+     {
+      "component": "status_blind: B3 - B2 node_down top-1",
+      "verdict": "supported",
+      "point": 0.628,
+      "ci": [
+       0.5579,
+       0.6959
+      ]
+     }
+    ]
+   }
+  },
+  "E6": {
+   "q90": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 hard 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0765,
+      "ci": [
+       -0.0167,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B1 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0389,
+      "ci": [
+       -0.1833,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B2 hard 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": -0.0265,
+      "ci": [
+       -0.1625,
+       0.0912
+      ]
+     },
+     {
+      "component": "with_status: B2 easy 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.15,
+      "ci": [
+       0.15,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B3 hard 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1042,
+      "ci": [
+       0.0283,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B3 easy 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1387,
+      "ci": [
+       0.1246,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B1 hard 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0765,
+      "ci": [
+       -0.0167,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B1 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0731,
+      "ci": [
+       -0.1,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B2 hard 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": -0.0265,
+      "ci": [
+       -0.1625,
+       0.0912
+      ]
+     },
+     {
+      "component": "status_blind: B2 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": -0.1577,
+      "ci": [
+       -0.4214,
+       0.0786
+      ]
+     },
+     {
+      "component": "status_blind: B3 hard 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1042,
+      "ci": [
+       0.0283,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B3 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": -0.0117,
+      "ci": [
+       -0.2417,
+       0.1448
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 hard 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0324,
+      "ci": [
+       -0.0808,
+       0.1244
+      ]
+     },
+     {
+      "component": "with_status: B1 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0389,
+      "ci": [
+       -0.25,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B2 hard 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0471,
+      "ci": [
+       -0.0643,
+       0.1361
+      ]
+     },
+     {
+      "component": "with_status: B2 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0389,
+      "ci": [
+       -0.25,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B3 hard 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1042,
+      "ci": [
+       0.0283,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B3 easy 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1387,
+      "ci": [
+       0.1246,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B1 hard 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0324,
+      "ci": [
+       -0.0808,
+       0.1244
+      ]
+     },
+     {
+      "component": "status_blind: B1 easy 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.15,
+      "ci": [
+       0.15,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B2 hard 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0618,
+      "ci": [
+       -0.05,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B2 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": -0.0808,
+      "ci": [
+       -0.3168,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B3 hard 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1042,
+      "ci": [
+       0.0283,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B3 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": -0.0117,
+      "ci": [
+       -0.2417,
+       0.1448
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 hard 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1206,
+      "ci": [
+       0.05,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B1 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0389,
+      "ci": [
+       -0.25,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B2 hard 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0029,
+      "ci": [
+       -0.1167,
+       0.1167
+      ]
+     },
+     {
+      "component": "with_status: B2 easy 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.15,
+      "ci": [
+       0.15,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B3 hard 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1042,
+      "ci": [
+       0.0283,
+       0.15
+      ]
+     },
+     {
+      "component": "with_status: B3 easy 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1387,
+      "ci": [
+       0.1246,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B1 hard 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1206,
+      "ci": [
+       0.05,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B1 easy 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.15,
+      "ci": [
+       0.15,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B2 hard 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": 0.0176,
+      "ci": [
+       -0.0937,
+       0.1177
+      ]
+     },
+     {
+      "component": "status_blind: B2 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": -0.0808,
+      "ci": [
+       -0.35,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B3 hard 0.15 - top-3",
+      "verdict": "supported",
+      "point": 0.1042,
+      "ci": [
+       0.0283,
+       0.15
+      ]
+     },
+     {
+      "component": "status_blind: B3 easy 0.15 - top-3",
+      "verdict": "inconclusive",
+      "point": -0.0117,
+      "ci": [
+       -0.2417,
+       0.1448
+      ]
+     }
+    ]
+   }
+  },
+  "E7": {
+   "any": {
+    "verdict": "met",
+    "components": [
+     {
+      "component": "with_status: B1 generated fault-free - 0.03",
+      "verdict": "supported",
+      "point": 0.0258,
+      "ci": [
+       0.0223,
+       0.0293
+      ]
+     },
+     {
+      "component": "with_status: B2 generated fault-free - 0.03",
+      "verdict": "supported",
+      "point": 0.0271,
+      "ci": [
+       0.0199,
+       0.0339
+      ]
+     },
+     {
+      "component": "with_status: B3 generated fault-free - 0.03",
+      "verdict": "supported",
+      "point": 0.018,
+      "ci": [
+       0.012,
+       0.0245
+      ]
+     },
+     {
+      "component": "status_blind: B1 generated fault-free - 0.03",
+      "verdict": "supported",
+      "point": 0.0258,
+      "ci": [
+       0.0223,
+       0.0293
+      ]
+     },
+     {
+      "component": "status_blind: B2 generated fault-free - 0.03",
+      "verdict": "supported",
+      "point": 0.0284,
+      "ci": [
+       0.0205,
+       0.0358
+      ]
+     },
+     {
+      "component": "status_blind: B3 generated fault-free - 0.03",
+      "verdict": "supported",
+      "point": 0.0183,
+      "ci": [
+       0.0121,
+       0.0248
+      ]
+     },
+     {
+      "component": "with_status: B1 0.08 - generated fault-free",
+      "verdict": "supported",
+      "point": 0.0242,
+      "ci": [
+       0.0207,
+       0.0277
+      ]
+     },
+     {
+      "component": "with_status: B2 0.08 - generated fault-free",
+      "verdict": "supported",
+      "point": 0.0229,
+      "ci": [
+       0.0161,
+       0.0301
+      ]
+     },
+     {
+      "component": "with_status: B3 0.08 - generated fault-free",
+      "verdict": "supported",
+      "point": 0.032,
+      "ci": [
+       0.0255,
+       0.038
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.08 - generated fault-free",
+      "verdict": "supported",
+      "point": 0.0242,
+      "ci": [
+       0.0207,
+       0.0277
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.08 - generated fault-free",
+      "verdict": "supported",
+      "point": 0.0216,
+      "ci": [
+       0.0142,
+       0.0295
+      ]
+     },
+     {
+      "component": "status_blind: B3 0.08 - generated fault-free",
+      "verdict": "supported",
+      "point": 0.0317,
+      "ci": [
+       0.0252,
+       0.0379
+      ]
+     },
+     {
+      "component": "with_status: B1 maintenance - 2 x fault-free",
+      "verdict": "supported",
+      "point": 0.1836,
+      "ci": [
+       0.1652,
+       0.2023
+      ]
+     },
+     {
+      "component": "with_status: B2 maintenance - 2 x fault-free",
+      "verdict": "supported",
+      "point": 0.1158,
+      "ci": [
+       0.0986,
+       0.1356
+      ]
+     },
+     {
+      "component": "with_status: B3 maintenance - 2 x fault-free",
+      "verdict": "supported",
+      "point": 0.0891,
+      "ci": [
+       0.0649,
+       0.1147
+      ]
+     },
+     {
+      "component": "status_blind: B1 maintenance - 2 x fault-free",
+      "verdict": "supported",
+      "point": 0.1451,
+      "ci": [
+       0.1268,
+       0.1648
+      ]
+     },
+     {
+      "component": "status_blind: B2 maintenance - 2 x fault-free",
+      "verdict": "supported",
+      "point": 0.0441,
+      "ci": [
+       0.0281,
+       0.0615
+      ]
+     },
+     {
+      "component": "status_blind: B3 maintenance - 2 x fault-free",
+      "verdict": "supported",
+      "point": 0.0484,
+      "ci": [
+       0.0252,
+       0.0709
+      ]
+     }
+    ]
+   }
+  },
+  "E8": {
+   "q90": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.2371,
+      "ci": [
+       0.1493,
+       0.329
+      ]
+     },
+     {
+      "component": "with_status: B2 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3038,
+      "ci": [
+       0.1923,
+       0.4206
+      ]
+     },
+     {
+      "component": "with_status: B3 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3287,
+      "ci": [
+       0.2438,
+       0.4092
+      ]
+     },
+     {
+      "component": "status_blind: B1 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.2305,
+      "ci": [
+       0.1375,
+       0.3272
+      ]
+     },
+     {
+      "component": "status_blind: B2 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3172,
+      "ci": [
+       0.2017,
+       0.4308
+      ]
+     },
+     {
+      "component": "status_blind: B3 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3287,
+      "ci": [
+       0.2438,
+       0.4092
+      ]
+     },
+     {
+      "component": "with_status: B1 0.30 - subtle detected",
+      "verdict": "inconclusive",
+      "point": 0.05,
+      "ci": [
+       -0.0361,
+       0.1273
+      ]
+     },
+     {
+      "component": "with_status: B2 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.18,
+      "ci": [
+       0.1141,
+       0.24
+      ]
+     },
+     {
+      "component": "with_status: B3 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.27,
+      "ci": [
+       0.2358,
+       0.3
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.30 - subtle detected",
+      "verdict": "inconclusive",
+      "point": 0.05,
+      "ci": [
+       -0.0361,
+       0.1273
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.19,
+      "ci": [
+       0.128,
+       0.25
+      ]
+     },
+     {
+      "component": "status_blind: B3 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.27,
+      "ci": [
+       0.2358,
+       0.3
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.2755,
+      "ci": [
+       0.162,
+       0.3824
+      ]
+     },
+     {
+      "component": "with_status: B2 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3066,
+      "ci": [
+       0.211,
+       0.4082
+      ]
+     },
+     {
+      "component": "with_status: B3 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3287,
+      "ci": [
+       0.2438,
+       0.4092
+      ]
+     },
+     {
+      "component": "status_blind: B1 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.2822,
+      "ci": [
+       0.1699,
+       0.392
+      ]
+     },
+     {
+      "component": "status_blind: B2 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3704,
+      "ci": [
+       0.2657,
+       0.4756
+      ]
+     },
+     {
+      "component": "status_blind: B3 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3287,
+      "ci": [
+       0.2438,
+       0.4092
+      ]
+     },
+     {
+      "component": "with_status: B1 0.30 - subtle detected",
+      "verdict": "inconclusive",
+      "point": 0.05,
+      "ci": [
+       -0.0361,
+       0.1273
+      ]
+     },
+     {
+      "component": "with_status: B2 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.18,
+      "ci": [
+       0.1141,
+       0.24
+      ]
+     },
+     {
+      "component": "with_status: B3 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.27,
+      "ci": [
+       0.2358,
+       0.3
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.30 - subtle detected",
+      "verdict": "inconclusive",
+      "point": 0.05,
+      "ci": [
+       -0.0361,
+       0.1273
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.19,
+      "ci": [
+       0.128,
+       0.25
+      ]
+     },
+     {
+      "component": "status_blind: B3 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.27,
+      "ci": [
+       0.2358,
+       0.3
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.172,
+      "ci": [
+       0.0844,
+       0.2746
+      ]
+     },
+     {
+      "component": "with_status: B2 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3172,
+      "ci": [
+       0.1988,
+       0.4323
+      ]
+     },
+     {
+      "component": "with_status: B3 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3287,
+      "ci": [
+       0.2438,
+       0.4092
+      ]
+     },
+     {
+      "component": "status_blind: B1 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.172,
+      "ci": [
+       0.0844,
+       0.2746
+      ]
+     },
+     {
+      "component": "status_blind: B2 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3105,
+      "ci": [
+       0.1932,
+       0.4237
+      ]
+     },
+     {
+      "component": "status_blind: B3 obvious - subtle top-3",
+      "verdict": "supported",
+      "point": 0.3287,
+      "ci": [
+       0.2438,
+       0.4092
+      ]
+     },
+     {
+      "component": "with_status: B1 0.30 - subtle detected",
+      "verdict": "inconclusive",
+      "point": 0.05,
+      "ci": [
+       -0.0361,
+       0.1273
+      ]
+     },
+     {
+      "component": "with_status: B2 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.18,
+      "ci": [
+       0.1141,
+       0.24
+      ]
+     },
+     {
+      "component": "with_status: B3 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.27,
+      "ci": [
+       0.2358,
+       0.3
+      ]
+     },
+     {
+      "component": "status_blind: B1 0.30 - subtle detected",
+      "verdict": "inconclusive",
+      "point": 0.05,
+      "ci": [
+       -0.0361,
+       0.1273
+      ]
+     },
+     {
+      "component": "status_blind: B2 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.19,
+      "ci": [
+       0.128,
+       0.25
+      ]
+     },
+     {
+      "component": "status_blind: B3 0.30 - subtle detected",
+      "verdict": "supported",
+      "point": 0.27,
+      "ci": [
+       0.2358,
+       0.3
+      ]
+     }
+    ]
+   }
+  },
+  "E9": {
+   "q90": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0081,
+      "ci": [
+       -0.1097,
+       0.1163
+      ]
+     },
+     {
+      "component": "with_status: B2 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.029,
+      "ci": [
+       -0.0835,
+       0.1415
+      ]
+     },
+     {
+      "component": "with_status: B3 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": -0.0057,
+      "ci": [
+       -0.0994,
+       0.0826
+      ]
+     },
+     {
+      "component": "status_blind: B1 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0124,
+      "ci": [
+       -0.1062,
+       0.1214
+      ]
+     },
+     {
+      "component": "status_blind: B2 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0258,
+      "ci": [
+       -0.0941,
+       0.1447
+      ]
+     },
+     {
+      "component": "status_blind: B3 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": -0.0175,
+      "ci": [
+       -0.1098,
+       0.073
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0395,
+      "ci": [
+       -0.0819,
+       0.1666
+      ]
+     },
+     {
+      "component": "with_status: B2 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0243,
+      "ci": [
+       -0.098,
+       0.1378
+      ]
+     },
+     {
+      "component": "with_status: B3 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": -0.0057,
+      "ci": [
+       -0.0994,
+       0.0826
+      ]
+     },
+     {
+      "component": "status_blind: B1 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0453,
+      "ci": [
+       -0.0778,
+       0.1721
+      ]
+     },
+     {
+      "component": "status_blind: B2 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0149,
+      "ci": [
+       -0.1107,
+       0.1344
+      ]
+     },
+     {
+      "component": "status_blind: B3 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": -0.0175,
+      "ci": [
+       -0.1098,
+       0.073
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0071,
+      "ci": [
+       -0.1067,
+       0.1168
+      ]
+     },
+     {
+      "component": "with_status: B2 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0256,
+      "ci": [
+       -0.0896,
+       0.1498
+      ]
+     },
+     {
+      "component": "with_status: B3 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": -0.0057,
+      "ci": [
+       -0.0994,
+       0.0826
+      ]
+     },
+     {
+      "component": "status_blind: B1 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0071,
+      "ci": [
+       -0.1067,
+       0.1168
+      ]
+     },
+     {
+      "component": "status_blind: B2 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": 0.0198,
+      "ci": [
+       -0.0934,
+       0.1448
+      ]
+     },
+     {
+      "component": "status_blind: B3 generated + 0.05 - real",
+      "verdict": "inconclusive",
+      "point": -0.0175,
+      "ci": [
+       -0.1098,
+       0.073
+      ]
+     }
+    ]
+   }
+  },
+  "E10": {
+   "q90": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B3 no concurrent - concurrent",
+      "verdict": "supported",
+      "point": 0.1206,
+      "ci": [
+       0.0051,
+       0.232
+      ]
+     },
+     {
+      "component": "status_blind: B3 no concurrent - concurrent",
+      "verdict": "inconclusive",
+      "point": 0.0737,
+      "ci": [
+       -0.0817,
+       0.2182
+      ]
+     }
+    ]
+   },
+   "max": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B3 no concurrent - concurrent",
+      "verdict": "supported",
+      "point": 0.1206,
+      "ci": [
+       0.0051,
+       0.232
+      ]
+     },
+     {
+      "component": "status_blind: B3 no concurrent - concurrent",
+      "verdict": "inconclusive",
+      "point": 0.0737,
+      "ci": [
+       -0.0817,
+       0.2182
+      ]
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B3 no concurrent - concurrent",
+      "verdict": "supported",
+      "point": 0.1206,
+      "ci": [
+       0.0051,
+       0.232
+      ]
+     },
+     {
+      "component": "status_blind: B3 no concurrent - concurrent",
+      "verdict": "inconclusive",
+      "point": 0.0737,
+      "ci": [
+       -0.0817,
+       0.2182
+      ]
+     }
+    ]
+   }
+  },
+  "E11": {
+   "any": {
+    "verdict": "not met",
+    "components": [
+     {
+      "component": "with_status: B1 symptomatic - root",
+      "verdict": "supported",
+      "point": 0.0064,
+      "ci": [
+       0.0043,
+       0.0088
+      ]
+     },
+     {
+      "component": "with_status: B2 symptomatic - root",
+      "verdict": "contradicted",
+      "point": -0.0196,
+      "ci": [
+       -0.0388,
+       -0.0024
+      ]
+     },
+     {
+      "component": "status_blind: B1 symptomatic - root",
+      "verdict": "supported",
+      "point": 0.0063,
+      "ci": [
+       0.0042,
+       0.0088
+      ]
+     },
+     {
+      "component": "status_blind: B2 symptomatic - root",
+      "verdict": "contradicted",
+      "point": -0.0159,
+      "ci": [
+       -0.0332,
+       -0.0007
+      ]
+     }
+    ]
+   }
+  },
+  "E12": {
+   "q90": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0498,
+      "ci": [
+       0.0209,
+       0.0821
+      ]
+     },
+     {
+      "component": "with_status: B1 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0047,
+      "ci": [
+       0.0031,
+       0.0069
+      ]
+     },
+     {
+      "component": "with_status: B2 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0753,
+      "ci": [
+       0.0492,
+       0.104
+      ]
+     },
+     {
+      "component": "with_status: B2 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0296,
+      "ci": [
+       0.0205,
+       0.0398
+      ]
+     },
+     {
+      "component": "with_status: B3 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0841,
+      "ci": [
+       0.0575,
+       0.115
+      ]
+     },
+     {
+      "component": "with_status: B3 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0242,
+      "ci": [
+       0.0133,
+       0.0351
+      ]
+     },
+     {
+      "component": "with_status: top-3 rise >= 0.05 for 2 of 3 methods",
+      "verdict": "inconclusive",
+      "point": null,
+      "ci": [
+       null,
+       null
+      ],
+      "per_method": {
+       "B1": "inconclusive",
+       "B2": "inconclusive",
+       "B3": "supported"
+      }
+     },
+     {
+      "component": "status_blind: B1 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0498,
+      "ci": [
+       0.0209,
+       0.0821
+      ]
+     },
+     {
+      "component": "status_blind: B1 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0049,
+      "ci": [
+       0.0031,
+       0.0071
+      ]
+     },
+     {
+      "component": "status_blind: B2 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0753,
+      "ci": [
+       0.0486,
+       0.1037
+      ]
+     },
+     {
+      "component": "status_blind: B2 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.028,
+      "ci": [
+       0.0196,
+       0.0376
+      ]
+     },
+     {
+      "component": "status_blind: B3 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0829,
+      "ci": [
+       0.0554,
+       0.1143
+      ]
+     },
+     {
+      "component": "status_blind: B3 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.03,
+      "ci": [
+       0.0178,
+       0.0425
+      ]
+     },
+     {
+      "component": "status_blind: top-3 rise >= 0.05 for 2 of 3 methods",
+      "verdict": "inconclusive",
+      "point": null,
+      "ci": [
+       null,
+       null
+      ],
+      "per_method": {
+       "B1": "inconclusive",
+       "B2": "inconclusive",
+       "B3": "supported"
+      }
+     }
+    ]
+   },
+   "max": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0617,
+      "ci": [
+       0.0377,
+       0.0891
+      ]
+     },
+     {
+      "component": "with_status: B1 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0047,
+      "ci": [
+       0.0031,
+       0.0069
+      ]
+     },
+     {
+      "component": "with_status: B2 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0753,
+      "ci": [
+       0.0491,
+       0.1024
+      ]
+     },
+     {
+      "component": "with_status: B2 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0296,
+      "ci": [
+       0.0205,
+       0.0398
+      ]
+     },
+     {
+      "component": "with_status: B3 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0841,
+      "ci": [
+       0.0575,
+       0.115
+      ]
+     },
+     {
+      "component": "with_status: B3 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0242,
+      "ci": [
+       0.0133,
+       0.0351
+      ]
+     },
+     {
+      "component": "with_status: top-3 rise >= 0.05 for 2 of 3 methods",
+      "verdict": "inconclusive",
+      "point": null,
+      "ci": [
+       null,
+       null
+      ],
+      "per_method": {
+       "B1": "inconclusive",
+       "B2": "inconclusive",
+       "B3": "supported"
+      }
+     },
+     {
+      "component": "status_blind: B1 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0593,
+      "ci": [
+       0.0361,
+       0.086
+      ]
+     },
+     {
+      "component": "status_blind: B1 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0049,
+      "ci": [
+       0.0031,
+       0.0071
+      ]
+     },
+     {
+      "component": "status_blind: B2 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0514,
+      "ci": [
+       0.028,
+       0.0781
+      ]
+     },
+     {
+      "component": "status_blind: B2 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.028,
+      "ci": [
+       0.0196,
+       0.0376
+      ]
+     },
+     {
+      "component": "status_blind: B3 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0829,
+      "ci": [
+       0.0554,
+       0.1143
+      ]
+     },
+     {
+      "component": "status_blind: B3 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.03,
+      "ci": [
+       0.0178,
+       0.0425
+      ]
+     },
+     {
+      "component": "status_blind: top-3 rise >= 0.05 for 2 of 3 methods",
+      "verdict": "inconclusive",
+      "point": null,
+      "ci": [
+       null,
+       null
+      ],
+      "per_method": {
+       "B1": "inconclusive",
+       "B2": "inconclusive",
+       "B3": "supported"
+      }
+     }
+    ]
+   },
+   "mean": {
+    "verdict": "inconclusive",
+    "components": [
+     {
+      "component": "with_status: B1 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0247,
+      "ci": [
+       0.0025,
+       0.0476
+      ]
+     },
+     {
+      "component": "with_status: B1 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0047,
+      "ci": [
+       0.0031,
+       0.0069
+      ]
+     },
+     {
+      "component": "with_status: B2 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0679,
+      "ci": [
+       0.0439,
+       0.096
+      ]
+     },
+     {
+      "component": "with_status: B2 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0296,
+      "ci": [
+       0.0205,
+       0.0398
+      ]
+     },
+     {
+      "component": "with_status: B3 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0841,
+      "ci": [
+       0.0575,
+       0.115
+      ]
+     },
+     {
+      "component": "with_status: B3 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0242,
+      "ci": [
+       0.0133,
+       0.0351
+      ]
+     },
+     {
+      "component": "with_status: top-3 rise >= 0.05 for 2 of 3 methods",
+      "verdict": "inconclusive",
+      "point": null,
+      "ci": [
+       null,
+       null
+      ],
+      "per_method": {
+       "B1": "contradicted",
+       "B2": "inconclusive",
+       "B3": "supported"
+      }
+     },
+     {
+      "component": "status_blind: B1 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0247,
+      "ci": [
+       0.0025,
+       0.0476
+      ]
+     },
+     {
+      "component": "status_blind: B1 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.0049,
+      "ci": [
+       0.0031,
+       0.0071
+      ]
+     },
+     {
+      "component": "status_blind: B2 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0827,
+      "ci": [
+       0.0569,
+       0.1128
+      ]
+     },
+     {
+      "component": "status_blind: B2 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.028,
+      "ci": [
+       0.0196,
+       0.0376
+      ]
+     },
+     {
+      "component": "status_blind: B3 top-3 rise",
+      "verdict": "supported",
+      "point": 0.0829,
+      "ci": [
+       0.0554,
+       0.1143
+      ]
+     },
+     {
+      "component": "status_blind: B3 root PR-AUC rise",
+      "verdict": "supported",
+      "point": 0.03,
+      "ci": [
+       0.0178,
+       0.0425
+      ]
+     },
+     {
+      "component": "status_blind: top-3 rise >= 0.05 for 2 of 3 methods",
+      "verdict": "supported",
+      "point": null,
+      "ci": [
+       null,
+       null
+      ],
+      "per_method": {
+       "B1": "contradicted",
+       "B2": "supported",
+       "B3": "supported"
+      }
+     }
+    ]
+   }
+  }
+ }
+}

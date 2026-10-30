@@ -14,10 +14,16 @@ diurnal lag) is allowed.
   per-metric z-score; missingness is ignored). Span and persistence were picked on 30 train scenarios.
 - B2: Isolation Forest on per-link windowed features (relative levels, one-day lags, short rolling stats,
   missing-data flags). Fit unsupervised on train cells.
-- B3: network tomography heuristic over threshold alerts. "Paths" are service routing paths, plus each link and PoP
-  as a one-element path. An element's score = (alerted paths containing it / all alerted paths) x (alerted paths
-  containing it / all paths containing it): coverage times specificity, so elements also used by many healthy paths
-  are penalised.
+- B3: network tomography heuristic over threshold alerts, as pre-registered. "Paths" are service routing paths, plus
+  each link and each PoP as a one-element path. An element's score = (alerted paths containing it / all alerted paths)
+  x (alerted paths containing it / all paths containing it): coverage times specificity, so elements also used by many
+  healthy paths are penalised.
+- B3+: the version first run in Phase 4, a disclosed deviation (audit Q1): a link's own path also contains its two end
+  PoPs, so link alerts also count for the routers at each end.
+
+For B1 and B2 a PoP's score is an aggregation of its links' scores (POP_AGGS; the choice is made on train, audit Q2).
+Localisation scores an element over a window by one of WINDOW_AGGS (audit Q3); B3 and B3+ use the window union of
+alerts for every aggregation, as pre-registered.
 """
 from dataclasses import dataclass
 
@@ -28,7 +34,8 @@ from sklearn.ensemble import IsolationForest
 from nettwin.alerts import active_matrix, generate_alerts
 
 DAY = 288
-WINDOW_QUANTILE = 0.9   # element score over a localisation window: this quantile of its per-step scores
+WINDOW_QUANTILE = 0.9   # the pre-registered window aggregation ("q90"); "max" and "mean" are reported next to it
+POP_AGGS = ("mean", "max", "second_max")
 
 
 @dataclass
@@ -57,9 +64,29 @@ def index_for(obs, kg):
     return Index(links, pops, ends, inc)
 
 
-def pop_mean(link_scores, ix):
-    """PoP score = mean of its links' scores (for per-link methods)."""
-    return link_scores @ ix.incidence / ix.incidence.sum(0)
+def pop_scores(link_scores, ix, agg="mean"):
+    """PoP score from its links' scores (for per-link methods): mean, max, or the second largest (0 for a degree-1
+    PoP, so a spur link outranks its leaf PoP unless something else marks the PoP)."""
+    if agg == "mean":
+        return link_scores @ ix.incidence / ix.incidence.sum(0)
+    out = np.zeros((link_scores.shape[0], len(ix.pops)))
+    for p in range(len(ix.pops)):
+        cols = link_scores[:, ix.incidence[:, p] > 0]
+        if agg == "max":
+            out[:, p] = cols.max(1)
+        elif cols.shape[1] >= 2:
+            out[:, p] = np.partition(cols, -2, axis=1)[:, -2]
+    return out
+
+
+def window_score(x, agg):
+    if agg == "q90":
+        return np.quantile(x, WINDOW_QUANTILE, axis=0)
+    if agg == "max":
+        return x.max(0)
+    if agg == "mean":
+        return x.mean(0)
+    raise ValueError(agg)
 
 
 def _past_ewm(x, span):
@@ -76,6 +103,7 @@ def _lag(x, k):
 
 class Method:
     name = ""
+    pop_agg = "mean"
 
     def fit(self, scenarios):
         return self
@@ -84,10 +112,10 @@ class Method:
         """Returns a state tuple starting (link_scores (T, L), pop_scores (T, P)); higher = more anomalous, finite."""
         raise NotImplementedError
 
-    def localise(self, state, t0, t1):
+    def localise(self, state, t0, t1, agg="q90"):
         """Score per element (links then PoPs) for the window [t0, t1). `state` is what `score` returned."""
         link, pop = state[0], state[1]
-        return np.quantile(np.hstack([link[t0:t1], pop[t0:t1]]), WINDOW_QUANTILE, axis=0)
+        return window_score(np.hstack([link[t0:t1], pop[t0:t1]]), agg)
 
 
 class B1EwmaZ(Method):
@@ -113,7 +141,7 @@ class B1EwmaZ(Method):
                 held[:k] = 0
             zs.append(held)
         link = np.max(np.stack(zs), axis=0)
-        return link, pop_mean(link, ix)
+        return link, pop_scores(link, ix, self.pop_agg)
 
 
 FEATURES = (
@@ -167,12 +195,13 @@ class B2IsolationForest(Method):
         F = b2_features(obs)
         T, L, _ = F.shape
         link = -self.model.score_samples(F.reshape(-1, F.shape[-1])).reshape(T, L)
-        return link, pop_mean(link, ix)
+        return link, pop_scores(link, ix, self.pop_agg)
 
 
 class B3Tomography(Method):
     name = "B3"
     severities = ("critical", "major", "minor")   # info alerts (no telemetry at all) are not used
+    link_path_has_ends = False                     # pre-registered: a link's own path is the link alone
 
     def _matrices(self, obs, kg, ix):
         S, L, P = len(obs.services), len(ix.links), len(ix.pops)
@@ -189,7 +218,8 @@ class B3Tomography(Method):
                     M[i, L + pidx[f"pop:{n}"]] += 1 / len(paths)
         for j in range(L):
             M[S + j, j] = 1
-            M[S + j, L + ix.ends[j]] = 1
+            if self.link_path_has_ends:
+                M[S + j, L + ix.ends[j]] = 1
         for k in range(P):
             M[S + L + k, L + k] = 1
         alerts = generate_alerts(obs, kg)
@@ -217,9 +247,14 @@ class B3Tomography(Method):
         L = len(ix.links)
         return s[:, :L], s[:, L:], (A, M)
 
-    def localise(self, state, t0, t1):
+    def localise(self, state, t0, t1, agg="q90"):
         A, M = state[2]
         return self._tomo(A[t0:t1].any(0, keepdims=True), M)[0]
 
 
-METHODS = {"B1": B1EwmaZ, "B2": B2IsolationForest, "B3": B3Tomography}
+class B3Plus(B3Tomography):
+    name = "B3+"
+    link_path_has_ends = True
+
+
+METHODS = {"B1": B1EwmaZ, "B2": B2IsolationForest, "B3": B3Tomography, "B3+": B3Plus}

@@ -22,7 +22,7 @@ from nettwin.kg import FAULT_TYPES
 from nettwin.topology import load
 
 ROOT = Path(__file__).resolve().parents[1]
-CHANNELS = ("obs_status", "obs_link_util", "obs_link_counters", "obs_e2e")
+CHANNELS = ("obs_status", "obs_link_util", "obs_link_counters", "obs_e2e", "obs_telemetry_absence")
 CLASSES = ("subtle", "moderate", "obvious")
 HARD = ("link_degradation", "demand_surge", "routing_misconfig", "link_flapping")
 
@@ -176,7 +176,9 @@ def write_card(summary, cfg, path):
     w("- `with_status`: status events and SNMP-style down links (util exactly 0, discards 0, one-hop latency missing). "
       "\"util exactly 0 with latency missing\" is a near-unique, realistic down-link signature (audit re-verify N2).")
     w("- `status_blind`: down links fully missing (like a telemetry gap) and no status or reachability events; the maintenance log stays. "
-      "Observability flags are recomputed for this view.")
+      "Observability flags are recomputed for this view, including a fifth channel, telemetry absence: a root link fully "
+      "missing for 2+ steps inside the fault window and outside planned changes. Missing telemetry is itself visible, so such "
+      "faults count as observable (Phase 4 audit follow-up; the channel is always false in with_status, where nothing is blanked).")
     w("Results for link_down and node_down must be reported on both variants.")
     w("")
     w("## Faults by split and type (with_status variant)")
@@ -206,7 +208,9 @@ def write_card(summary, cfg, path):
         b = sp["variants"]["status_blind"]
         w(f"Status-blind variant: unobservable faults {b['unobservable_faults']} ({pct(b['unobservable_faults'], b['faults'])}); "
           f"link_down observable {b['by_fault_type']['link_down']['observable']} of {b['by_fault_type']['link_down']['n']}, "
-          f"node_down observable {b['by_fault_type']['node_down']['observable']} of {b['by_fault_type']['node_down']['n']}.")
+          f"node_down observable {b['by_fault_type']['node_down']['observable']} of {b['by_fault_type']['node_down']['n']}. "
+          f"Faults with the telemetry-absence channel (a root link blanked for 2+ steps, Phase 4 audit): "
+          f"{sum(d['channels']['obs_telemetry_absence'] for d in b['by_fault_type'].values())}.")
         w("")
     w("## Difficulty mix against T2, by source (with_status variant)")
     w("")

@@ -4,7 +4,8 @@ BEFORE the two pre-registered difficulty adjustments (decision log, "Pre-registe
 No frozen file is edited. The frozen config is loaded and only its `faults` ranges are replaced in memory with the
 pre-tuning values; the demand-surge factor, sampled log-uniform after adjustment 1, is sampled uniform again through a
 runtime patch of `faults._loguniform` for that one range. Same secret key and slots as v1, so every scenario keeps its
-seed, topology and id, and the two builds pair up scenario by scenario.
+seed, topology, id and maintenance log. They pair fault by fault only where the fault draws coincide (878 of 921 val
+faults; a misconfig's draws shift every later draw in its scenario, audit Q8), so comparisons use matched faults.
 
     python scripts/phase4_build_pretune.py --workers 6      # writes data/datasets/v1_pretune (val only)
 """

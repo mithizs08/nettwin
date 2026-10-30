@@ -561,7 +561,7 @@ Run after the pre-registration commit `22653c2`. Outputs:
 - `results/phase4_sensitivity_pretune.json`
 - `results/phase4_pretune_dataset.json`
 - `results/phase4_tables.md` (every table, with 95% scenario-bootstrap CIs)
-- `results/phase4_expectations.json` (E1 to E12, checked by `scripts/phase4_tables.py`)
+- `results/phase4_expectations.json` (E1 to E12, checked by `scripts/phase4_tables.py`; replaced after the audit by `results/phase4_claims.json`)
 
 Val is 468 scenarios. With status events, it has 432 observable hard faults, 446 observable easy faults and 43 unobservable faults. No test or dev data was read. Calibration used train only: 100 scenarios fit B2, and 200 fixed the bins and thresholds. Binned AP matched exact AP on train to within 0.0001.
 
@@ -578,31 +578,32 @@ Val is 468 scenarios. With status events, it has 432 observable hard faults, 446
 **Pre-registered expectations: 7 of 12 met.**
 - E1 **not met**. Hard-type root PR-AUC is below 0.10 everywhere, as expected. But in status_blind, B1 and B2 score easy types below hard types: easy 0.000 for B1, 0.012 for B2. They barely see blanked down links.
 - E2 met: B3 is best on easy types with status events (root PR-AUC 0.175, top-3 0.87).
-- E3 **not met**. B3's link_down top-3 did drop by 0.31 without status events, as expected. But B2 dropped more (0.57, from 0.86 to 0.30), not less. Its missing-data flags did not make blanked links stand out from ordinary gaps and probe timeouts.
+- E3 **not met**. B3's link_down top-3 did drop by 0.31 without status events, as expected. But B2 dropped more (0.57, from 0.86 to 0.30), not less. Its missing-data flags did not make blanked links stand out from ordinary gaps and probe timeouts. *Corrected after audit Q3: that explanation depends on the 0.9-quantile window score. With a window mean, B2 keeps status-blind link_down top-3 at 0.59 (audit), so the flags do mark blanked links; the noise on other links hides them under q90.*
 - E4 met: hard top-1 is at most 0.22.
 - E5 met: node_down top-1 is 0.00 for B1 and 0.01 for B2, against 0.95 for B3.
 - E6 **not met**. Unobservable faults are not all near chance:
   - B2 puts 18% of unobservable hard faults (6 of 34) in its top 3.
   - In status_blind, B2 puts 40% of unobservable easy faults in its top 3, and B3 13% (n = 15).
   - Finding: the observability flags (audit N8) count a channel as visible only where a value was observed. A link blanked in status_blind therefore counts as "unobservable", yet the blanking itself is visible as missing data. The flag definition undercounts what a detector can see.
+  - *Corrected after audit Q6: this explanation fits the status-blind easy hits (B2 ranks blanked roots 1st or 2nd, against control ranks 32 to 87). It does not fit the hard hits, which also occur with status events and sit near B2's own rate on fault-free control windows (6 of 33 against 3 of 33, audit). "Near chance" should have been judged against such a control rate, not a uniform 3 / n.*
 - E7 met: fault-free alarm rate on generated val graphs is 4.5% to 5.0%. Maintenance-only rates are 2.8x to 6.3x the fault-free rates across both variants.
 - E8 met: subtle hard top-3 is 0.03 to 0.27, against obvious 0.38 to 0.58. Subtle detection rate is at most 0.25.
-- E9 **not met**, for B1 only: hard top-3 is 0.35 on real networks against 0.26 on generated graphs. Real validation networks are smaller (fewer elements to rank), and their misconfigs and surges are more often obvious (dataset card).
+- E9 **not met**, for B1 and, in status_blind, for B3 (0.235 on real against 0.182 + 0.05; corrected after audit Q5): B1 hard top-3 is 0.35 on real networks against 0.26 on generated graphs. Both differences are inside the bootstrap noise (audit Q12). Real validation networks are smaller (fewer elements to rank), and their misconfigs and surges are more often obvious (dataset card).
 - E10 met: B3 easy top-3 is 0.78 in concurrent scenarios, 0.88 without.
 - E11 **not met**, for B2 only: symptomatic PR-AUC (0.030) is below root PR-AUC (0.050). B1 met it (0.012 vs 0.006).
-- E12 met. With the pre-tuning fault ranges, hard top-3 rises by 0.06 to 0.07 for B1, B2 and B3, and hard root PR-AUC rises too, in both variants. The difficulty tuning moved results in the expected direction. routing_misconfig is the exception: B3 top-3 falls from 0.10 to 0.09.
+- E12 met. With the pre-tuning fault ranges, hard top-3 rises by 0.06 to 0.08 for B1, B2 and B3, and hard root PR-AUC rises too, in both variants. The difficulty tuning moved results in the expected direction. *Corrected after audit Q8: the builds pair only 878 of 921 faults (a misconfig's draws shift every later draw in 29 scenarios); on matched faults E12 still holds, and the apparent routing_misconfig fall (0.10 to 0.09) is noise (+0.009 on matched faults).*
 
 **Other findings (surprising or worth carrying forward).**
-- Isolation Forest (B2) is the best baseline on hard types (top-3 0.38). Tomography (B3) is best on easy types and the worst on hard ones: demand_surge top-3 is 0.05 and routing_misconfig 0.10. Surges and misconfigs rarely raise alerts at the root, and the root of a surge is a PoP with no alerts of its own. PLAN.md's "expect B3 to be strong" holds only for link_down, node_down and flapping.
-- B1 and B2 almost never localise flapping (top-3 0.05 / 0.06), while B3 reaches 0.74. The 0.9-quantile window score dilutes intermittent symptoms, and flapping shows mostly in status events and end-to-end loss.
-- Planned maintenance is the main false-alarm source for every method: 19% to 27% of maintenance-only hours alarm with status events (11% to 23% status-blind), against 4% to 5% of fault-free hours. Phase 6's change-log tool targets exactly this.
+- Isolation Forest (B2) is the best baseline on hard types (top-3 0.38). Tomography (B3) is best on easy types and the worst on hard ones: demand_surge top-3 is 0.05 and routing_misconfig 0.10. Surges and misconfigs rarely raise alerts at the root, and the root of a surge is a PoP with no alerts of its own. PLAN.md's "expect B3 to be strong" holds only for link_down, node_down and flapping. *Corrected after audit Q3 and Q7: pooled over hard types the B2 lead over B1 holds only under the q90 window score (with a window max for B1 the gap is +0.007, CI -0.030 to +0.040). Per type: B1 is at least as good as B2 on demand_surge top-3, B2 ties B3 on link_down top-3 (B3 is ahead on link_down top-1 and PR-AUC only), B3 has the worst node_down root PR-AUC, and "B3 worst on hard types" holds for top-1 / top-3, not root PR-AUC (B1 is lowest).*
+- B1 and B2 almost never localise flapping (top-3 0.05 / 0.06), while B3 reaches 0.74. ~~The 0.9-quantile window score dilutes intermittent symptoms~~ (not supported, audit Q3: max and mean give 0.05 to 0.07 too); link telemetry carries little flapping signal, and flapping shows mostly in status events and end-to-end loss.
+- Maintenance-only hours have the highest false-alarm *rate* for every method: 19% to 27% of them alarm with status events (11% to 23% status-blind), against 4% to 5% of fault-free hours. *Corrected after audit Q4: they are not the main source by count. Fault-free hours are 17 times more numerous, so maintenance hours supply only 18% to 27% of all false alarms.* Phase 6's change-log tool should still be measured on these hours.
 - Without status events, B1 cannot see down links at all: easy root PR-AUC 0.000, and node_down top-3 0.00. That is by design (it ignores missing data). B3 keeps node_down top-3 at 0.93 through service reachability, but link_down falls to 0.55.
 - Cell-level root PR-AUC is low for every method (at most 0.19 for any type). The positives are dominated by long gray-failure and misconfig windows with weak per-cell symptoms (66,732 of 95,462 with_status root cells).
 - On real validation networks, B1 and B2 alarm less often in fault-free hours (2.4% and 1.7%, against 4.8% and 4.5% on generated graphs). B3 alarms more often (5.9%).
 - Alerts: about 135 SLA-loss alerts per scenario-week, and only 24% start inside an observable fault window. Status-down and discard alerts are the most specific (72% and 75%).
 - No symptomatic cell was left without an owning fault.
 
-**Sensitivity run (parked M8 item, done).** Validation was rebuilt with the pre-tuning fault ranges in `data/datasets/v1_pretune`, with the same key, slots and ids. It took 4.8 minutes and 1.8 GB. No frozen file was edited; the ranges were overridden in memory, plus a runtime patch to restore uniform surge sampling. The fault mix is harsher: demand_surge is 8.7% subtle against 29.0% in v1, and routing_misconfig 60.2% obvious against 49.2%. Baselines were re-scored with the v1 train calibration; the comparison is in `results/phase4_tables.md`.
+**Sensitivity run (parked M8 item, done).** Validation was rebuilt with the pre-tuning fault ranges in `data/datasets/v1_pretune`, with the same key, slots and ids (*corrected after audit Q8: ids, slots, seeds and maintenance logs match, but only 878 of 921 faults; 29 scenarios with a misconfig have a different fault list*). It took 4.8 minutes and 1.8 GB. No frozen file was edited; the ranges were overridden in memory, plus a runtime patch to restore uniform surge sampling. The fault mix is harsher: demand_surge is 8.7% subtle against 29.0% in v1, and routing_misconfig 60.2% obvious against 49.2%. Baselines were re-scored with the v1 train calibration; the comparison is in `results/phase4_tables.md`.
 
 ### 2026-10-30: Phase 4 fresh-clone check (with the key): passed after one fix
 
@@ -618,6 +619,100 @@ Val is 468 scenarios. With status events, it has 432 observable hard faults, 446
 - Every committed Phase 4 result reproduced byte for byte except one: `results/phase4_pretune_dataset.json`, which included the build's run time. Fix (`53e6f8c`): the timing is now printed, not stored. Rebuilding locally gave the same file apart from that field.
 - A clean clone at `53e6f8c` then rebuilt the pre-tuning data with the key and left `git status` clean. To save time, that re-check reused the `nettwin` env with the clone's own `src` on the path.
 - Clones (including their copies of the key) and the throwaway env were deleted.
+
+### 2026-10-30: Phase 4 audit fixes, by ID (`docs/audit_phase4.md`)
+
+No frozen simulator file changed (`test_simulator_is_frozen` passes against freeze `dcdea810...`). Telemetry is byte-identical; only ground-truth manifests gained a channel. "Before" is commit `d6ec794`; "after" is the rerun on validation. All numbers come from `results/phase4_baselines_val.json`, `results/phase4_sensitivity_pretune.json`, `results/phase4_claims.json` and `results/phase4_tables.md`, or from the saved `d6ec794` versions of them. Values are with status events, q90 window, unless a variant or aggregation is named.
+
+- **Telemetry-absence channel (requested with the fixes, follows audit Q6 and E6).**
+  - A fifth observability channel, `obs_telemetry_absence` (`dataset.absence_channel`): a root link is blanked (present with status, fully missing in status_blind) for at least 2 consecutive steps inside [t_start, t_end + 3), outside every change window on that link or its end PoPs.
+  - Always false in with_status. `observable` is recomputed as any channel, and the impact class follows.
+  - The dataset was rebuilt with the same key: 24,225 telemetry and label files unchanged, manifests, card and `results/phase3_dataset_summary.json` updated.
+  - Status-blind unobservable faults: train 149 to 141, val 49 to 47, test 27 to 27, dev 3 to 3.
+  - The channel is set on 312 status-blind val faults; most were already observable through other channels.
+- **Q1 (major): B3 as pre-registered, B3+ kept as a disclosed variant.**
+  - B3's own link path is now the link alone. B3+ is the version first run, whose link paths also hold the two end PoPs. Both are reported.
+  - node_down top-1, B3 / B3+: 0.610 / 0.947 with status events, 0.701 / 0.367 status-blind. Easy top-1: 0.633 / 0.743 and 0.440 / 0.415.
+  - Top-3 moves by at most 0.03, and cell scores for links are identical (link PR-AUC equal).
+  - Claim C9 "B3+ ranks node_down roots first more often" is supported with status events (+0.34, CI +0.28 to +0.40) and contradicted status-blind (-0.33, CI -0.39 to -0.28). Counting link alerts for the end routers helps when reachability alerts exist and hurts when they do not.
+- **Q2 (major): expected ranks under ties, and a PoP aggregation chosen on train.**
+  - Top-k credit is now the expected value under random tie-breaking. The pessimistic rank is still stored.
+  - The PoP score for B1 and B2 is chosen on 200 train scenarios per variant from mean, max and second-largest link score, by mean top-3 over observable train faults.
+    - B1: second_max (train top-3 0.225, against 0.222 mean and 0.204 max). The margin over mean is 0.003, and the rule is applied as written.
+    - B2: mean (0.349, against 0.324 and 0.294).
+  - node_down top-1: B1 0.000 to 0.000, B2 0.007 to 0.094. PoP roots top-1, expected / pessimistic: B2 0.094 / 0.007 (easy), 0.069 / 0.000 (hard).
+  - Side effect of B1's second_max: demand_surge top-3 falls from 0.283 to 0.136, and B1 hard top-3 from 0.280 to 0.233.
+  - New tables report link roots and PoP roots separately.
+  - Test `test_a_pop_or_a_spur_link_can_rank_first`: a PoP whose links are all anomalous gets non-zero top-1 credit (the old rule gave 0), and a spur link outranks its leaf PoP under second_max.
+- **Q3 (major) and Q12 (minor): window aggregations and paired-CI verdicts.**
+  - Every localisation metric is reported under q90 (pre-registered), max and mean.
+  - Each headline claim and each expectation is checked with paired scenario-bootstrap differences: supported if the 95% CI is above 0, contradicted if below, inconclusive if it crosses 0 (`evaluation.verdict`).
+  - Hard top-3 under q90 / max / mean: B1 0.233 / 0.344 / 0.236, B2 0.383 / 0.326 / 0.404.
+  - Status-blind link_down top-3 for B2: 0.325 / 0.119 / 0.603.
+- **Q4 to Q8 (minor): wording.** The Phase 4 results entry above and the parked rule were corrected in place, with each change marked.
+  - Q4: maintenance-only hours have the highest false-alarm rate, not the most false alarms. They supply 25.0% / 20.2% / 18.2% of false alarms (B1 / B2 / B3), now in the tables.
+  - Q5: E9 also missed for B3 status-blind.
+  - Q6: the E6 explanation fits the status-blind easy hits only.
+  - Q7: per-type exceptions.
+  - Q8: the pre-tuning comparison now uses only faults matched in both builds (same scenario, type, root, start, end; observable in both): 836 with status events, 832 status-blind, 405 of them hard. The script docstring was corrected.
+- **Q9 (minor): causal alerts.**
+  - An alert's `value` is now the reading on its raise step, not the episode peak. `t_end` is the clear step, known only from then on.
+  - `alerts.alerts_at(alerts, t)` gives the list as known at t, with `t_end` hidden for alerts still open. `add_to_kg` documents that it must be given that view.
+  - Test `test_alert_fields_never_use_future_steps`: cutting the data at 5 points changes no field of any earlier alert except open ones.
+  - Alert counts are unchanged (with status events, identical alert statistics). No metric used `value`.
+- **Q10 (minor): calibration on each method's own validation scores.**
+  - Bins come from a 2% random sample of all of a method's validation cell scores (no labels). The threshold is set so 5% of validation fault-free windows alarm. B2 is still fitted on train.
+  - The validation fault-free alarm rate is therefore 5.0% by construction (before, at train thresholds: 4.3% / 3.9% / 5.1%), and E7's fault-free part is close to trivially met.
+  - Maintenance-only alarm rates with status events: B1 26.9% to 28.4%, B2 18.6% to 21.6%, B3 19.8% to 18.9%.
+  - Binned AP is within 0.0001 of exact AP on the first 40 val scenarios for every method and variant.
+  - For Phase 5: a supervised model is trained on train, calibrated on validation the same way, and applied unchanged to test.
+- **Q11 (minor): symptoms of concurrent faults.**
+  - A symptomatic cell eligible for several faults by time goes to the faults whose KG neighbourhood contains the link: normal paths through the root, plus links within 2 hops.
+  - 6,318 cells were reassigned and 576 stayed ambiguous (kept with every eligible fault), per variant.
+  - "Detected at threshold" now counts only the fault's own root cells and its own symptoms.
+  - Hard symptomatic PR-AUC moved by at most 0.001 (B1 0.0123 to 0.0121, B2 0.0305 to 0.0301, B3 0.0305 to 0.0295). B3 easy detection at threshold fell from 0.758 to 0.686, mostly through the threshold change (Q10).
+- Not changed: the oracle window (the same for every method, flagged by the audit for RQ4), and the bootstrap over scenarios rather than topologies (audit Q12; RQ3 will add per-network numbers).
+
+**Claim verdicts after the fixes (q90 / max / mean).**
+
+| Claim | Verdict |
+|---|---|
+| C1 B2 has the best hard-type top-3 | supported / **inconclusive** / supported (B2 - B1 under max: -0.018, CI -0.066 to +0.027) |
+| C2 B3 has the best easy-type top-3 (with status) | supported in all three |
+| C3 B3 has the best easy-type root PR-AUC (with status) | supported |
+| C4 B2 has the best hard-type root PR-AUC | **inconclusive** (status-blind B2 - B3 +0.011, CI -0.005 to +0.026) |
+| C5 B3 localises hard faults worse than B1 and B2 | **inconclusive** / supported / **inconclusive** (B1 - B3 +0.038, CI -0.010 to +0.084) |
+| C6 B3 localises flapping better than B1 and B2 | supported in all three |
+| C7 maintenance-only hours alarm more often than fault-free hours | supported for every method and variant |
+| C8 link_down top-3 drops without status events | supported in all three |
+| C9 B3+ beats B3 on node_down top-1 | supported with status, **contradicted** status-blind |
+| C10 real vs generated hard top-3 differ | **inconclusive** for every method (point +0.02 to +0.07) |
+
+**Expectations re-checked with CIs (q90; registered verdict in brackets).**
+- E1 not met [not met].
+- E2 met [met].
+- E3 not met [not met]; inconclusive under mean.
+- E4 met [met].
+- E5 met [met]; now with expected ties, so no longer met by construction.
+- **E6 inconclusive [not met].**
+- E7 met [met].
+- **E8 inconclusive [met]**: B1 subtle detection 0.25, CI crosses 0.30.
+- **E9 inconclusive [not met].**
+- **E10 inconclusive [met].**
+- E11 not met [not met].
+- **E12 inconclusive [met]**: every matched top-3 and PR-AUC rise is supported, but the rise exceeds 0.05 with a CI above 0 only for B3.
+
+The registered verdicts stand as the pre-registered result. The CI verdicts are what the evidence supports.
+
+**Conclusions that changed.**
+- B3's node_down top-1 of 0.95 belonged to B3+. Pre-registered B3 reaches 0.61 with status events, and B3+ is worse without status events.
+- B1 and B2 are no longer locked out of ranking a PoP first: B2 node_down top-1 is 0.09. B1 is still 0.00.
+- "B2 is the best baseline on hard types" holds under q90 and mean, not under max (B1 ties).
+- "B3 is the worst on hard types" holds against B2 only. "B2 has the best hard root PR-AUC" is not shown status-blind.
+- Maintenance hours have the highest false-alarm rate, not the most false alarms.
+- Real and generated validation networks show no detectable difference for hard faults.
+- The flapping explanation was withdrawn: link telemetry carries little flapping signal under any aggregation.
+- Five expectation verdicts are inside the noise.
 
 ## Parked ideas
 
@@ -639,4 +734,6 @@ Ideas that came up early, with the phase they belong to. Do not act on them befo
 - Phase 7 / 10: a coastline basemap for the AARNet map (Natural Earth, or plotly geo in Streamlit) would look better; needs a data download, so ask first.
 - Optional, first to cut: test-import the CSV into a real Neo4j instance.
 - Phases 5 and 6: the observability flags miss missing-data evidence (Phase 4, E6). A link blanked in status_blind is flagged unobservable, yet the blanking is visible. When reporting unobservable faults, say so; do not treat B2's or the GNN's hits on them as impossible.
-- Phase 6: maintenance-only hours cause most false alarms for every baseline (19% to 27%). The agent's change-log tool should be measured on exactly these windows.
+- Phase 6: maintenance-only hours have the highest false-alarm rate for every baseline (19% to 27% with status events), though they supply only about a fifth to a quarter of all false alarms (audit Q4). The agent's change-log tool should be measured on exactly these windows.
+- Phase 5: report the GNN under q90, max and mean window scores, with expected-rank ties, link and PoP roots separately, calibration on validation scores only, and paired-CI claim verdicts (`evaluation.verdict`). Compare against both B3 and B3+.
+- Phase 6: agent tools must return alerts through `alerts.alerts_at(alerts, t)` (audit Q9). The agent and the localisers it is compared with must get the same window (audit section 6).

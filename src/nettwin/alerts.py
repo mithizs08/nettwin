@@ -8,6 +8,11 @@ Ground truth is never read here.
 Thresholds are fixed operator conventions or the synthetic SLAs in `config.yaml`; none was tuned on any split.
 A metric rule must hold for PERSIST consecutive steps. The alert is raised on the step that completes the run, so
 an alert active at step t only uses data up to t. Alerts are episodes [t_start, t_end), end exclusive.
+
+Causality of every field (audit Phase 4, Q9): `t_start`, `rule`, `target`, `severity` and `value` are known at the raise
+step (`value` is the reading on that step, not the episode peak). `t_end` is the clearing step, known only from
+then on; an episode still open when the data ends has t_end = n_steps. Anything that answers "what alerts are there at
+time t" (Phase 6 tools) must go through `alerts_at`, which hides the clear time of alerts still open at t.
 """
 import numpy as np
 import pandas as pd
@@ -90,7 +95,7 @@ def generate_alerts(obs, kg):
     rules["link_no_data"] = (np.isnan(util) & np.isnan(lat) & np.isnan(disc), np.ones_like(util))
     for rule, (mask, val) in rules.items():
         for j, s, e in _episodes(mask):
-            add(rule, obs.links[j], s, e, np.nanmax(val[s:e, j]))
+            add(rule, obs.links[j], s, e, val[s, j])
 
     G = kg.G
     sla_loss = np.array([G.nodes[s]["sla_loss_pct"] for s in obs.services])
@@ -106,11 +111,18 @@ def generate_alerts(obs, kg):
         }
     for rule, (mask, val) in srules.items():
         for j, s, e in _episodes(mask):
-            add(rule, obs.services[j], s, e, np.nanmax(val[s:e, j]))
+            add(rule, obs.services[j], s, e, val[s, j])
 
     df = pd.DataFrame(rows, columns=COLUMNS[1:]).sort_values(["t_start", "rule", "target"], kind="stable").reset_index(drop=True)
     df.insert(0, "alert_id", [f"A{i:05d}" for i in range(len(df))])
     return df
+
+
+def alerts_at(alerts, t):
+    """The alert list as known at step t: alerts raised at or before t; `t_end` is NaN for those still open at t."""
+    known = alerts[alerts.t_start <= t].copy()
+    known["t_end"] = known["t_end"].where(known["t_end"] <= t).astype(float)
+    return known
 
 
 def active_matrix(alerts, T, targets, severities=("critical", "major", "minor")):
@@ -125,7 +137,8 @@ def active_matrix(alerts, T, targets, severities=("critical", "major", "minor"))
 
 def add_to_kg(kg, alerts):
     """Alert -ON-> Link|Service nodes in the KG. The KG schema has no Alert -ON-> PoP, so a PoP reachability alert is
-    attached to every link at that PoP."""
+    attached to every link at that PoP. Pass `alerts_at(alerts, t)` to build the KG as known at t; the full table
+    carries clear times that are only known later (t_end is then left out for open alerts)."""
     ids = []
     for a in alerts.itertuples():
         targets = [a.target]
@@ -134,5 +147,6 @@ def add_to_kg(kg, alerts):
         for k, tgt in enumerate(targets):
             aid = a.alert_id if len(targets) == 1 else f"{a.alert_id}.{k}"
             ids.append(kg.add_alert(aid, tgt, a.t_start, metric=a.rule, severity=a.severity, value=a.value))
-            kg.G.nodes[ids[-1]]["t_end"] = a.t_end
+            if not pd.isna(a.t_end):
+                kg.G.nodes[ids[-1]]["t_end"] = int(a.t_end)
     return ids
