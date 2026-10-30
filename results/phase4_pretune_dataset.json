@@ -31,7 +31,6 @@
   }
  },
  "surge_factor_sampling": "uniform",
- "minutes": 4.8,
  "with_status": {
   "scenarios": 468,
   "faults": 921,

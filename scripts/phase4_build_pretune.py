@@ -66,7 +66,7 @@ def main():
         for task, out in pool.imap(dataset._build_topology, [(t, cfg, root) for t in tasks]):
             for variant, entries in out.items():
                 manifests.setdefault(variant, []).extend(entries)
-    summary = {"pre_tuning_ranges": PRE_TUNING, "surge_factor_sampling": "uniform", "minutes": round((time.time() - t0) / 60, 1)}
+    summary = {"pre_tuning_ranges": PRE_TUNING, "surge_factor_sampling": "uniform"}   # no timings: the file must reproduce
     for variant, entries in manifests.items():
         entries.sort(key=lambda e: e["scenario_id"])
         d = root / "truth" / "val" / variant
@@ -82,6 +82,7 @@ def main():
         summary[variant] = {"scenarios": len(entries), "faults": sum(len(e["faults"]) for e in entries), "observable_mix": mix}
     (ROOT / "results" / "phase4_pretune_dataset.json").write_text(json.dumps(summary, indent=1) + "\n")
     print(json.dumps(summary, indent=1))
+    print(f"built in {(time.time() - t0) / 60:.1f} minutes")
 
 
 if __name__ == "__main__":
