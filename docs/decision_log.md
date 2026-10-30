@@ -479,6 +479,81 @@ No frozen file changed (`test_simulator_is_frozen` still passes against freeze `
 - `pytest`: 99 passed.
 - Clone (including its copy of the key) and env deleted afterwards.
 
+### 2026-10-30: Phase 4 pre-registration (written before any validation run)
+
+Committed before `scripts/phase4_baselines.py` is run on validation. Nothing in this entry was chosen after seeing a validation number.
+
+**Alerts (parked item, `src/nettwin/alerts.py`).**
+- Built only from `observable/` files (`nettwin.observed.load_observed` refuses a `truth/` path) plus the operator's static inventory (topology, services, SLAs, normal routing).
+- Rules: link status down and PoP unreachable (from the lagged events), util >= 90%, discards >= 0.05%, one-hop latency >= 2x its trailing one-day EWMA and >= +1 ms, one-hop probe missing with counters present, no link telemetry at all (info), service probe loss >= 99% (unreachable), 15-minute mean probe loss >= the service's SLA loss, latency >= the SLA latency.
+- Every metric rule must hold for 2 consecutive steps and is raised on the second, so an alert active at t uses data up to t only.
+- One change made on train before this entry: SLA loss was first judged per 5-minute sample. On 20 train scenarios one lost probe (1 of 600 = 0.17%) breached the 0.1% gold SLA, so it moved to a 15-minute mean (an SLA reporting interval). SLA loss alerts stay noisy (about 165 per scenario-week on train) because background probe-loss bursts are a deliberate distractor (audit C2). That is kept as realistic NOC noise.
+- Every alert gets a float `value`, so the KG CSV export no longer mixes `value` and `value:float` (Phase 1 parked note). PoP alerts attach to the PoP's links in the KG, since the frozen schema has no Alert -ON-> PoP.
+
+**Harness (`src/nettwin/evaluation.py`), shared by Phases 4 to 6.**
+- Detection (RQ1): link cells at steps >= 288 (day 0 has no faults by construction and is left out for every method).
+  - Cells with no telemetry are scored like any other cell, the same way for every method (audit P6). A present-only PR-AUC is also stored.
+  - Two tasks, never pooled: root (label 2 vs 0, label 1 left out) and symptomatic (label 1 vs 0, label 2 left out).
+  - A positive belongs to a fault if it is on one of the fault's root links inside its window (root task), or inside the window plus the 3-step status lag (symptomatic task). Positives of faults outside a reported group are dropped, not counted as negatives. Symptomatic cells owned by no fault are dropped and counted.
+  - PR-AUC is average precision on scores binned per method. Bins are fixed from train, and the binned AP matched sklearn's exact AP within 0.0005 on train.
+- Localisation (RQ2): per fault, the method gets the oracle window [t_start, t_end) and ranks all links and PoPs.
+  - Rank is pessimistic: ties count against the true root.
+  - Set-based for concurrent faults: the roots of other faults with overlapping windows are removed from the ranking first.
+  - Top-1 and top-3.
+- False alarms: 1-hour windows from step 288.
+  - A window is a fault window if it meets any fault (observable or not) plus the 3-step lag. Otherwise it is maintenance-only if it meets a change window plus a 12-step tail. Otherwise it is fault-free.
+  - Alarm = any link cell >= the method's threshold. The threshold is fixed on train so that 5% of train fault-free windows alarm.
+  - Reported: the alarm rate on val fault-free and maintenance-only windows (also by source), and the fault detection rate at that threshold (a cell labelled 1 or 2 inside the fault window alarms).
+- Groups, always separate:
+  - each fault type
+  - hard (link_degradation, demand_surge, routing_misconfig) and easy (link_down, node_down, link_flapping), never pooled with each other
+  - severity class within hard / easy
+  - unobservable faults on their own and excluded from every other group
+  - fault placement (isolated, maintenance-linked, concurrent)
+  - generated vs real validation networks
+  - scenarios with or without concurrent faults
+  - with_status vs status_blind (separate runs)
+- CIs: 95% percentile bootstrap over scenarios, 1,000 resamples, seed 42.
+
+**Calibration on train only.** From the train manifest, `default_rng(3003)` picks 100 scenarios to fit B2 (unsupervised, 200,000 cells, no labels) and 200 others to fix the bins and the thresholds. This is done per variant. Test and dev are never read; the script refuses those split names, and a test checks it only reads train and val.
+
+**Baselines (`src/nettwin/baselines.py`).**
+- B1: EWMA z-scores per link on util (two-sided), one-hop latency and discards (upward).
+  - Std floors at measurement noise; each z must hold for 2 steps. Missing values give no score.
+  - Span and persistence were picked on 30 train scenarios: 12 h and 2 steps gave root AP 0.018, against 0.003 to 0.008 for 1 h / 3 h spans or no persistence. That was the only B1 tuning.
+- B2: Isolation Forest (100 trees) on 10 per-link features: util relative to its trailing day, util minus the same step yesterday, util minus its recent EWMA, recent util std, latency relative to its trailing day, latency change vs yesterday, discards, recent max discards, and two missing-data flags. Not tuned.
+- B3: tomography over alerts. "Paths" are each service's normal routing paths (ECMP weighted), plus every link and every PoP as a one-element path. score(e) = (alerted paths with e / all alerted paths) x (alerted paths with e / all paths with e).
+  - Per step for detection; over the window for localisation.
+  - Info alerts (no telemetry) are not used. Maintenance is not used to suppress alerts. Normal routing is the t = 0 routing.
+- For B1 and B2, a PoP's score is the mean of its links' scores. For localisation, an element's score is the 0.9 quantile of its per-step scores over the window.
+- Banned inputs respected: `Observed` has no clock, no feature uses the step index, time of day or file metadata, and the one-day lag is a diurnal comparison. Tests check that the scores are causal (cutting the scenario changes nothing earlier) and that no feature name refers to time or files.
+
+**What I have already seen (train only).** A dry run on 40 train scenarios (with_status, 30 calibration scenarios). Root PR-AUC, hard / easy:
+- B1: 0.003 / 0.038
+- B2: 0.014 / 0.053
+- B3: 0.019 / 0.155
+
+Top-3, hard / easy:
+- B1: 0.18 / 0.58
+- B2: 0.26 / 0.55
+- B3: 0.21 / 0.88
+
+Maintenance-only alarm rate: 0.24 / 0.15 / 0.14 (B1 / B2 / B3).
+
+**Expectations for validation (each will be reported as met or not met).**
+- E1. Hard types are hard: root PR-AUC on hard types < 0.10 for every baseline in both variants, and below that method's easy-type PR-AUC.
+- E2. With status events, B3 has the best root PR-AUC and top-3 on easy types (B3 > B2 and B3 > B1).
+- E3. Status-blind hurts the alert-based method most: B3's top-3 on link_down drops by at least 0.15 from with_status to status_blind. B2 (missing-data flags) drops less than B3 on link_down.
+- E4. No baseline localises hard faults well: top-1 <= 0.35 for every method on hard types, both variants.
+- E5. node_down top-1 is low for B1 and B2 (< 0.30, PoP score is a mean of link scores) and higher for B3.
+- E6. Unobservable faults are near chance for every method: top-3 <= 0.15.
+- E7. Fault-free alarm rate on val generated graphs within 3% to 8% for every method (calibrated at 5% on train). Maintenance-only alarm rate at least twice the fault-free rate for every method (drains and planned outages look like faults to all three).
+- E8. Severity matters: within hard types, top-3 for subtle is below obvious for every method, and the detection rate at threshold for subtle hard faults is <= 0.30.
+- E9. Real validation networks are not easier: hard-type top-3 on real <= generated + 0.05 for every method.
+- E10. Concurrent scenarios are harder for B3: its easy-type top-3 is lower in scenarios with concurrent faults than without.
+- E11. For B1 and B2 on hard types, symptomatic PR-AUC >= root PR-AUC (symptoms spread over many links).
+- E12. Sensitivity run (pre-tuning fault ranges, same slots, same train calibration): every method's hard-type top-3 and root PR-AUC are at least as high as on v1, and top-3 rises by >= 0.05 for at least two of the three methods.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
