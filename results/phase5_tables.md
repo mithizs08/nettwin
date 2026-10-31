@@ -270,29 +270,125 @@ Paired verdicts, gat-h32 (seed mean) minus each baseline: supported = GNN better
 
 Budget: {"k_per_scenario": 12, "epochs": 6, "batch": 32, "lr": 0.002, "convs": ["sage", "gat", "gine"], "hidden": [32, 64], "seeds": [0, 1, 2], "n_select": 60, "ablations": ["mlp", "no_path_static", "shuffled_edges"]}.
 
-| run | parameters | final loss | detection loss | localisation loss | train seconds |
-|---|---|---|---|---|---|
-| gat-h32-s0 | 12099 | 1.9083 | 0.2145 | 1.6938 | 478.6 |
-| gat-h32-s0-mlp | 11843 | 2.1864 | 0.238 | 1.9484 | 458.1 |
-| gat-h32-s0-no_path_static | 12099 | 2.0203 | 0.218 | 1.8023 | 462.1 |
-| gat-h32-s0-shuffled_edges | 12099 | 2.017 | 0.2202 | 1.7968 | 459.8 |
-| gat-h32-s1 | 12099 | 1.9429 | 0.2132 | 1.7297 | 509.6 |
-| gat-h32-s1-mlp | 11843 | 2.1808 | 0.2352 | 1.9456 | 426.2 |
-| gat-h32-s1-no_path_static | 12099 | 2.0208 | 0.2142 | 1.8066 | 499.0 |
-| gat-h32-s1-shuffled_edges | 12099 | 1.9822 | 0.2158 | 1.7664 | 456.6 |
-| gat-h32-s2 | 12099 | 1.9149 | 0.2154 | 1.6996 | 467.3 |
-| gat-h32-s2-mlp | 11843 | 2.2108 | 0.2388 | 1.972 | 426.4 |
-| gat-h32-s2-no_path_static | 12099 | 2.0604 | 0.2183 | 1.8421 | 477.8 |
-| gat-h32-s2-shuffled_edges | 12099 | 2.0212 | 0.2181 | 1.8031 | 460.0 |
-| gat-h64-s0 |  | 1.6699 | 0.2035 | 1.4664 | 726.3 |
-| gine-h32-s0 | 14083 | 1.9888 | 0.2168 | 1.772 | 485.1 |
-| gine-h32-s1 | 14083 | 1.9976 | 0.2173 | 1.7803 | 450.5 |
-| gine-h32-s2 | 14083 | 1.9716 | 0.217 | 1.7546 | 458.4 |
-| gine-h64-s0 |  | 1.8241 | 0.2094 | 1.6147 | 696.5 |
-| sage-h32-s0 | 13891 | 1.8778 | 0.2201 | 1.6576 | 547.2 |
-| sage-h32-s1 | 13891 | 1.8884 | 0.217 | 1.6714 | 438.1 |
-| sage-h32-s2 | 13891 | 1.8948 | 0.2159 | 1.6788 | 444.8 |
-| sage-h64-s0 |  | 1.5477 | 0.2081 | 1.3396 | 740.8 |
+| run | parameters | final loss | detection loss | localisation loss |
+|---|---|---|---|---|
+| gat-h32-s0 | 12099 | 1.9083 | 0.2145 | 1.6938 |
+| gat-h32-s0-mlp | 11843 | 2.1864 | 0.238 | 1.9484 |
+| gat-h32-s0-no_path_static | 12099 | 2.0203 | 0.218 | 1.8023 |
+| gat-h32-s0-shuffled_edges | 12099 | 2.017 | 0.2202 | 1.7968 |
+| gat-h32-s1 | 12099 | 1.9429 | 0.2132 | 1.7297 |
+| gat-h32-s1-mlp | 11843 | 2.1808 | 0.2352 | 1.9456 |
+| gat-h32-s1-no_path_static | 12099 | 2.0208 | 0.2142 | 1.8066 |
+| gat-h32-s1-shuffled_edges | 12099 | 1.9822 | 0.2158 | 1.7664 |
+| gat-h32-s2 | 12099 | 1.9149 | 0.2154 | 1.6996 |
+| gat-h32-s2-mlp | 11843 | 2.2108 | 0.2388 | 1.972 |
+| gat-h32-s2-no_path_static | 12099 | 2.0604 | 0.2183 | 1.8421 |
+| gat-h32-s2-shuffled_edges | 12099 | 2.0212 | 0.2181 | 1.8031 |
+| gat-h64-s0 |  | 1.6699 | 0.2035 | 1.4664 |
+| gine-h32-s0 | 14083 | 1.9888 | 0.2168 | 1.772 |
+| gine-h32-s1 | 14083 | 1.9976 | 0.2173 | 1.7803 |
+| gine-h32-s2 | 14083 | 1.9716 | 0.217 | 1.7546 |
+| gine-h64-s0 |  | 1.8241 | 0.2094 | 1.6147 |
+| sage-h32-s0 | 13891 | 1.8778 | 0.2201 | 1.6576 |
+| sage-h32-s1 | 13891 | 1.8884 | 0.217 | 1.6714 |
+| sage-h32-s2 | 13891 | 1.8948 | 0.2159 | 1.6788 |
+| sage-h64-s0 |  | 1.5477 | 0.2081 | 1.3396 |
 
-Wall-clock (from `results/phase5_timings.json`, not reproducible byte for byte): samples 210.6 s, evaluation 4526.5 s, total 15685.0 s.
+Wall-clock times (training per run, evaluation, total) are in `results/phase5_timings.json`; they are kept out of this file so that it reproduces byte for byte.
+
+## Validation headline without the selection subset (audit R2)
+
+The headline is the 408 validation scenarios outside the 60-scenario selection subset; all 468 shown for reference. q90 window; maintenance alarms at each method's 5% fault-free threshold.
+
+### with_status
+
+| method | scenarios | hard top-1 | hard top-3 | easy top-1 | easy top-3 | hard root PR-AUC | easy root PR-AUC | maint. alarms |
+|---|---|---|---|---|---|---|---|---|
+| B1 | held-out | 0.136 | 0.227 | 0.175 | 0.408 | 0.005 | 0.037 | 0.284 |
+| B1 | all 468 | 0.134 | 0.233 | 0.175 | 0.405 | 0.006 | 0.037 | 0.284 |
+| B2 | held-out | 0.256 | 0.377 | 0.249 | 0.578 | 0.050 | 0.070 | 0.212 |
+| B2 | all 468 | 0.256 | 0.383 | 0.251 | 0.567 | 0.050 | 0.069 | 0.216 |
+| B3 | held-out | 0.119 | 0.195 | 0.635 | 0.875 | 0.033 | 0.176 | 0.199 |
+| B3 | all 468 | 0.120 | 0.195 | 0.633 | 0.867 | 0.032 | 0.175 | 0.189 |
+| B3+ | held-out | 0.131 | 0.197 | 0.745 | 0.886 | 0.033 | 0.176 | 0.199 |
+| B3+ | all 468 | 0.135 | 0.197 | 0.742 | 0.879 | 0.032 | 0.175 | 0.189 |
+| gat-h32 (seed mean) | held-out | 0.473 | 0.606 | 0.757 | 0.887 | 0.074 | 0.217 | 0.482 |
+| gat-h32 (seed mean) | all 468 | 0.489 | 0.629 | 0.752 | 0.880 | 0.076 | 0.218 | 0.484 |
+| gat-h32-mlp (seed mean) | held-out | 0.462 | 0.602 | 0.781 | 0.889 | 0.062 | 0.192 | 0.447 |
+| gat-h32-mlp (seed mean) | all 468 | 0.468 | 0.615 | 0.775 | 0.878 | 0.063 | 0.191 | 0.447 |
+
+Held-out paired verdicts (GNN seed mean against each method; for alarms, the baseline minus the GNN, so supported means the GNN alarms less).
+
+| metric | vs B1 | vs B2 | vs B3 | vs B3+ | vs MLP |
+|---|---|---|---|---|---|
+| hard top1@q90 | supported (0.337 [0.290, 0.385]) | supported (0.217 [0.171, 0.263]) | supported (0.354 [0.304, 0.399]) | supported (0.341 [0.294, 0.387]) | inconclusive (0.011 [-0.011, 0.033]) |
+| hard top3@q90 | supported (0.379 [0.329, 0.432]) | supported (0.229 [0.179, 0.280]) | supported (0.411 [0.361, 0.457]) | supported (0.409 [0.358, 0.457]) | inconclusive (0.004 [-0.024, 0.033]) |
+| easy top1@q90 | supported (0.582 [0.536, 0.635]) | supported (0.508 [0.463, 0.558]) | supported (0.122 [0.067, 0.175]) | inconclusive (0.012 [-0.043, 0.069]) | inconclusive (-0.025 [-0.048, 0.000]) |
+| easy top3@q90 | supported (0.479 [0.427, 0.531]) | supported (0.309 [0.263, 0.356]) | inconclusive (0.012 [-0.025, 0.050]) | inconclusive (0.001 [-0.038, 0.038]) | inconclusive (-0.002 [-0.016, 0.013]) |
+| hard pr_auc_root | supported (0.069 [0.051, 0.090]) | supported (0.024 [0.007, 0.038]) | supported (0.041 [0.025, 0.057]) | supported (0.041 [0.025, 0.057]) | supported (0.012 [0.005, 0.018]) |
+| easy pr_auc_root | supported (0.180 [0.140, 0.220]) | supported (0.147 [0.109, 0.185]) | inconclusive (0.042 [-0.009, 0.094]) | inconclusive (0.042 [-0.009, 0.094]) | supported (0.025 [0.001, 0.052]) |
+| all far_maintenance_only | contradicted (-0.198 [-0.218, -0.177]) | contradicted (-0.270 [-0.294, -0.244]) | contradicted (-0.283 [-0.317, -0.251]) | contradicted (-0.283 [-0.317, -0.251]) |  |
+
+### status_blind
+
+| method | scenarios | hard top-1 | hard top-3 | easy top-1 | easy top-3 | hard root PR-AUC | easy root PR-AUC | maint. alarms |
+|---|---|---|---|---|---|---|---|---|
+| B1 | held-out | 0.139 | 0.231 | 0.008 | 0.027 | 0.006 | 0.000 | 0.244 |
+| B1 | all 468 | 0.137 | 0.236 | 0.009 | 0.026 | 0.006 | 0.000 | 0.245 |
+| B2 | held-out | 0.251 | 0.389 | 0.087 | 0.264 | 0.046 | 0.013 | 0.137 |
+| B2 | all 468 | 0.249 | 0.392 | 0.077 | 0.256 | 0.045 | 0.012 | 0.144 |
+| B3 | held-out | 0.118 | 0.195 | 0.439 | 0.707 | 0.036 | 0.102 | 0.157 |
+| B3 | all 468 | 0.118 | 0.197 | 0.440 | 0.703 | 0.035 | 0.107 | 0.148 |
+| B3+ | held-out | 0.131 | 0.197 | 0.418 | 0.720 | 0.036 | 0.102 | 0.157 |
+| B3+ | all 468 | 0.135 | 0.198 | 0.415 | 0.716 | 0.035 | 0.107 | 0.148 |
+| gat-h32 (seed mean) | held-out | 0.470 | 0.604 | 0.760 | 0.885 | 0.076 | 0.136 | 0.467 |
+| gat-h32 (seed mean) | all 468 | 0.488 | 0.627 | 0.755 | 0.878 | 0.077 | 0.137 | 0.470 |
+| gat-h32-mlp (seed mean) | held-out | 0.461 | 0.602 | 0.760 | 0.891 | 0.069 | 0.059 | 0.446 |
+| gat-h32-mlp (seed mean) | all 468 | 0.468 | 0.615 | 0.754 | 0.880 | 0.070 | 0.058 | 0.444 |
+
+Held-out paired verdicts (GNN seed mean against each method; for alarms, the baseline minus the GNN, so supported means the GNN alarms less).
+
+| metric | vs B1 | vs B2 | vs B3 | vs B3+ | vs MLP |
+|---|---|---|---|---|---|
+| hard top1@q90 | supported (0.332 [0.283, 0.382]) | supported (0.220 [0.174, 0.268]) | supported (0.352 [0.302, 0.398]) | supported (0.339 [0.290, 0.385]) | inconclusive (0.009 [-0.014, 0.031]) |
+| hard top3@q90 | supported (0.373 [0.323, 0.424]) | supported (0.215 [0.165, 0.265]) | supported (0.410 [0.359, 0.456]) | supported (0.407 [0.355, 0.456]) | inconclusive (0.003 [-0.026, 0.031]) |
+| easy top1@q90 | supported (0.752 [0.711, 0.790]) | supported (0.672 [0.631, 0.718]) | supported (0.321 [0.267, 0.378]) | supported (0.342 [0.281, 0.406]) | inconclusive (0.000 [-0.023, 0.024]) |
+| easy top3@q90 | supported (0.858 [0.821, 0.894]) | supported (0.621 [0.572, 0.672]) | supported (0.178 [0.128, 0.227]) | supported (0.165 [0.115, 0.216]) | inconclusive (-0.006 [-0.022, 0.009]) |
+| hard pr_auc_root | supported (0.070 [0.052, 0.093]) | supported (0.030 [0.016, 0.043]) | supported (0.040 [0.024, 0.056]) | supported (0.040 [0.024, 0.056]) | inconclusive (0.007 [-0.001, 0.014]) |
+| easy pr_auc_root | supported (0.136 [0.107, 0.170]) | supported (0.123 [0.096, 0.157]) | inconclusive (0.034 [-0.002, 0.071]) | inconclusive (0.034 [-0.002, 0.071]) | supported (0.077 [0.053, 0.106]) |
+| all far_maintenance_only | contradicted (-0.223 [-0.243, -0.200]) | contradicted (-0.330 [-0.355, -0.303]) | contradicted (-0.310 [-0.341, -0.275]) | contradicted (-0.310 [-0.341, -0.275]) |  |
+
+## Maintenance-hour alarms and the down-link signature (validation)
+
+Alarm rates at each method's frozen 5% fault-free threshold, in maintenance-only and fault-free 1-hour windows, split by whether some link shows the down-link signature on >= 2 steps of the window (with_status: util 0 and latency missing; status_blind: every metric missing). Validation, all 468 scenarios.
+
+### with_status
+
+| method | maint. with blanked link | maint. without | difference | share of maint. alarms in blanked windows | top link blanked | fault-free with blanked link | fault-free without | maint. down | maint. drain | maint. noop |
+|---|---|---|---|---|---|---|---|---|---|---|
+| B1 | 0.580 (395/681) | 0.206 (534/2595) | supported (0.374 [0.336, 0.410]) | 0.425 | 271/395 | 0.000 (0/4) | 0.050 (2790/55797) | 0.437 | 0.302 | 0.021 |
+| B2 | 0.526 (358/681) | 0.135 (349/2595) | supported (0.391 [0.349, 0.435]) | 0.506 | 290/358 | 0.250 (1/4) | 0.050 (2789/55797) | 0.424 | 0.169 | 0.038 |
+| B3 | 0.602 (410/681) | 0.080 (208/2595) | supported (0.522 [0.458, 0.583]) | 0.663 | 409/410 | 1.000 (4/4) | 0.050 (2773/55797) | 0.486 | 0.080 | 0.042 |
+| B3+ | 0.602 (410/681) | 0.080 (208/2595) | supported (0.522 [0.458, 0.583]) | 0.663 | 409/410 | 1.000 (4/4) | 0.050 (2773/55797) | 0.486 | 0.080 | 0.042 |
+| gat-h32-s0 | 0.884 (602/681) | 0.341 (885/2595) | supported (0.543 [0.496, 0.592]) | 0.405 | 473/602 | 0.500 (2/4) | 0.050 (2789/55797) | 0.701 | 0.469 | 0.068 |
+| gat-h32-s1 | 0.812 (553/681) | 0.395 (1025/2595) | supported (0.417 [0.356, 0.476]) | 0.350 | 274/553 | 0.250 (1/4) | 0.050 (2790/55797) | 0.675 | 0.539 | 0.065 |
+| gat-h32-s2 | 0.999 (680/681) | 0.390 (1012/2595) | supported (0.609 [0.574, 0.646]) | 0.402 | 578/680 | 0.250 (1/4) | 0.050 (2790/55797) | 0.818 | 0.526 | 0.066 |
+| gat-h32-s0-mlp | 0.705 (480/681) | 0.307 (798/2595) | supported (0.397 [0.339, 0.452]) | 0.376 | 90/480 | 0.000 (0/4) | 0.050 (2791/55797) | 0.572 | 0.427 | 0.039 |
+| gat-h32-s1-mlp | 0.987 (672/681) | 0.338 (876/2595) | supported (0.649 [0.618, 0.682]) | 0.434 | 368/672 | 0.000 (0/4) | 0.050 (2791/55797) | 0.811 | 0.454 | 0.041 |
+| gat-h32-s2-mlp | 0.984 (670/681) | 0.345 (895/2595) | supported (0.639 [0.608, 0.670]) | 0.428 | 560/670 | 0.000 (0/4) | 0.050 (2791/55797) | 0.799 | 0.471 | 0.041 |
+
+### status_blind
+
+| method | maint. with blanked link | maint. without | difference | share of maint. alarms in blanked windows | top link blanked | fault-free with blanked link | fault-free without | maint. down | maint. drain | maint. noop |
+|---|---|---|---|---|---|---|---|---|---|---|
+| B1 | 0.352 (284/807) | 0.210 (519/2469) | supported (0.142 [0.098, 0.183]) | 0.354 | 5/284 | 0.054 (152/2819) | 0.050 (2638/52982) | 0.301 | 0.303 | 0.021 |
+| B2 | 0.198 (160/807) | 0.126 (312/2469) | supported (0.072 [0.037, 0.104]) | 0.339 | 2/160 | 0.065 (182/2819) | 0.049 (2608/52982) | 0.179 | 0.168 | 0.035 |
+| B3 | 0.373 (301/807) | 0.075 (185/2469) | supported (0.298 [0.245, 0.351]) | 0.619 | 263/301 | 0.100 (282/2819) | 0.047 (2508/52982) | 0.346 | 0.080 | 0.042 |
+| B3+ | 0.373 (301/807) | 0.075 (185/2469) | supported (0.298 [0.245, 0.351]) | 0.619 | 263/301 | 0.100 (282/2819) | 0.047 (2508/52982) | 0.346 | 0.080 | 0.042 |
+| gat-h32-s0 | 0.753 (608/807) | 0.338 (835/2469) | supported (0.415 [0.363, 0.469]) | 0.421 | 417/608 | 0.141 (396/2819) | 0.045 (2395/52982) | 0.651 | 0.473 | 0.060 |
+| gat-h32-s1 | 0.726 (586/807) | 0.397 (979/2469) | supported (0.330 [0.272, 0.385]) | 0.374 | 157/586 | 0.069 (195/2819) | 0.049 (2596/52982) | 0.654 | 0.540 | 0.071 |
+| gat-h32-s2 | 0.817 (659/807) | 0.384 (949/2469) | supported (0.432 [0.380, 0.482]) | 0.410 | 448/659 | 0.153 (432/2819) | 0.044 (2359/52982) | 0.722 | 0.530 | 0.065 |
+| gat-h32-s0-mlp | 0.740 (597/807) | 0.296 (731/2469) | supported (0.444 [0.396, 0.489]) | 0.450 | 160/597 | 0.506 (1426/2819) | 0.026 (1365/52982) | 0.616 | 0.433 | 0.039 |
+| gat-h32-s1-mlp | 0.934 (754/807) | 0.328 (809/2469) | supported (0.607 [0.571, 0.640]) | 0.482 | 320/754 | 0.511 (1440/2819) | 0.025 (1351/52982) | 0.801 | 0.467 | 0.044 |
+| gat-h32-s2-mlp | 0.838 (676/807) | 0.323 (797/2469) | supported (0.515 [0.467, 0.561]) | 0.459 | 221/676 | 0.531 (1498/2819) | 0.024 (1293/52982) | 0.700 | 0.472 | 0.041 |
 

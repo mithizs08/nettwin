@@ -823,7 +823,7 @@ Paired verdicts, GAT-h32 minus each baseline:
 | X3 | Easy: GNN >= B3 - 0.05 with status, > B3 status-blind | met / met / met |
 | X4 | B3 beats the GNN on flapping top-3 with status | met / met / met (B3 - GNN +0.14, CI +0.04 to +0.23) |
 | X5 | Transfer: real minus generated top-3 > -0.10, hard and easy | **inconclusive**. Hard types are better on real networks (0.67 against 0.62). Easy types are lower on real networks (0.83 against 0.89), and the CI of the margin crosses 0 |
-| X6 | The graph helps: GNN beats the MLP ablation on hard top-3 and easy top-1 | **not met**. Hard top-3 +0.014 (CI -0.011 to +0.040), inconclusive. Easy top-1 with status -0.023 (CI -0.045 to -0.002): the MLP is better |
+| X6 | The graph helps: GNN beats the MLP ablation (no message passing; PoP pooling and graph-derived static inputs kept) on hard top-3 and easy top-1 | **not met**. Hard top-3 +0.014 (CI -0.011 to +0.040), inconclusive. Easy top-1 with status -0.023 (CI -0.045 to -0.002): the MLP is better |
 | X7 | Shuffled edges hurt | **inconclusive**. Hard +0.022 (CI -0.001 to +0.044), easy +0.009 |
 | X8 | GNN has the best symptomatic PR-AUC | met (both variants, hard and easy, against all four) |
 | X9 | GNN alarms less than B2 in maintenance hours | **not met** (contradicted). 48% against 22% with status, 47% against 14% status-blind |
@@ -832,11 +832,15 @@ Paired verdicts, GAT-h32 minus each baseline:
 **What this means, and what was surprising.**
 - **The large gain over the baselines comes from supervised training, not from message passing.**
   - The MLP ablation (same features and heads, no message passing) reaches hard top-3 0.615 against 0.629, with no detectable difference. Shuffled edges cost at most 0.02, and dropping static path features costs about 0.02.
+  - Corrected after the audit (R4): the MLP ablation means "no message passing", not "no graph". It keeps the link-to-PoP mean pooling for the PoP head and the graph-derived static inputs (end-PoP degree, normal-path and service counts). It also inherits hidden size 32, chosen for the GAT on validation, with no selection of its own; if anything that favours the GNN, so "the MLP is as good" is conservative. No result here supports a graph-free claim.
   - For RQ1 and RQ2 the honest reading is that "learning which element is the root" is what helps. On this data the graph structure adds little beyond PoP pooling (link-to-PoP incidence, which every variant keeps).
   - This must be stated in the write-up rather than credited to the GNN.
 - **The GNN localises demand surges far better than anything else**: top-3 0.67 against at most 0.25 (B2, status-blind). Surge roots are PoPs, and the trained PoP head learns the "all incident links rise together" pattern that no baseline encodes.
 - **The GNN is no better than B3 on easy faults when status events exist.** It never sees status events or service probes. It is worse on flapping (0.59 against 0.73 top-3), and worse than B3+ on node_down top-1 (0.87 against 0.95).
-- **Without status events the GNN keeps its easy-type accuracy** (top-3 0.88), because the missing-data flags make blanked links stand out. B3 drops to 0.70 and B2 to 0.26.
+- **Without status events the GNN keeps its easy-type accuracy** (top-3 0.88). B3 drops to 0.70 and B2 to 0.26.
+  - Corrected after the audit (R3): this is the GNN recognising the simulator's down-link rendering in the link telemetry (util exactly 0 with latency missing when status events exist; every metric missing status-blind), not hard detection. The GNN never sees status events, so the with-status link_down / node_down numbers come from the same rendering.
+  - The audit's counterfactuals on validation: removing the signature from the true root drops its top-3 to 0.04 to 0.09; painting it on a healthy link or PoP makes the GNN rank that element first 85% to 98% of the time.
+  - So the link_down / node_down numbers (top-3 0.99 to 1.00) mean "recognises the down-link rendering", in both variants. They are never evidence of hard detection.
 - **The GNN's detection head raises far more false alarms in maintenance hours**: 48%, against 19% to 28% for the baselines, at the same 5% fault-free rate. Maintenance-only hours supply 35% of its false alarms.
   - Drains and planned outages shift traffic exactly like faults. Since those cells are label 0, the model has no input that tells them apart (it does not see the change log).
   - The maintenance log is the obvious missing input. It is a Phase 6 tool, and was deliberately not given to the GNN.
@@ -864,6 +868,68 @@ Paired verdicts, GAT-h32 minus each baseline:
 - All 24,225 files under `data/kg`, `data/scenarios`, `data/datasets/v1` and `data/datasets/v1_pretune` are byte-identical to the local build. `pytest`: 122 passed.
 - Clone (including its copy of the key) and env deleted afterwards.
 
+### 2026-10-31: Phase 5 audit fixes R1 to R5, and the maintenance-blanking check (validation only)
+
+The independent audit is `docs/audit_phase5.md`: 1 major and 4 minor findings, none critical, no leakage. Fixes by ID. Nothing was retrained. `scripts/phase5_freeze.py` loads the saved checkpoints and refits B2 on train exactly as before. It then rescores all 468 validation scenarios once (34 min).
+
+**R1 (major): no frozen test path.** Fixed.
+- `scripts/phase5_freeze.py` saves the validation calibration under `data/models/phase5/frozen/`:
+  - `calibration.json`: bin edges and alarm threshold for B1, B2, B3, B3+, GAT-h32 seeds 0 to 2 and MLP seeds 0 to 2, in both variants;
+  - `baselines_<variant>.pkl`: the train-fitted baselines, with their PoP aggregation.
+- It refuses to save unless every recomputed threshold equals the one in `results/phase5_gnn_val.json`. All 20 (10 methods, 2 variants) are equal, and the spot-checked top-3 and top-1 values match to 4 decimals.
+- `results/phase5_frozen.json` records the sha256 of the 6 checkpoints and the 3 frozen files.
+- `scripts/phase5_test.py` is new. It:
+  - only loads these files and refuses to run if any hash differs;
+  - refuses to run if the test pre-registration is missing from this log;
+  - refuses to overwrite its output, so test is scored once;
+  - reads ground truth only after every method has scored a scenario.
+- The tests check, from the syntax tree, that the test script never calls `calibrate`, `threshold_for`, `make_edges`, `fit`, `train` or an optimiser step, and never imports the scripts that do. They also check that it refuses on a hash mismatch or a missing file.
+- The audit's hash prefixes were mislabelled. `d81615b9…` is `gat-h32-s1-shuffled_edges.pt`, and `aaaab0be…` is `gat-h32-s2-mlp.pt`. The files are unchanged since training (02:55), and they reproduce the committed numbers exactly.
+- The stale pre-Q10 `data/models/phase4/calib_*.pkl` were deleted. Nothing referenced them.
+
+**R2 (minor): selection subset inside the scored set.** Fixed.
+- `results/phase5_heldout_val.json` gives the headline on the 408 scenarios outside the 60-scenario selection subset, next to all 468. The held-out version is now the validation headline.
+- With status events (held-out, then all 468):
+  - GNN hard top-3: 0.606 against 0.629. Hard top-1: 0.473 against 0.489.
+  - Easy top-3: 0.887 against 0.880.
+  - Hard root PR-AUC: 0.074 against 0.076.
+- Status-blind: hard top-3 0.604 against 0.627, easy top-3 0.885 against 0.878.
+- No verdict changes. Held-out hard top-3 against B2 is +0.229 (CI +0.179 to +0.280) with status and +0.215 (CI +0.165 to +0.265) status-blind, both supported. Every hard-type difference against B1, B2, B3 and B3+ stays supported.
+- MLP comparison:
+  - Hard top-3 GNN minus MLP: +0.004 (CI -0.024 to +0.033), still inconclusive.
+  - Hard root PR-AUC: GNN better with status (+0.012, CI +0.005 to +0.018) but not status-blind.
+  - Easy root PR-AUC: GNN better in both variants.
+
+**R3 (minor): link_down / node_down.** Wording corrected in place in the Phase 5 results entry and the README. The 0.99 to 1.00 top-3 means "recognises the simulator's down-link rendering", in both variants. It is never evidence of hard detection.
+
+**R4 (minor): MLP wording.** The X6 row and the "supervised training, not message passing" paragraph now say "no message passing", not "no graph". The MLP keeps PoP pooling and graph-derived static inputs, and it inherits the GAT's hidden size without its own selection.
+
+**R5 (minor): split guard.**
+- `nettwin.splits.guard` reads the split from the data path (the folder after `observable/` or `truth/`, after resolving `..`). It raises `PermissionError` outside the allowed set.
+- Every data read in `phase4_baselines.py`, `phase5_gnn.py` and `phase5_freeze.py` goes through it with {train, val}, and every read in `phase5_test.py` with {test, dev}.
+- The argv string matches are removed. A test checks that a test or dev path raises in the Phase 4 loader and the Phase 5 evaluator, and that a val path raises in the test script.
+
+**Hypothesis: the GNN's maintenance-hour alarms come from the blanking signature.** Validation, all 468 scenarios, frozen thresholds (`results/phase5_maintenance_blanking_val.json`).
+- A maintenance-only window counts as blanked if some link shows the down-link signature on 2 or more of its steps. The signature is util 0 with latency missing (with status events), or every metric missing (status-blind).
+- Blanked windows are 681 of 3,276 maintenance-only windows with status events, and 807 of 3,276 status-blind.
+- **Partly supported.**
+  - GNN seed mean, blanked against not blanked: 0.898 against 0.375 with status events, and 0.765 against 0.373 status-blind. The difference is supported for every seed in both variants.
+  - In blanked alarm windows the top-scoring link is itself blanked in 72% of the GNN's alarms (with status) and 55% (status-blind).
+- **But blanking is not the main source of the excess.**
+  - Every baseline also alarms far more in blanked windows (B2 0.526 against 0.135 with status events).
+  - Only 39% (with status) and 40% (status-blind) of the GNN's maintenance alarms fall in blanked windows.
+  - Against B2, the GNN's excess maintenance alarms (seed mean) split as follows:
+    - with status: 254 in blanked windows and 625 in windows without blanking;
+    - status-blind: 458 in blanked windows and 609 without.
+  - By maintenance action, the GNN alarms in 51% of drain windows against B2's 17%, in both variants. Drains shift traffic without blanking anything.
+  - So most of the excess is in maintenance windows without blanking: drains, which shift traffic, and the hour after maintenance ends, which also counts as maintenance-only. The split between those two was not measured. The planned-down rendering is the smaller part.
+- Consequence for Phase 6:
+  - The change log has to cover drains, not only planned "down" actions.
+  - Masking blanked links alone could remove at most 29% of the GNN's excess over B2 with status events (254 of 879 alarms), and 43% status-blind (458 of 1,067).
+- Recorded because it was asked for, whatever it showed. No method or threshold was changed because of it.
+
+**Also fixed.** `results/phase5_tables.md` no longer prints the wall-clock training times, so it is byte-reproducible. Those times stay in `results/phase5_timings.json`, which differs by design.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
@@ -887,6 +953,5 @@ Ideas that came up early, with the phase they belong to. Do not act on them befo
 - Phase 6: maintenance-only hours have the highest false-alarm rate for every baseline (19% to 27% with status events), though they supply only about a fifth to a quarter of all false alarms (audit Q4). The agent's change-log tool should be measured on exactly these windows.
 - Phase 5: report the GNN under q90, max and mean window scores, with expected-rank ties, link and PoP roots separately, calibration on validation scores only, and paired-CI claim verdicts (`evaluation.verdict`). Compare against both B3 and B3+.
 - Phase 6: agent tools must return alerts through `alerts.alerts_at(alerts, t)` (audit Q9). The agent and the localisers it is compared with must get the same window (audit section 6).
-- Phase 6: implement `explain_gnn` (gradient attribution over the GAT-h32 models) and give the agent the change log. The GNN's maintenance-hour false alarms (48%) are the clearest case for it.
+- Phase 6: implement `explain_gnn` (gradient attribution over the GAT-h32 models) and give the agent the change log. The GNN's maintenance-hour false alarms (48%) are the clearest case for it. Most of its excess is in drain and post-maintenance windows, not in blanked ones (Phase 5 audit-fix entry), so the change log must cover drains.
 - Write-up: credit the GNN's localisation gain to supervised training, not to message passing (Phase 5, X6 and X7). Any RQ1 claim that "graph-aware beats per-link" must cite the MLP ablation.
-- Next phase: move the wall-clock columns out of `results/phase5_tables.md` (train seconds, wall-clock line) so the committed tables are byte-reproducible like the Phase 4 ones.

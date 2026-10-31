@@ -12,7 +12,6 @@ Nothing here reads the test or dev splits.
 """
 import argparse
 import json
-import sys
 import time
 from collections import Counter
 from multiprocessing import Pool
@@ -29,14 +28,20 @@ from nettwin.evaluation import (EASY, FAR_TARGET, HARD, LAG, WARMUP, WINDOW_AGGS
                                 fault_table, labels_matrix, make_edges, related_links, scenario_record,
                                 threshold_for, tie_credit, to_bins, verdict, window_classes)
 from nettwin.observed import freeze_cfg, inventory, load_observed
+from nettwin.splits import guard
 
 ROOT = Path(__file__).resolve().parents[1]
 VARIANTS = ("with_status", "status_blind")
 METHOD_NAMES = ("B1", "B2", "B3", "B3+")
+ALLOWED_SPLITS = frozenset({"train", "val"})   # audit Phase 5 R5: checked on every data path
 N_FIT, N_SEL = 100, 200
 SAMPLE_FRAC = 0.02
 N_EXACT_CHECK = 40
 CTX = {}
+
+
+def G(path):
+    return guard(path, ALLOWED_SPLITS)
 
 
 def _init(ctx):
@@ -44,10 +49,10 @@ def _init(ctx):
 
 
 def _load(root, split, variant, entry):
-    obs = load_observed(root / "observable" / split / variant / entry["scenario_id"])
+    obs = load_observed(G(root / "observable" / split / variant / entry["scenario_id"]))
     kg = inventory(obs.topology, CTX["cfg_s"])
     ix = index_for(obs, kg)
-    lab, pres = labels_matrix(pd.read_parquet(root / "truth" / split / variant / entry["files"]["labels"]), ix.links)
+    lab, pres = labels_matrix(pd.read_parquet(G(root / "truth" / split / variant / entry["files"]["labels"])), ix.links)
     return obs, kg, ix, lab, pres
 
 
@@ -120,12 +125,12 @@ def fit_and_select(cfg, root, workers, cfg_s):
     """Train only: B2 per variant, then the PoP aggregation for B1 and B2 (best mean top-3 over both variants, q90)."""
     methods, sel_entries = {}, {}
     for variant in VARIANTS:
-        entries = json.loads((root / "truth" / "train" / variant / "manifest.json").read_text())
+        entries = json.loads(G(root / "truth" / "train" / variant / "manifest.json").read_text())
         pick = np.random.default_rng(cfg["seeds"]["training"]).permutation(len(entries))
         fit_e = [entries[i] for i in sorted(pick[:N_FIT])]
         sel_entries[variant] = [entries[i] for i in sorted(pick[N_FIT:N_FIT + N_SEL])]
         b2 = METHODS["B2"](seed=cfg["seeds"]["training"])
-        b2.fit([load_observed(root / "observable" / "train" / variant / e["scenario_id"]) for e in fit_e])
+        b2.fit([load_observed(G(root / "observable" / "train" / variant / e["scenario_id"])) for e in fit_e])
         methods[variant] = {"B1": METHODS["B1"](), "B2": b2, "B3": METHODS["B3"](), "B3+": METHODS["B3+"]()}
     ctx = {"root": root, "cfg_s": cfg_s, "methods": methods}
     with Pool(workers, initializer=_init, initargs=(ctx,)) as pool:
@@ -328,13 +333,13 @@ def main():
         results["v1_pretune"] = {"dataset": str(pre.relative_to(ROOT)), **settings, "calibration": "v1 validation (same bins and thresholds)", "variants": {}}
     B = {}
     for variant in VARIANTS:
-        v1_entries = json.loads((v1 / "truth" / "val" / variant / "manifest.json").read_text())
+        v1_entries = json.loads(G(v1 / "truth" / "val" / variant / "manifest.json").read_text())
         ctx = {"root": v1, "cfg_s": cfg_s, "methods": methods}
         edges, thr = calibrate(v1, variant, v1_entries, args.workers, ctx)
         ctx.update(edges={variant: edges}, thr={variant: thr})
         extra, n_matched = {}, None
         if pre.exists():
-            pre_entries = json.loads((pre / "truth" / "val" / variant / "manifest.json").read_text())
+            pre_entries = json.loads(G(pre / "truth" / "val" / variant / "manifest.json").read_text())
             extra, n_matched = matched_groups(v1_entries, pre_entries)
         for ds, root, entries in (("v1", v1, v1_entries),) + ((("v1_pretune", pre, pre_entries),) if pre.exists() else ()):
             out, boots = evaluate(root, variant, entries, args.workers, ctx, cfg, extra, args.n_boot)
@@ -355,6 +360,4 @@ def main():
 
 
 if __name__ == "__main__":
-    if any("test" in a or "/dev" in a for a in sys.argv[1:]):
-        sys.exit("Phase 4 runs on validation only")
     main()

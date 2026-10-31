@@ -1,0 +1,236 @@
+{
+ "note": "sha256 of every file scripts/phase5_test.py loads; it refuses to run if any differs",
+ "best": "gat-h32",
+ "models": [
+  "gat-h32-s0",
+  "gat-h32-s1",
+  "gat-h32-s2",
+  "gat-h32-s0-mlp",
+  "gat-h32-s1-mlp",
+  "gat-h32-s2-mlp"
+ ],
+ "baselines": [
+  "B1",
+  "B2",
+  "B3",
+  "B3+"
+ ],
+ "variants": [
+  "with_status",
+  "status_blind"
+ ],
+ "selection_subset_size": 60,
+ "files": {
+  "data/models/phase5/gat-h32-s0.pt": "6d26c4d1fd24f6299d9aa02fd1eb7679d6c50ec0c45a8705c1ddf9f8786e3348",
+  "data/models/phase5/gat-h32-s1.pt": "8f5c8f320932101f536bbaf351e23f655c1147d9b3158d9871b5a57ada4ead96",
+  "data/models/phase5/gat-h32-s2.pt": "d9395b2b57602cabc8a31c5a4165fc5fe0618181a0b291b0fee28ab0b25c7941",
+  "data/models/phase5/gat-h32-s0-mlp.pt": "50fe0261411ce7fe865b56cbcbeb2bbbaaf0befefcd58e5378a5780a4c065216",
+  "data/models/phase5/gat-h32-s1-mlp.pt": "7b302f572778a5c2c3bb48ffef147d3b8d2d8fc644c4ddd398498761506ecc1f",
+  "data/models/phase5/gat-h32-s2-mlp.pt": "aaaab0be00f602e68a94e8f84758f7278cbdc077fd291e4af8f2e1d577a3e45a",
+  "data/models/phase5/frozen/baselines_status_blind.pkl": "60be2f223ae7271fe7fca45ee5f526913891e26f50a229b8ad116755cb02c0b5",
+  "data/models/phase5/frozen/baselines_with_status.pkl": "7d518fdcb6177f6cdba874cabecae73f8ade3b3e44ab9a9d7104d1cd84277b24",
+  "data/models/phase5/frozen/calibration.json": "ad6029b677e356cd43593db6fbf2a2fe5d214b69d6fbdfbf1a30fd893d029705"
+ },
+ "validation_reproduced": {
+  "with_status": {
+   "B1": {
+    "threshold": 2.161838240258661,
+    "committed": 2.161838240258661,
+    "equal": true
+   },
+   "B2": {
+    "threshold": 0.6698192635805621,
+    "committed": 0.6698192635805621,
+    "equal": true
+   },
+   "B3": {
+    "threshold": 0.4000000000000001,
+    "committed": 0.4000000000000001,
+    "equal": true
+   },
+   "B3+": {
+    "threshold": 0.4000000000000001,
+    "committed": 0.4000000000000001,
+    "equal": true
+   },
+   "gat-h32-s0": {
+    "threshold": 0.8372110724449159,
+    "committed": 0.8372110724449159,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.6273,
+     "committed": 0.6273
+    },
+    "easy:top1@q90": {
+     "now": 0.7534,
+     "committed": 0.7534
+    }
+   },
+   "gat-h32-s1": {
+    "threshold": 0.7700687050819398,
+    "committed": 0.7700687050819398,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.6366,
+     "committed": 0.6366
+    },
+    "easy:top1@q90": {
+     "now": 0.7601,
+     "committed": 0.7601
+    }
+   },
+   "gat-h32-s2": {
+    "threshold": 0.7426440119743348,
+    "committed": 0.7426440119743348,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.6227,
+     "committed": 0.6227
+    },
+    "easy:top1@q90": {
+     "now": 0.7422,
+     "committed": 0.7422
+    }
+   },
+   "gat-h32-s0-mlp": {
+    "threshold": 0.8850141167640687,
+    "committed": 0.8850141167640687,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.6204,
+     "committed": 0.6204
+    },
+    "easy:top1@q90": {
+     "now": 0.7646,
+     "committed": 0.7646
+    }
+   },
+   "gat-h32-s1-mlp": {
+    "threshold": 0.8431761860847474,
+    "committed": 0.8431761860847474,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.5995,
+     "committed": 0.5995
+    },
+    "easy:top1@q90": {
+     "now": 0.7646,
+     "committed": 0.7646
+    }
+   },
+   "gat-h32-s2-mlp": {
+    "threshold": 0.7926146388053895,
+    "committed": 0.7926146388053895,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.625,
+     "committed": 0.625
+    },
+    "easy:top1@q90": {
+     "now": 0.796,
+     "committed": 0.796
+    }
+   }
+  },
+  "status_blind": {
+   "B1": {
+    "threshold": 2.162403423571209,
+    "committed": 2.162403423571209,
+    "equal": true
+   },
+   "B2": {
+    "threshold": 0.6695122847781239,
+    "committed": 0.6695122847781239,
+    "equal": true
+   },
+   "B3": {
+    "threshold": 0.4000000000000001,
+    "committed": 0.4000000000000001,
+    "equal": true
+   },
+   "B3+": {
+    "threshold": 0.4000000000000001,
+    "committed": 0.4000000000000001,
+    "equal": true
+   },
+   "gat-h32-s0": {
+    "threshold": 0.8301004171371461,
+    "committed": 0.8301004171371461,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.625,
+     "committed": 0.625
+    },
+    "easy:top1@q90": {
+     "now": 0.7557,
+     "committed": 0.7557
+    }
+   },
+   "gat-h32-s1": {
+    "threshold": 0.7583105564117433,
+    "committed": 0.7583105564117433,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.6366,
+     "committed": 0.6366
+    },
+    "easy:top1@q90": {
+     "now": 0.7624,
+     "committed": 0.7624
+    }
+   },
+   "gat-h32-s2": {
+    "threshold": 0.7280023694038392,
+    "committed": 0.7280023694038392,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.6204,
+     "committed": 0.6204
+    },
+    "easy:top1@q90": {
+     "now": 0.7466,
+     "committed": 0.7466
+    }
+   },
+   "gat-h32-s0-mlp": {
+    "threshold": 0.8826280236244203,
+    "committed": 0.8826280236244203,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.6227,
+     "committed": 0.6227
+    },
+    "easy:top1@q90": {
+     "now": 0.7353,
+     "committed": 0.7353
+    }
+   },
+   "gat-h32-s1-mlp": {
+    "threshold": 0.8367039561271669,
+    "committed": 0.8367039561271669,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.6019,
+     "committed": 0.6019
+    },
+    "easy:top1@q90": {
+     "now": 0.776,
+     "committed": 0.776
+    }
+   },
+   "gat-h32-s2-mlp": {
+    "threshold": 0.7906120419502259,
+    "committed": 0.7906120419502259,
+    "equal": true,
+    "hard:top3@q90": {
+     "now": 0.6204,
+     "committed": 0.6204
+    },
+    "easy:top1@q90": {
+     "now": 0.7511,
+     "committed": 0.7511
+    }
+   }
+  }
+ }
+}

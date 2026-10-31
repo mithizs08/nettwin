@@ -85,15 +85,19 @@ python scripts/phase4_tables.py                      # results/phase4_tables.md:
 - `src/nettwin/baselines.py`: B1 EWMA z-score, B2 Isolation Forest, B3 tomography over alerts as pre-registered, and B3+, a disclosed variant whose link paths include the end routers. None uses time of day, time since the scenario start or file metadata.
 - The definitions and expectations were committed before the first validation run. The revisions after the independent audit (`docs/audit_phase4.md`) are logged by ID in `docs/decision_log.md`.
 
-## Phase 5: GNN (validation only)
+## Phase 5: GNN
 
 ```bash
 python scripts/phase5_gnn.py            # train on train (21 runs, about 2.5 h on CPU), select on a val subset, evaluate on val
+python scripts/phase5_freeze.py         # validation only: freeze calibration and hashes, held-out headline, blanking check
+python scripts/phase5_test.py           # test and dev, once: loads frozen files only, refuses on any hash mismatch
 python scripts/phase5_tables.py         # results/phase5_tables.md
 ```
 
 - `src/nettwin/gnn/`: line-graph data (links are nodes; inputs are the Phase 4 B2 window features plus static inventory features), a causal temporal encoder, GraphSAGE / GAT / GINE layers, and detection and localisation (link and PoP) heads.
 - The tuning budget and the expectations X1 to X10 were committed before training (`docs/decision_log.md`, Phase 5 pre-registration).
 - Results use the shared harness against B1, B2, B3 and B3+, with paired-bootstrap verdicts, seed variance, base rates, three window aggregations and per-network numbers.
-- The MLP ablation shows that most of the gain over the baselines comes from supervised training, not from message passing. The detection head also raises far more false alarms in maintenance hours than any baseline. Both are reported in the decision log.
+- The MLP ablation shows that most of the gain over the baselines comes from supervised training, not from message passing. The MLP still uses link-to-PoP pooling and graph-derived static inputs, so this is "no message passing", not "no graph".
+- The near-perfect link_down / node_down localisation is the model recognising the simulator's down-link rendering in the link telemetry, not hard detection (`docs/audit_phase5.md`, R3).
+- The detection head also raises far more false alarms in maintenance hours than any baseline. All of this is reported in the decision log.
 - No test-set run yet.

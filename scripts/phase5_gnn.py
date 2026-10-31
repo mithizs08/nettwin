@@ -23,13 +23,16 @@ from sklearn.metrics import average_precision_score
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import phase4_baselines as P4  # noqa: E402
 
-from nettwin.baselines import Method, b2_features, index_for, window_score  # noqa: E402
+from nettwin.baselines import b2_features, index_for, window_score  # noqa: E402
 from nettwin.evaluation import (EASY, HARD, WARMUP, WINDOW_AGGS, aggregate, ap_from_hists, labels_matrix,  # noqa: E402
                                 related_links, scenario_record, threshold_for, tie_credit, to_bins, verdict)
 from nettwin.gnn.data import graph_for, training_samples  # noqa: E402
-from nettwin.gnn.models import NetTwinGNN, predict  # noqa: E402
-from nettwin.gnn.train import shuffle_perm, train  # noqa: E402
+from nettwin.gnn.method import gnn_method  # noqa: E402
+from nettwin.gnn.models import predict  # noqa: E402
+from nettwin.gnn.train import train  # noqa: E402
 from nettwin.observed import freeze_cfg, inventory, load_observed  # noqa: E402
+
+G = P4.G   # split guard on every data path: train and val only (audit Phase 5 R5)
 
 ROOT = Path(__file__).resolve().parents[1]
 VARIANTS = ("with_status", "status_blind")
@@ -58,10 +61,10 @@ def _init(ctx):
 def _samples_one(args):
     variant, entry = args
     R = CTX["root"]
-    obs = load_observed(R / "observable" / "train" / variant / entry["scenario_id"])
+    obs = load_observed(G(R / "observable" / "train" / variant / entry["scenario_id"]))
     kg = inventory(obs.topology, CTX["cfg_s"])
     ix = index_for(obs, kg)
-    lab, _ = labels_matrix(pd.read_parquet(R / "truth" / "train" / variant / entry["files"]["labels"]), ix.links)
+    lab, _ = labels_matrix(pd.read_parquet(G(R / "truth" / "train" / variant / entry["files"]["labels"])), ix.links)
     rng = np.random.default_rng([int(entry["scenario_id"][2:]), VARIANTS.index(variant), 5])
     x, d, r = training_samples(obs, entry, lab, CTX["cfg_s"], K_PER_SCENARIO, rng)
     return [(obs.topology, x[i], d[i], r[i]) for i in range(len(x))]
@@ -69,7 +72,7 @@ def _samples_one(args):
 
 def _select_data_one(args):
     variant, entry = args
-    obs = load_observed(CTX["root"] / "observable" / CTX.get("split", "val") / variant / entry["scenario_id"])
+    obs = load_observed(G(CTX["root"] / "observable" / CTX.get("split", "val") / variant / entry["scenario_id"]))
     return {"topology": obs.topology, "feat": b2_features(obs).astype(np.float16), "entry": entry, "variant": variant}
 
 
@@ -119,47 +122,22 @@ def selection_score(model, shuffle_seed):
     return out
 
 
-def load_model(rec):
-    conv, hidden, seed, ablation = rec["spec"]
-    m = NetTwinGNN(conv="mlp" if ablation == "mlp" else conv, hidden=hidden, path_static=ablation != "no_path_static")
-    m.load_state_dict(torch.load(io.BytesIO(rec["state"])))
-    m.eval()
-    return m
-
-
-class GNNMethod(Method):
-    """Wraps a trained GNN for the shared harness: detection = per-link probability, localisation = element
-    probabilities aggregated over the incident window like every other method."""
-    def __init__(self, name, model, cfg_s, shuffle_seed=None):
-        self.name, self.model, self.cfg_s, self.shuffle_seed = name, model, cfg_s, shuffle_seed
-
-    def score(self, obs, kg, ix):
-        g = graph_for(obs.topology, self.cfg_s)
-        perm = shuffle_perm(obs.topology, g.n_links, self.shuffle_seed) if self.shuffle_seed is not None else None
-        det, elem = predict(self.model, b2_features(obs).astype(np.float32), g, perm)
-        return det, np.zeros((det.shape[0], g.n_pops), np.float32), elem
-
-    def localise(self, state, t0, t1, agg="q90"):
-        return window_score(state[2][t0:t1], agg)
-
-
 # ------------------------------------------------------------------ evaluation
 
 def _eval_init(ctx):
     _init(ctx)
     CTX["gnn"] = {}
     for key, rec in ctx["models"].items():
-        conv, hidden, seed, ablation = rec["spec"]
-        CTX["gnn"][key] = GNNMethod(key, load_model(rec), ctx["cfg_s"], seed if ablation == "shuffled_edges" else None)
+        CTX["gnn"][key] = gnn_method(key, rec["state"], ctx["cfg_s"])
 
 
 def _evaluate_one(args):
     variant, entry, check = args
     R, split = CTX["root"], CTX.get("split", "val")
-    obs = load_observed(R / "observable" / split / variant / entry["scenario_id"])
+    obs = load_observed(G(R / "observable" / split / variant / entry["scenario_id"]))
     kg = inventory(obs.topology, CTX["cfg_s"])
     ix = index_for(obs, kg)
-    lab, pres = labels_matrix(pd.read_parquet(R / "truth" / split / variant / entry["files"]["labels"]), ix.links)
+    lab, pres = labels_matrix(pd.read_parquet(G(R / "truth" / split / variant / entry["files"]["labels"])), ix.links)
     related = [related_links(kg, ix, f["root_cause"]) for f in entry["faults"]]
     recs, exact = {}, {}
     methods = {**{k: CTX["baselines"][variant][k] for k in P4.METHOD_NAMES}, **CTX["gnn"]}
@@ -270,7 +248,7 @@ def main():
     timings = {}
 
     # training samples (train only)
-    jobs = [(v, e) for v in VARIANTS for e in json.loads((root / "truth" / "train" / v / "manifest.json").read_text())]
+    jobs = [(v, e) for v in VARIANTS for e in json.loads(G(root / "truth" / "train" / v / "manifest.json").read_text())]
     with Pool(args.workers, initializer=_init, initargs=({"root": root, "cfg_s": cfg_s},)) as pool:
         samples = [s for part in pool.map(_samples_one, jobs, chunksize=8) for s in part]
     graphs = {t: graph_for(t, cfg_s) for t in sorted({s[0] for s in samples})}
@@ -278,8 +256,8 @@ def main():
     print(f"{len(samples)} training samples ({timings['build_samples_s']}s)", flush=True)
 
     # fixed validation subset for selection
-    val = {v: json.loads((root / "truth" / "val" / v / "manifest.json").read_text()) for v in VARIANTS} if not args.smoke else \
-        {v: json.loads((root / "truth" / "train" / v / "manifest.json").read_text())[-8:] for v in VARIANTS}
+    val = {v: json.loads(G(root / "truth" / "val" / v / "manifest.json").read_text()) for v in VARIANTS} if not args.smoke else \
+        {v: json.loads(G(root / "truth" / "train" / v / "manifest.json").read_text())[-8:] for v in VARIANTS}
     pick = sorted(np.random.default_rng(cfg["seeds"]["training"] + 5).permutation(len(val["with_status"]))[:N_SELECT])
     with Pool(args.workers, initializer=_init, initargs=({"root": root, "cfg_s": cfg_s, "split": split},)) as pool:
         select = pool.map(_select_data_one, [(v, val[v][i]) for v in VARIANTS for i in pick])
@@ -396,6 +374,4 @@ def main():
 
 
 if __name__ == "__main__":
-    if any("test" in a or "/dev" in a for a in sys.argv[1:]):
-        sys.exit("Phase 5 runs on validation only")
     main()
