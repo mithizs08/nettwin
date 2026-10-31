@@ -119,6 +119,7 @@ class FakeClient:
 
     def create(self, **kw):
         assert kw["output_config"]["effort"] and kw["cache_control"] == {"type": "ephemeral"}
+        assert kw["system"][-1]["cache_control"] == {"type": "ephemeral"}      # tools + system prefix cached
         names = [t["name"] for t in kw["tools"]]
         name, args = self.script[min(self.k, len(self.script) - 1)]
         forced = any(m["role"] == "user" and isinstance(m["content"], str) and m["content"].startswith("Budget reached") for m in kw["messages"])

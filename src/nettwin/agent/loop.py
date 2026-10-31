@@ -64,7 +64,10 @@ def run_incident(client, inc, condition, model, acfg, status_polling, log=None):
                 break
             after_force += 1
         t0 = time.time()
-        resp = client.messages.create(model=model, max_tokens=acfg["max_output_tokens_per_turn"], system=system, tools=tools,
+        # two cache breakpoints: the tools + system prefix (identical across incidents of one condition) and, through
+        # top-level automatic caching, the conversation so far (reused by the next request of this incident)
+        resp = client.messages.create(model=model, max_tokens=acfg["max_output_tokens_per_turn"], tools=tools,
+                                      system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
                                       messages=messages, output_config={"effort": acfg["effort"]}, cache_control={"type": "ephemeral"})
         u = {k: int(getattr(resp.usage, k) or 0) for k in usage}
         for k in usage:

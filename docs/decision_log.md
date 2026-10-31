@@ -1159,6 +1159,32 @@ The setup, as pre-registered:
 - This assumes Opus uses the same tokens as Haiku. Opus may think and call tools differently, so I expect the real Opus cost to fall between 0.7x and 2x the estimate: $48 to $138 per split.
 - Waiting for the go-ahead before either full run.
 
+### 2026-10-31: Phase 6 pre-test design change: models and budget (before any full eval)
+
+Reason: budget. The whole project must stay under $100 of API spend. The pre-registered plan (Opus 5.5 for every full eval) was estimated at $69 per split, $138 in total. Decided by the user, after the smoke test and before any full validation or test run. Nothing evaluated has run yet, so no result informed this change.
+
+**Changes to the pre-registration.**
+1. **Main eval model: `claude-haiku-5-5`**, for A0, A1 and A2 on both validation and test.
+   - This is the clean comparison: the same model in every condition, so differences come from the tools.
+   - The expectations G1 to G8 now refer to Haiku.
+2. **Secondary result: `claude-opus-5-5` runs A0 and A2 on test only.** This gives the tool comparison (no tools against the full agent) for a second, stronger model.
+   - Opus gets no full validation run. A 10-incident validation smoke test (A0 and A2) checks its cost and behaviour first.
+   - G1 to G8 are not pre-registered for Opus. Its A2 - A0 differences are reported with paired verdicts as a secondary result.
+3. **Prompt caching.** Each request now carries two cache breakpoints:
+   - the tool definitions plus the system prompt, which are identical across incidents of one condition;
+   - the conversation so far, through top-level automatic caching, reused by the next request of the same incident.
+   - Before this change only the second existed. It is checked on the smoke incidents before the full run.
+4. **Spend guard.**
+   - `scripts/phase6_agent.py` adds up the cost of every kept agent log, plus $0.30 for the deleted smoke attempts (an upper bound).
+   - It stops before any agent run once the total is within $1 of `project_budget_usd` (100).
+   - The secondary model is refused for any condition outside A0 and A2.
+5. **Parallel runs** only after the background clean-clone check finishes; until then the eval stays single-process.
+
+Unchanged:
+- the incidents (seed 6006), both variants, the windows and the references;
+- the scoring, the paired verdicts, budgets per incident and effort `medium`;
+- freezing the agent code after the validation eval, and the test refusal rules.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.

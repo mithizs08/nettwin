@@ -37,6 +37,8 @@ BASELINES = ("B1", "B2", "B3", "B3+")
 PREREG = "### 2026-10-31: Phase 6 pre-registration"
 SAMPLE_SEED = 6006
 N_PER_TYPE, N_PER_DISTRACTOR = 20, 15
+# API spend not in any kept log: the smoke attempts deleted before the final smoke run (2026-10-31), an upper bound.
+UNLOGGED_SPEND_USD = 0.30
 PAIRS = [("A1", "A0"), ("A2", "A1"), ("A2", "A0"), ("A2", "GNN"), ("A2", "B3"), ("A2", "B3+"), ("A2", "B2"), ("A1", "B3"), ("A1", "GNN")]
 
 
@@ -49,6 +51,14 @@ def load_env():
             if "=" in line and not line.lstrip().startswith("#"):
                 k, v = line.split("=", 1)
                 os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
+
+def logged_spend():
+    """Whole-project Phase 6 API spend so far: every kept agent log plus the unlogged allowance."""
+    total = UNLOGGED_SPEND_USD
+    for f in (ROOT / "results" / "phase6").glob("*/agent_log.jsonl"):
+        total += sum(json.loads(l)["cost_usd"] for l in f.read_text().splitlines())
+    return total
 
 
 def frozen_assets(cfg_s):
@@ -83,7 +93,7 @@ def estimate(run_dir, acfg, plan):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--split", default="val", choices=["val", "test"])
-    ap.add_argument("--model", default="dev", choices=["dev", "eval"])
+    ap.add_argument("--model", default="dev", choices=["dev", "eval", "secondary"])
     ap.add_argument("--name", default="run")
     ap.add_argument("--limit", type=int, default=None, help="first N incidents only (smoke test)")
     ap.add_argument("--variants", default=",".join(VARIANTS))
@@ -105,14 +115,19 @@ def main():
         if out_dir.exists():
             sys.exit(f"refusing: {out_dir.relative_to(ROOT)} exists (the test eval is run once)")
     G = lambda p: guard(p, {split})  # noqa: E731
+    conditions = args.conditions.split(",")
+    if args.model == "secondary" and not set(conditions) <= set(acfg["secondary_conditions"]):
+        sys.exit(f"the secondary model runs {acfg['secondary_conditions']} only")
+    budget = acfg["project_budget_usd"]
+    spent = logged_spend()
+    print(f"project API spend so far: ${spent:.2f} of ${budget}", flush=True)
     load_env()
-    model = acfg["dev_model"] if args.model == "dev" else acfg["eval_model"]
+    model = acfg[{"dev": "dev_model", "eval": "eval_model", "secondary": "secondary_eval_model"}[args.model]]
     cfg_s = freeze_cfg(cfg)
     root = ROOT / cfg["dataset"]["root"]
     cal, baselines, gnns, seeds = frozen_assets(cfg_s)
     rb = RunbookIndex()
     variants = args.variants.split(",")
-    conditions = args.conditions.split(",")
     entries = json.loads(G(root / "truth" / split / "with_status" / "manifest.json").read_text())
     incidents = sample_incidents(entries, N_PER_TYPE, N_PER_DISTRACTOR, SAMPLE_SEED)
     if args.limit:
@@ -150,9 +165,12 @@ def main():
                 for cond in conditions:
                     if (inc["incident_id"], v, cond) in done:
                         continue
+                    if spent >= budget - 1.0:
+                        sys.exit(f"stopping: project API spend ${spent:.2f} is within $1 of the ${budget} budget")
                     incident = Incident(obs, kg, inc["t0"], inc["t1"], cfg_s, gnn=gnns[seeds[0]].model, runbooks=rb)
                     incident.incident_id = f"{inc['incident_id']}|{v}"
                     res = run_incident(client, incident, cond, model, acfg, status_polling=(v == "with_status"), log=log)
+                    spent += res["cost_usd"]
                     write(cond, score_agent(inc, res["diagnosis"], elements),
                           {"cost_usd": res["cost_usd"], "seconds": res["seconds"], "n_tool_calls": res["n_tool_calls"], "stop": res["stop"],
                            "ungrounded_items": res["groundedness"]["n_ungrounded_items"], "evidence_items": res["groundedness"]["n_items"],
