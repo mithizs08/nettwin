@@ -1,0 +1,91 @@
+[
+ {
+  "scenario_id": "dv00026",
+  "kind": "fault",
+  "type": "link_down",
+  "root": "link:Adelaide2--Perth2",
+  "t0": 978,
+  "t1": 1023,
+  "placement": "isolated",
+  "overlaps_maintenance": false,
+  "overlaps_logged_change": false,
+  "stratum": "main",
+  "incident_id": "D00"
+ },
+ {
+  "scenario_id": "dv00001",
+  "kind": "fault",
+  "type": "node_down",
+  "root": "pop:Darwin",
+  "t0": 609,
+  "t1": 618,
+  "placement": "isolated",
+  "overlaps_maintenance": false,
+  "overlaps_logged_change": false,
+  "stratum": "main",
+  "incident_id": "D01"
+ },
+ {
+  "scenario_id": "dv00003",
+  "kind": "fault",
+  "type": "link_flapping",
+  "root": "link:Brisbane1--Brisbane2",
+  "t0": 454,
+  "t1": 499,
+  "placement": "isolated",
+  "overlaps_maintenance": false,
+  "overlaps_logged_change": false,
+  "stratum": "main",
+  "incident_id": "D02"
+ },
+ {
+  "scenario_id": "dv00012",
+  "kind": "fault",
+  "type": "link_degradation",
+  "root": "link:Adelaide1--Darwin",
+  "t0": 363,
+  "t1": 591,
+  "placement": "isolated",
+  "overlaps_maintenance": false,
+  "overlaps_logged_change": false,
+  "stratum": "main",
+  "incident_id": "D03"
+ },
+ {
+  "scenario_id": "dv00017",
+  "kind": "fault",
+  "type": "demand_surge",
+  "root": "pop:Townsville",
+  "t0": 1109,
+  "t1": 1131,
+  "placement": "isolated",
+  "overlaps_maintenance": false,
+  "overlaps_logged_change": false,
+  "stratum": "main",
+  "incident_id": "D04"
+ },
+ {
+  "scenario_id": "dv00027",
+  "kind": "fault",
+  "type": "routing_misconfig",
+  "root": "link:Hobart--Melbourne1",
+  "t0": 1514,
+  "t1": 1963,
+  "placement": "isolated",
+  "overlaps_maintenance": true,
+  "overlaps_logged_change": true,
+  "stratum": "main",
+  "incident_id": "D05"
+ },
+ {
+  "scenario_id": "dv00002",
+  "kind": "distractor",
+  "type": "distractor_drain",
+  "root": "none",
+  "change_target": "link:Armidale--Sydney2",
+  "t0": 1568,
+  "t1": 1596,
+  "stratum": "main",
+  "incident_id": "D06"
+ }
+]

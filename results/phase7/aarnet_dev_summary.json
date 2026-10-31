@@ -1,0 +1,79 @@
+{
+ "split": "dev",
+ "note": "dev, seen during development; reported separately, not held-out evidence",
+ "n_incidents": 7,
+ "n_faults": 6,
+ "n_distractors": 1,
+ "cost_usd": 0.9169,
+ "code_sha256": "87a0082db4b3deb0044deba5cd38046705a0fbda1ccf9fc8b6581c0e3cb35c31",
+ "by_variant": {
+  "with_status": {
+   "B3+": {
+    "faults_top1": 0.337,
+    "faults_top3": 0.512,
+    "fault_recall": 0.5,
+    "distractor_fault_claims": 0.0
+   },
+   "GNN": {
+    "faults_top1": 0.5,
+    "faults_top3": 0.667,
+    "fault_recall": 0.611,
+    "distractor_fault_claims": 0.0
+   },
+   "GNN+CL": {
+    "faults_top1": 0.5,
+    "faults_top3": 0.667,
+    "fault_recall": 0.444,
+    "distractor_fault_claims": 0.0
+   },
+   "haiku-A2": {
+    "faults_top1": 0.5,
+    "faults_top3": 0.675,
+    "fault_recall": 0.667,
+    "distractor_fault_claims": 0.0,
+    "fault_type_correct": 0.5
+   },
+   "opus-A2": {
+    "faults_top1": 0.5,
+    "faults_top3": 0.671,
+    "fault_recall": 0.833,
+    "distractor_fault_claims": 0.0,
+    "fault_type_correct": 0.667
+   }
+  },
+  "status_blind": {
+   "B3+": {
+    "faults_top1": 0.171,
+    "faults_top3": 0.345,
+    "fault_recall": 0.5,
+    "distractor_fault_claims": 0.0
+   },
+   "GNN": {
+    "faults_top1": 0.5,
+    "faults_top3": 0.667,
+    "fault_recall": 0.556,
+    "distractor_fault_claims": 0.0
+   },
+   "GNN+CL": {
+    "faults_top1": 0.5,
+    "faults_top3": 0.667,
+    "fault_recall": 0.389,
+    "distractor_fault_claims": 0.0
+   },
+   "haiku-A2": {
+    "faults_top1": 0.5,
+    "faults_top3": 0.671,
+    "fault_recall": 0.833,
+    "distractor_fault_claims": 0.0,
+    "fault_type_correct": 0.667
+   },
+   "opus-A2": {
+    "faults_top1": 0.5,
+    "faults_top3": 0.671,
+    "fault_recall": 0.833,
+    "distractor_fault_claims": 0.0,
+    "fault_type_correct": 0.667
+   }
+  }
+ }
+}

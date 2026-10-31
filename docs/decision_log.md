@@ -1356,3 +1356,22 @@ Test table (faults = 120 main-sample faults; distractor claims are over 30 windo
 - Opus A2 is the only agent condition that beats the GNN on localisation: faults top-3 +0.086 [+0.036, +0.142] and +0.070 [+0.014, +0.127]; faults top-1 blind +0.072 [+0.008, +0.141]. Hard top-1 is inconclusive (+0.100 [+0.000, +0.204] and +0.100 [+0.000, +0.207]). Haiku A2 against the GNN is inconclusive throughout.
 
 New script, not frozen and not part of the agent: `scripts/phase6_test_compare.py` (read-only scoring of the two committed test runs). All 136 tests pass after the runs.
+
+### 2026-10-31: Phase 7 demo and AARNet dev agent traces
+
+**AARNet dev traces.** AARNet had no agent traces, so `scripts/phase7_aarnet_traces.py` runs Haiku 5.5 A2 and Opus 5.5 A2 on AARNet dev incidents through the Phase 6 runner (`run_incident` with the frozen tools, runbooks, prompts and seed-0 GNN tool). The script refuses unless the agent `code_sha256` matches `results/phase6_frozen.json`; it matched (87a0082db4b3). No frozen file was changed: the script imports the Phase 6 runner's asset loading, and the dev split goes through the same `guard`.
+- Incident rule, fixed before any run: the Phase 6 sampler (`sample_incidents`, seed 6006) on the 30 AARNet dev scenarios with one incident per fault type and one per distractor action. It keeps the six faults and the drain distractor, 7 incidents (D00 to D06), and drops the planned-outage distractor so that there is one maintenance distractor.
+- Runs: 7 incidents x 2 variants x 2 models = 28 runs, all submitted. $0.92 actual (limit $3). B3+, GNN and GNN+CL were scored on the same windows.
+- Results are in `results/phase7/aarnet_dev_summary.json` and labelled dev. AARNet was seen during development, so these are not held-out evidence, and 6 faults are too few to compare methods.
+  - Faults top-1: both agents 0.500, the same as the GNN, in both variants.
+  - Fault recall: Haiku A2 0.667 and 0.833, Opus A2 0.833 in each, GNN 0.611 and 0.556 (with_status, status_blind).
+  - Both agents named planned maintenance on the drain distractor, and no reference claimed a fault on it.
+  - Both agents called the demand_surge incident (D04) "no fault" in both variants.
+- Logged project API spend is now $41.65 of $100. `phase6_agent.logged_spend` reads only `results/phase6/`; the Phase 7 script adds its own logs in `results/phase7/` to the total.
+
+**Demo.** `app/streamlit_app.py` reads only committed results (`results/phase7/demo_bundle.json`, the Phase 6 test summaries and `results/phase6/test_haiku_vs_opus.json`), so it runs offline with no data folder and no API key. Run it with `streamlit run app/streamlit_app.py` in the nettwin env. The app has three pages:
+- **Incident explorer:** the AARNet map with the ground truth, the logged change, the GNN top-3 and both agents' root causes; the alert timeline and change log as an operator sees them at the window end, with one day of history; utilisation of the links in question; the GNN's top 10 elements (mean of 3 seeds); and each agent's tool calls step by step, with outputs and the final diagnosis next to the ground truth.
+- **Test results:** the Phase 6 test table with CIs, the agent against the GNN + change-log rule and other paired verdicts, Haiku against Opus, cost and groundedness, and the AARNet dev table, kept separate.
+- **Limitations:** synthetic telemetry, public topologies, not Telstra's network, the failed test expectations, and the narrow groundedness check.
+
+`tests/test_app.py` renders every incident, variant and page with no API key. All 137 tests pass.
