@@ -1047,6 +1047,85 @@ Nothing from the test or dev splits has been read for any choice in Phases 4 and
 - **Unobservable hard faults**: GNN top-3 0.11 to 0.16 per seed, against B2's 0.11. Still no sign of a prior-based shortcut.
 - **link_down / node_down**: top-3 0.985 to 1.000 in both variants. As corrected in R3, this is recognition of the down-link rendering, not hard detection.
 
+### 2026-10-31: Phase 6 pre-registration (agent design, expectations and the test eval plan; written before any agent run)
+
+Committed before the first API call, smoke test included. Telemetry is synthetic, the networks are public topologies, and none of this is Telstra's network.
+
+**Models** (`config.yaml`, prices from platform.claude.com/docs/en/about-claude/pricing, checked 2026-10-31, USD per million tokens).
+- Development and debugging: `claude-haiku-5-5`. Input 0.10, output 0.50, cache read 0.01, cache write 0.125. Prices are higher above 100,000 prompt tokens; prompts here are far below that.
+- Final eval: `claude-opus-5-5`. Input 4.00, output 20.00, cache read 0.20, cache write 5.00.
+- Effort `medium` on both (set explicitly). Adaptive thinking (on by default; it cannot be disabled on Opus 5.5).
+- Prompt caching on.
+- Budgets: 15 tool calls and 120,000 tokens per incident. Over budget, the agent is told to submit and gets only `submit_diagnosis`.
+
+**What the agent can see** (`src/nettwin/agent/tools.py`). Observable data only: no truth file is opened by any tool.
+- The incident is opened at the end of its window. Nothing at or after that step is returned, the same horizon the other methods use.
+- Every time is in steps relative to the window start, so no tool exposes time since the scenario start (audit P4, P7).
+- Tools:
+  - `get_active_alerts`: alerts generated from observable telemetry, read through `alerts_at` (causal, audit Q9).
+  - `get_metric_series`: binned series for a link or service, with the same window one day earlier.
+  - `list_links_by_change`: a dashboard view, links ranked by change against one day earlier.
+  - `kg_paths_through`, `kg_services_on`, `kg_neighbours`, `kg_shared_elements`: queries on the operator inventory.
+  - `get_change_log`: every planned change whose window has started by the end of the incident, including drains, planned outages and no-op work. Drains matter most, because they cause most of the GNN's maintenance-hour false alarms.
+  - `get_gnn_scores`: the frozen GAT-h32 seed-0 checkpoint, hash-checked against `results/phase5_frozen.json`.
+  - `explain_gnn`: gradient x input attribution over the model's 12-step input window.
+  - `search_runbooks`: BM25 over 9 runbooks: 6 fault types, triage, maintenance and drains, telemetry gaps.
+  - `submit_diagnosis`: root element, fault type, confidence, up to 2 alternatives, evidence, recommended action.
+- Disclosure: I wrote the runbooks knowing how the simulator renders each fault type. They hold no labels, scenario facts or timing priors, but they favour the agent. A2 results should be read with that in mind.
+
+**Conditions.**
+- A0: the alert list for the window in the prompt, and `submit_diagnosis` only.
+- A1: alerts, telemetry, KG queries and the change log. No GNN, no runbooks.
+- A2: A1 plus `get_gnn_scores`, `explain_gnn` and `search_runbooks`.
+
+**Incidents** (`src/nettwin/agent/eval.py`, `sample_incidents`, seed 6006). 150 per split:
+- 20 per fault type. The faults are observable, start after the 1-day warm-up, and overlap no other fault (with a 3-step lag).
+- 15 drain-only and 15 planned-outage-only distractor windows. The change has no fault within its window plus the 1-hour tail, and the correct answer is no fault.
+- At most one incident per scenario. The same incidents are used in both variants (with_status and status_blind).
+- The incident window is the fault's [start, end) or the change's [start, end). B1, B2, B3, B3+ and the GNN (mean of the 3 frozen GAT-h32 seeds) get exactly the same windows, with their frozen validation thresholds.
+
+**Scoring.**
+- Root cause:
+  - The agent's ranking (root, then up to 2 alternatives) becomes a score vector.
+  - It is scored with the harness's expected-rank tie credit (`evaluation.tie_credit`), giving top-1 and top-3.
+  - "none" ranks nothing, so it gets the expected credit of a random guess.
+- Fault-type accuracy, on fault incidents only.
+- Fault claim:
+  - For the agent: a fault type other than no_fault or planned_maintenance.
+  - For the references: the window's detection score reaches the frozen 5% fault-free threshold.
+  - On distractors this is the false-alarm rate. On faults it is the detection rate.
+- Groundedness: every element id and number cited in `evidence` must appear in that run's tool outputs (A0: the prompt), matched after rounding to the cited precision. Reported as the share of evidence items with an ungrounded id or number.
+- Cost (USD from token usage), latency, tool calls, and runs with no submission.
+- 95% CIs from 1,000 incident-bootstrap resamples, seed 42.
+- Paired verdicts (supported, contradicted or inconclusive) for A1 vs A0, A2 vs A1, A2 vs A0, A2 vs GNN, A2 vs B3, A2 vs B3+, A2 vs B2, A1 vs B3 and A1 vs GNN. Per group: faults, hard, easy, each type, distractors, drain, down.
+
+**Expectations** (with_status and status_blind separately; "supported" means the 95% CI of the paired difference excludes 0).
+- G1. A1 beats A0 on hard-type top-1 in both variants. Telemetry and the KG add what alerts alone miss.
+- G2. A2 beats A1 on hard-type top-1 in both variants. The GNN tool carries the learned localisation (0.43 to 0.47 top-1 on held-out validation and test).
+- G3. A2 against the GNN on hard top-1: inconclusive. The agent mostly follows the GNN on hard faults.
+- G4. On distractors, A1 and A2 claim a fault less often than the GNN in both variants. They have the change log. The GNN alarms in about half of maintenance hours.
+- G5. On distractors, A0 claims a fault more often than A1 in both variants (no change log).
+- G6. Easy types with status events: A1 top-1 within 0.10 of B3+ (inconclusive or better).
+- G7. Fault-type accuracy on hard types: A2 > A0 in both variants.
+- G8. The ungrounded evidence rate is below 10% for A1 and A2.
+- These are predictions. Misses are reported.
+
+**Validation, then test.**
+- Debugging is on validation only, with the dev model, starting with a 10-incident smoke test.
+- The full evals wait for an explicit go-ahead after a cost estimate.
+- The full validation eval runs with the eval model on the 150 validation incidents, both variants, all three conditions.
+- After it, the prompt, tool code and runbooks are frozen. Their sha256 values go to a committed `results/phase6_frozen.json`. No change follows except bug fixes, logged as such.
+- Test plan:
+  - The same 150-incident design is drawn from the test split with seed 6006, run once with `claude-opus-5-5`, both variants, A0, A1 and A2.
+  - The references are B1, B2, B3, B3+ and the GNN on the same windows.
+  - Everything above is reported, with the expectations G1 to G8 rechecked on test.
+- `scripts/phase6_agent.py --split test` refuses to run if:
+  - this entry is missing from the log;
+  - the frozen GNN or baseline hashes differ;
+  - the output folder already exists.
+  Before the test run it will also check the agent source hashes against `results/phase6_frozen.json`.
+- AARNet (dev) is not used for the agent eval.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
