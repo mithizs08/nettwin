@@ -11,6 +11,5 @@ Symptoms:
 Checks:
 - Is there a planned outage ("down") or drain on this link in the change log? If so it is maintenance, not a fault.
 - Are many links blanked at the same time? That points to a collector gap (see RB09), not a link failure.
-- Is the link the only one blanked for the whole window? That supports link_down.
 
 Action: open a fault ticket with the carrier or field team for the link; confirm rerouting has capacity.

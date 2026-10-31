@@ -2,6 +2,7 @@
 window start; the change log includes drains; scoring uses the harness's tie credit; groundedness catches invented ids
 and numbers; the loop keeps its budgets. No API calls (a fake client). Runs on topohub's `gabriel/20/1` (in no split)."""
 import copy
+import dataclasses
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -11,10 +12,11 @@ import pytest
 import torch
 import yaml
 
-from nettwin.agent.eval import localisation_credit, ranking_scores, sample_incidents, score_agent
+from nettwin.agent.eval import GROUPS, localisation_credit, ranking_scores, sample_incidents, score_agent
+from nettwin.agent import freeze, load_agent_config
 from nettwin.agent.loop import groundedness, run_incident
 from nettwin.agent.rag import RunbookIndex
-from nettwin.agent.tools import CONDITIONS, Incident, call_tool, tools_for
+from nettwin.agent.tools import CONDITIONS, HISTORY, Incident, call_tool, tools_for
 from nettwin.faults import make_fault
 from nettwin.gnn.models import NetTwinGNN
 from nettwin.observed import freeze_cfg, inventory, load_observed
@@ -47,6 +49,35 @@ def inc(tmp_path_factory):
     torch.manual_seed(0)
     model = NetTwinGNN(conv="gat", hidden=16).eval()
     return Incident(obs, kg, 400, 430, cs, gnn=model, runbooks=RunbookIndex()), links
+
+
+def _shifted(I, k):
+    """The same incident with k extra steps of telemetry before the scenario start (copies of the first k steps)."""
+    o = I.obs
+    pad = {f: np.concatenate([getattr(o, f)[:k], getattr(o, f)]) for f in ("util", "latency", "discards", "svc_latency", "svc_loss")}
+    ev = [e | {key: e[key] + k for key in ("t", "t_start", "t_end") if key in e} for e in o.events]
+    o2 = dataclasses.replace(o, events=ev, **pad)
+    return Incident(o2, I.kg, I.t0 + k, I.now + k, I.cfg_s, gnn=I.gnn, runbooks=I.runbooks)
+
+
+def test_tools_do_not_reveal_the_window_position(inc):
+    """Phase 6 audit S3: history is cut HISTORY steps before the window start, so a request for everything gives the
+    same output wherever the window sits in the scenario, and nothing reaches back to the scenario start."""
+    I, links = inc
+    J = _shifted(I, 100)
+    calls = [("get_metric_series", {"element": links[3], "metric": "util", "t0": -10**7, "t1": 10**7}),
+             ("get_metric_series", {"element": links[0], "metric": "latency", "t0": -400, "t1": -250}),
+             ("list_links_by_change", {"metric": "util", "t0": -10**7, "t1": 10**7}),
+             ("get_change_log", {"t0": -10**7, "t1": 10**7})]
+    for name, args in calls:
+        assert call_tool(I, name, args) == call_tool(J, name, args), name
+    assert json.loads(call_tool(I, "get_metric_series", calls[0][1])[0])["range"] == [-HISTORY, 29]
+    a = json.loads(call_tool(I, "get_active_alerts", {"t0": -10**7, "t1": 10**7})[0])
+    assert all(x["start"] >= -HISTORY for x in a["alerts"])
+    assert json.loads(call_tool(I, "get_gnn_scores", {"t": -HISTORY, "over_window": False})[0])["range"] == [-HISTORY, -HISTORY]
+    assert call_tool(I, "get_gnn_scores", {"t": -HISTORY - 1, "over_window": False}) == call_tool(J, "get_gnn_scores", {"t": -HISTORY - 1, "over_window": False})
+    with pytest.raises(ValueError):
+        Incident(I.obs, I.kg, HISTORY - 1, HISTORY + 5, I.cfg_s)
 
 
 def test_tools_stop_at_the_window_end(inc):
@@ -93,6 +124,7 @@ def test_ranking_uses_harness_tie_credit():
     assert list(sc) == [0, 3, 2, 0]
     assert localisation_credit(sc, els, "link:b--c") == {"top1": 1.0, "top3": 1.0}
     assert localisation_credit(sc, els, "pop:a") == {"top1": 0.0, "top3": 1.0}
+    assert list(ranking_scores({"root_cause": "link:c--b", "alternatives": []}, els)) == [0, 3, 0, 0]   # reversed link name
     none = localisation_credit(ranking_scores({"root_cause": "none", "alternatives": []}, els), els, "pop:a")
     assert none["top1"] == pytest.approx(0.25) and none["top3"] == pytest.approx(0.75)   # expected rank among 4 ties
     s = score_agent({"kind": "distractor", "type": "distractor_drain"}, {"fault_type": "planned_maintenance", "root_cause": "none"}, els)
@@ -109,12 +141,15 @@ def test_groundedness_flags_invented_ids_and_numbers():
     assert bad["n_ungrounded_items"] == 2
     assert set(bad["ungrounded"][0]["not_found"]) == {"link:R9--R10", "0.91"}
     assert bad["ungrounded"][1]["not_found"] == ["pop:New Orleans"]       # a real element the tools never returned
+    # strict (Phase 6 audit S5): numbers must appear verbatim, so the rounded 0.67 no longer counts
+    assert ok["n_ungrounded_items_strict"] == 1 and ok["ungrounded_strict"][0]["not_found"] == ["0.67"]
+    assert bad["n_ungrounded_items_strict"] == 2
 
 
 class FakeClient:
     """Calls one tool per turn from a script, then submits."""
-    def __init__(self, script, allow_any=False):
-        self.script, self.k, self.allow_any, self.names = script, 0, allow_any, {}
+    def __init__(self, script, allow_any=False, parallel=1):
+        self.script, self.k, self.allow_any, self.names, self.parallel = script, 0, allow_any, {}, parallel
         self.messages = self
 
     def create(self, **kw):
@@ -128,14 +163,15 @@ class FakeClient:
             name, args = "submit_diagnosis", {"root_cause": "none", "fault_type": "no_fault", "confidence": 0.5,
                                               "alternatives": [], "evidence": [], "recommended_action": "none"}
         self.k += 1
-        block = SimpleNamespace(type="tool_use", id=f"tu{self.k}", name=name, input=args)
+        n = 1 if name == "submit_diagnosis" else self.parallel
+        blocks = [SimpleNamespace(type="tool_use", id=f"tu{self.k}_{i}", name=name, input=args) for i in range(n)]
         usage = SimpleNamespace(input_tokens=1000, cache_creation_input_tokens=0, cache_read_input_tokens=0, output_tokens=100)
-        return SimpleNamespace(content=[block], usage=usage, stop_reason="tool_use")
+        return SimpleNamespace(content=blocks, usage=usage, stop_reason="tool_use")
 
 
 def test_loop_budget_forces_a_diagnosis(inc):
     I, _ = inc
-    acfg = yaml.safe_load((ROOT / "config.yaml").read_text())["agent"] | {"max_tool_calls": 3}
+    acfg = load_agent_config(ROOT) | {"max_tool_calls": 3}
     client = FakeClient([("get_active_alerts", {})] * 10)
     out = run_incident(client, I, "A2", acfg["dev_model"], acfg, status_polling=True)
     assert out["n_tool_calls"] == 3 and out["forced_submit"] and out["stop"] == "submitted"
@@ -146,6 +182,10 @@ def test_loop_budget_forces_a_diagnosis(inc):
                                                                                  "alternatives": [], "evidence": [], "recommended_action": ""})], allow_any=True),
                        I, "A1", acfg["dev_model"], acfg, status_polling=True)
     assert out["calls"][0]["error"]
+    # Phase 6 audit S6: parallel calls in the last turn beyond the budget are refused, not run
+    out = run_incident(FakeClient([("get_active_alerts", {})] * 10, parallel=2), I, "A2", acfg["dev_model"], acfg, status_polling=True)
+    assert out["n_tool_calls"] == 3 and out["n_refused_calls"] == 1 and out["stop"] == "submitted"
+    assert [c["refused"] for c in out["calls"]] == [False, False, False, True]
 
 
 def test_sampling_is_isolated_and_stratified():
@@ -156,3 +196,40 @@ def test_sampling_is_isolated_and_stratified():
     inc = sample_incidents(e, 2, 1, 0)
     assert sum(i["kind"] == "fault" for i in inc) == 4 and len({i["scenario_id"] for i in inc}) == len(inc)
     assert any(i["type"] == "distractor_drain" for i in inc)
+    # the change-overlap stratum (Phase 6 audit S2) adds faults that overlap a drain, leaving the main sample alone
+    for k in (1, 3):
+        e[k]["maintenance"] = [{"action": "drain", "target": "link:c--d", "t_start": 410, "t_end": 420}]
+    more = sample_incidents(e, 2, 1, 0, n_change_overlap=3)
+    assert more[:len(inc)] == [i for i in more if i["stratum"] == "main"]
+    assert [(i["scenario_id"], i["type"]) for i in more[:len(inc)]] == [(i["scenario_id"], i["type"]) for i in inc]
+    ov = [i for i in more if GROUPS["change_overlap_faults"](i)]
+    assert 1 <= len(ov) <= 3 and all(i["overlaps_logged_change"] for i in more if i["stratum"] == "change_overlap")
+    assert not any(GROUPS["faults"](i) for i in more if i["stratum"] == "change_overlap")
+
+
+def test_test_runs_are_frozen_and_run_once(tmp_path):
+    """Phase 6 audit S1: a test run needs the frozen hashes, the full design, and a model with no earlier test run."""
+    acfg = load_agent_config(ROOT)
+    h = freeze.agent_hashes(ROOT, acfg)
+    assert "src/nettwin/agent/runbooks/RB08_maintenance_and_drains.md" in h["files"] and "scripts/phase6_agent.py" in h["files"]
+    assert freeze.agent_hashes(ROOT, acfg | {"max_tool_calls": 16})["code_sha256"] != h["code_sha256"]
+    m, full = "claude-haiku-5-5", ["A0", "A1", "A2"]
+    ok = dict(root=tmp_path, frozen=h, current=h, model=m, model_key="eval", limit=None, conditions=full,
+              variants=["with_status", "status_blind"], required_conditions=full, resume=False)
+    assert freeze.test_run_refusal(**ok) is None
+    assert "missing" in freeze.test_run_refusal(**ok | {"frozen": None})
+    assert "differs" in freeze.test_run_refusal(**ok | {"frozen": h | {"code_sha256": "x", "files": {}}})
+    assert "--limit" in freeze.test_run_refusal(**ok | {"limit": 10})
+    assert "dev model" in freeze.test_run_refusal(**ok | {"model_key": "dev"})
+    assert "exactly" in freeze.test_run_refusal(**ok | {"conditions": ["A2"]})
+    out = freeze.test_out_dir(tmp_path, m)
+    out.mkdir(parents=True)
+    (out / "LOCK.json").write_text(json.dumps({"model": m, "code_sha256": h["code_sha256"]}))
+    assert "run once" in freeze.test_run_refusal(**ok)                                    # a second run is refused
+    assert freeze.test_run_refusal(**ok | {"resume": True}) is None                       # an unfinished one may resume
+    (out / "summary.json").write_text("{}")
+    assert "finished" in freeze.test_run_refusal(**ok | {"resume": True})
+    other = tmp_path / "results" / "phase6" / "test_renamed"
+    other.mkdir()
+    (other / "LOCK.json").write_text(json.dumps({"model": "claude-opus-5-5", "code_sha256": h["code_sha256"]}))
+    assert "already exists in test_renamed" in freeze.test_run_refusal(**ok | {"model": "claude-opus-5-5", "model_key": "secondary"})

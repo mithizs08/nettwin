@@ -12,10 +12,21 @@ def _overlaps(a0, a1, b0, b1):
     return a0 < b1 and b0 < a1
 
 
-def sample_incidents(entries, n_per_type, n_per_distractor, seed):
+def overlaps_logged_change(changes, t0, t1):
+    """A drain or planned outage overlapping the window [t0, t1) (so it has started by the window end). `changes` are
+    maintenance records with `action`, `t_start` and `t_end`: the manifest's for sampling, the observed change log for
+    the change-log rule."""
+    return any(c["action"] in DISTRACTOR_ACTIONS and c["t_start"] < t1 and c["t_end"] > t0 for c in changes)
+
+
+def sample_incidents(entries, n_per_type, n_per_distractor, seed, n_change_overlap=0):
     """Fault incidents (observable, isolated from other faults by LAG) stratified by type, and distractor windows (a
     drain or a planned outage with no fault within MAINT_TAIL), at most one incident per scenario. The window is the
-    fault's [t_start, t_end) or the change's [t_start, t_end); every method gets the same window."""
+    fault's [t_start, t_end) or the change's [t_start, t_end); every method gets the same window.
+
+    Then the change-overlap stratum (Phase 6 audit S2): further faults whose window overlaps a logged drain or planned
+    outage, from unused scenarios, one fault type at a time in turn, until `n_change_overlap` fault incidents in all
+    (main sample included) overlap a change. The main sample does not depend on it."""
     rng = np.random.default_rng(seed)
     order = rng.permutation(len(entries))
     pools = {t: [] for t in EASY + HARD}
@@ -30,14 +41,17 @@ def sample_incidents(entries, n_per_type, n_per_distractor, seed):
                 continue
             pools[f["type"]].append({"scenario_id": e["scenario_id"], "kind": "fault", "type": f["type"], "root": f["root_cause"],
                                      "t0": f["t_start"], "t1": f["t_end"], "placement": f["placement"],
-                                     "overlaps_maintenance": f.get("overlaps_maintenance", False)})
+                                     "overlaps_maintenance": f.get("overlaps_maintenance", False),
+                                     "overlaps_logged_change": overlaps_logged_change(e["maintenance"], f["t_start"], f["t_end"]),
+                                     "stratum": "main"})
         for m in e["maintenance"]:
             if m["action"] not in DISTRACTOR_ACTIONS or m["t_start"] < WARMUP:
                 continue
             if any(_overlaps(m["t_start"], m["t_end"] + MAINT_TAIL, g["t_start"], g["t_end"] + LAG) for g in faults):
                 continue
             pools[f"distractor_{m['action']}"].append({"scenario_id": e["scenario_id"], "kind": "distractor", "type": f"distractor_{m['action']}",
-                                                       "root": "none", "change_target": m["target"], "t0": m["t_start"], "t1": m["t_end"]})
+                                                       "root": "none", "change_target": m["target"], "t0": m["t_start"], "t1": m["t_end"],
+                                                       "stratum": "main"})
     used, out = set(), []
     for name in list(EASY + HARD) + [f"distractor_{a}" for a in DISTRACTOR_ACTIONS]:
         want = n_per_type if not name.startswith("distractor") else n_per_distractor
@@ -50,6 +64,17 @@ def sample_incidents(entries, n_per_type, n_per_distractor, seed):
             used.add(inc["scenario_id"])
             out.append(inc)
             got += 1
+    need = n_change_overlap - sum(i.get("overlaps_logged_change", False) for i in out)
+    queues = {t: [i for i in pools[t] if i["overlaps_logged_change"]] for t in EASY + HARD}
+    while need > 0 and any(queues.values()):
+        for t in EASY + HARD:
+            while need > 0 and queues[t]:
+                inc = queues[t].pop(0)
+                if inc["scenario_id"] not in used:
+                    used.add(inc["scenario_id"])
+                    out.append(dict(inc, stratum="change_overlap"))
+                    need -= 1
+                    break
     for k, inc in enumerate(out):
         inc["incident_id"] = f"I{k:03d}"
     return out
@@ -64,6 +89,8 @@ def ranking_scores(diagnosis, elements):
     cands = [diagnosis.get("root_cause")] + list(diagnosis.get("alternatives") or [])[:2]
     seen = []
     for c in cands:
+        if isinstance(c, str) and c.startswith("link:") and c not in elements and "--" in c:
+            c = "link:" + "--".join(reversed(c[5:].split("--", 1)))      # a link named in reverse (Phase 6 audit S7)
         if c in elements and c not in seen:
             seen.append(c)
     for r, c in enumerate(seen):
@@ -98,11 +125,19 @@ def score_reference(inc, method, state, threshold, elements):
     return out
 
 
-GROUPS = {"faults": lambda i: i["kind"] == "fault", "hard": lambda i: i["type"] in HARD, "easy": lambda i: i["type"] in EASY,
+def _main(i):
+    return i.get("stratum", "main") == "main"
+
+
+# headline groups use the main sample only; change_overlap_faults is every fault incident (main sample and the
+# change-overlap stratum) whose window overlaps a logged drain or planned outage
+GROUPS = {"faults": lambda i: _main(i) and i["kind"] == "fault", "hard": lambda i: _main(i) and i["type"] in HARD,
+          "easy": lambda i: _main(i) and i["type"] in EASY,
           "distractors": lambda i: i["kind"] == "distractor", "distractor_drain": lambda i: i["type"] == "distractor_drain",
-          "distractor_down": lambda i: i["type"] == "distractor_down"}
+          "distractor_down": lambda i: i["type"] == "distractor_down",
+          "change_overlap_faults": lambda i: i["kind"] == "fault" and i.get("overlaps_logged_change", False)}
 for _t in EASY + HARD:
-    GROUPS[f"type={_t}"] = lambda i, t=_t: i["type"] == t
+    GROUPS[f"type={_t}"] = lambda i, t=_t: _main(i) and i["type"] == t
 
 
 def metric_vectors(incidents, scores):

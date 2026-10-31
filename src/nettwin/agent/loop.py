@@ -42,7 +42,7 @@ def _price(usage, prices):
             + usage["cache_read_input_tokens"] * p["cache_read"] + usage["output_tokens"] * p["output"]) / 1e6
 
 
-def run_incident(client, inc, condition, model, acfg, status_polling, log=None):
+def run_incident(client, inc, condition, model, acfg, status_polling, log=None, log_extra=None):
     """One incident under one condition. Returns the diagnosis (or None), usage, cost, latency and the full log."""
     max_calls = acfg["max_tool_calls"]
     tools = tools_for(condition)
@@ -54,7 +54,8 @@ def run_incident(client, inc, condition, model, acfg, status_polling, log=None):
     t_start = time.time()
     while True:
         # the tool list never changes within a conversation: changing it invalidates earlier thinking blocks
-        over = len(calls) >= max_calls or sum(usage.values()) >= acfg["max_tokens_per_incident"]
+        n_exec = sum(not c["refused"] for c in calls)
+        over = n_exec >= max_calls or sum(usage.values()) >= acfg["max_tokens_per_incident"]
         if over and not forced and condition != "A0":
             forced = True
             messages.append({"role": "user", "content": FORCE_MSG})
@@ -90,13 +91,15 @@ def run_incident(client, inc, condition, model, acfg, status_polling, log=None):
                 diagnosis = dict(b.input)
                 results.append({"type": "tool_result", "tool_use_id": b.id, "content": "submitted"})
                 continue
-            if forced:
-                out, err = "error: budget reached; only submit_diagnosis is accepted now", True
+            # the call budget is strict: parallel calls in one turn beyond it are refused, not run (Phase 6 audit S6)
+            refused = forced or sum(not c["refused"] for c in calls) >= max_calls
+            if refused:
+                out, err = f"error: tool-call budget ({max_calls}) reached; only submit_diagnosis is accepted now", True
             elif b.name not in CONDITIONS[condition]:
                 out, err = f"error: tool {b.name} is not available", True
             else:
                 out, err = call_tool(inc, b.name, dict(b.input))
-            calls.append({"tool": b.name, "input": dict(b.input), "output": out, "error": err})
+            calls.append({"tool": b.name, "input": dict(b.input), "output": out, "error": err, "refused": refused})
             corpus.append(out)
             results.append({"type": "tool_result", "tool_use_id": b.id, "content": out, "is_error": err})
         if diagnosis is not None:
@@ -104,12 +107,13 @@ def run_incident(client, inc, condition, model, acfg, status_polling, log=None):
             break
         messages.append({"role": "user", "content": results})
     out = {"condition": condition, "model": model, "diagnosis": diagnosis, "stop": stop, "forced_submit": forced,
-           "n_tool_calls": len(calls), "n_requests": len(requests), "usage": usage,
+           "n_tool_calls": sum(not c["refused"] for c in calls), "n_refused_calls": sum(c["refused"] for c in calls),
+           "n_requests": len(requests), "usage": usage,
            "cost_usd": round(_price(usage, acfg["pricing_usd_per_mtok"][model]), 6), "seconds": round(time.time() - t_start, 2),
            "calls": calls, "requests": requests,
            "groundedness": groundedness(diagnosis, "\n".join(corpus), inc.links + inc.pops + inc.services)}
     if log is not None:
-        log.write(json.dumps({"incident": getattr(inc, "incident_id", None), **out}, default=str) + "\n")
+        log.write(json.dumps({"incident": getattr(inc, "incident_id", None), **out, **(log_extra or {})}, default=str) + "\n")
         log.flush()
     return out
 
@@ -139,24 +143,32 @@ def groundedness(diagnosis, corpus, known=()):
     """Every element id and number cited in the evidence must appear in the tool outputs (or, for A0, the prompt).
     Ids are matched against the incident's inventory (names may contain spaces); an id-like token outside the
     inventory is ungrounded. A number counts as grounded if some number in the corpus equals it after rounding to the
-    cited precision."""
+    cited precision. The strict variant (Phase 6 audit S5) needs every cited number verbatim as a number token in the
+    corpus. Both check cited ids and numbers only, not the reasoning that links them."""
     if not diagnosis:
-        return {"n_items": 0, "n_ungrounded_items": 0, "ungrounded": []}
+        return {"n_items": 0, "n_ungrounded_items": 0, "ungrounded": [], "n_ungrounded_items_strict": 0, "ungrounded_strict": []}
     c_ids, c_other, c_rest = _cited_ids(corpus, known)
     in_corpus = set(c_ids) | set(c_other)
     nums = _numbers(c_rest)
-    bad = []
+    tokens = set(NUM_RE.findall(c_rest))
+    bad, strict = [], []
     for item in diagnosis.get("evidence", []):
         ids, other, rest = _cited_ids(item, known)
         miss = [i for i in ids + other if i not in in_corpus]
+        miss_strict = list(miss)
         for raw in NUM_RE.findall(rest):
             nd = len(raw.split(".")[1]) if "." in raw else 0
             v = float(raw)
             if not any(round(c, nd) == v for c in nums):
                 miss.append(raw)
+            if raw not in tokens:
+                miss_strict.append(raw)
         if miss:
             bad.append({"item": item, "not_found": miss})
-    return {"n_items": len(diagnosis.get("evidence", [])), "n_ungrounded_items": len(bad), "ungrounded": bad}
+        if miss_strict:
+            strict.append({"item": item, "not_found": miss_strict})
+    return {"n_items": len(diagnosis.get("evidence", [])), "n_ungrounded_items": len(bad), "ungrounded": bad,
+            "n_ungrounded_items_strict": len(strict), "ungrounded_strict": strict}
 
 
 def is_fault_claim(diagnosis):

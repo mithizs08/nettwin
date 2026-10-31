@@ -7,10 +7,13 @@ One `Incident` holds what an operator would have when the incident is opened at 
 - the frozen GNN (Phase 5, hash-checked by the caller) and the runbooks.
 
 Time. Every tool works in steps relative to the incident window start (t = 0 is the window start, negative is
-earlier; one step is 5 minutes), so no tool exposes time since the scenario start (audit P4, P7). Nothing at or after
-`now` (the window end, the same horizon the other methods use) is returned.
+earlier; one step is 5 minutes), so no tool exposes time since the scenario start (audit P4, P7). History is visible
+from HISTORY steps before the window start: every window starts at least that late, so a range is never clipped at the
+scenario start and outputs are the same wherever the window sits in the scenario (Phase 6 audit S3). Nothing at or
+after `now` (the window end, the same horizon the other methods use) is returned.
 """
 import json
+import threading
 
 import numpy as np
 
@@ -21,9 +24,11 @@ from nettwin.gnn.explain import explain
 from nettwin.gnn.models import predict
 
 DAY = 288
+GNN_LOCK = threading.Lock()       # the shared frozen model: one forward or backward pass at a time when runs are threaded
 FAULT_TYPES = ("link_down", "node_down", "link_flapping", "link_degradation", "demand_surge", "routing_misconfig")
 NO_FAULT = ("no_fault", "planned_maintenance")
 MAX_SERIES_POINTS = 24
+HISTORY = DAY                    # visible history before the window start, in steps (= evaluation.WARMUP)
 LINK_METRICS = {"util": "util", "latency": "latency", "discards": "discards"}
 SERVICE_METRICS = {"latency": "svc_latency", "loss": "svc_loss"}
 
@@ -36,6 +41,9 @@ class Incident:
     def __init__(self, obs, kg, t0, t1, cfg_s, gnn=None, runbooks=None):
         self.obs, self.kg, self.cfg_s = obs, kg, cfg_s
         self.t0, self.now = int(t0), int(t1)                     # window [t0, t1); data up to now - 1
+        self.floor = self.t0 - HISTORY                           # earliest visible step
+        if self.floor < 0:
+            raise ValueError(f"window starts at {self.t0}, before {HISTORY} steps of history")
         self.alerts = generate_alerts(obs, kg)
         self.gnn, self.runbooks = gnn, runbooks
         self._gnn_cache = None
@@ -48,7 +56,7 @@ class Incident:
 
     def abs_range(self, t0, t1):
         """Relative [t0, t1] (inclusive) to absolute [a, b) clipped to what is known at `now`."""
-        a = max(0, self.t0 + int(t0))
+        a = max(self.floor, self.t0 + int(t0))
         b = min(self.now, self.t0 + int(t1) + 1)
         if b <= a:
             raise ValueError(f"empty range: [{t0}, {t1}] relative to the window start; data ends at t={self.now - self.t0 - 1}")
@@ -77,8 +85,9 @@ class Incident:
         sel = known[(known.t_start < b) & (end > a)]
         sev = {"critical": 0, "major": 1, "minor": 2, "info": 3}
         sel = sel.assign(_s=sel.severity.map(sev)).sort_values(["_s", "t_start", "target"], kind="stable")
-        rows = [{"rule": r.rule, "target": r.target, "severity": r.severity, "start": self.rel(r.t_start),
+        rows = [{"rule": r.rule, "target": r.target, "severity": r.severity, "start": self.rel(max(r.t_start, self.floor)),
                  "end": None if not np.isfinite(r.t_end) else self.rel(r.t_end), "value": _r(r.value)}
+                | ({"started_before_visible_history": True} if r.t_start < self.floor else {})
                 for r in sel.head(max_alerts).itertuples()]
         return {"window": [t0, t1], "n_alerts": int(len(sel)), "shown": len(rows),
                 "counts_by_rule": {k: int(v) for k, v in sel.rule.value_counts().sort_index().items()}, "alerts": rows,
@@ -105,7 +114,7 @@ class Incident:
         x = self._series(kind, element, metric)
         a, b = self.abs_range(t0, t1)
         seg = x[a:b]
-        prev = x[max(0, a - DAY):max(0, b - DAY)] if a >= DAY else np.array([])
+        prev = x[max(self.floor, a - DAY):b - DAY] if b - DAY > self.floor else np.array([])
         n = len(seg)
         k = int(np.ceil(n / MAX_SERIES_POINTS))
         pts = []
@@ -133,8 +142,8 @@ class Incident:
         with np.errstate(invalid="ignore"):
             cur = np.nanmean(now, 0) if a < b else np.full(x.shape[1], np.nan)
             miss = np.isnan(now).mean(0)
-            if a >= DAY:
-                base = np.nanmean(x[a - DAY:b - DAY], 0)
+            if b - DAY > self.floor:
+                base = np.nanmean(x[max(self.floor, a - DAY):b - DAY], 0)
             else:
                 base = np.full(x.shape[1], np.nan)
         delta = cur - base
@@ -184,7 +193,7 @@ class Incident:
     def get_change_log(self, t0, t1):
         """Planned changes (drains, planned outages, no-op work) overlapping [t0, t1] that had started by now."""
         a, b = self.abs_range(t0, t1)
-        rows = [{"id": e["id"], "action": e["action"], "target": e["target"], "start": self.rel(e["t_start"]),
+        rows = [{"id": e["id"], "action": e["action"], "target": e["target"], "start": self.rel(max(e["t_start"], self.floor)),
                  "end": self.rel(e["t_end"]), "description": e.get("description", "")}
                 for e in self.obs.events if e.get("type") == "maintenance"
                 and e["t_start"] < self.now and e["t_start"] < b and e["t_end"] > a]
@@ -197,7 +206,8 @@ class Incident:
         if self._gnn_cache is None:
             g = graph_for(self.obs.topology, self.cfg_s)
             feat = b2_features(self.obs).astype(np.float32)[:self.now]           # causal: nothing at or after now
-            det, elem = predict(self.gnn, feat, g)
+            with GNN_LOCK:
+                det, elem = predict(self.gnn, feat, g)
             self._gnn_cache = (g, feat, det, elem)
         return self._gnn_cache
 
@@ -220,7 +230,8 @@ class Incident:
             raise ValueError(f"unknown element {element!r}")
         t = self.now - self.t0 - 1 if t is None else int(t)
         a, b = self.abs_range(t, t)
-        out = explain(self.gnn, feat, g, g.elements.index(element), b - 1)
+        with GNN_LOCK:
+            out = explain(self.gnn, feat, g, g.elements.index(element), b - 1)
         return {"element": element, "t": self.rel(b - 1), **out}
 
     # ---------------------------------------------------------------- runbooks
@@ -234,7 +245,7 @@ def _schema(props, required):
     return {"type": "object", "properties": props, "required": required, "additionalProperties": False}
 
 
-T_RANGE = {"t0": {"type": "integer", "description": "start step, relative to the incident window start (negative = earlier)"},
+T_RANGE = {"t0": {"type": "integer", "description": f"start step, relative to the incident window start (negative = earlier; history starts at -{HISTORY})"},
            "t1": {"type": "integer", "description": "end step (inclusive), relative to the incident window start"}}
 
 TOOL_SPECS = {

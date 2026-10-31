@@ -223,20 +223,8 @@ dataset:                       # Phase 3 (src/nettwin/dataset.py, scripts/phase3
     dev: 23000000
 
 agent:
-  # From platform.claude.com/docs/en/about-claude/pricing, checked 2026-10-31 (USD per million tokens, standard tier,
-  # global routing). Cache reads on Opus 5.5 are 0.05x input. Haiku 5.5 prices double+ above 100,000 prompt tokens.
-  # Pre-test design change 2026-10-31 (decision log): whole-project API spend must stay under project_budget_usd.
-  dev_model: claude-haiku-5-5        # development and debugging (validation only)
-  eval_model: claude-haiku-5-5       # main eval: A0, A1, A2 on validation and test (same model, so differences come from the tools)
-  secondary_eval_model: claude-opus-5-5   # secondary result: A0 and A2 on test only
-  secondary_conditions: [A0, A2]
-  project_budget_usd: 100
-  pricing_usd_per_mtok:
-    claude-haiku-5-5: {input: 0.10, cache_write_5m: 0.125, cache_read: 0.01, output: 0.50, input_over_100k: 0.50, output_over_100k: 2.50}
-    claude-opus-5-5: {input: 4.00, cache_write_5m: 5.00, cache_read: 0.20, output: 20.00}
-    claude-sonnet-5-5: {input: 2.00, cache_write_5m: 2.50, cache_read: 0.10, output: 10.00}
-  pricing_checked: "2026-10-31"
-  effort: medium                     # output_config.effort; both models default to medium, set explicitly
+  # Set before Phase 6 from the current Anthropic docs. Do not fill from memory.
+  dev_model: null
+  eval_model: null
   max_tool_calls: 15
-  max_tokens_per_incident: 120000    # input + output tokens over the whole loop; the loop stops and forces a diagnosis
-  max_output_tokens_per_turn: 4000
+  max_tokens_per_incident: null
