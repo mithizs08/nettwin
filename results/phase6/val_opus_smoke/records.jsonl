@@ -1,0 +1,140 @@
+{"incident_id": "I005", "variant": "with_status", "method": "B1", "claims_fault": true, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I005", "variant": "with_status", "method": "B2", "claims_fault": true, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I005", "variant": "with_status", "method": "B3", "claims_fault": false, "top1": 1.0, "top3": 1.0}
+{"incident_id": "I005", "variant": "with_status", "method": "B3+", "claims_fault": false, "top1": 1.0, "top3": 1.0}
+{"incident_id": "I005", "variant": "with_status", "method": "GNN", "claims_fault": 1.0, "top1": 1.0, "top3": 1.0, "per_seed": [{"claims_fault": true, "top1": 1.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}]}
+{"incident_id": "I005", "variant": "with_status", "method": "A0", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": true, "cost_usd": 0.019976, "seconds": 6.71, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 5, "fault_type": "link_down", "root_cause": "link:New Orleans--Tampa"}
+{"incident_id": "I005", "variant": "with_status", "method": "A2", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": true, "cost_usd": 0.045708, "seconds": 10.9, "n_tool_calls": 5, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "link_down", "root_cause": "link:New Orleans--Tampa"}
+{"incident_id": "I005", "variant": "status_blind", "method": "B1", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I005", "variant": "status_blind", "method": "B2", "claims_fault": true, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I005", "variant": "status_blind", "method": "B3", "claims_fault": false, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I005", "variant": "status_blind", "method": "B3+", "claims_fault": false, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I005", "variant": "status_blind", "method": "GNN", "claims_fault": 1.0, "top1": 1.0, "top3": 1.0, "per_seed": [{"claims_fault": true, "top1": 1.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}]}
+{"incident_id": "I005", "variant": "status_blind", "method": "A0", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": true, "cost_usd": 0.025702, "seconds": 11.67, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 3, "fault_type": "link_down", "root_cause": "link:New Orleans--Tampa"}
+{"incident_id": "I005", "variant": "status_blind", "method": "A2", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": true, "cost_usd": 0.046245, "seconds": 14.08, "n_tool_calls": 7, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 5, "fault_type": "link_down", "root_cause": "link:New Orleans--Tampa"}
+{"incident_id": "I036", "variant": "with_status", "method": "B1", "claims_fault": true, "top1": 0.0, "top3": 0.5}
+{"incident_id": "I036", "variant": "with_status", "method": "B2", "claims_fault": true, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I036", "variant": "with_status", "method": "B3", "claims_fault": true, "top1": 0.5, "top3": 1.0}
+{"incident_id": "I036", "variant": "with_status", "method": "B3+", "claims_fault": true, "top1": 1.0, "top3": 1.0}
+{"incident_id": "I036", "variant": "with_status", "method": "GNN", "claims_fault": 1.0, "top1": 1.0, "top3": 1.0, "per_seed": [{"claims_fault": true, "top1": 1.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}]}
+{"incident_id": "I036", "variant": "with_status", "method": "A0", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": true, "cost_usd": 0.014927, "seconds": 5.58, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 5, "fault_type": "node_down", "root_cause": "pop:R10"}
+{"incident_id": "I036", "variant": "with_status", "method": "A2", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": true, "cost_usd": 0.024592, "seconds": 12.53, "n_tool_calls": 4, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "node_down", "root_cause": "pop:R10"}
+{"incident_id": "I036", "variant": "status_blind", "method": "B1", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I036", "variant": "status_blind", "method": "B2", "claims_fault": true, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I036", "variant": "status_blind", "method": "B3", "claims_fault": true, "top1": 0.5, "top3": 1.0}
+{"incident_id": "I036", "variant": "status_blind", "method": "B3+", "claims_fault": true, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I036", "variant": "status_blind", "method": "GNN", "claims_fault": 1.0, "top1": 1.0, "top3": 1.0, "per_seed": [{"claims_fault": true, "top1": 1.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}]}
+{"incident_id": "I036", "variant": "status_blind", "method": "A0", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": true, "cost_usd": 0.015017, "seconds": 6.32, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 1, "evidence_items": 5, "fault_type": "node_down", "root_cause": "pop:R10"}
+{"incident_id": "I036", "variant": "status_blind", "method": "A2", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": true, "cost_usd": 0.038825, "seconds": 11.46, "n_tool_calls": 7, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 5, "fault_type": "node_down", "root_cause": "pop:R10"}
+{"incident_id": "I052", "variant": "with_status", "method": "B1", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I052", "variant": "with_status", "method": "B2", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I052", "variant": "with_status", "method": "B3", "claims_fault": false, "top1": 0.0, "top3": 0.5}
+{"incident_id": "I052", "variant": "with_status", "method": "B3+", "claims_fault": false, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I052", "variant": "with_status", "method": "GNN", "claims_fault": 0.0, "top1": 0.3333333333333333, "top3": 1.0, "per_seed": [{"claims_fault": false, "top1": 0.0, "top3": 1.0}, {"claims_fault": false, "top1": 1.0, "top3": 1.0}, {"claims_fault": false, "top1": 0.0, "top3": 1.0}]}
+{"incident_id": "I052", "variant": "with_status", "method": "A0", "claims_fault": true, "answered": true, "top1": 0.018518518518518517, "top3": 0.05555555555555555, "type_correct": false, "cost_usd": 0.019232, "seconds": 9.34, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 5, "fault_type": "link_degradation", "root_cause": "unknown"}
+{"incident_id": "I052", "variant": "with_status", "method": "A2", "claims_fault": true, "answered": true, "top1": 0.0, "top3": 1.0, "type_correct": false, "cost_usd": 0.106927, "seconds": 34.67, "n_tool_calls": 15, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "link_degradation", "root_cause": "link:R2--R4"}
+{"incident_id": "I052", "variant": "status_blind", "method": "B1", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I052", "variant": "status_blind", "method": "B2", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I052", "variant": "status_blind", "method": "B3", "claims_fault": false, "top1": 0.0, "top3": 0.5}
+{"incident_id": "I052", "variant": "status_blind", "method": "B3+", "claims_fault": false, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I052", "variant": "status_blind", "method": "GNN", "claims_fault": 0.0, "top1": 0.3333333333333333, "top3": 1.0, "per_seed": [{"claims_fault": false, "top1": 0.0, "top3": 1.0}, {"claims_fault": false, "top1": 1.0, "top3": 1.0}, {"claims_fault": false, "top1": 0.0, "top3": 1.0}]}
+{"incident_id": "I052", "variant": "status_blind", "method": "A0", "claims_fault": true, "answered": true, "top1": 0.018518518518518517, "top3": 0.05555555555555555, "type_correct": true, "cost_usd": 0.019707, "seconds": 12.61, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 4, "fault_type": "link_flapping", "root_cause": "unknown"}
+{"incident_id": "I052", "variant": "status_blind", "method": "A2", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": false, "cost_usd": 0.090127, "seconds": 30.4, "n_tool_calls": 16, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "link_degradation", "root_cause": "link:R15--R2"}
+{"incident_id": "I054", "variant": "with_status", "method": "B1", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I054", "variant": "with_status", "method": "B2", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I054", "variant": "with_status", "method": "B3", "claims_fault": true, "top1": 1.0, "top3": 1.0}
+{"incident_id": "I054", "variant": "with_status", "method": "B3+", "claims_fault": true, "top1": 1.0, "top3": 1.0}
+{"incident_id": "I054", "variant": "with_status", "method": "GNN", "claims_fault": 0.0, "top1": 1.0, "top3": 1.0, "per_seed": [{"claims_fault": false, "top1": 1.0, "top3": 1.0}, {"claims_fault": false, "top1": 1.0, "top3": 1.0}, {"claims_fault": false, "top1": 1.0, "top3": 1.0}]}
+{"incident_id": "I054", "variant": "with_status", "method": "A0", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": false, "cost_usd": 0.023792, "seconds": 13.0, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 3, "fault_type": "link_degradation", "root_cause": "link:Castelo Branco--Lisboa"}
+{"incident_id": "I054", "variant": "with_status", "method": "A2", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": false, "cost_usd": 0.077244, "seconds": 31.43, "n_tool_calls": 9, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 7, "fault_type": "link_degradation", "root_cause": "link:Castelo Branco--Lisboa"}
+{"incident_id": "I054", "variant": "status_blind", "method": "B1", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I054", "variant": "status_blind", "method": "B2", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I054", "variant": "status_blind", "method": "B3", "claims_fault": true, "top1": 0.5, "top3": 1.0}
+{"incident_id": "I054", "variant": "status_blind", "method": "B3+", "claims_fault": true, "top1": 1.0, "top3": 1.0}
+{"incident_id": "I054", "variant": "status_blind", "method": "GNN", "claims_fault": 0.0, "top1": 1.0, "top3": 1.0, "per_seed": [{"claims_fault": false, "top1": 1.0, "top3": 1.0}, {"claims_fault": false, "top1": 1.0, "top3": 1.0}, {"claims_fault": false, "top1": 1.0, "top3": 1.0}]}
+{"incident_id": "I054", "variant": "status_blind", "method": "A0", "claims_fault": true, "answered": true, "top1": 0.020833333333333332, "top3": 0.0625, "type_correct": false, "cost_usd": 0.016627, "seconds": 11.32, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 3, "fault_type": "link_degradation", "root_cause": "unknown"}
+{"incident_id": "I054", "variant": "status_blind", "method": "A2", "claims_fault": true, "answered": true, "top1": 1.0, "top3": 1.0, "type_correct": false, "cost_usd": 0.054085, "seconds": 17.74, "n_tool_calls": 9, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "link_degradation", "root_cause": "link:Castelo Branco--Lisboa"}
+{"incident_id": "I087", "variant": "with_status", "method": "B1", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I087", "variant": "with_status", "method": "B2", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I087", "variant": "with_status", "method": "B3", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I087", "variant": "with_status", "method": "B3+", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I087", "variant": "with_status", "method": "GNN", "claims_fault": 0.0, "top1": 0.6666666666666666, "top3": 1.0, "per_seed": [{"claims_fault": false, "top1": 1.0, "top3": 1.0}, {"claims_fault": false, "top1": 0.0, "top3": 1.0}, {"claims_fault": false, "top1": 1.0, "top3": 1.0}]}
+{"incident_id": "I087", "variant": "with_status", "method": "A0", "claims_fault": false, "answered": true, "top1": 0.017543859649122806, "top3": 0.05263157894736842, "type_correct": false, "cost_usd": 0.024492, "seconds": 12.18, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 4, "fault_type": "no_fault", "root_cause": "none"}
+{"incident_id": "I087", "variant": "with_status", "method": "A2", "claims_fault": true, "answered": true, "top1": 0.0, "top3": 1.0, "type_correct": false, "cost_usd": 0.101706, "seconds": 29.16, "n_tool_calls": 14, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "link_degradation", "root_cause": "link:R11--R18"}
+{"incident_id": "I087", "variant": "status_blind", "method": "B1", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I087", "variant": "status_blind", "method": "B2", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I087", "variant": "status_blind", "method": "B3", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I087", "variant": "status_blind", "method": "B3+", "claims_fault": false, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I087", "variant": "status_blind", "method": "GNN", "claims_fault": 0.0, "top1": 0.6666666666666666, "top3": 1.0, "per_seed": [{"claims_fault": false, "top1": 1.0, "top3": 1.0}, {"claims_fault": false, "top1": 0.0, "top3": 1.0}, {"claims_fault": false, "top1": 1.0, "top3": 1.0}]}
+{"incident_id": "I087", "variant": "status_blind", "method": "A0", "claims_fault": false, "answered": true, "top1": 0.017543859649122806, "top3": 0.05263157894736842, "type_correct": false, "cost_usd": 0.015607, "seconds": 7.67, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 3, "fault_type": "no_fault", "root_cause": "none"}
+{"incident_id": "I087", "variant": "status_blind", "method": "A2", "claims_fault": true, "answered": true, "top1": 0.0, "top3": 1.0, "type_correct": false, "cost_usd": 0.103436, "seconds": 34.11, "n_tool_calls": 15, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "link_degradation", "root_cause": "link:R2--R5"}
+{"incident_id": "I100", "variant": "with_status", "method": "B1", "claims_fault": true, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I100", "variant": "with_status", "method": "B2", "claims_fault": true, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I100", "variant": "with_status", "method": "B3", "claims_fault": true, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I100", "variant": "with_status", "method": "B3+", "claims_fault": true, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I100", "variant": "with_status", "method": "GNN", "claims_fault": 1.0, "top1": 0.3333333333333333, "top3": 1.0, "per_seed": [{"claims_fault": true, "top1": 0.0, "top3": 1.0}, {"claims_fault": true, "top1": 0.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}]}
+{"incident_id": "I100", "variant": "with_status", "method": "A0", "claims_fault": true, "answered": true, "top1": 0.0, "top3": 0.0, "type_correct": false, "cost_usd": 0.026202, "seconds": 8.1, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 5, "fault_type": "node_down", "root_cause": "pop:Leoben"}
+{"incident_id": "I100", "variant": "with_status", "method": "A2", "claims_fault": true, "answered": true, "top1": 0.0, "top3": 0.0, "type_correct": false, "cost_usd": 0.032583, "seconds": 11.52, "n_tool_calls": 4, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 4, "fault_type": "node_down", "root_cause": "pop:Leoben"}
+{"incident_id": "I100", "variant": "status_blind", "method": "B1", "claims_fault": true, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I100", "variant": "status_blind", "method": "B2", "claims_fault": true, "top1": 0.0, "top3": 0.0}
+{"incident_id": "I100", "variant": "status_blind", "method": "B3", "claims_fault": true, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I100", "variant": "status_blind", "method": "B3+", "claims_fault": true, "top1": 0.0, "top3": 1.0}
+{"incident_id": "I100", "variant": "status_blind", "method": "GNN", "claims_fault": 1.0, "top1": 1.0, "top3": 1.0, "per_seed": [{"claims_fault": true, "top1": 1.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}, {"claims_fault": true, "top1": 1.0, "top3": 1.0}]}
+{"incident_id": "I100", "variant": "status_blind", "method": "A0", "claims_fault": true, "answered": true, "top1": 0.0, "top3": 0.0, "type_correct": false, "cost_usd": 0.022247, "seconds": 6.59, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 5, "fault_type": "node_down", "root_cause": "pop:Leoben"}
+{"incident_id": "I100", "variant": "status_blind", "method": "A2", "claims_fault": true, "answered": true, "top1": 0.0, "top3": 0.0, "type_correct": false, "cost_usd": 0.036334, "seconds": 10.46, "n_tool_calls": 5, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 4, "fault_type": "node_down", "root_cause": "pop:Leoben"}
+{"incident_id": "I126", "variant": "with_status", "method": "B1", "claims_fault": true}
+{"incident_id": "I126", "variant": "with_status", "method": "B2", "claims_fault": false}
+{"incident_id": "I126", "variant": "with_status", "method": "B3", "claims_fault": false}
+{"incident_id": "I126", "variant": "with_status", "method": "B3+", "claims_fault": false}
+{"incident_id": "I126", "variant": "with_status", "method": "GNN", "claims_fault": 1.0, "per_seed": [{"claims_fault": true}, {"claims_fault": true}, {"claims_fault": true}]}
+{"incident_id": "I126", "variant": "with_status", "method": "A0", "claims_fault": false, "answered": true, "cost_usd": 0.013452, "seconds": 6.99, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 3, "fault_type": "no_fault", "root_cause": "none"}
+{"incident_id": "I126", "variant": "with_status", "method": "A2", "claims_fault": false, "answered": true, "cost_usd": 0.057669, "seconds": 16.06, "n_tool_calls": 10, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 5, "fault_type": "planned_maintenance", "root_cause": "none"}
+{"incident_id": "I126", "variant": "status_blind", "method": "B1", "claims_fault": true}
+{"incident_id": "I126", "variant": "status_blind", "method": "B2", "claims_fault": false}
+{"incident_id": "I126", "variant": "status_blind", "method": "B3", "claims_fault": false}
+{"incident_id": "I126", "variant": "status_blind", "method": "B3+", "claims_fault": false}
+{"incident_id": "I126", "variant": "status_blind", "method": "GNN", "claims_fault": 1.0, "per_seed": [{"claims_fault": true}, {"claims_fault": true}, {"claims_fault": true}]}
+{"incident_id": "I126", "variant": "status_blind", "method": "A0", "claims_fault": false, "answered": true, "cost_usd": 0.013427, "seconds": 7.18, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 3, "fault_type": "no_fault", "root_cause": "none"}
+{"incident_id": "I126", "variant": "status_blind", "method": "A2", "claims_fault": false, "answered": true, "cost_usd": 0.06753, "seconds": 20.82, "n_tool_calls": 11, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "planned_maintenance", "root_cause": "none"}
+{"incident_id": "I129", "variant": "with_status", "method": "B1", "claims_fault": true}
+{"incident_id": "I129", "variant": "with_status", "method": "B2", "claims_fault": true}
+{"incident_id": "I129", "variant": "with_status", "method": "B3", "claims_fault": false}
+{"incident_id": "I129", "variant": "with_status", "method": "B3+", "claims_fault": false}
+{"incident_id": "I129", "variant": "with_status", "method": "GNN", "claims_fault": 1.0, "per_seed": [{"claims_fault": true}, {"claims_fault": true}, {"claims_fault": true}]}
+{"incident_id": "I129", "variant": "with_status", "method": "A0", "claims_fault": false, "answered": true, "cost_usd": 0.012942, "seconds": 5.95, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 5, "fault_type": "no_fault", "root_cause": "none"}
+{"incident_id": "I129", "variant": "with_status", "method": "A2", "claims_fault": false, "answered": true, "cost_usd": 0.101021, "seconds": 32.67, "n_tool_calls": 14, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "planned_maintenance", "root_cause": "none"}
+{"incident_id": "I129", "variant": "status_blind", "method": "B1", "claims_fault": true}
+{"incident_id": "I129", "variant": "status_blind", "method": "B2", "claims_fault": false}
+{"incident_id": "I129", "variant": "status_blind", "method": "B3", "claims_fault": false}
+{"incident_id": "I129", "variant": "status_blind", "method": "B3+", "claims_fault": false}
+{"incident_id": "I129", "variant": "status_blind", "method": "GNN", "claims_fault": 1.0, "per_seed": [{"claims_fault": true}, {"claims_fault": true}, {"claims_fault": true}]}
+{"incident_id": "I129", "variant": "status_blind", "method": "A0", "claims_fault": false, "answered": true, "cost_usd": 0.014317, "seconds": 7.8, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 4, "fault_type": "no_fault", "root_cause": "none"}
+{"incident_id": "I129", "variant": "status_blind", "method": "A2", "claims_fault": false, "answered": true, "cost_usd": 0.093926, "seconds": 26.38, "n_tool_calls": 14, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "planned_maintenance", "root_cause": "none"}
+{"incident_id": "I143", "variant": "with_status", "method": "B1", "claims_fault": true}
+{"incident_id": "I143", "variant": "with_status", "method": "B2", "claims_fault": true}
+{"incident_id": "I143", "variant": "with_status", "method": "B3", "claims_fault": false}
+{"incident_id": "I143", "variant": "with_status", "method": "B3+", "claims_fault": false}
+{"incident_id": "I143", "variant": "with_status", "method": "GNN", "claims_fault": 1.0, "per_seed": [{"claims_fault": true}, {"claims_fault": true}, {"claims_fault": true}]}
+{"incident_id": "I143", "variant": "with_status", "method": "A0", "claims_fault": true, "answered": true, "cost_usd": 0.010532, "seconds": 6.35, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 4, "fault_type": "link_down", "root_cause": "link:R11--R12"}
+{"incident_id": "I143", "variant": "with_status", "method": "A2", "claims_fault": false, "answered": true, "cost_usd": 0.0785, "seconds": 24.47, "n_tool_calls": 13, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "planned_maintenance", "root_cause": "none"}
+{"incident_id": "I143", "variant": "status_blind", "method": "B1", "claims_fault": true}
+{"incident_id": "I143", "variant": "status_blind", "method": "B2", "claims_fault": true}
+{"incident_id": "I143", "variant": "status_blind", "method": "B3", "claims_fault": false}
+{"incident_id": "I143", "variant": "status_blind", "method": "B3+", "claims_fault": false}
+{"incident_id": "I143", "variant": "status_blind", "method": "GNN", "claims_fault": 1.0, "per_seed": [{"claims_fault": true}, {"claims_fault": true}, {"claims_fault": true}]}
+{"incident_id": "I143", "variant": "status_blind", "method": "A0", "claims_fault": true, "answered": true, "cost_usd": 0.014077, "seconds": 7.87, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 3, "fault_type": "link_down", "root_cause": "link:R11--R12"}
+{"incident_id": "I143", "variant": "status_blind", "method": "A2", "claims_fault": false, "answered": true, "cost_usd": 0.097593, "seconds": 25.85, "n_tool_calls": 15, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "planned_maintenance", "root_cause": "none"}
+{"incident_id": "I149", "variant": "with_status", "method": "B1", "claims_fault": true}
+{"incident_id": "I149", "variant": "with_status", "method": "B2", "claims_fault": true}
+{"incident_id": "I149", "variant": "with_status", "method": "B3", "claims_fault": true}
+{"incident_id": "I149", "variant": "with_status", "method": "B3+", "claims_fault": true}
+{"incident_id": "I149", "variant": "with_status", "method": "GNN", "claims_fault": 1.0, "per_seed": [{"claims_fault": true}, {"claims_fault": true}, {"claims_fault": true}]}
+{"incident_id": "I149", "variant": "with_status", "method": "A0", "claims_fault": true, "answered": true, "cost_usd": 0.014722, "seconds": 6.86, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 4, "fault_type": "link_down", "root_cause": "link:R1--R5"}
+{"incident_id": "I149", "variant": "with_status", "method": "A2", "claims_fault": false, "answered": true, "cost_usd": 0.049731, "seconds": 17.2, "n_tool_calls": 8, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 5, "fault_type": "planned_maintenance", "root_cause": "none"}
+{"incident_id": "I149", "variant": "status_blind", "method": "B1", "claims_fault": true}
+{"incident_id": "I149", "variant": "status_blind", "method": "B2", "claims_fault": false}
+{"incident_id": "I149", "variant": "status_blind", "method": "B3", "claims_fault": false}
+{"incident_id": "I149", "variant": "status_blind", "method": "B3+", "claims_fault": false}
+{"incident_id": "I149", "variant": "status_blind", "method": "GNN", "claims_fault": 1.0, "per_seed": [{"claims_fault": true}, {"claims_fault": true}, {"claims_fault": true}]}
+{"incident_id": "I149", "variant": "status_blind", "method": "A0", "claims_fault": true, "answered": true, "cost_usd": 0.030207, "seconds": 14.18, "n_tool_calls": 0, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 4, "fault_type": "link_down", "root_cause": "link:R1--R5"}
+{"incident_id": "I149", "variant": "status_blind", "method": "A2", "claims_fault": false, "answered": true, "cost_usd": 0.052183, "seconds": 16.68, "n_tool_calls": 8, "stop": "submitted", "ungrounded_items": 0, "evidence_items": 6, "fault_type": "planned_maintenance", "root_cause": "none"}

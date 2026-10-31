@@ -1,0 +1,108 @@
+[
+ {
+  "scenario_id": "va00218",
+  "kind": "fault",
+  "type": "link_down",
+  "root": "link:New Orleans--Tampa",
+  "t0": 1785,
+  "t1": 1850,
+  "placement": "isolated",
+  "overlaps_maintenance": false,
+  "incident_id": "I005"
+ },
+ {
+  "scenario_id": "va00368",
+  "kind": "fault",
+  "type": "node_down",
+  "root": "pop:R10",
+  "t0": 1608,
+  "t1": 1631,
+  "placement": "isolated",
+  "overlaps_maintenance": false,
+  "incident_id": "I036"
+ },
+ {
+  "scenario_id": "va00078",
+  "kind": "fault",
+  "type": "link_flapping",
+  "root": "link:R15--R2",
+  "t0": 1408,
+  "t1": 1420,
+  "placement": "isolated",
+  "overlaps_maintenance": false,
+  "incident_id": "I052"
+ },
+ {
+  "scenario_id": "va00460",
+  "kind": "fault",
+  "type": "link_flapping",
+  "root": "link:Castelo Branco--Lisboa",
+  "t0": 1296,
+  "t1": 1321,
+  "placement": "isolated",
+  "overlaps_maintenance": false,
+  "incident_id": "I054"
+ },
+ {
+  "scenario_id": "va00099",
+  "kind": "fault",
+  "type": "demand_surge",
+  "root": "pop:R4",
+  "t0": 581,
+  "t1": 641,
+  "placement": "isolated",
+  "overlaps_maintenance": false,
+  "incident_id": "I087"
+ },
+ {
+  "scenario_id": "va00461",
+  "kind": "fault",
+  "type": "routing_misconfig",
+  "root": "link:Klagenfurt2--Vienna2",
+  "t0": 1389,
+  "t1": 1796,
+  "placement": "isolated",
+  "overlaps_maintenance": true,
+  "incident_id": "I100"
+ },
+ {
+  "scenario_id": "va00037",
+  "kind": "distractor",
+  "type": "distractor_drain",
+  "root": "none",
+  "change_target": "link:R17--R20",
+  "t0": 885,
+  "t1": 926,
+  "incident_id": "I126"
+ },
+ {
+  "scenario_id": "va00267",
+  "kind": "distractor",
+  "type": "distractor_drain",
+  "root": "none",
+  "change_target": "link:R15--R16",
+  "t0": 1444,
+  "t1": 1460,
+  "incident_id": "I129"
+ },
+ {
+  "scenario_id": "va00026",
+  "kind": "distractor",
+  "type": "distractor_down",
+  "root": "none",
+  "change_target": "link:R11--R12",
+  "t0": 1840,
+  "t1": 1860,
+  "incident_id": "I143"
+ },
+ {
+  "scenario_id": "va00163",
+  "kind": "distractor",
+  "type": "distractor_down",
+  "root": "none",
+  "change_target": "link:R1--R5",
+  "t0": 867,
+  "t1": 901,
+  "incident_id": "I149"
+ }
+]
