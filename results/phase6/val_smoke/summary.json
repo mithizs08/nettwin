@@ -1,0 +1,9612 @@
+{
+ "split": "val",
+ "model": "claude-haiku-5-5",
+ "n_incidents": 10,
+ "seconds": 682.2,
+ "variants": {
+  "with_status": {
+   "metrics": {
+    "B1": {
+     "faults": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.25,
+       "ci": [
+        0.0,
+        0.6006
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        0.875
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 0.375,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.5,
+       "ci": [
+        0.5,
+        0.5
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "B2": {
+     "faults": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.3333,
+       "ci": [
+        0.0,
+        0.75
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        0.875
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.75,
+       "ci": [
+        0.1667,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "B3": {
+     "faults": {
+      "top1": {
+       "value": 0.4167,
+       "ci": [
+        0.0,
+        0.8
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.5833,
+       "ci": [
+        0.2,
+        1.0
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.625,
+       "ci": [
+        0.0825,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 0.875,
+       "ci": [
+        0.5688,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.25,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.5,
+        0.5
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.75,
+       "ci": [
+        0.5,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "B3+": {
+     "faults": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.6667,
+       "ci": [
+        0.25,
+        1.0
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.75,
+       "ci": [
+        0.1375,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.25,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "GNN": {
+     "faults": {
+      "top1": {
+       "value": 0.7222,
+       "ci": [
+        0.4444,
+        1.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        0.875
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.3333,
+        0.6667
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.8333,
+       "ci": [
+        0.425,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.6667,
+       "ci": [
+        0.3333,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.6667,
+       "ci": [
+        0.6667,
+        0.6667
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.3333,
+       "ci": [
+        0.3333,
+        0.3333
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "A0": {
+     "faults": {
+      "top1": {
+       "value": 0.506,
+       "ci": [
+        0.018,
+        1.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.518,
+       "ci": [
+        0.0539,
+        1.0
+       ],
+       "n": 6
+      },
+      "type_correct": {
+       "value": 0.3333,
+       "ci": [
+        0.0,
+        0.75
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.6667,
+       "ci": [
+        0.25,
+        1.0
+       ],
+       "n": 6
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0088,
+       "ci": [
+        0.0,
+        0.0175
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0263,
+       "ci": [
+        0.0,
+        0.0526
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.7546,
+       "ci": [
+        0.1535,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 0.7639,
+       "ci": [
+        0.1854,
+        1.0
+       ],
+       "n": 4
+      },
+      "type_correct": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.75,
+       "ci": [
+        0.1375,
+        1.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.5093,
+       "ci": [
+        0.0185,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.5278,
+       "ci": [
+        0.0556,
+        1.0
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0175,
+       "ci": [
+        0.0175,
+        0.0175
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0526,
+       "ci": [
+        0.0526,
+        0.0526
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "A1": {
+     "faults": {
+      "top1": {
+       "value": 0.6667,
+       "ci": [
+        0.25,
+        1.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.6697,
+       "ci": [
+        0.2545,
+        1.0
+       ],
+       "n": 6
+      },
+      "type_correct": {
+       "value": 0.3333,
+       "ci": [
+        0.0,
+        0.75
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.8333,
+       "ci": [
+        0.5,
+        1.0
+       ],
+       "n": 6
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0091,
+       "ci": [
+        0.0,
+        0.0182
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "type_correct": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0182,
+       "ci": [
+        0.0182,
+        0.0182
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "A2": {
+     "faults": {
+      "top1": {
+       "value": 0.6667,
+       "ci": [
+        0.25,
+        1.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.8333,
+       "ci": [
+        0.5,
+        1.0
+       ],
+       "n": 6
+      },
+      "type_correct": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.8333,
+       "ci": [
+        0.5,
+        1.0
+       ],
+       "n": 6
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.75,
+       "ci": [
+        0.1375,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "type_correct": {
+       "value": 0.75,
+       "ci": [
+        0.1375,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    }
+   },
+   "comparisons": {
+    "faults|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.1607,
+     "ci": [
+      -0.0088,
+      0.4907
+     ]
+    },
+    "faults|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.1517,
+     "ci": [
+      -0.0172,
+      0.4722
+     ]
+    },
+    "faults|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.1667,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "faults|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0088,
+     "ci": [
+      -0.0175,
+      0.0
+     ]
+    },
+    "hard|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0172,
+     "ci": [
+      -0.0344,
+      0.0
+     ]
+    },
+    "hard|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.2454,
+     "ci": [
+      0.0,
+      0.8465
+     ]
+    },
+    "easy|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.2361,
+     "ci": [
+      0.0,
+      0.8146
+     ]
+    },
+    "easy|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.8625
+     ]
+    },
+    "easy|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractors|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      -0.0,
+      1.0
+     ]
+    },
+    "distractors|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_drain|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_drain|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_down|claims_fault|A1 vs A0": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "distractor_down|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4907,
+     "ci": [
+      0.0,
+      0.9815
+     ]
+    },
+    "type=link_flapping|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4722,
+     "ci": [
+      0.0,
+      0.9444
+     ]
+    },
+    "type=link_flapping|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_flapping|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|top1|A1 vs A0": {
+     "verdict": "contradicted",
+     "point": -0.0175,
+     "ci": [
+      -0.0175,
+      -0.0175
+     ]
+    },
+    "type=demand_surge|top3|A1 vs A0": {
+     "verdict": "contradicted",
+     "point": -0.0344,
+     "ci": [
+      -0.0344,
+      -0.0344
+     ]
+    },
+    "type=demand_surge|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.5,
+      0.5
+     ]
+    },
+    "faults|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.1636,
+     "ci": [
+      0.0,
+      0.4909
+     ]
+    },
+    "faults|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.1667,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "faults|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.4909,
+     "ci": [
+      0.0,
+      0.9818
+     ]
+    },
+    "hard|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.25,
+     "ci": [
+      -0.8625,
+      0.0
+     ]
+    },
+    "easy|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "easy|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      -0.0,
+      0.0
+     ]
+    },
+    "distractors|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_drain|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_down|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.5,
+     "ci": [
+      -1.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs A1": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top3|A2 vs A1": {
+     "verdict": "supported",
+     "point": 0.9818,
+     "ci": [
+      0.9818,
+      0.9818
+     ]
+    },
+    "type=demand_surge|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.1607,
+     "ci": [
+      -0.0093,
+      0.4912
+     ]
+    },
+    "faults|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.3153,
+     "ci": [
+      0.0,
+      0.7091
+     ]
+    },
+    "faults|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.1667,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "faults|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.1667,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "faults|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4912,
+     "ci": [
+      0.0,
+      0.9825
+     ]
+    },
+    "hard|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4737,
+     "ci": [
+      0.0,
+      0.9474
+     ]
+    },
+    "hard|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0046,
+     "ci": [
+      -0.016,
+      0.0
+     ]
+    },
+    "easy|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.2361,
+     "ci": [
+      0.0,
+      0.8146
+     ]
+    },
+    "easy|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "easy|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.8625
+     ]
+    },
+    "easy|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      -0.0,
+      1.0
+     ]
+    },
+    "distractors|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_drain|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs A0": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "distractor_down|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0093,
+     "ci": [
+      -0.0185,
+      0.0
+     ]
+    },
+    "type=link_flapping|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4722,
+     "ci": [
+      0.0,
+      0.9444
+     ]
+    },
+    "type=link_flapping|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_flapping|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs A0": {
+     "verdict": "supported",
+     "point": 0.9825,
+     "ci": [
+      0.9825,
+      0.9825
+     ]
+    },
+    "type=demand_surge|top3|A2 vs A0": {
+     "verdict": "supported",
+     "point": 0.9474,
+     "ci": [
+      0.9474,
+      0.9474
+     ]
+    },
+    "type=demand_surge|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.0556,
+     "ci": [
+      -0.25,
+      0.1336
+     ]
+    },
+    "faults|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.1667,
+     "ci": [
+      -0.5,
+      0.0
+     ]
+    },
+    "faults|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.75
+     ]
+    },
+    "hard|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.3333,
+      0.3333
+     ]
+    },
+    "hard|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.5,
+     "ci": [
+      -1.0,
+      0.0
+     ]
+    },
+    "hard|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.0833,
+     "ci": [
+      -0.2875,
+      0.0
+     ]
+    },
+    "easy|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=link_down|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.1667,
+     "ci": [
+      -0.3333,
+      0.0
+     ]
+    },
+    "type=link_flapping|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs GNN": {
+     "verdict": "supported",
+     "point": 0.3333,
+     "ci": [
+      0.3333,
+      0.3333
+     ]
+    },
+    "type=demand_surge|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs GNN": {
+     "verdict": "contradicted",
+     "point": -0.3333,
+     "ci": [
+      -0.3333,
+      -0.3333
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs GNN": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.6
+     ]
+    },
+    "faults|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.6
+     ]
+    },
+    "faults|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.7512
+     ]
+    },
+    "hard|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.125,
+     "ci": [
+      0.0,
+      0.375
+     ]
+    },
+    "easy|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.125,
+     "ci": [
+      0.0,
+      0.4312
+     ]
+    },
+    "easy|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      -0.0,
+      1.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_down|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs B3": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=node_down|top1|A2 vs B3": {
+     "verdict": "supported",
+     "point": 0.5,
+     "ci": [
+      0.5,
+      0.5
+     ]
+    },
+    "type=node_down|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs B3": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top3|A2 vs B3": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.1667,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "faults|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.1667,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "faults|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.7512
+     ]
+    },
+    "hard|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      -0.0,
+      1.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_down|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs B3+": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=node_down|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs B3+": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top3|A2 vs B3+": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs B2": {
+     "verdict": "supported",
+     "point": 0.6667,
+     "ci": [
+      0.25,
+      1.0
+     ]
+    },
+    "faults|top3|A2 vs B2": {
+     "verdict": "supported",
+     "point": 0.5,
+     "ci": [
+      0.125,
+      1.0
+     ]
+    },
+    "faults|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.75
+     ]
+    },
+    "hard|top1|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|top3|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A2 vs B2": {
+     "verdict": "supported",
+     "point": 0.75,
+     "ci": [
+      0.1375,
+      1.0
+     ]
+    },
+    "easy|top3|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "easy|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs B2": {
+     "verdict": "supported",
+     "point": 0.75,
+     "ci": [
+      0.1667,
+      1.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=link_down|top1|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=link_down|top3|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=node_down|top3|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_flapping|top3|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top3|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.6
+     ]
+    },
+    "faults|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0864,
+     "ci": [
+      0.0,
+      0.253
+     ]
+    },
+    "faults|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.7512
+     ]
+    },
+    "hard|top1|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0091,
+     "ci": [
+      0.0,
+      0.0182
+     ]
+    },
+    "hard|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.375,
+     "ci": [
+      0.0,
+      0.9175
+     ]
+    },
+    "easy|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.125,
+     "ci": [
+      0.0,
+      0.4312
+     ]
+    },
+    "easy|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      -0.0,
+      1.0
+     ]
+    },
+    "distractor_drain|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_down|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_down|top1|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A1 vs B3": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=node_down|top1|A1 vs B3": {
+     "verdict": "supported",
+     "point": 0.5,
+     "ci": [
+      0.5,
+      0.5
+     ]
+    },
+    "type=node_down|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_flapping|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "type=link_flapping|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top1|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|top3|A1 vs B3": {
+     "verdict": "supported",
+     "point": 0.0182,
+     "ci": [
+      0.0182,
+      0.0182
+     ]
+    },
+    "type=demand_surge|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.0556,
+     "ci": [
+      -0.4,
+      0.3333
+     ]
+    },
+    "faults|top3|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.3303,
+     "ci": [
+      -0.7455,
+      0.0
+     ]
+    },
+    "faults|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.75
+     ]
+    },
+    "hard|top1|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -0.5,
+     "ci": [
+      -0.6667,
+      -0.3333
+     ]
+    },
+    "hard|top3|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -0.9909,
+     "ci": [
+      -1.0,
+      -0.9818
+     ]
+    },
+    "hard|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.1667,
+     "ci": [
+      0.0,
+      0.575
+     ]
+    },
+    "easy|top3|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A1 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "distractor_drain|claims_fault|A1 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "distractor_down|claims_fault|A1 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=link_down|top1|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.6667
+     ]
+    },
+    "type=link_flapping|top3|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A1 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top1|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -0.6667,
+     "ci": [
+      -0.6667,
+      -0.6667
+     ]
+    },
+    "type=demand_surge|top3|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -0.9818,
+     "ci": [
+      -0.9818,
+      -0.9818
+     ]
+    },
+    "type=demand_surge|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -0.3333,
+     "ci": [
+      -0.3333,
+      -0.3333
+     ]
+    },
+    "type=routing_misconfig|top3|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "agent_cost_latency_groundedness": {
+    "A0": {
+     "mean_usd": 0.00067,
+     "mean_seconds": 4.88,
+     "ungrounded_item_rate": 0.0213,
+     "no_submission": 0
+    },
+    "A1": {
+     "mean_usd": 0.00232,
+     "mean_seconds": 12.51,
+     "ungrounded_item_rate": 0.0,
+     "no_submission": 0
+    },
+    "A2": {
+     "mean_usd": 0.00248,
+     "mean_seconds": 13.11,
+     "ungrounded_item_rate": 0.0,
+     "no_submission": 0
+    }
+   }
+  },
+  "status_blind": {
+   "metrics": {
+    "B1": {
+     "faults": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.1667,
+       "ci": [
+        0.0,
+        0.5
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "B2": {
+     "faults": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.3333,
+       "ci": [
+        0.0,
+        0.75
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        0.875
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.25,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "B3": {
+     "faults": {
+      "top1": {
+       "value": 0.1667,
+       "ci": [
+        0.0,
+        0.4
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.75,
+       "ci": [
+        0.4,
+        1.0
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.25,
+       "ci": [
+        0.0,
+        0.5
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 0.875,
+       "ci": [
+        0.5688,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.5,
+        0.5
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.25,
+       "ci": [
+        0.0,
+        0.5
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.75,
+       "ci": [
+        0.5,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "B3+": {
+     "faults": {
+      "top1": {
+       "value": 0.1667,
+       "ci": [
+        0.0,
+        0.5
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.8333,
+       "ci": [
+        0.5,
+        1.0
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.25,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "GNN": {
+     "faults": {
+      "top1": {
+       "value": 0.8333,
+       "ci": [
+        0.6,
+        1.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        0.875
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.8333,
+       "ci": [
+        0.6667,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.8333,
+       "ci": [
+        0.425,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.6667,
+       "ci": [
+        0.3333,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.6667,
+       "ci": [
+        0.6667,
+        0.6667
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "A0": {
+     "faults": {
+      "top1": {
+       "value": 0.3428,
+       "ci": [
+        0.0112,
+        0.7546
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.3618,
+       "ci": [
+        0.0335,
+        0.7639
+       ],
+       "n": 6
+      },
+      "type_correct": {
+       "value": 0.3333,
+       "ci": [
+        0.0,
+        0.75
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.8333,
+       "ci": [
+        0.5,
+        1.0
+       ],
+       "n": 6
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0088,
+       "ci": [
+        0.0,
+        0.0175
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0263,
+       "ci": [
+        0.0,
+        0.0526
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.5098,
+       "ci": [
+        0.0189,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 0.5295,
+       "ci": [
+        0.0567,
+        1.0
+       ],
+       "n": 4
+      },
+      "type_correct": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.25,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.0197,
+       "ci": [
+        0.0185,
+        0.0208
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.059,
+       "ci": [
+        0.0556,
+        0.0625
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0175,
+       "ci": [
+        0.0175,
+        0.0175
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0526,
+       "ci": [
+        0.0526,
+        0.0526
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "A1": {
+     "faults": {
+      "top1": {
+       "value": 0.6667,
+       "ci": [
+        0.25,
+        1.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.6697,
+       "ci": [
+        0.2545,
+        1.0
+       ],
+       "n": 6
+      },
+      "type_correct": {
+       "value": 0.3333,
+       "ci": [
+        0.0,
+        0.75
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.8333,
+       "ci": [
+        0.5,
+        1.0
+       ],
+       "n": 6
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.0091,
+       "ci": [
+        0.0,
+        0.0182
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "type_correct": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0182,
+       "ci": [
+        0.0182,
+        0.0182
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    },
+    "A2": {
+     "faults": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 6
+      },
+      "top3": {
+       "value": 0.6699,
+       "ci": [
+        0.2548,
+        1.0
+       ],
+       "n": 6
+      },
+      "type_correct": {
+       "value": 0.3333,
+       "ci": [
+        0.0,
+        0.75
+       ],
+       "n": 6
+      },
+      "claims_fault": {
+       "value": 0.8333,
+       "ci": [
+        0.5,
+        1.0
+       ],
+       "n": 6
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 6
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 4
+      },
+      "top3": {
+       "value": 0.7548,
+       "ci": [
+        0.1541,
+        1.0
+       ],
+       "n": 4
+      },
+      "type_correct": {
+       "value": 0.25,
+       "ci": [
+        0.0,
+        0.75
+       ],
+       "n": 4
+      },
+      "claims_fault": {
+       "value": 0.75,
+       "ci": [
+        0.1375,
+        1.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 4
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 4
+      }
+     },
+     "distractor_drain": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "distractor_down": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=link_down": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=node_down": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=link_flapping": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "top3": {
+       "value": 0.5096,
+       "ci": [
+        0.0192,
+        1.0
+       ],
+       "n": 2
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 2
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.0,
+        1.0
+       ],
+       "n": 2
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 2
+      }
+     },
+     "type=demand_surge": {
+      "top1": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     },
+     "type=routing_misconfig": {
+      "top1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "top3": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "type_correct": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 1
+      },
+      "claims_fault": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 1
+      }
+     }
+    }
+   },
+   "comparisons": {
+    "faults|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.3239,
+     "ci": [
+      -0.0076,
+      0.735
+     ]
+    },
+    "faults|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.3079,
+     "ci": [
+      -0.0148,
+      0.7049
+     ]
+    },
+    "faults|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0088,
+     "ci": [
+      -0.0175,
+      0.0
+     ]
+    },
+    "hard|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0172,
+     "ci": [
+      -0.0344,
+      0.0
+     ]
+    },
+    "hard|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4902,
+     "ci": [
+      0.0,
+      0.9811
+     ]
+    },
+    "easy|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4705,
+     "ci": [
+      0.0,
+      0.9433
+     ]
+    },
+    "easy|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractors|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      -0.0,
+      1.0
+     ]
+    },
+    "distractors|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_drain|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_drain|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_down|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractor_down|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A1 vs A0": {
+     "verdict": "supported",
+     "point": 0.9803,
+     "ci": [
+      0.9792,
+      0.9815
+     ]
+    },
+    "type=link_flapping|top3|A1 vs A0": {
+     "verdict": "supported",
+     "point": 0.941,
+     "ci": [
+      0.9375,
+      0.9444
+     ]
+    },
+    "type=link_flapping|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|top1|A1 vs A0": {
+     "verdict": "contradicted",
+     "point": -0.0175,
+     "ci": [
+      -0.0175,
+      -0.0175
+     ]
+    },
+    "type=demand_surge|top3|A1 vs A0": {
+     "verdict": "contradicted",
+     "point": -0.0344,
+     "ci": [
+      -0.0344,
+      -0.0344
+     ]
+    },
+    "type=demand_surge|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|type_correct|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|answered|A1 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.1667,
+     "ci": [
+      -0.75,
+      0.4
+     ]
+    },
+    "faults|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0002,
+     "ci": [
+      -0.4904,
+      0.4909
+     ]
+    },
+    "faults|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.5,
+      0.5
+     ]
+    },
+    "faults|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.5,
+      0.5
+     ]
+    },
+    "faults|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.4909,
+     "ci": [
+      0.0,
+      0.9818
+     ]
+    },
+    "hard|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.5,
+     "ci": [
+      -1.0,
+      0.0
+     ]
+    },
+    "easy|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.2452,
+     "ci": [
+      -0.8459,
+      0.0
+     ]
+    },
+    "easy|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.25,
+     "ci": [
+      -1.0,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.25,
+     "ci": [
+      -0.8625,
+      0.0
+     ]
+    },
+    "easy|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      -0.0,
+      0.0
+     ]
+    },
+    "distractors|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_drain|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_down|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top1|A2 vs A1": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=link_down|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|type_correct|A2 vs A1": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.5,
+     "ci": [
+      -1.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.4904,
+     "ci": [
+      -0.9808,
+      0.0
+     ]
+    },
+    "type=link_flapping|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": -0.5,
+     "ci": [
+      -1.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs A1": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top3|A2 vs A1": {
+     "verdict": "supported",
+     "point": 0.9818,
+     "ci": [
+      0.9818,
+      0.9818
+     ]
+    },
+    "type=demand_surge|type_correct|A2 vs A1": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs A1": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|type_correct|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|answered|A2 vs A1": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.1572,
+     "ci": [
+      -0.4311,
+      0.7016
+     ]
+    },
+    "faults|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.3081,
+     "ci": [
+      -0.0182,
+      0.7056
+     ]
+    },
+    "faults|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.5,
+      0.5
+     ]
+    },
+    "faults|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.5,
+      0.5
+     ]
+    },
+    "faults|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4912,
+     "ci": [
+      0.0,
+      0.9825
+     ]
+    },
+    "hard|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4737,
+     "ci": [
+      0.0,
+      0.9474
+     ]
+    },
+    "hard|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0098,
+     "ci": [
+      -1.0,
+      0.9792
+     ]
+    },
+    "easy|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.2253,
+     "ci": [
+      -0.0313,
+      0.9375
+     ]
+    },
+    "easy|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.25,
+     "ci": [
+      -1.0,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.25,
+     "ci": [
+      -0.8625,
+      0.0
+     ]
+    },
+    "easy|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      -0.0,
+      1.0
+     ]
+    },
+    "distractors|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_drain|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractor_down|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top1|A2 vs A0": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=link_down|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|type_correct|A2 vs A0": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4803,
+     "ci": [
+      -0.0185,
+      0.9792
+     ]
+    },
+    "type=link_flapping|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.4506,
+     "ci": [
+      -0.0363,
+      0.9375
+     ]
+    },
+    "type=link_flapping|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": -0.5,
+     "ci": [
+      -1.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs A0": {
+     "verdict": "supported",
+     "point": 0.9825,
+     "ci": [
+      0.9825,
+      0.9825
+     ]
+    },
+    "type=demand_surge|top3|A2 vs A0": {
+     "verdict": "supported",
+     "point": 0.9474,
+     "ci": [
+      0.9474,
+      0.9474
+     ]
+    },
+    "type=demand_surge|type_correct|A2 vs A0": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs A0": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|type_correct|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|answered|A2 vs A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.3333,
+     "ci": [
+      -0.75,
+      0.0743
+     ]
+    },
+    "faults|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.3301,
+     "ci": [
+      -0.7452,
+      0.0
+     ]
+    },
+    "faults|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.75
+     ]
+    },
+    "hard|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.3333,
+     "ci": [
+      -1.0,
+      0.3333
+     ]
+    },
+    "hard|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.5,
+     "ci": [
+      -1.0,
+      0.0
+     ]
+    },
+    "hard|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "easy|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.3333,
+     "ci": [
+      -1.0,
+      0.0
+     ]
+    },
+    "easy|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.2452,
+     "ci": [
+      -0.8459,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=link_down|top1|A2 vs GNN": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=link_down|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.1667,
+     "ci": [
+      -0.3333,
+      0.0
+     ]
+    },
+    "type=link_flapping|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.4904,
+     "ci": [
+      -0.9808,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs GNN": {
+     "verdict": "supported",
+     "point": 0.3333,
+     "ci": [
+      0.3333,
+      0.3333
+     ]
+    },
+    "type=demand_surge|top3|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs GNN": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs GNN": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.6667
+     ]
+    },
+    "faults|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.0801,
+     "ci": [
+      -0.5739,
+      0.4357
+     ]
+    },
+    "faults|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.7507
+     ]
+    },
+    "hard|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -1.0,
+      1.0
+     ]
+    },
+    "hard|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "easy|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "easy|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.1202,
+     "ci": [
+      -0.4147,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      -0.0,
+      0.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "type=link_down|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs B3": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=node_down|top1|A2 vs B3": {
+     "verdict": "supported",
+     "point": 0.5,
+     "ci": [
+      0.5,
+      0.5
+     ]
+    },
+    "type=node_down|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "type=link_flapping|top3|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.2404,
+     "ci": [
+      -0.4808,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs B3": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top3|A2 vs B3": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs B3": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs B3": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.75
+     ]
+    },
+    "faults|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": -0.1635,
+     "ci": [
+      -0.7404,
+      0.4045
+     ]
+    },
+    "faults|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.7507
+     ]
+    },
+    "hard|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -1.0,
+      1.0
+     ]
+    },
+    "hard|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "easy|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.75
+     ]
+    },
+    "easy|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": -0.2452,
+     "ci": [
+      -0.8459,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      -0.0,
+      0.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "type=link_down|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs B3+": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=node_down|top1|A2 vs B3+": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=node_down|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top3|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": -0.4904,
+     "ci": [
+      -0.9808,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs B3+": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top3|A2 vs B3+": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs B3+": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs B3+": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs B3+": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "faults|top3|A2 vs B2": {
+     "verdict": "supported",
+     "point": 0.3365,
+     "ci": [
+      0.0027,
+      0.75
+     ]
+    },
+    "faults|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.75
+     ]
+    },
+    "hard|top1|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|top3|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "hard|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "easy|top1|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "easy|top3|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.2548,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "easy|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      -0.0,
+      1.0
+     ]
+    },
+    "distractor_drain|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_down|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_down|top1|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=node_down|top3|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=link_flapping|top3|A2 vs B2": {
+     "verdict": "supported",
+     "point": 0.5096,
+     "ci": [
+      0.0192,
+      1.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top1|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top3|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|claims_fault|A2 vs B2": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=routing_misconfig|top1|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A2 vs B2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A1 vs B3": {
+     "verdict": "supported",
+     "point": 0.5,
+     "ci": [
+      0.1667,
+      0.8333
+     ]
+    },
+    "faults|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.0803,
+     "ci": [
+      -0.497,
+      0.25
+     ]
+    },
+    "faults|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.7512
+     ]
+    },
+    "hard|top1|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "hard|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.4909,
+     "ci": [
+      -1.0,
+      0.0182
+     ]
+    },
+    "hard|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A1 vs B3": {
+     "verdict": "supported",
+     "point": 0.75,
+     "ci": [
+      0.5,
+      1.0
+     ]
+    },
+    "easy|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.125,
+     "ci": [
+      0.0,
+      0.4312
+     ]
+    },
+    "easy|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      -0.0,
+      0.0
+     ]
+    },
+    "distractor_drain|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "distractor_down|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      0.0,
+      -0.0
+     ]
+    },
+    "type=link_down|top1|A1 vs B3": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=link_down|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A1 vs B3": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=node_down|top1|A1 vs B3": {
+     "verdict": "supported",
+     "point": 0.5,
+     "ci": [
+      0.5,
+      0.5
+     ]
+    },
+    "type=node_down|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A1 vs B3": {
+     "verdict": "supported",
+     "point": 0.75,
+     "ci": [
+      0.5,
+      1.0
+     ]
+    },
+    "type=link_flapping|top3|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.25,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    "type=link_flapping|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top1|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=demand_surge|top3|A1 vs B3": {
+     "verdict": "supported",
+     "point": 0.0182,
+     "ci": [
+      0.0182,
+      0.0182
+     ]
+    },
+    "type=demand_surge|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top3|A1 vs B3": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A1 vs B3": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "faults|top1|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.1667,
+     "ci": [
+      -0.6192,
+      0.2857
+     ]
+    },
+    "faults|top3|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": -0.3303,
+     "ci": [
+      -0.7455,
+      0.0
+     ]
+    },
+    "faults|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.75
+     ]
+    },
+    "hard|top1|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -0.8333,
+     "ci": [
+      -1.0,
+      -0.6667
+     ]
+    },
+    "hard|top3|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -0.9909,
+     "ci": [
+      -1.0,
+      -0.9818
+     ]
+    },
+    "hard|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|top1|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.1667,
+     "ci": [
+      0.0,
+      0.575
+     ]
+    },
+    "easy|top3|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "easy|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ]
+    },
+    "distractors|claims_fault|A1 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "distractor_drain|claims_fault|A1 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "distractor_down|claims_fault|A1 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=link_down|top1|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|top3|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_down|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top1|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|top3|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=node_down|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|top1|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.3333,
+     "ci": [
+      0.0,
+      0.6667
+     ]
+    },
+    "type=link_flapping|top3|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=link_flapping|claims_fault|A1 vs GNN": {
+     "verdict": "supported",
+     "point": 1.0,
+     "ci": [
+      1.0,
+      1.0
+     ]
+    },
+    "type=demand_surge|top1|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -0.6667,
+     "ci": [
+      -0.6667,
+      -0.6667
+     ]
+    },
+    "type=demand_surge|top3|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -0.9818,
+     "ci": [
+      -0.9818,
+      -0.9818
+     ]
+    },
+    "type=demand_surge|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "type=routing_misconfig|top1|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=routing_misconfig|top3|A1 vs GNN": {
+     "verdict": "contradicted",
+     "point": -1.0,
+     "ci": [
+      -1.0,
+      -1.0
+     ]
+    },
+    "type=routing_misconfig|claims_fault|A1 vs GNN": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "agent_cost_latency_groundedness": {
+    "A0": {
+     "mean_usd": 0.00068,
+     "mean_seconds": 5.2,
+     "ungrounded_item_rate": 0.0,
+     "no_submission": 0
+    },
+    "A1": {
+     "mean_usd": 0.00288,
+     "mean_seconds": 14.58,
+     "ungrounded_item_rate": 0.0137,
+     "no_submission": 0
+    },
+    "A2": {
+     "mean_usd": 0.00288,
+     "mean_seconds": 14.49,
+     "ungrounded_item_rate": 0.0,
+     "no_submission": 0
+    }
+   }
+  }
+ }
+}

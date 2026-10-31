@@ -100,24 +100,30 @@ def test_ranking_uses_harness_tie_credit():
 
 
 def test_groundedness_flags_invented_ids_and_numbers():
-    corpus = '{"link":"link:R1--R2","mean_now":0.665,"change":0.125}'
-    ok = groundedness({"evidence": ["link:R1--R2 utilisation 0.67 now (was +0.125)"]}, corpus)
+    known = ["link:R1--R2", "link:New Orleans--Tampa", "pop:New Orleans", "pop:R9"]
+    corpus = '{"link":"link:R1--R2","mean_now":0.665,"change":0.125},{"element":"link:New Orleans--Tampa","mean":0.0}'
+    ok = groundedness({"evidence": ["link:R1--R2 utilisation 0.67 now (was +0.125).", "link:New Orleans--Tampa util 0.0",
+                                    "no link:... or pop:... alerts"]}, corpus, known)
     assert ok["n_ungrounded_items"] == 0
-    bad = groundedness({"evidence": ["link:R9--R10 at 0.91", "link:R1--R2 mean 0.665"]}, corpus)
-    assert bad["n_ungrounded_items"] == 1 and set(bad["ungrounded"][0]["not_found"]) == {"link:R9--R10", "0.91"}
+    bad = groundedness({"evidence": ["link:R9--R10 at 0.91", "link:R1--R2 mean 0.665", "pop:New Orleans is down"]}, corpus, known)
+    assert bad["n_ungrounded_items"] == 2
+    assert set(bad["ungrounded"][0]["not_found"]) == {"link:R9--R10", "0.91"}
+    assert bad["ungrounded"][1]["not_found"] == ["pop:New Orleans"]       # a real element the tools never returned
 
 
 class FakeClient:
     """Calls one tool per turn from a script, then submits."""
     def __init__(self, script, allow_any=False):
-        self.script, self.k, self.allow_any = script, 0, allow_any
+        self.script, self.k, self.allow_any, self.names = script, 0, allow_any, {}
         self.messages = self
 
     def create(self, **kw):
         assert kw["output_config"]["effort"] and kw["cache_control"] == {"type": "ephemeral"}
         names = [t["name"] for t in kw["tools"]]
         name, args = self.script[min(self.k, len(self.script) - 1)]
-        if name not in names and not self.allow_any:
+        forced = any(m["role"] == "user" and isinstance(m["content"], str) and m["content"].startswith("Budget reached") for m in kw["messages"])
+        assert names == self.names.setdefault("tools", names)        # the tool list never changes in a conversation
+        if (name not in names and not self.allow_any) or forced:
             name, args = "submit_diagnosis", {"root_cause": "none", "fault_type": "no_fault", "confidence": 0.5,
                                               "alternatives": [], "evidence": [], "recommended_action": "none"}
         self.k += 1

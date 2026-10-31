@@ -1126,6 +1126,39 @@ Committed before the first API call, smoke test included. Telemetry is synthetic
   Before the test run it will also check the agent source hashes against `results/phase6_frozen.json`.
 - AARNet (dev) is not used for the agent eval.
 
+### 2026-10-31: Phase 6 smoke test (validation, 10 incidents, `claude-haiku-5-5`) and two bug fixes
+
+The setup, as pre-registered:
+- 10 incidents drawn from the 150-incident validation sample (seed 6007): 6 faults, 2 drain-only and 2 planned-outage-only windows.
+- Both variants and A0, A1 and A2: 60 agent runs.
+- Results in `results/phase6/val_smoke/`.
+- The first attempt failed on an invalid API key; the user replaced it.
+
+**Bugs found and fixed before any evaluated run.** Neither changes the design.
+1. Forcing a submission changed the tool list, and that invalidates the earlier thinking blocks: 400 "The `tools` list differs".
+   - The loop now keeps the same tool list for the whole conversation.
+   - After the budget message it refuses any call except `submit_diagnosis`, for at most 2 more requests.
+   - A test checks that the tool list never changes.
+2. Groundedness missed element ids that contain spaces (real topology names such as `link:New Orleans--Tampa`), and flagged a trailing full stop and A0's literal placeholder `pop:...`.
+   - Ids are now matched against the incident's own inventory (links, PoPs, services).
+   - Id-like tokens outside the inventory still count as ungrounded.
+- The smoke test was rerun from scratch after each fix. The numbers below are from the final run.
+
+**Smoke results** (10 incidents; far too few for any conclusion, shown only as a crash and cost check).
+- All 60 runs submitted a diagnosis. 11 of the 40 tool-using runs hit the 15-call budget and then submitted. There were 12 tool errors, mostly a service id passed where a link was expected; the agent corrected itself each time.
+- Mean tool calls: 10.3 to 12.6 for A1 and A2. Mean latency: 5 s (A0) and 13 to 15 s (A1, A2).
+- Ungrounded evidence items: 1 of 47 (A0), 1 of 73 (A1 status-blind), 0 elsewhere. Both flagged items cite a derived number (an alert's length in steps, the last step of a gap), which the pre-registered rule counts as ungrounded.
+- Distractors (4 per variant): A1 and A2 claimed a fault in 0 of 4, against 4 of 4 for the GNN and B1.
+- Total smoke cost: $0.12.
+
+**Cost estimate for the full evals** (`scripts/phase6_agent.py --estimate`): the smoke test's mean tokens per incident and condition, priced per model.
+- 150 incidents x 2 variants x 3 conditions per split:
+  - `claude-haiku-5-5`: $1.79 per split.
+  - `claude-sonnet-5-5`: $34.53 per split.
+  - `claude-opus-5-5`: $69.05 per split.
+- This assumes Opus uses the same tokens as Haiku. Opus may think and call tools differently, so I expect the real Opus cost to fall between 0.7x and 2x the estimate: $48 to $138 per split.
+- Waiting for the go-ahead before either full run.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
