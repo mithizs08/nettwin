@@ -930,6 +930,66 @@ The independent audit is `docs/audit_phase5.md`: 1 major and 4 minor findings, n
 
 **Also fixed.** `results/phase5_tables.md` no longer prints the wall-clock training times, so it is byte-reproducible. Those times stay in `results/phase5_timings.json`, which differs by design.
 
+### 2026-10-31: Phase 5 test pre-registration (written and committed before any test scoring)
+
+Nothing from the test or dev splits has been read for any choice in Phases 4 and 5. `scripts/phase5_test.py` refuses to run until this entry is in the log.
+
+**What is scored, once.**
+- Methods:
+  - B1, B2, B3 and B3+, with B2 as pickled after its train fit.
+  - GAT-h32 seeds 0, 1 and 2 (the selected configuration).
+  - The MLP ablation seeds 0, 1 and 2.
+  - Both variants (with_status and status_blind).
+- Splits:
+  - test: 7 real networks, 30 scenarios each.
+  - dev: AARNet, 30 scenarios, seen during development. Reported in its own section and never pooled with test.
+- Frozen inputs:
+  - The six checkpoints, the pickled baselines, and `data/models/phase5/frozen/calibration.json` (validation bins and thresholds for every method and variant).
+  - Their sha256 values are in `results/phase5_frozen.json`. The script refuses to run on any mismatch.
+  - Nothing is refitted, retrained or recalibrated.
+  - The fault-free alarm rate on test is therefore not forced to 5%. It is reported as it comes out.
+- Same harness as validation:
+  - the oracle incident window, the q90, max and mean aggregations, and expected-rank ties;
+  - 1,000 paired scenario-bootstrap resamples, seed 42, within each split and variant.
+- The run happens once. `results/phase5_test.json` is written once, and the script refuses to overwrite it. After the results are seen, only bug fixes are allowed. Each is logged as a bug fix with before and after numbers.
+
+**What is reported, for each split and variant.**
+- Every method:
+  - the full harness summary;
+  - hard and easy top-1 and top-3 under q90, max and mean;
+  - root and symptomatic PR-AUC, each with its base rate;
+  - detection at the threshold;
+  - fault-free and maintenance-only alarm rates;
+  - per type, impact class, root kind, concurrency, unobservable faults, and per network.
+- GNN and MLP: per-seed values, seed sd, and the bootstrap CI of the seed mean.
+- The headline table: test next to the held-out validation headline (408 scenarios, audit R2).
+
+**Verdicts computed** (GAT-h32 seed mean, paired within each split and variant).
+- GNN minus each of B1, B2, B3 and B3+:
+  - top-1 and top-3 under q90, max and mean, for hard, easy and each of the six types;
+  - root and symptomatic PR-AUC for the same groups.
+- Each baseline minus the GNN, on the maintenance-only alarm rate (supported means the GNN alarms less).
+- GNN minus MLP: hard top-3 and easy top-1 under q90, max and mean.
+- Replications of the validation expectations, worded as on validation:
+  - X1: GNN beats B2 on hard top-3, both variants.
+  - X2: GNN beats B2 on hard root PR-AUC.
+  - X3: easy top-3 >= B3 - 0.05 with status events, and > B3 status-blind.
+  - X4: B3 beats the GNN on flapping top-3 with status events.
+  - X6: GNN beats the MLP on hard top-3 and easy top-1.
+  - X8: GNN has the best symptomatic PR-AUC.
+  - X9: GNN alarms less than B2 in maintenance hours.
+- Not computed on test:
+  - X5: test is all real networks, so there is no paired generated set.
+  - X7 and X10: the shuffled-edges, SAGE and GINE models are not frozen for test.
+
+**Predictions** (from validation; stated so that misses are visible).
+- X1 and X2 met in both variants.
+- Easy top-3 against B3 with status events inconclusive.
+- X4 met.
+- X6 not met: the MLP stays as good.
+- X9 not met: the GNN keeps its excess maintenance-hour alarms.
+- No prediction on whether test numbers will be above or below validation.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.
