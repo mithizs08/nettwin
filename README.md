@@ -112,3 +112,7 @@ python -c "import secrets; print(secrets.token_hex(32))" > .nettwin_dataset_key
 - `app/streamlit_app.py`: the demo.
 - `docs/decision_log.md`: decisions, pre-registrations, deviations and audit fixes. `docs/dataset_card.md`: the datasets. `docs/audit_*.md`: the audits.
 - `results/`: every number reported, as JSON and Markdown tables.
+
+## License
+
+The code is under the MIT license ([LICENSE](LICENSE)). The topologies come from the Internet Topology Zoo and SNDlib through `topohub`, and they keep their own terms.

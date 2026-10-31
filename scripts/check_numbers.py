@@ -54,7 +54,7 @@ SOURCES = {
 # Each doc heading (prefix match on its text) names the sources its numbers come from. An unmapped heading is an error.
 SCOPES = {
     "NetTwin": ["data"], "Read this first": ["data"], "Run the demo": [], "Setup and reproduction": [],
-    "Reproducing the datasets": [], "Where things are": [], "Headline results": ["p5", "p6", "p8"],
+    "Reproducing the datasets": [], "Where things are": [], "License": [], "Headline results": ["p5", "p6", "p8"],
     "Results in detail": ["p5", "p6", "p8"],
     "Descriptive, not pre-registered": ["p6", "p7"], "Why measure": [], "What was built": ["data"], "RQ1 and RQ2": ["p5"],
     "RQ3": ["p5"], "RQ1 ablation": ["p5"], "RQ4": ["p6"], "RQ5": ["p8"], "Descriptive results": ["p6", "p7", "p8"],
