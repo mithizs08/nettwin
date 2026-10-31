@@ -1,10 +1,6 @@
 """Phase 8 forecasting inputs: causal, no clock, labels as defined, and the frozen-encoder embedding matches the model."""
-import lightgbm  # noqa: F401  (before torch)
-
 import numpy as np
 import torch
-
-torch.set_num_threads(1)          # lightgbm is loaded: multithreaded torch would segfault (libomp clash)
 
 from nettwin import forecast as F
 from nettwin.gnn.data import graph_for

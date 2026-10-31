@@ -269,6 +269,44 @@ def results():
         st.caption(f"{d['n_incidents']} incidents, ${d['cost_usd']:.2f} for both models. Too few to compare methods.")
 
 
+def forecasting():
+    st.subheader("Capacity forecasting (RQ5): will a link exceed 80% utilisation in the next 60 minutes?")
+    st.caption(HONESTY + " Predictions every 30 minutes for every link, from observed utilisation only (no clock). "
+               "Test scored once with models and thresholds frozen on validation. 95% CIs from 1000 scenario bootstrap resamples.")
+    path = RES / "phase8_test.json"
+    if not path.exists():
+        st.info("results/phase8_test.json is not there yet: the test set has not been scored.")
+        return
+    t = load_json("phase8_test.json")
+    names = {"persistence": "Persistence (above 0.8 now)", "seasonal_naive": "Seasonal-naive (same hour yesterday)",
+             "lightgbm": "LightGBM on lag features", "gnn_head": "Frozen GNN encoder + small head"}
+    classes = {"all": "all windows", "fault_free": "fault-free", "fault": "fault", "maintenance": "maintenance"}
+    split = st.radio("Split", ["test", "dev"], horizontal=True, key="fc_split",
+                     format_func=lambda s: "test (210 scenarios, 7 held-out topologies)" if s == "test" else "AARNet dev (30 scenarios, reported separately)")
+    x = t["splits"][split]
+
+    def fmt(m):
+        if m["value"] is None:
+            return "n/a"
+        lo, hi = m["ci"]
+        return f"{m['value']:.3f} [{lo:.2f}, {hi:.2f}]"
+
+    rows = []
+    for m, label in names.items():
+        for c, cl in classes.items():
+            r = x["metrics"][m][c]
+            rows.append({"method": label, "window": cl, "precision": fmt(r["precision"]), "recall": fmt(r["recall"]),
+                         "F1": fmt(r["f1"]), "breaches": r["n_breaches"], "predicted": r["n_pairs_predicted_breach"]})
+    df = pd.DataFrame(rows)
+    pick = st.multiselect("Windows", list(classes.values()), default=list(classes.values()), key="fc_windows")
+    st.dataframe(df[df.window.isin(pick)], width="stretch", hide_index=True)
+    st.markdown("**Paired comparisons** (difference, 95% CI, verdict)")
+    st.dataframe(pd.DataFrame([{"comparison": k, "difference": c["point"], "95% CI": f"[{c['ci'][0]:+.3f}, {c['ci'][1]:+.3f}]",
+                                "verdict": c["verdict"]} for k, c in x["comparisons"].items() if c["point"] is not None]), width="stretch", hide_index=True)
+    st.caption("Window classes use ground truth only for scoring: 'fault' if a fault window overlaps the hour before or "
+               "after the prediction time, 'maintenance' if only logged maintenance does, 'fault-free' otherwise.")
+
+
 def limitations():
     st.subheader("What this is, and what it is not")
     st.markdown(f"""
@@ -294,6 +332,6 @@ st.set_page_config(page_title="NetTwin demo", layout="wide")
 st.title("NetTwin")
 st.caption("A knowledge-graph digital twin of a public backbone, with GNN localisation and an LLM root-cause agent. "
            "Offline demo from saved results.")
-page = st.sidebar.radio("Page", ["Incident explorer", "Test results", "Limitations"], key="page")
+page = st.sidebar.radio("Page", ["Incident explorer", "Test results", "Capacity forecasting", "Limitations"], key="page")
 st.sidebar.warning(HONESTY)
-{"Incident explorer": explorer, "Test results": results, "Limitations": limitations}[page]()
+{"Incident explorer": explorer, "Test results": results, "Capacity forecasting": forecasting, "Limitations": limitations}[page]()

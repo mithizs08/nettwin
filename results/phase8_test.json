@@ -1,0 +1,997 @@
+{
+ "note": "Phase 8 test scoring, run once with the frozen models and validation thresholds. Telemetry is synthetic; topologies are public; not Telstra's network. AARNet (dev, seen during development) is reported separately.",
+ "variant": "with_status",
+ "frozen": {
+  "note": "sha256 of what scripts/phase8_forecast.py --test loads; it refuses on any difference",
+  "thresholds": {
+   "lightgbm": 0.4491053119139436,
+   "gnn_head": 0.9784249067306519
+  },
+  "encoder": "gat-h32-s0",
+  "head_inputs": 35,
+  "files": {
+   "data/models/phase8/lightgbm.txt": "77175653c7aec6fe0ed3f9a44ca705120596c44df164360345017bf1b66ad491",
+   "data/models/phase8/gnn_head.pt": "eff386cd2f44b8b364559e6438120c2efe81f9afa4665d749d66f18df7dd942e",
+   "data/models/phase5/gat-h32-s0.pt": "6d26c4d1fd24f6299d9aa02fd1eb7679d6c50ec0c45a8705c1ddf9f8786e3348",
+   "src/nettwin/forecast.py": "1d3ee50600a5602c78dd0669c5b1e8d256b2fbc35c4edba96069550a75a7a968",
+   "scripts/phase8_forecast.py": "8133118cbe04c558967866e263b0a62764741c79f4e08a2f9713ed1dd2920280"
+  }
+ },
+ "splits": {
+  "test": {
+   "n_scenarios": 210,
+   "metrics": {
+    "persistence": {
+     "all": {
+      "n_breaches": 31725,
+      "n_pairs_predicted_breach": 22490,
+      "precision": {
+       "value": 0.9722,
+       "ci": [
+        0.9699,
+        0.9745
+       ]
+      },
+      "recall": {
+       "value": 0.6892,
+       "ci": [
+        0.6778,
+        0.7002
+       ]
+      },
+      "f1": {
+       "value": 0.8066,
+       "ci": [
+        0.7984,
+        0.8145
+       ]
+      }
+     },
+     "fault_free": {
+      "n_breaches": 26456,
+      "n_pairs_predicted_breach": 18711,
+      "precision": {
+       "value": 0.9723,
+       "ci": [
+        0.9697,
+        0.9747
+       ]
+      },
+      "recall": {
+       "value": 0.6876,
+       "ci": [
+        0.6754,
+        0.6997
+       ]
+      },
+      "f1": {
+       "value": 0.8055,
+       "ci": [
+        0.797,
+        0.8142
+       ]
+      }
+     },
+     "fault": {
+      "n_breaches": 5155,
+      "n_pairs_predicted_breach": 3725,
+      "precision": {
+       "value": 0.9715,
+       "ci": [
+        0.9638,
+        0.9775
+       ]
+      },
+      "recall": {
+       "value": 0.702,
+       "ci": [
+        0.6778,
+        0.723
+       ]
+      },
+      "f1": {
+       "value": 0.8151,
+       "ci": [
+        0.7977,
+        0.8305
+       ]
+      }
+     },
+     "maintenance": {
+      "n_breaches": 114,
+      "n_pairs_predicted_breach": 54,
+      "precision": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ]
+      },
+      "recall": {
+       "value": 0.4737,
+       "ci": [
+        0.0625,
+        0.6148
+       ]
+      },
+      "f1": {
+       "value": 0.6429,
+       "ci": [
+        0.1176,
+        0.7615
+       ]
+      }
+     }
+    },
+    "seasonal_naive": {
+     "all": {
+      "n_breaches": 31725,
+      "n_pairs_predicted_breach": 38643,
+      "precision": {
+       "value": 0.6145,
+       "ci": [
+        0.6011,
+        0.6276
+       ]
+      },
+      "recall": {
+       "value": 0.7485,
+       "ci": [
+        0.7288,
+        0.767
+       ]
+      },
+      "f1": {
+       "value": 0.6749,
+       "ci": [
+        0.6589,
+        0.6897
+       ]
+      }
+     },
+     "fault_free": {
+      "n_breaches": 26456,
+      "n_pairs_predicted_breach": 33017,
+      "precision": {
+       "value": 0.6212,
+       "ci": [
+        0.6045,
+        0.6368
+       ]
+      },
+      "recall": {
+       "value": 0.7752,
+       "ci": [
+        0.7533,
+        0.795
+       ]
+      },
+      "f1": {
+       "value": 0.6897,
+       "ci": [
+        0.6724,
+        0.7051
+       ]
+      }
+     },
+     "fault": {
+      "n_breaches": 5155,
+      "n_pairs_predicted_breach": 5398,
+      "precision": {
+       "value": 0.5874,
+       "ci": [
+        0.5312,
+        0.6456
+       ]
+      },
+      "recall": {
+       "value": 0.6151,
+       "ci": [
+        0.5623,
+        0.6635
+       ]
+      },
+      "f1": {
+       "value": 0.601,
+       "ci": [
+        0.5598,
+        0.6396
+       ]
+      }
+     },
+     "maintenance": {
+      "n_breaches": 114,
+      "n_pairs_predicted_breach": 228,
+      "precision": {
+       "value": 0.2895,
+       "ci": [
+        0.0492,
+        0.5209
+       ]
+      },
+      "recall": {
+       "value": 0.5789,
+       "ci": [
+        0.2647,
+        0.6742
+       ]
+      },
+      "f1": {
+       "value": 0.386,
+       "ci": [
+        0.0833,
+        0.575
+       ]
+      }
+     }
+    },
+    "lightgbm": {
+     "all": {
+      "n_breaches": 31725,
+      "n_pairs_predicted_breach": 31006,
+      "precision": {
+       "value": 0.9002,
+       "ci": [
+        0.8955,
+        0.9055
+       ]
+      },
+      "recall": {
+       "value": 0.8798,
+       "ci": [
+        0.873,
+        0.8864
+       ]
+      },
+      "f1": {
+       "value": 0.8899,
+       "ci": [
+        0.8845,
+        0.8954
+       ]
+      }
+     },
+     "fault_free": {
+      "n_breaches": 26456,
+      "n_pairs_predicted_breach": 26057,
+      "precision": {
+       "value": 0.8993,
+       "ci": [
+        0.8937,
+        0.905
+       ]
+      },
+      "recall": {
+       "value": 0.8858,
+       "ci": [
+        0.8782,
+        0.893
+       ]
+      },
+      "f1": {
+       "value": 0.8925,
+       "ci": [
+        0.8868,
+        0.8986
+       ]
+      }
+     },
+     "fault": {
+      "n_breaches": 5155,
+      "n_pairs_predicted_breach": 4853,
+      "precision": {
+       "value": 0.9056,
+       "ci": [
+        0.895,
+        0.9163
+       ]
+      },
+      "recall": {
+       "value": 0.8526,
+       "ci": [
+        0.8354,
+        0.8668
+       ]
+      },
+      "f1": {
+       "value": 0.8783,
+       "ci": [
+        0.866,
+        0.8885
+       ]
+      }
+     },
+     "maintenance": {
+      "n_breaches": 114,
+      "n_pairs_predicted_breach": 96,
+      "precision": {
+       "value": 0.875,
+       "ci": [
+        0.64,
+        0.9445
+       ]
+      },
+      "recall": {
+       "value": 0.7368,
+       "ci": [
+        0.3214,
+        0.8604
+       ]
+      },
+      "f1": {
+       "value": 0.8,
+       "ci": [
+        0.4347,
+        0.8873
+       ]
+      }
+     }
+    },
+    "gnn_head": {
+     "all": {
+      "n_breaches": 31725,
+      "n_pairs_predicted_breach": 33800,
+      "precision": {
+       "value": 0.8363,
+       "ci": [
+        0.8269,
+        0.8456
+       ]
+      },
+      "recall": {
+       "value": 0.891,
+       "ci": [
+        0.8855,
+        0.8964
+       ]
+      },
+      "f1": {
+       "value": 0.8628,
+       "ci": [
+        0.8559,
+        0.8692
+       ]
+      }
+     },
+     "fault_free": {
+      "n_breaches": 26456,
+      "n_pairs_predicted_breach": 28508,
+      "precision": {
+       "value": 0.8343,
+       "ci": [
+        0.8237,
+        0.8452
+       ]
+      },
+      "recall": {
+       "value": 0.899,
+       "ci": [
+        0.893,
+        0.9047
+       ]
+      },
+      "f1": {
+       "value": 0.8654,
+       "ci": [
+        0.858,
+        0.8727
+       ]
+      }
+     },
+     "fault": {
+      "n_breaches": 5155,
+      "n_pairs_predicted_breach": 5184,
+      "precision": {
+       "value": 0.8482,
+       "ci": [
+        0.8289,
+        0.8654
+       ]
+      },
+      "recall": {
+       "value": 0.853,
+       "ci": [
+        0.8336,
+        0.8682
+       ]
+      },
+      "f1": {
+       "value": 0.8506,
+       "ci": [
+        0.8376,
+        0.8618
+       ]
+      }
+     },
+     "maintenance": {
+      "n_breaches": 114,
+      "n_pairs_predicted_breach": 108,
+      "precision": {
+       "value": 0.7963,
+       "ci": [
+        0.5148,
+        0.8681
+       ]
+      },
+      "recall": {
+       "value": 0.7544,
+       "ci": [
+        0.3548,
+        0.8645
+       ]
+      },
+      "f1": {
+       "value": 0.7748,
+       "ci": [
+        0.439,
+        0.8543
+       ]
+      }
+     }
+    }
+   },
+   "comparisons": {
+    "all|f1|lightgbm vs persistence": {
+     "verdict": "supported",
+     "point": 0.0833,
+     "ci": [
+      0.0792,
+      0.0882
+     ]
+    },
+    "all|f1|lightgbm vs seasonal_naive": {
+     "verdict": "supported",
+     "point": 0.215,
+     "ci": [
+      0.1999,
+      0.2298
+     ]
+    },
+    "all|f1|gnn_head vs lightgbm": {
+     "verdict": "contradicted",
+     "point": -0.0271,
+     "ci": [
+      -0.0313,
+      -0.0235
+     ]
+    },
+    "all|f1|gnn_head vs persistence": {
+     "verdict": "supported",
+     "point": 0.0562,
+     "ci": [
+      0.0507,
+      0.0623
+     ]
+    },
+    "maintenance|recall|lightgbm vs seasonal_naive": {
+     "verdict": "inconclusive",
+     "point": 0.1579,
+     "ci": [
+      -0.1517,
+      0.2566
+     ]
+    },
+    "all|recall|lightgbm vs persistence": {
+     "verdict": "supported",
+     "point": 0.1906,
+     "ci": [
+      0.1837,
+      0.198
+     ]
+    },
+    "all|precision|lightgbm vs persistence": {
+     "verdict": "contradicted",
+     "point": -0.072,
+     "ci": [
+      -0.0764,
+      -0.0673
+     ]
+    },
+    "fault|f1|lightgbm vs persistence": {
+     "verdict": "supported",
+     "point": 0.0632,
+     "ci": [
+      0.0537,
+      0.0742
+     ]
+    },
+    "fault|f1|gnn_head vs lightgbm": {
+     "verdict": "contradicted",
+     "point": -0.0277,
+     "ci": [
+      -0.0362,
+      -0.0193
+     ]
+    }
+   }
+  },
+  "dev": {
+   "n_scenarios": 30,
+   "metrics": {
+    "persistence": {
+     "all": {
+      "n_breaches": 509,
+      "n_pairs_predicted_breach": 276,
+      "precision": {
+       "value": 0.971,
+       "ci": [
+        0.9478,
+        0.9898
+       ]
+      },
+      "recall": {
+       "value": 0.5265,
+       "ci": [
+        0.4398,
+        0.5874
+       ]
+      },
+      "f1": {
+       "value": 0.6828,
+       "ci": [
+        0.606,
+        0.7348
+       ]
+      }
+     },
+     "fault_free": {
+      "n_breaches": 386,
+      "n_pairs_predicted_breach": 209,
+      "precision": {
+       "value": 0.9761,
+       "ci": [
+        0.9506,
+        0.9946
+       ]
+      },
+      "recall": {
+       "value": 0.5285,
+       "ci": [
+        0.4278,
+        0.6061
+       ]
+      },
+      "f1": {
+       "value": 0.6857,
+       "ci": [
+        0.5937,
+        0.7507
+       ]
+      }
+     },
+     "fault": {
+      "n_breaches": 123,
+      "n_pairs_predicted_breach": 67,
+      "precision": {
+       "value": 0.9552,
+       "ci": [
+        0.8928,
+        1.0
+       ]
+      },
+      "recall": {
+       "value": 0.5203,
+       "ci": [
+        0.3739,
+        0.6313
+       ]
+      },
+      "f1": {
+       "value": 0.6737,
+       "ci": [
+        0.5354,
+        0.7658
+       ]
+      }
+     },
+     "maintenance": {
+      "n_breaches": 0,
+      "n_pairs_predicted_breach": 0,
+      "precision": {
+       "value": null,
+       "ci": [
+        null,
+        null
+       ]
+      },
+      "recall": {
+       "value": null,
+       "ci": [
+        null,
+        null
+       ]
+      },
+      "f1": {
+       "value": null,
+       "ci": [
+        null,
+        null
+       ]
+      }
+     }
+    },
+    "seasonal_naive": {
+     "all": {
+      "n_breaches": 509,
+      "n_pairs_predicted_breach": 557,
+      "precision": {
+       "value": 0.2388,
+       "ci": [
+        0.1789,
+        0.308
+       ]
+      },
+      "recall": {
+       "value": 0.2613,
+       "ci": [
+        0.1957,
+        0.3341
+       ]
+      },
+      "f1": {
+       "value": 0.2495,
+       "ci": [
+        0.1876,
+        0.3208
+       ]
+      }
+     },
+     "fault_free": {
+      "n_breaches": 386,
+      "n_pairs_predicted_breach": 465,
+      "precision": {
+       "value": 0.2172,
+       "ci": [
+        0.1562,
+        0.2867
+       ]
+      },
+      "recall": {
+       "value": 0.2617,
+       "ci": [
+        0.1842,
+        0.3508
+       ]
+      },
+      "f1": {
+       "value": 0.2374,
+       "ci": [
+        0.1695,
+        0.3095
+       ]
+      }
+     },
+     "fault": {
+      "n_breaches": 123,
+      "n_pairs_predicted_breach": 88,
+      "precision": {
+       "value": 0.3636,
+       "ci": [
+        0.2073,
+        0.56
+       ]
+      },
+      "recall": {
+       "value": 0.2602,
+       "ci": [
+        0.1304,
+        0.436
+       ]
+      },
+      "f1": {
+       "value": 0.3033,
+       "ci": [
+        0.1721,
+        0.4321
+       ]
+      }
+     },
+     "maintenance": {
+      "n_breaches": 0,
+      "n_pairs_predicted_breach": 4,
+      "precision": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ]
+      },
+      "recall": {
+       "value": null,
+       "ci": [
+        null,
+        null
+       ]
+      },
+      "f1": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ]
+      }
+     }
+    },
+    "lightgbm": {
+     "all": {
+      "n_breaches": 509,
+      "n_pairs_predicted_breach": 565,
+      "precision": {
+       "value": 0.7115,
+       "ci": [
+        0.6524,
+        0.7622
+       ]
+      },
+      "recall": {
+       "value": 0.7898,
+       "ci": [
+        0.7442,
+        0.8306
+       ]
+      },
+      "f1": {
+       "value": 0.7486,
+       "ci": [
+        0.7048,
+        0.7866
+       ]
+      }
+     },
+     "fault_free": {
+      "n_breaches": 386,
+      "n_pairs_predicted_breach": 452,
+      "precision": {
+       "value": 0.6792,
+       "ci": [
+        0.6111,
+        0.7365
+       ]
+      },
+      "recall": {
+       "value": 0.7953,
+       "ci": [
+        0.7368,
+        0.8473
+       ]
+      },
+      "f1": {
+       "value": 0.7327,
+       "ci": [
+        0.6755,
+        0.7792
+       ]
+      }
+     },
+     "fault": {
+      "n_breaches": 123,
+      "n_pairs_predicted_breach": 113,
+      "precision": {
+       "value": 0.8407,
+       "ci": [
+        0.7455,
+        0.9333
+       ]
+      },
+      "recall": {
+       "value": 0.7724,
+       "ci": [
+        0.6723,
+        0.8642
+       ]
+      },
+      "f1": {
+       "value": 0.8051,
+       "ci": [
+        0.7205,
+        0.8811
+       ]
+      }
+     },
+     "maintenance": {
+      "n_breaches": 0,
+      "n_pairs_predicted_breach": 0,
+      "precision": {
+       "value": null,
+       "ci": [
+        null,
+        null
+       ]
+      },
+      "recall": {
+       "value": null,
+       "ci": [
+        null,
+        null
+       ]
+      },
+      "f1": {
+       "value": null,
+       "ci": [
+        null,
+        null
+       ]
+      }
+     }
+    },
+    "gnn_head": {
+     "all": {
+      "n_breaches": 509,
+      "n_pairs_predicted_breach": 516,
+      "precision": {
+       "value": 0.7016,
+       "ci": [
+        0.6523,
+        0.7468
+       ]
+      },
+      "recall": {
+       "value": 0.7112,
+       "ci": [
+        0.6614,
+        0.7496
+       ]
+      },
+      "f1": {
+       "value": 0.7063,
+       "ci": [
+        0.6612,
+        0.7422
+       ]
+      }
+     },
+     "fault_free": {
+      "n_breaches": 386,
+      "n_pairs_predicted_breach": 421,
+      "precision": {
+       "value": 0.6675,
+       "ci": [
+        0.6072,
+        0.7242
+       ]
+      },
+      "recall": {
+       "value": 0.728,
+       "ci": [
+        0.6647,
+        0.7824
+       ]
+      },
+      "f1": {
+       "value": 0.6964,
+       "ci": [
+        0.6415,
+        0.7434
+       ]
+      }
+     },
+     "fault": {
+      "n_breaches": 123,
+      "n_pairs_predicted_breach": 95,
+      "precision": {
+       "value": 0.8526,
+       "ci": [
+        0.7281,
+        0.9437
+       ]
+      },
+      "recall": {
+       "value": 0.6585,
+       "ci": [
+        0.5517,
+        0.7411
+       ]
+      },
+      "f1": {
+       "value": 0.7431,
+       "ci": [
+        0.6484,
+        0.8111
+       ]
+      }
+     },
+     "maintenance": {
+      "n_breaches": 0,
+      "n_pairs_predicted_breach": 0,
+      "precision": {
+       "value": null,
+       "ci": [
+        null,
+        null
+       ]
+      },
+      "recall": {
+       "value": null,
+       "ci": [
+        null,
+        null
+       ]
+      },
+      "f1": {
+       "value": null,
+       "ci": [
+        null,
+        null
+       ]
+      }
+     }
+    }
+   },
+   "comparisons": {
+    "all|f1|lightgbm vs persistence": {
+     "verdict": "supported",
+     "point": 0.0658,
+     "ci": [
+      0.0223,
+      0.1216
+     ]
+    },
+    "all|f1|lightgbm vs seasonal_naive": {
+     "verdict": "supported",
+     "point": 0.4991,
+     "ci": [
+      0.4122,
+      0.5753
+     ]
+    },
+    "all|f1|gnn_head vs lightgbm": {
+     "verdict": "contradicted",
+     "point": -0.0423,
+     "ci": [
+      -0.0778,
+      -0.0095
+     ]
+    },
+    "all|f1|gnn_head vs persistence": {
+     "verdict": "inconclusive",
+     "point": 0.0235,
+     "ci": [
+      -0.0136,
+      0.072
+     ]
+    },
+    "maintenance|recall|lightgbm vs seasonal_naive": {
+     "verdict": "n/a",
+     "point": null,
+     "ci": [
+      null,
+      null
+     ]
+    },
+    "all|recall|lightgbm vs persistence": {
+     "verdict": "supported",
+     "point": 0.2633,
+     "ci": [
+      0.2004,
+      0.34
+     ]
+    },
+    "all|precision|lightgbm vs persistence": {
+     "verdict": "contradicted",
+     "point": -0.2595,
+     "ci": [
+      -0.3099,
+      -0.2151
+     ]
+    },
+    "fault|f1|lightgbm vs persistence": {
+     "verdict": "supported",
+     "point": 0.1314,
+     "ci": [
+      0.0647,
+      0.2202
+     ]
+    },
+    "fault|f1|gnn_head vs lightgbm": {
+     "verdict": "contradicted",
+     "point": -0.062,
+     "ci": [
+      -0.147,
+      -0.0004
+     ]
+    }
+   }
+  }
+ },
+ "seconds": 63.2
+}

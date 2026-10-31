@@ -1432,3 +1432,48 @@ Committed before `scripts/phase8_forecast.py` trains or scores anything. Run bef
 - F4. GNN + head F1 against LightGBM F1 overall: inconclusive. The encoder was trained for anomaly detection, not forecasting.
 - F5. Every method's recall is lower in fault windows than in fault-free windows (point estimates). Breaches caused by faults and reroutes are sudden.
 - F6. In maintenance windows, LightGBM recall > seasonal-naive recall. Maintenance does not repeat at the same time each day.
+
+### 2026-10-31: Phase 8 results (capacity forecasting, RQ5; validation tuning, then test scored once)
+
+**Deviation, logged before the test run.** Importing `lightgbm` before `torch` stops LightGBM from crashing, but with lightgbm loaded, multithreaded torch then segfaults (exit 139), even for a plain matmul. `phase8_forecast.py` therefore runs torch with one thread (`torch.set_num_threads(1)`). This only affects speed. `tests/test_forecast.py` does not import lightgbm, so the rest of the suite keeps multithreaded torch. The first version of that test imported it, and the full suite crashed. That is fixed, and all 140 tests pass.
+
+**Validation tuning** (`results/phase8_val.json`, 300 train and 120 validation scenarios, 164 s).
+- Data: 3,983,000 train pairs (1.24% breaches) and 1,502,968 validation pairs (1.16%).
+- LightGBM: all 4 configurations reached validation AP 0.973 or 0.972. Ties go to the first in grid order, so num_leaves 31 at lr 0.05 is kept (109 rounds). Threshold 0.449.
+- GNN head: lr 3e-3 (AP 0.956) beat 1e-3 (AP 0.949). Threshold 0.978.
+- Validation precision / recall at the frozen rules: persistence 0.977 / 0.739, seasonal-naive 0.637 / 0.769, LightGBM 0.919 / 0.918, GNN head 0.885 / 0.892.
+- Commit 0d3d375 holds the code, validation results and `results/phase8_frozen.json` (hashes of the two models, the encoder checkpoint and the code), before the test run.
+
+**Test** (`python scripts/phase8_forecast.py --test`, run once, `results/phase8_test.json`): 210 test scenarios, 31,725 breaches in all (26,456 fault-free, 5,155 fault, 114 maintenance). 95% CIs from a scenario bootstrap.
+
+| method | all: precision / recall / F1 | fault-free: P / R | fault: P / R | maintenance: P / R |
+|---|---|---|---|---|
+| Persistence | 0.972 [0.970, 0.975] / 0.689 [0.678, 0.700] / 0.807 | 0.972 / 0.688 | 0.972 / 0.702 | 1.000 / 0.474 [0.062, 0.615] |
+| Seasonal-naive | 0.615 [0.601, 0.628] / 0.749 [0.729, 0.767] / 0.675 | 0.621 / 0.775 | 0.587 / 0.615 | 0.289 / 0.579 |
+| LightGBM | 0.900 [0.895, 0.905] / 0.880 [0.873, 0.886] / 0.890 | 0.899 / 0.886 | 0.906 / 0.853 | 0.875 / 0.737 [0.321, 0.860] |
+| GNN encoder + head | 0.836 [0.827, 0.846] / 0.891 [0.885, 0.896] / 0.863 | 0.834 / 0.899 | 0.848 / 0.853 | 0.796 / 0.754 |
+
+Paired verdicts (test):
+- LightGBM - persistence F1 +0.083 [+0.079, +0.088], supported. LightGBM recall is higher (+0.191) and its precision lower (-0.072, contradicted).
+- LightGBM - seasonal-naive F1 +0.215, supported.
+- GNN head - LightGBM F1 -0.027 [-0.031, -0.024], contradicted. In fault windows it is -0.028, also contradicted.
+- GNN head - persistence F1 +0.056, supported.
+
+Expectations:
+- F1 (LightGBM F1 > persistence): holds.
+- F2 (LightGBM F1 > seasonal-naive): holds.
+- F3 (persistence has the highest precision): holds (0.972).
+- F4 (GNN head vs LightGBM F1, inconclusive): not met. The frozen encoder plus head is worse than LightGBM on lag features (contradicted). An encoder trained for anomaly detection adds nothing over plain lag features here.
+- F5 (every method's recall lower in fault windows than in fault-free windows): not met. It holds for seasonal-naive, LightGBM and the GNN head, but persistence recall is slightly higher in fault windows (0.702 against 0.688).
+- F6 (maintenance recall, LightGBM > seasonal-naive): not met, inconclusive (+0.158 [-0.152, +0.257]). Only 114 test breaches fall in maintenance windows, so the CI is wide.
+
+AARNet dev (30 scenarios, 509 breaches, none in maintenance windows), reported separately:
+- Persistence: precision 0.971, recall 0.526.
+- Seasonal-naive: 0.239 / 0.261.
+- LightGBM: 0.712 / 0.790.
+- GNN head: 0.702 / 0.711.
+- LightGBM's F1 beats persistence (+0.066, supported), and the GNN head is below LightGBM (-0.042, contradicted).
+
+Most test breaches (83%) fall in fault-free windows: diurnal peaks and event days, not faults. Telemetry is synthetic, the topologies are public, and none of this is Telstra's network.
+
+**Demo.** The Streamlit app has a new "Capacity forecasting" page reading `results/phase8_test.json` (test and AARNet dev, every window class, paired verdicts). `tests/test_app.py` renders it for both splits.
