@@ -1265,3 +1265,38 @@ Fixes for `docs/audit_phase6.md`, by ID. Validation only; nothing under test was
   - G1 to G8 are rechecked on the new run. G4 is reported with the S2 wording and next to G9 and G10.
 - Validation rerun: Haiku 5.5, 175 incidents x 2 variants x A0, A1, A2. Budget for this rerun: under $5 (estimate about $2.05 from the earlier run's $1.76 x 175/150).
 - Test plan: unchanged except for the incident set (main sample plus the change-overlap stratum), the new references and metrics, and the run-once rules of S1. Haiku 5.5 runs A0, A1, A2 once; Opus 5.5 runs A0 and A2 once. Opus estimate scaled to 175 incidents: $33.06 ($28.34 x 175/150). Test waits for an explicit go-ahead.
+
+### 2026-10-31: Phase 6 Haiku validation rerun after the audit fixes (validation result of record; no test runs)
+
+`python scripts/phase6_agent.py --split val --model eval --name haiku_v2 --threads 6`, output `results/phase6/val_haiku_v2/`. Agent `code_sha256` 87a0082db4b3, matching `results/phase6_frozen.json` (every log and record line carries it). 175 incidents (150 main sample plus 25 change-overlap) x 2 variants x A0, A1, A2 = 1050 runs, all submitted, 0 runs failed, 221 forced submissions (A1 38 + 54, A2 59 + 70; with_status + status_blind), 8040 executed tool calls, 129 refused by the strict 15-call budget (S6), 107 tool calls returned an error, at most 15 executed calls per run. Cost $2.08 actual (budget under $5). Logged project spend now $6.10 of $100. Wall clock 60 minutes.
+
+Main table (faults = 120 main-sample faults; distractors = 30; change-overlap = 40 faults overlapping a logged drain or outage; recall = share with a fault claim):
+
+| method | with_status: faults top-1 / top-3 | distractor fault claims | change-overlap recall | status_blind: faults top-1 / top-3 | distractor fault claims | change-overlap recall |
+|---|---|---|---|---|---|---|
+| B3+ | 0.434 / 0.511 | 0.233 | 0.625 | 0.235 / 0.400 | 0.167 | 0.600 |
+| GNN (3 seeds) | 0.625 / 0.764 | 0.867 | 0.892 | 0.619 / 0.764 | 0.833 | 0.867 |
+| GNN-s0 | 0.633 / 0.775 | 0.867 | 0.875 | 0.633 / 0.775 | 0.833 | 0.850 |
+| GNN + change-log rule | 0.625 / 0.764 | 0.000 | 0.000 | 0.619 / 0.764 | 0.000 | 0.000 |
+| A0 (alerts only) | 0.421 / 0.484 | 0.567 | 0.825 | 0.305 / 0.354 | 0.400 | 0.700 |
+| A1 (no GNN) | 0.542 / 0.613 | 0.000 | 0.450 | 0.450 / 0.588 | 0.033 | 0.475 |
+| A2 (with GNN tool) | 0.600 / 0.735 | 0.033 | 0.475 | 0.567 / 0.735 | 0.033 | 0.500 |
+
+Agent against the GNN + change-log rule (paired, 95% CI): localisation is inconclusive for A2 in both variants (faults top-3 -0.029 [-0.074, +0.018] with status, -0.029 [-0.080, +0.015] blind), and contradicted for A1 (top-3 -0.151 and -0.176). On distractors, both reach about 0, inconclusive. On fault recall the agent is higher: main-sample faults A2 +0.208 [+0.119, +0.293] with status and +0.244 [+0.164, +0.324] blind; change-overlap faults A2 +0.475 [+0.321, +0.639] and +0.500 [+0.347, +0.667]. The rule itself costs the GNN recall on main-sample faults (0.719 to 0.600 with status, 0.692 to 0.572 blind, contradicted). Negative results: on change-overlap faults, A1 and A2 recall stays far below the plain GNN (A2 -0.417 and -0.367, contradicted), and in status_blind A2 top-1 on those faults is below the GNN (-0.150 [-0.279, -0.027], contradicted). The agent still reads a logged change as an explanation too often.
+
+Pre-registered expectations (each variant):
+- G1 (A1 > A0, hard top-1): supported in both (+0.128 [+0.028, +0.234]; +0.111 [+0.012, +0.223]).
+- G2 (A2 > A1, hard top-1): supported in both (+0.150 [+0.048, +0.263]; +0.150 [+0.052, +0.255]). In the earlier run it was supported only in status_blind.
+- G3 (A2 vs GNN, hard top-1): inconclusive in both (-0.039 in each), as expected.
+- G4 (A1, A2 claim fewer faults than the GNN on distractors): supported in both (A1 0/30 and 1/30, A2 1/30 and 1/30, against GNN 0.867 and 0.833). Read with the S2 wording: this measures use of the change log; the one-line rule reaches 0 too (G9), and the agent pays in recall on change-overlapping faults (G10).
+- G5 (A0 claims more than A1 on distractors): supported in both (+0.567; +0.367).
+- G6 (easy types with status events, A1 top-1 within 0.10 of B3+): holds, A1 0.833 against B3+ 0.768 (point estimates; no paired CI is computed for this pair).
+- G7 (hard type accuracy, A2 > A0): supported in both (+0.317 in each).
+- G8 (lenient ungrounded rate under 10%, A1 and A2): holds (A1 1.0% and 1.5%, A2 1.2% and 0.7%; 109 of 6501 items over all conditions).
+- G9 (A1, A2 vs GNN+CL on distractor claims, inconclusive): holds in both.
+- G10 (change-overlap recall: A above GNN+CL supported, A below GNN contradicted): holds for A1 and A2 in both variants.
+- G11 (GNN+CL vs GNN, main-fault recall, contradicted): holds (-0.119 [-0.183, -0.066] in each).
+- G12 (strict ungrounded rate under 10%, A1 and A2): holds, narrowly for A1 status_blind (A1 6.8% and 9.0%, A2 6.1% and 5.4%; A0 3.6% and 4.3%; 392 of 6501 items over all conditions).
+- G13 (A2 vs GNN-s0, hard top-1, inconclusive): holds (-0.017 [-0.115, +0.079]; -0.033 [-0.150, +0.072]).
+
+All 13 expectations hold on validation. The ungrounded rates check cited ids and numbers only, not the reasoning that links them. Telemetry is synthetic, the topologies are public, and none of this is Telstra's network. Test was not run.
