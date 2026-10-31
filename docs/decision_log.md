@@ -1326,7 +1326,7 @@ Test table (faults = 120 main-sample faults; distractor claims are over 30 windo
 **Agent against the GNN + change-log rule (test, paired, 95% CI).**
 - Haiku A2: localisation is inconclusive in both variants (faults top-3 +0.044 [-0.006, +0.095] with status, -0.022 [-0.079, +0.034] blind). Distractor claims are inconclusive (both about 0). Recall is higher: main-sample faults +0.219 and +0.208, change-overlapping faults +0.650 [+0.500, +0.791] and +0.600 [+0.441, +0.744]. Negative result: with status events, top-1 on the change-overlapping faults is below the rule's (-0.108 [-0.209, -0.009], contradicted; the rule's localisation is the GNN's).
 - Haiku A1: localisation is worse than the rule (faults top-3 -0.128 and -0.129, contradicted). Recall is higher (+0.128 and +0.142 on faults; +0.550 and +0.600 on change-overlapping faults).
-- Opus A2: localisation is better than the rule on faults top-3 in both variants (+0.086 [+0.036, +0.142] and +0.070 [+0.014, +0.127]) and on top-1 in status_blind (+0.072 [+0.008, +0.141]). Distractor claims are inconclusive. Recall is higher (faults +0.203 and +0.208; change-overlapping faults +0.700 and +0.725).
+- Opus A2 (descriptive, not pre-registered: only Opus A2 - A0 was pre-registered; audit M1. Against GNN seed 0, the checkpoint A2's tool uses, it holds only for faults top-3 with status events (+0.078 [+0.021, +0.142]); status-blind faults top-3 is inconclusive (+0.053 [-0.005, +0.112]) and faults top-1 is inconclusive in both variants (+0.050 [-0.025, +0.115]; +0.058 [-0.008, +0.123])): localisation is better than the rule on faults top-3 in both variants (+0.086 [+0.036, +0.142] and +0.070 [+0.014, +0.127]) and on top-1 in status_blind (+0.072 [+0.008, +0.141]). Distractor claims are inconclusive. Recall is higher (faults +0.203 and +0.208; change-overlapping faults +0.700 and +0.725).
 - The rule itself costs the GNN recall on main-sample faults (-0.181 and -0.172, contradicted).
 
 **Recall on change-overlapping faults (negative result, both models).** Every agent with the change log stays below the plain GNN (0.950 and 0.925). The paired differences are contradicted for Haiku A1 (-0.400 and -0.325), Haiku A2 (-0.300 and -0.325) and Opus A2 (-0.250 and -0.200). Opus misses fewer of them than Haiku: Opus A2 minus Haiku A2 is +0.050 (inconclusive) with status and +0.125 [+0.028, +0.233] blind. A logged change is still too often taken as the explanation.
@@ -1351,16 +1351,16 @@ Test table (faults = 120 main-sample faults; distractor claims are over 30 windo
 
 **Haiku 5.5 against Opus 5.5 on test** (`scripts/phase6_test_compare.py` gives `results/phase6/test_haiku_vs_opus.json`). This is descriptive and not pre-registered: it reads the committed test records only and uses the same bootstrap and verdict rule.
 - A2, Opus minus Haiku, is supported on faults top-1 (+0.108 [+0.041, +0.182]; +0.117 [+0.048, +0.189]), faults top-3 (+0.042; +0.091), hard top-1 (+0.167 [+0.055, +0.283]; +0.150 [+0.045, +0.270]) and hard type accuracy (+0.150; +0.167). Distractor claims are inconclusive (both 1/30 or 0/30). On change-overlapping faults, Opus A2 localises better (top-1 +0.250 with status, supported; top-3 +0.124 and +0.100, supported) and recalls more in status_blind (+0.125, supported).
-- A0, Opus minus Haiku, mostly differs little: faults top-1 is inconclusive in both. In status_blind, Opus A0 claims faults more often (faults +0.142, supported) and its top-3 is higher (+0.057, supported).
+- A0, Opus minus Haiku: faults top-1 is inconclusive in both variants, and 8 of the 34 A0 differences are supported (audit m8): faults type accuracy with status (+0.067); and in status_blind, faults top-3 (+0.057), fault recall (+0.142), hard recall (+0.150), easy top-3 (+0.100), easy recall (+0.133), change-overlap top-1 (+0.100) and change-overlap recall (+0.175).
 - Cost: Opus A2 is about 28 to 29 times Haiku A2 per run ($0.072 to $0.078 against $0.0025 to $0.0028).
-- Opus A2 is the only agent condition that beats the GNN on localisation: faults top-3 +0.086 [+0.036, +0.142] and +0.070 [+0.014, +0.127]; faults top-1 blind +0.072 [+0.008, +0.141]. Hard top-1 is inconclusive (+0.100 [+0.000, +0.204] and +0.100 [+0.000, +0.207]). Haiku A2 against the GNN is inconclusive throughout.
+- Descriptive, not pre-registered (audit M1): Opus A2 is the only agent condition whose localisation is above the GNN (mean of 3 seeds). Against GNN seed 0, the checkpoint A2's tool uses, it holds only for faults top-3 with status events (+0.078 [+0.021, +0.142]); status-blind faults top-3 is inconclusive (+0.053 [-0.005, +0.112]) and faults top-1 is inconclusive in both variants (+0.050 [-0.025, +0.115]; +0.058 [-0.008, +0.123]). Against the 3-seed GNN: faults top-3 +0.086 [+0.036, +0.142] and +0.070 [+0.014, +0.127]; faults top-1 blind +0.072 [+0.008, +0.141]. Hard top-1 is inconclusive (+0.100 [+0.000, +0.204] and +0.100 [+0.000, +0.207]). Haiku A2 against the GNN is inconclusive throughout.
 
-New script, not frozen and not part of the agent: `scripts/phase6_test_compare.py` (read-only scoring of the two committed test runs). All 136 tests pass after the runs.
+The file holds 68 paired comparisons (27 supported, 41 inconclusive) with no multiple-comparison correction, so some supported verdicts are expected by chance (audit m8). New script, not frozen and not part of the agent: `scripts/phase6_test_compare.py` (read-only scoring of the two committed test runs). All 136 tests pass after the runs.
 
 ### 2026-10-31: Phase 7 demo and AARNet dev agent traces
 
 **AARNet dev traces.** AARNet had no agent traces, so `scripts/phase7_aarnet_traces.py` runs Haiku 5.5 A2 and Opus 5.5 A2 on AARNet dev incidents through the Phase 6 runner (`run_incident` with the frozen tools, runbooks, prompts and seed-0 GNN tool). The script refuses unless the agent `code_sha256` matches `results/phase6_frozen.json`; it matched (87a0082db4b3). No frozen file was changed: the script imports the Phase 6 runner's asset loading, and the dev split goes through the same `guard`.
-- Incident rule, fixed before any run: the Phase 6 sampler (`sample_incidents`, seed 6006) on the 30 AARNet dev scenarios with one incident per fault type and one per distractor action. It keeps the six faults and the drain distractor, 7 incidents (D00 to D06), and drops the planned-outage distractor so that there is one maintenance distractor.
+- Incident rule (written into the script before the run, but not committed before it; audit m3): the Phase 6 sampler (`sample_incidents`, seed 6006) on the 30 AARNet dev scenarios with one incident per fault type and one per distractor action. It keeps the six faults and the drain distractor, 7 incidents (D00 to D06), and drops the planned-outage distractor so that there is one maintenance distractor.
 - Runs: 7 incidents x 2 variants x 2 models = 28 runs, all submitted. $0.92 actual (limit $3). B3+, GNN and GNN+CL were scored on the same windows.
 - Results are in `results/phase7/aarnet_dev_summary.json` and labelled dev. AARNet was seen during development, so these are not held-out evidence, and 6 faults are too few to compare methods.
   - Faults top-1: both agents 0.500, the same as the GNN, in both variants.
@@ -1435,11 +1435,11 @@ Committed before `scripts/phase8_forecast.py` trains or scores anything. Run bef
 
 ### 2026-10-31: Phase 8 results (capacity forecasting, RQ5; validation tuning, then test scored once)
 
-**Deviation, logged before the test run.** Importing `lightgbm` before `torch` stops LightGBM from crashing, but with lightgbm loaded, multithreaded torch then segfaults (exit 139), even for a plain matmul. `phase8_forecast.py` therefore runs torch with one thread (`torch.set_num_threads(1)`). This only affects speed. `tests/test_forecast.py` does not import lightgbm, so the rest of the suite keeps multithreaded torch. The first version of that test imported it, and the full suite crashed. That is fixed, and all 140 tests pass.
+**Deviation, made before the test run and logged with the results (audit m2).** The code change is in the frozen commit 0d3d375; this text was first committed with the test results in 7cba229. Importing `lightgbm` before `torch` stops LightGBM from crashing, but with lightgbm loaded, multithreaded torch then segfaults (exit 139), even for a plain matmul. `phase8_forecast.py` therefore runs torch with one thread (`torch.set_num_threads(1)`). This only affects speed. `tests/test_forecast.py` does not import lightgbm, so the rest of the suite keeps multithreaded torch. The first version of that test imported it, and the full suite crashed. That is fixed, and all 141 tests pass at commit 7cba229 (audit m11; an earlier draft said 140).
 
 **Validation tuning** (`results/phase8_val.json`, 300 train and 120 validation scenarios, 164 s).
 - Data: 3,983,000 train pairs (1.24% breaches) and 1,502,968 validation pairs (1.16%).
-- LightGBM: all 4 configurations reached validation AP 0.973 or 0.972. Ties go to the first in grid order, so num_leaves 31 at lr 0.05 is kept (109 rounds). Threshold 0.449.
+- LightGBM: all 4 configurations reached validation AP 0.973 or 0.972. Ties go to the first in grid order, so num_leaves 31 at lr 0.05 is kept (109 rounds). Deviation (audit m1): the pre-registration says only "selected by validation average precision"; the script compares AP rounded to 4 decimals and breaks ties by grid order, a rule not pre-registered. The unrounded APs were not saved. Threshold 0.449.
 - GNN head: lr 3e-3 (AP 0.956) beat 1e-3 (AP 0.949). Threshold 0.978.
 - Validation precision / recall at the frozen rules: persistence 0.977 / 0.739, seasonal-naive 0.637 / 0.769, LightGBM 0.919 / 0.918, GNN head 0.885 / 0.892.
 - Commit 0d3d375 holds the code, validation results and `results/phase8_frozen.json` (hashes of the two models, the encoder checkpoint and the code), before the test run.
@@ -1463,9 +1463,9 @@ Expectations:
 - F1 (LightGBM F1 > persistence): holds.
 - F2 (LightGBM F1 > seasonal-naive): holds.
 - F3 (persistence has the highest precision): holds (0.972).
-- F4 (GNN head vs LightGBM F1, inconclusive): not met. The frozen encoder plus head is worse than LightGBM on lag features (contradicted). An encoder trained for anomaly detection adds nothing over plain lag features here.
+- F4 (GNN head vs LightGBM F1, inconclusive): not met. The frozen encoder plus head is worse than LightGBM on lag features (contradicted). What this supports (audit m5): the frozen encoder plus a small head is worse than LightGBM on lag features (-0.027 F1). It does not test whether the embedding adds anything to the lag features, because the two methods differ in both model class and inputs (LightGBM on lags plus the embedding was not run). The head was also trained on embeddings of scenarios the encoder had seen in training.
 - F5 (every method's recall lower in fault windows than in fault-free windows): not met. It holds for seasonal-naive, LightGBM and the GNN head, but persistence recall is slightly higher in fault windows (0.702 against 0.688).
-- F6 (maintenance recall, LightGBM > seasonal-naive): not met, inconclusive (+0.158 [-0.152, +0.257]). Only 114 test breaches fall in maintenance windows, so the CI is wide.
+- F6 (maintenance recall, LightGBM > seasonal-naive): not met, inconclusive (+0.158 [-0.152, +0.257]). Only 114 test breaches fall in maintenance windows, so the CI is wide. The maintenance class carries no conclusion (audit m4): bootstrap resamples that draw no maintenance breach are dropped, so its CIs are conditional on drawing at least one; and the class has no maintenance tail, unlike the Phase 4 harness, so the end of a drain can count as fault-free (as pre-registered).
 
 AARNet dev (30 scenarios, 509 breaches, none in maintenance windows), reported separately:
 - Persistence: precision 0.971, recall 0.526.
@@ -1474,6 +1474,29 @@ AARNet dev (30 scenarios, 509 breaches, none in maintenance windows), reported s
 - GNN head: 0.702 / 0.711.
 - LightGBM's F1 beats persistence (+0.066, supported), and the GNN head is below LightGBM (-0.042, contradicted).
 
-Most test breaches (83%) fall in fault-free windows: diurnal peaks and event days, not faults. Telemetry is synthetic, the topologies are public, and none of this is Telstra's network.
+Most test breaches (83%) fall in fault-free windows. What drives them (diurnal peaks, event days or something else) was not computed (audit m6). Telemetry is synthetic, the topologies are public, and none of this is Telstra's network.
 
 **Demo.** The Streamlit app has a new "Capacity forecasting" page reading `results/phase8_test.json` (test and AARNet dev, every window class, paired verdicts). `tests/test_app.py` renders it for both splits.
+
+### 2026-10-31: Final audit fixes, by ID (`docs/audit_final.md`)
+
+No critical findings. Nothing was re-run or re-scored. Every fix is to wording, labels or a guard for future runs, and no number changed.
+- **M1 (Opus A2 against the GNN is not pre-registered).** It is now labelled descriptive, not pre-registered, everywhere it appears: in the Phase 6 test entry (the "agent against the rule" bullet and the Haiku vs Opus bullet), on the app's Test results page (a "pre-registered" column; for Opus only A2 vs A0 is marked yes) and on its Limitations page, and in the README and report. Each place also says that against GNN seed 0, the checkpoint the agent's tool uses, the result holds only for faults top-3 with status events (+0.078 [+0.021, +0.142]); status-blind top-3 and top-1 in both variants are inconclusive.
+- **M2 (inconclusive results stated as equivalence).** Limitations page: "Haiku 5.5 with tools matches it" now reads "shows no clear difference from it at this sample size", with both CIs. "The rule does as well" now reads "also claims a fault in 0 of 30 such windows (a description, not a tested equivalence)". The README and report use the same wording.
+- **m1 (Phase 8 tie rule).** Disclosed as a deviation in the Phase 8 results entry: AP rounded to 4 decimals, ties broken by grid order, not pre-registered, and the unrounded APs were not saved.
+- **m2 (Phase 8 deviation timing).** The heading now reads "made before the test run and logged with the results", and names the commits (code in 0d3d375, text in 7cba229).
+- **m3 (Phase 7 run-once record).**
+  - `scripts/phase7_aarnet_traces.py` now refuses to run if `results/phase7/aarnet_dev_records.jsonl` exists, so a rerun cannot overwrite the traces or drop their cost from the spend total.
+  - The Phase 7 entry now says the incident rule was written into the script before the run but not committed before it.
+  - Residual limitation: the repo cannot prove that there was no earlier run in the 5 minutes before the first output. No evidence of one was found.
+- **m4 (Phase 8 maintenance class).** The Phase 8 entry and the app's forecasting page now say this class carries no conclusion. It has 114 test breaches and none on dev, its CIs drop resamples with no maintenance breach, and it has no maintenance tail (as pre-registered).
+- **m5 (F4 reading).** Reworded to what the comparison tests: the frozen encoder plus a small head is worse than LightGBM on lag features. Whether the embedding adds anything to the lag features is untested, and the head was trained on embeddings of scenarios the encoder had seen.
+- **m6 (unsupported attribution).** "Diurnal peaks and event days" is removed. The entry now says what drives the fault-free breaches was not computed.
+- **m7 (Phase 8 per-scenario counts not saved).** Not fixable without scoring test a second time, which the once-only rule forbids. Changing the frozen script would also break its hash record. So the Phase 8 test CIs and verdicts can be checked only by rerunning the scorer (which refuses while the output exists), and this is disclosed in the report as a limitation. Any future forecasting test path should save the per-scenario (tp, fp, fn) rows.
+- **m8 (many comparisons).** The Haiku vs Opus bullet now states that 68 comparisons were made (27 supported, 41 inconclusive) with no multiplicity correction. The A0 summary lists all 8 supported A0 differences instead of "mostly differs little".
+- **m9 (app).**
+  - The GNN+CL root-cause cell reads "(silenced by the change-log rule)" when the rule silences it.
+  - The Test results caption now explains 167 = 120 + 30 + 17 and says the 40 change-overlapping faults are the 17 plus 23 of the 120.
+  - The forecasting dev option now says "seen during development".
+- **m10 (README behind).** Fixed by the Phase 10 README, which covers all phases. `scripts/check_numbers.py` checks its numbers.
+- **m11 (test count).** The Phase 8 entry now says 141 tests at commit 7cba229.

@@ -101,6 +101,8 @@ def main():
     rb = RunbookIndex()
     incidents = pick(json.loads(G(root / "truth" / SPLIT / "with_status" / "manifest.json").read_text()))
     OUT.mkdir(parents=True, exist_ok=True)
+    if (OUT / "aarnet_dev_records.jsonl").exists():
+        sys.exit("refusing: results/phase7/aarnet_dev_records.jsonl exists; the traces are run once and never overwritten (audit m3)")
     (OUT / "aarnet_dev_incidents.json").write_text(json.dumps(incidents, indent=1) + "\n")
     print(f"{len(incidents)} incidents: {[(i['incident_id'], i['type']) for i in incidents]}", flush=True)
 

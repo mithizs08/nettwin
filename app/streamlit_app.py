@@ -173,7 +173,9 @@ def explorer():
                      "fault type": diag[m].get("fault_type"), "top-1": sc.get("top1"), "top-3": sc.get("top3")})
     for ref in ("GNN", "GNN+CL", "B3+"):
         sc = view["scores"].get(ref, {})
-        rows.append({"method": ref, "claims fault": sc.get("claims_fault"), "root cause": view["gnn_top"][0]["element"] if ref != "B3+" else "",
+        silenced = ref == "GNN+CL" and not sc.get("claims_fault")
+        top = "" if ref == "B3+" else "(silenced by the change-log rule)" if silenced else view["gnn_top"][0]["element"]
+        rows.append({"method": ref, "claims fault": sc.get("claims_fault"), "root cause": top,
                      "fault type": "", "top-1": sc.get("top1"), "top-3": sc.get("top3")})
     st.markdown("**Diagnoses next to ground truth**")
     st.dataframe(pd.DataFrame(rows).set_index("method"), width="stretch")
@@ -215,8 +217,8 @@ def cell(metrics, method, group, metric):
 
 def results():
     st.subheader("Phase 6 test results (run once, as pre-registered)")
-    st.caption(HONESTY + " 167 test incidents on seven held-out public topologies: 120 faults, 30 maintenance distractors, "
-               "and 40 faults whose window overlaps a logged drain or outage. 95% CIs from 1000 incident bootstrap resamples.")
+    st.caption(HONESTY + " 167 test incidents on seven held-out public topologies: 120 main-sample faults, 30 maintenance distractors and "
+               "17 extra faults from the change-overlap stratum. The 40 change-overlapping faults are those 17 plus 23 of the 120. 95% CIs from 1000 incident bootstrap resamples.")
     haiku = load_json("phase6/test_claude-haiku-5-5/summary.json")
     opus = load_json("phase6/test_claude-opus-5-5/summary.json")
     v = st.radio("Variant", ["with_status", "status_blind"], horizontal=True, key="results_variant")
@@ -243,11 +245,14 @@ def results():
                      ("change_overlap_faults", "claims_fault")):
             c = comps.get(f"{g}|{m}|{pair}")
             if c:
-                rows.append({"model": model, "pair": pair, "group": g, "metric": m, "difference": c["point"],
+                prereg = model == "Haiku" or pair == "A2 vs A0"
+                rows.append({"model": model, "pair": pair, "pre-registered": "yes" if prereg else "no (descriptive)",
+                             "group": g, "metric": m, "difference": c["point"],
                              "95% CI": f"[{c['ci'][0]:+.3f}, {c['ci'][1]:+.3f}]", "verdict": c["verdict"]})
     st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
     st.caption("On distractors the sign is flipped so that 'supported' means fewer false fault claims. "
-               "'GNN+CL vs GNN' compares the GNN with and without the change-log rule; the agent pairs are model-specific.")
+               "'GNN+CL vs GNN' compares the GNN with and without the change-log rule; the agent pairs are model-specific. "
+               "For Opus 5.5 only A2 vs A0 was pre-registered; its other pairs are descriptive (audit M1).")
 
     st.markdown("**Haiku 5.5 against Opus 5.5** (descriptive, not pre-registered; paired over the same test incidents)")
     cmp = load_json("phase6/test_haiku_vs_opus.json")["variants"][v]["comparisons"]
@@ -282,7 +287,7 @@ def forecasting():
              "lightgbm": "LightGBM on lag features", "gnn_head": "Frozen GNN encoder + small head"}
     classes = {"all": "all windows", "fault_free": "fault-free", "fault": "fault", "maintenance": "maintenance"}
     split = st.radio("Split", ["test", "dev"], horizontal=True, key="fc_split",
-                     format_func=lambda s: "test (210 scenarios, 7 held-out topologies)" if s == "test" else "AARNet dev (30 scenarios, reported separately)")
+                     format_func=lambda s: "test (210 scenarios, 7 held-out topologies)" if s == "test" else "AARNet dev (30 scenarios, seen during development, reported separately)")
     x = t["splits"][split]
 
     def fmt(m):
@@ -304,7 +309,9 @@ def forecasting():
     st.dataframe(pd.DataFrame([{"comparison": k, "difference": c["point"], "95% CI": f"[{c['ci'][0]:+.3f}, {c['ci'][1]:+.3f}]",
                                 "verdict": c["verdict"]} for k, c in x["comparisons"].items() if c["point"] is not None]), width="stretch", hide_index=True)
     st.caption("Window classes use ground truth only for scoring: 'fault' if a fault window overlaps the hour before or "
-               "after the prediction time, 'maintenance' if only logged maintenance does, 'fault-free' otherwise.")
+               "after the prediction time, 'maintenance' if only logged maintenance does, 'fault-free' otherwise. "
+               "The maintenance class has few breaches (114 on test, none on dev) and carries no conclusion; its CIs drop "
+               "resamples that draw no maintenance breach.")
 
 
 def limitations():
@@ -315,10 +322,15 @@ def limitations():
   and maintenance we inject. Real networks have messier telemetry, correlated failures and incomplete inventories.
 - **Small public topologies.** AARNet (19 PoPs, 24 links) is the demo network; the test networks are seven other
   public topologies. AARNet was used during development, so its numbers are dev, not held-out.
-- **What the results say (test).** The GNN carries most of the localisation. Haiku 5.5 with tools matches it
-  (inconclusive), and Opus 5.5 with tools beats it on faults top-3. The agents' low false-alarm rate on maintenance
-  windows comes from reading the change log; a one-line rule that silences the GNN on logged changes does as well.
-  The agents also miss more real faults that coincide with logged changes than the plain GNN does.
+- **What the results say (test, pre-registered).** The GNN carries most of the localisation. Haiku 5.5 with tools
+  shows no clear difference from it at this sample size (faults top-3 +0.044 [-0.006, +0.095] with status events,
+  -0.022 [-0.079, +0.034] without). The agents' low false-alarm rate on maintenance windows comes from reading the
+  change log: a one-line rule that silences the GNN on logged changes also claims a fault in 0 of 30 such windows
+  (a description, not a tested equivalence). The agents also miss more real faults that coincide with logged changes
+  than the plain GNN does.
+- **Descriptive, not pre-registered.** Opus 5.5 with tools is above the 3-seed GNN on faults top-3. Against GNN seed 0,
+  the checkpoint its tool uses, this holds only for faults top-3 with status events (+0.078 [+0.021, +0.142]).
+  The Haiku against Opus file makes 68 comparisons with no multiple-comparison correction.
 - **Expectations that failed on test.** A1 beating A0 on hard faults held only without status events, and A2
   beating A1 on hard faults did not hold in either variant, although both held on validation.
 - **Groundedness is a narrow check.** It confirms cited ids and numbers exist in the tool outputs, not that the
