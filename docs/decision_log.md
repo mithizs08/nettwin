@@ -1375,3 +1375,60 @@ New script, not frozen and not part of the agent: `scripts/phase6_test_compare.p
 - **Limitations:** synthetic telemetry, public topologies, not Telstra's network, the failed test expectations, and the narrow groundedness check.
 
 `tests/test_app.py` renders every incident, variant and page with no API key. All 137 tests pass.
+
+### 2026-10-31: Phase 8 pre-registration (capacity forecasting, RQ5; written before any training or scoring run)
+
+Committed before `scripts/phase8_forecast.py` trains or scores anything. Run before this entry, on train only: a data check on the first 40 train scenarios. The breach base rate is 1.2% of (link, prediction time) pairs. Observed utilisation differs between the two variants in 34 of 40 scenarios, so Phase 8 uses one variant, fixed below. Telemetry is synthetic, topologies are public, and none of this is Telstra's network.
+
+**Task.**
+- At prediction time t, for each link, predict whether observed utilisation exceeds 0.8 at any step in (t, t + 12] (the next 60 minutes).
+- Pairs whose 12 future steps are all missing are dropped.
+- Prediction times are every 6 steps (30 minutes), from step 288 (after day 0, so a one-day lag exists) to T - 12.
+- Variant: `with_status` only. Utilisation is the only target signal, and status events are not used by any method.
+
+**Inputs.**
+- The banned-feature rules of Phases 4 to 6 apply: no clock, no step index, no time of day, no time since the scenario start, no file metadata, and only data at or before t.
+- The one-day lag (same time yesterday) is allowed, as in Phase 4.
+- Ground truth is read only to stratify the scoring.
+
+**Methods.**
+- **Persistence:** breach if utilisation at t > 0.8. The last finite value is carried forward over gaps.
+- **Seasonal-naive:** breach if the maximum utilisation over (t - 288, t - 276], the same horizon yesterday, is > 0.8.
+- **LightGBM** on lag features per link:
+  - utilisation at t, t-1, t-2, t-3, t-6 and t-12;
+  - utilisation mean, max and std over the last 12 and the last 36 steps;
+  - yesterday's horizon max and mean, and utilisation at t - 288;
+  - the latency ratio to its one-day EWM, discards at t, and the missing flags at t.
+  - `lightgbm` is imported before `torch` (known libomp issue, logged at Phase 0).
+- **GNN + head:** the frozen Phase 5 encoder (`gat-h32-s0`, hash-checked against `results/phase5_frozen.json`; no retraining, no gradient into it).
+  - Embedding: the 32-dimensional per-link vector after the two message-passing layers at step t.
+  - Head: a small MLP (32 hidden, ReLU, sigmoid output) on the embedding plus three scalars: utilisation at t, max utilisation over the last 12 steps, and yesterday's horizon max.
+  - The encoder's inputs are relative (ratios to the day mean), so the head needs the absolute level.
+
+**Data and fixed tuning budget.**
+- Train: 300 train scenarios (`default_rng(8008)`).
+- Tuning: 120 validation scenarios (`default_rng(8009)`). Nothing outside this budget is trained or evaluated.
+- LightGBM: 4 configurations, num_leaves {31, 63} x learning_rate {0.05, 0.1}, up to 400 rounds with early stopping (30 rounds) on the validation subset. Selected by validation average precision.
+- GNN head: 2 configurations, learning rate {1e-3, 3e-3}, Adam, batch 4096, 4 epochs, seed 0, positives weighted by the train negative/positive ratio. Selected by validation average precision.
+- The decision threshold for LightGBM and the GNN head is the probability that maximises F1 on the validation subset. Persistence and seasonal-naive have no parameters.
+- After tuning, `results/phase8_frozen.json` records the sha256 of the saved models, thresholds and code.
+
+**Test (scored once).**
+- `scripts/phase8_forecast.py --test` refuses if:
+  - this entry is not in the decision log;
+  - any frozen hash differs;
+  - `results/phase8_test.json` already exists.
+- It scores all 210 test scenarios. AARNet (30 dev scenarios) is reported separately and never pooled.
+- Metrics: breach precision, recall and F1 per method. 95% CIs come from a scenario bootstrap (1000 resamples, seed 42, ratio of summed counts). Paired verdicts use the same resamples: supported if the CI of the difference excludes 0.
+- They are reported overall and split by the window at t. A pair is counted as:
+  - **fault** if any truth fault window [t_start, t_end + 3) overlaps (t - 12, t + 12];
+  - **maintenance** if no fault does, but any logged maintenance (drain, down or no-op) overlaps it;
+  - **fault-free** otherwise.
+
+**Expectations (test, each a paired verdict on the 210 test scenarios).**
+- F1. LightGBM F1 > persistence F1 overall.
+- F2. LightGBM F1 > seasonal-naive F1 overall.
+- F3. Persistence has the highest precision of the four methods overall (point estimate). A link already above 0.8 usually stays there for the next hour.
+- F4. GNN + head F1 against LightGBM F1 overall: inconclusive. The encoder was trained for anomaly detection, not forecasting.
+- F5. Every method's recall is lower in fault windows than in fault-free windows (point estimates). Breaches caused by faults and reroutes are sudden.
+- F6. In maintenance windows, LightGBM recall > seasonal-naive recall. Maintenance does not repeat at the same time each day.
