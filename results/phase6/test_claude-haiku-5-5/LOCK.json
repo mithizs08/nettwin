@@ -1,0 +1,13 @@
+{
+ "model": "claude-haiku-5-5",
+ "code_sha256": "87a0082db4b3deb0044deba5cd38046705a0fbda1ccf9fc8b6581c0e3cb35c31",
+ "argv": [
+  "--split",
+  "test",
+  "--model",
+  "eval",
+  "--threads",
+  "6"
+ ],
+ "started": "2026-10-31 19:22:11"
+}

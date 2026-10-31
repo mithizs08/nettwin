@@ -1,0 +1,2065 @@
+{
+ "note": "descriptive, not pre-registered; paired over the same test incidents",
+ "variants": {
+  "with_status": {
+   "metrics": {
+    "Haiku-A0": {
+     "faults": {
+      "top1": {
+       "value": 0.4133,
+       "ci": [
+        0.3248,
+        0.5002
+       ],
+       "n": 120
+      },
+      "top3": {
+       "value": 0.4861,
+       "ci": [
+        0.4031,
+        0.5694
+       ],
+       "n": 120
+      },
+      "type_correct": {
+       "value": 0.4167,
+       "ci": [
+        0.3305,
+        0.5079
+       ],
+       "n": 120
+      },
+      "claims_fault": {
+       "value": 0.6917,
+       "ci": [
+        0.6071,
+        0.7719
+       ],
+       "n": 120
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 120
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.1402,
+       "ci": [
+        0.0586,
+        0.2266
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.1793,
+       "ci": [
+        0.0927,
+        0.2666
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.2,
+       "ci": [
+        0.1017,
+        0.3051
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.5,
+       "ci": [
+        0.3692,
+        0.6272
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.6863,
+       "ci": [
+        0.5602,
+        0.7986
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.793,
+       "ci": [
+        0.6851,
+        0.8857
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.6333,
+       "ci": [
+        0.5,
+        0.7548
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.8833,
+       "ci": [
+        0.7969,
+        0.9517
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.5667,
+       "ci": [
+        0.375,
+        0.75
+       ],
+       "n": 30
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 30
+      }
+     },
+     "change_overlap_faults": {
+      "top1": {
+       "value": 0.4774,
+       "ci": [
+        0.3284,
+        0.6375
+       ],
+       "n": 40
+      },
+      "top3": {
+       "value": 0.5372,
+       "ci": [
+        0.378,
+        0.6902
+       ],
+       "n": 40
+      },
+      "type_correct": {
+       "value": 0.425,
+       "ci": [
+        0.2777,
+        0.5814
+       ],
+       "n": 40
+      },
+      "claims_fault": {
+       "value": 0.8,
+       "ci": [
+        0.6667,
+        0.9131
+       ],
+       "n": 40
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 40
+      }
+     }
+    },
+    "Haiku-A2": {
+     "faults": {
+      "top1": {
+       "value": 0.5333,
+       "ci": [
+        0.4454,
+        0.6167
+       ],
+       "n": 120
+      },
+      "top3": {
+       "value": 0.7693,
+       "ci": [
+        0.6942,
+        0.8419
+       ],
+       "n": 120
+      },
+      "type_correct": {
+       "value": 0.575,
+       "ci": [
+        0.4827,
+        0.6583
+       ],
+       "n": 120
+      },
+      "claims_fault": {
+       "value": 0.7917,
+       "ci": [
+        0.712,
+        0.8595
+       ],
+       "n": 120
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 120
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.3333,
+       "ci": [
+        0.2187,
+        0.4603
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.6047,
+       "ci": [
+        0.4767,
+        0.73
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.4667,
+       "ci": [
+        0.3273,
+        0.6
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.6667,
+       "ci": [
+        0.5516,
+        0.7843
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.7333,
+       "ci": [
+        0.6154,
+        0.8361
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.9339,
+       "ci": [
+        0.8654,
+        0.9839
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.6833,
+       "ci": [
+        0.5636,
+        0.7969
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.9167,
+       "ci": [
+        0.8333,
+        0.9828
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.0333,
+       "ci": [
+        0.0,
+        0.1143
+       ],
+       "n": 30
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 30
+      }
+     },
+     "change_overlap_faults": {
+      "top1": {
+       "value": 0.475,
+       "ci": [
+        0.3171,
+        0.6191
+       ],
+       "n": 40
+      },
+      "top3": {
+       "value": 0.6786,
+       "ci": [
+        0.5267,
+        0.8162
+       ],
+       "n": 40
+      },
+      "type_correct": {
+       "value": 0.525,
+       "ci": [
+        0.3635,
+        0.6744
+       ],
+       "n": 40
+      },
+      "claims_fault": {
+       "value": 0.65,
+       "ci": [
+        0.5,
+        0.7907
+       ],
+       "n": 40
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 40
+      }
+     }
+    },
+    "Opus-A0": {
+     "faults": {
+      "top1": {
+       "value": 0.4049,
+       "ci": [
+        0.3127,
+        0.4853
+       ],
+       "n": 120
+      },
+      "top3": {
+       "value": 0.5019,
+       "ci": [
+        0.4179,
+        0.5855
+       ],
+       "n": 120
+      },
+      "type_correct": {
+       "value": 0.4833,
+       "ci": [
+        0.3964,
+        0.568
+       ],
+       "n": 120
+      },
+      "claims_fault": {
+       "value": 0.7333,
+       "ci": [
+        0.6542,
+        0.8067
+       ],
+       "n": 120
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 120
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.1402,
+       "ci": [
+        0.0619,
+        0.2277
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.2107,
+       "ci": [
+        0.1166,
+        0.3035
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.25,
+       "ci": [
+        0.1475,
+        0.3607
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.5333,
+       "ci": [
+        0.4179,
+        0.6552
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.6697,
+       "ci": [
+        0.543,
+        0.7812
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.7931,
+       "ci": [
+        0.6854,
+        0.8858
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.7167,
+       "ci": [
+        0.6,
+        0.8254
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.9333,
+       "ci": [
+        0.8594,
+        0.9846
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.6,
+       "ci": [
+        0.4209,
+        0.7728
+       ],
+       "n": 30
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 30
+      }
+     },
+     "change_overlap_faults": {
+      "top1": {
+       "value": 0.4524,
+       "ci": [
+        0.3061,
+        0.6155
+       ],
+       "n": 40
+      },
+      "top3": {
+       "value": 0.5369,
+       "ci": [
+        0.3786,
+        0.6899
+       ],
+       "n": 40
+      },
+      "type_correct": {
+       "value": 0.425,
+       "ci": [
+        0.2682,
+        0.5806
+       ],
+       "n": 40
+      },
+      "claims_fault": {
+       "value": 0.875,
+       "ci": [
+        0.7666,
+        0.9714
+       ],
+       "n": 40
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 40
+      }
+     }
+    },
+    "Opus-A2": {
+     "faults": {
+      "top1": {
+       "value": 0.6417,
+       "ci": [
+        0.5583,
+        0.7222
+       ],
+       "n": 120
+      },
+      "top3": {
+       "value": 0.8115,
+       "ci": [
+        0.743,
+        0.8779
+       ],
+       "n": 120
+      },
+      "type_correct": {
+       "value": 0.65,
+       "ci": [
+        0.562,
+        0.7281
+       ],
+       "n": 120
+      },
+      "claims_fault": {
+       "value": 0.775,
+       "ci": [
+        0.6964,
+        0.8455
+       ],
+       "n": 120
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 120
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.3788,
+        0.62
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.6726,
+       "ci": [
+        0.5528,
+        0.7882
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.6167,
+       "ci": [
+        0.4909,
+        0.7414
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.6333,
+       "ci": [
+        0.5077,
+        0.7544
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.7833,
+       "ci": [
+        0.6731,
+        0.8868
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.9504,
+       "ci": [
+        0.8885,
+        1.0
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.6833,
+       "ci": [
+        0.5556,
+        0.7969
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.9167,
+       "ci": [
+        0.836,
+        0.9815
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.0333,
+       "ci": [
+        0.0,
+        0.1143
+       ],
+       "n": 30
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 30
+      }
+     },
+     "change_overlap_faults": {
+      "top1": {
+       "value": 0.725,
+       "ci": [
+        0.5756,
+        0.8612
+       ],
+       "n": 40
+      },
+      "top3": {
+       "value": 0.8032,
+       "ci": [
+        0.6784,
+        0.9196
+       ],
+       "n": 40
+      },
+      "type_correct": {
+       "value": 0.7,
+       "ci": [
+        0.5489,
+        0.8293
+       ],
+       "n": 40
+      },
+      "claims_fault": {
+       "value": 0.7,
+       "ci": [
+        0.5489,
+        0.8293
+       ],
+       "n": 40
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 40
+      }
+     }
+    }
+   },
+   "comparisons": {
+    "faults|top1|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.1083,
+     "ci": [
+      0.0413,
+      0.1818
+     ]
+    },
+    "faults|top3|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.0422,
+     "ci": [
+      0.0012,
+      0.0867
+     ]
+    },
+    "faults|type_correct|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.075,
+     "ci": [
+      0.0084,
+      0.15
+     ]
+    },
+    "faults|claims_fault|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": -0.0167,
+     "ci": [
+      -0.0756,
+      0.042
+     ]
+    },
+    "hard|top1|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.1667,
+     "ci": [
+      0.0545,
+      0.2833
+     ]
+    },
+    "hard|top3|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.0679,
+     "ci": [
+      0.0147,
+      0.1396
+     ]
+    },
+    "hard|type_correct|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.15,
+     "ci": [
+      0.0435,
+      0.2623
+     ]
+    },
+    "hard|claims_fault|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": -0.0333,
+     "ci": [
+      -0.1404,
+      0.0702
+     ]
+    },
+    "easy|top1|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": 0.05,
+     "ci": [
+      -0.0339,
+      0.1356
+     ]
+    },
+    "easy|top3|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": 0.0165,
+     "ci": [
+      -0.0393,
+      0.0766
+     ]
+    },
+    "easy|type_correct|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.0834,
+      0.0781
+     ]
+    },
+    "easy|claims_fault|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.0476,
+      0.0509
+     ]
+    },
+    "distractors|claims_fault|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      -0.0,
+      0.0
+     ]
+    },
+    "change_overlap_faults|top1|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.25,
+     "ci": [
+      0.1276,
+      0.3903
+     ]
+    },
+    "change_overlap_faults|top3|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.1245,
+     "ci": [
+      0.0283,
+      0.2332
+     ]
+    },
+    "change_overlap_faults|type_correct|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.175,
+     "ci": [
+      0.0464,
+      0.325
+     ]
+    },
+    "change_overlap_faults|claims_fault|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": 0.05,
+     "ci": [
+      -0.0699,
+      0.1715
+     ]
+    },
+    "faults|top1|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": -0.0083,
+     "ci": [
+      -0.0364,
+      0.0177
+     ]
+    },
+    "faults|top3|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0158,
+     "ci": [
+      -0.0013,
+      0.042
+     ]
+    },
+    "faults|type_correct|Opus-A0 vs Haiku-A0": {
+     "verdict": "supported",
+     "point": 0.0667,
+     "ci": [
+      0.0081,
+      0.125
+     ]
+    },
+    "faults|claims_fault|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0417,
+     "ci": [
+      -0.0168,
+      0.1034
+     ]
+    },
+    "hard|top1|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.0476,
+      0.05
+     ]
+    },
+    "hard|top3|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0314,
+     "ci": [
+      -0.0027,
+      0.0836
+     ]
+    },
+    "hard|type_correct|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.05,
+     "ci": [
+      -0.0333,
+      0.1356
+     ]
+    },
+    "hard|claims_fault|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0333,
+     "ci": [
+      -0.0588,
+      0.125
+     ]
+    },
+    "easy|top1|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": -0.0167,
+     "ci": [
+      -0.0563,
+      0.0
+     ]
+    },
+    "easy|top3|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0002,
+     "ci": [
+      0.0,
+      0.0005
+     ]
+    },
+    "easy|type_correct|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0833,
+     "ci": [
+      0.0,
+      0.1699
+     ]
+    },
+    "easy|claims_fault|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.05,
+     "ci": [
+      -0.0175,
+      0.1297
+     ]
+    },
+    "distractors|claims_fault|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": -0.0333,
+     "ci": [
+      -0.1154,
+      0.0
+     ]
+    },
+    "change_overlap_faults|top1|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": -0.025,
+     "ci": [
+      -0.0889,
+      0.0
+     ]
+    },
+    "change_overlap_faults|top3|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": -0.0003,
+     "ci": [
+      -0.0025,
+      0.0018
+     ]
+    },
+    "change_overlap_faults|type_correct|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.0741,
+      0.0732
+     ]
+    },
+    "change_overlap_faults|claims_fault|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.075,
+     "ci": [
+      0.0,
+      0.1667
+     ]
+    }
+   }
+  },
+  "status_blind": {
+   "metrics": {
+    "Haiku-A0": {
+     "faults": {
+      "top1": {
+       "value": 0.3054,
+       "ci": [
+        0.2235,
+        0.387
+       ],
+       "n": 120
+      },
+      "top3": {
+       "value": 0.3715,
+       "ci": [
+        0.2892,
+        0.4544
+       ],
+       "n": 120
+      },
+      "type_correct": {
+       "value": 0.325,
+       "ci": [
+        0.2419,
+        0.4098
+       ],
+       "n": 120
+      },
+      "claims_fault": {
+       "value": 0.6167,
+       "ci": [
+        0.5229,
+        0.7034
+       ],
+       "n": 120
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 120
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.1403,
+       "ci": [
+        0.0588,
+        0.2269
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.1966,
+       "ci": [
+        0.1098,
+        0.2826
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.2167,
+       "ci": [
+        0.12,
+        0.3221
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.45,
+       "ci": [
+        0.3268,
+        0.5807
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.4704,
+       "ci": [
+        0.3441,
+        0.596
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.5465,
+       "ci": [
+        0.4209,
+        0.6677
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.4333,
+       "ci": [
+        0.3088,
+        0.5607
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.7833,
+       "ci": [
+        0.6721,
+        0.8824
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.5333,
+       "ci": [
+        0.3548,
+        0.7143
+       ],
+       "n": 30
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 30
+      }
+     },
+     "change_overlap_faults": {
+      "top1": {
+       "value": 0.3784,
+       "ci": [
+        0.2218,
+        0.5317
+       ],
+       "n": 40
+      },
+      "top3": {
+       "value": 0.4908,
+       "ci": [
+        0.3401,
+        0.6333
+       ],
+       "n": 40
+      },
+      "type_correct": {
+       "value": 0.3,
+       "ci": [
+        0.1622,
+        0.4412
+       ],
+       "n": 40
+      },
+      "claims_fault": {
+       "value": 0.625,
+       "ci": [
+        0.4651,
+        0.7632
+       ],
+       "n": 40
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 40
+      }
+     }
+    },
+    "Haiku-A2": {
+     "faults": {
+      "top1": {
+       "value": 0.525,
+       "ci": [
+        0.4396,
+        0.6148
+       ],
+       "n": 120
+      },
+      "top3": {
+       "value": 0.7034,
+       "ci": [
+        0.6239,
+        0.7836
+       ],
+       "n": 120
+      },
+      "type_correct": {
+       "value": 0.5333,
+       "ci": [
+        0.4444,
+        0.6187
+       ],
+       "n": 120
+      },
+      "claims_fault": {
+       "value": 0.775,
+       "ci": [
+        0.7,
+        0.8468
+       ],
+       "n": 120
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 120
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.35,
+       "ci": [
+        0.24,
+        0.4815
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.5897,
+       "ci": [
+        0.4683,
+        0.7119
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.4667,
+       "ci": [
+        0.3332,
+        0.5962
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.6333,
+       "ci": [
+        0.5088,
+        0.7544
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.7,
+       "ci": [
+        0.5849,
+        0.8154
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.8172,
+       "ci": [
+        0.708,
+        0.9063
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.6,
+       "ci": [
+        0.4789,
+        0.7241
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.9167,
+       "ci": [
+        0.8333,
+        0.9804
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 30
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 30
+      }
+     },
+     "change_overlap_faults": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.3333,
+        0.6471
+       ],
+       "n": 40
+      },
+      "top3": {
+       "value": 0.7536,
+       "ci": [
+        0.607,
+        0.8761
+       ],
+       "n": 40
+      },
+      "type_correct": {
+       "value": 0.475,
+       "ci": [
+        0.3077,
+        0.6305
+       ],
+       "n": 40
+      },
+      "claims_fault": {
+       "value": 0.6,
+       "ci": [
+        0.441,
+        0.7443
+       ],
+       "n": 40
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 40
+      }
+     }
+    },
+    "Opus-A0": {
+     "faults": {
+      "top1": {
+       "value": 0.3388,
+       "ci": [
+        0.2567,
+        0.4214
+       ],
+       "n": 120
+      },
+      "top3": {
+       "value": 0.4282,
+       "ci": [
+        0.3426,
+        0.5089
+       ],
+       "n": 120
+      },
+      "type_correct": {
+       "value": 0.3833,
+       "ci": [
+        0.2991,
+        0.4683
+       ],
+       "n": 120
+      },
+      "claims_fault": {
+       "value": 0.7583,
+       "ci": [
+        0.6833,
+        0.8291
+       ],
+       "n": 120
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 120
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.1738,
+       "ci": [
+        0.0866,
+        0.2658
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.2105,
+       "ci": [
+        0.1215,
+        0.3102
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.2333,
+       "ci": [
+        0.1372,
+        0.3438
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.6,
+       "ci": [
+        0.4791,
+        0.7193
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.5038,
+       "ci": [
+        0.3785,
+        0.6314
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.6459,
+       "ci": [
+        0.5313,
+        0.7594
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.5333,
+       "ci": [
+        0.4031,
+        0.6667
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.9167,
+       "ci": [
+        0.8392,
+        0.9712
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.5667,
+       "ci": [
+        0.3912,
+        0.741
+       ],
+       "n": 30
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 30
+      }
+     },
+     "change_overlap_faults": {
+      "top1": {
+       "value": 0.4784,
+       "ci": [
+        0.3226,
+        0.6242
+       ],
+       "n": 40
+      },
+      "top3": {
+       "value": 0.5132,
+       "ci": [
+        0.3596,
+        0.6611
+       ],
+       "n": 40
+      },
+      "type_correct": {
+       "value": 0.3,
+       "ci": [
+        0.1628,
+        0.4474
+       ],
+       "n": 40
+      },
+      "claims_fault": {
+       "value": 0.8,
+       "ci": [
+        0.6667,
+        0.9143
+       ],
+       "n": 40
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 40
+      }
+     }
+    },
+    "Opus-A2": {
+     "faults": {
+      "top1": {
+       "value": 0.6417,
+       "ci": [
+        0.5593,
+        0.72
+       ],
+       "n": 120
+      },
+      "top3": {
+       "value": 0.7947,
+       "ci": [
+        0.7212,
+        0.8623
+       ],
+       "n": 120
+      },
+      "type_correct": {
+       "value": 0.6333,
+       "ci": [
+        0.5487,
+        0.7144
+       ],
+       "n": 120
+      },
+      "claims_fault": {
+       "value": 0.775,
+       "ci": [
+        0.6964,
+        0.8468
+       ],
+       "n": 120
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 120
+      }
+     },
+     "hard": {
+      "top1": {
+       "value": 0.5,
+       "ci": [
+        0.3846,
+        0.625
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.656,
+       "ci": [
+        0.5344,
+        0.7681
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.6333,
+       "ci": [
+        0.5082,
+        0.7545
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.65,
+       "ci": [
+        0.5254,
+        0.7705
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "easy": {
+      "top1": {
+       "value": 0.7833,
+       "ci": [
+        0.6721,
+        0.8852
+       ],
+       "n": 60
+      },
+      "top3": {
+       "value": 0.9335,
+       "ci": [
+        0.8618,
+        0.9851
+       ],
+       "n": 60
+      },
+      "type_correct": {
+       "value": 0.6333,
+       "ci": [
+        0.5146,
+        0.7619
+       ],
+       "n": 60
+      },
+      "claims_fault": {
+       "value": 0.9,
+       "ci": [
+        0.8181,
+        0.9667
+       ],
+       "n": 60
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 60
+      }
+     },
+     "distractors": {
+      "claims_fault": {
+       "value": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ],
+       "n": 30
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 30
+      }
+     },
+     "change_overlap_faults": {
+      "top1": {
+       "value": 0.625,
+       "ci": [
+        0.4666,
+        0.7715
+       ],
+       "n": 40
+      },
+      "top3": {
+       "value": 0.8531,
+       "ci": [
+        0.7284,
+        0.9497
+       ],
+       "n": 40
+      },
+      "type_correct": {
+       "value": 0.675,
+       "ci": [
+        0.5135,
+        0.814
+       ],
+       "n": 40
+      },
+      "claims_fault": {
+       "value": 0.725,
+       "ci": [
+        0.5758,
+        0.85
+       ],
+       "n": 40
+      },
+      "answered": {
+       "value": 1.0,
+       "ci": [
+        1.0,
+        1.0
+       ],
+       "n": 40
+      }
+     }
+    }
+   },
+   "comparisons": {
+    "faults|top1|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.1167,
+     "ci": [
+      0.0484,
+      0.1886
+     ]
+    },
+    "faults|top3|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.0913,
+     "ci": [
+      0.0463,
+      0.1406
+     ]
+    },
+    "faults|type_correct|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.1,
+     "ci": [
+      0.039,
+      0.1695
+     ]
+    },
+    "faults|claims_fault|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.0614,
+      0.0579
+     ]
+    },
+    "hard|top1|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.15,
+     "ci": [
+      0.0454,
+      0.2699
+     ]
+    },
+    "hard|top3|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.0663,
+     "ci": [
+      0.0154,
+      0.1364
+     ]
+    },
+    "hard|type_correct|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.1667,
+     "ci": [
+      0.0677,
+      0.2745
+     ]
+    },
+    "hard|claims_fault|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": 0.0167,
+     "ci": [
+      -0.0755,
+      0.1053
+     ]
+    },
+    "easy|top1|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": 0.0833,
+     "ci": [
+      0.0,
+      0.164
+     ]
+    },
+    "easy|top3|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.1163,
+     "ci": [
+      0.0384,
+      0.2018
+     ]
+    },
+    "easy|type_correct|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": 0.0333,
+     "ci": [
+      -0.0448,
+      0.1154
+     ]
+    },
+    "easy|claims_fault|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": -0.0167,
+     "ci": [
+      -0.0953,
+      0.0597
+     ]
+    },
+    "distractors|claims_fault|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": -0.0,
+     "ci": [
+      -0.0,
+      0.0
+     ]
+    },
+    "change_overlap_faults|top1|Opus-A2 vs Haiku-A2": {
+     "verdict": "inconclusive",
+     "point": 0.125,
+     "ci": [
+      -0.0227,
+      0.2703
+     ]
+    },
+    "change_overlap_faults|top3|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.0996,
+     "ci": [
+      0.0007,
+      0.2201
+     ]
+    },
+    "change_overlap_faults|type_correct|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.2,
+     "ci": [
+      0.0811,
+      0.3333
+     ]
+    },
+    "change_overlap_faults|claims_fault|Opus-A2 vs Haiku-A2": {
+     "verdict": "supported",
+     "point": 0.125,
+     "ci": [
+      0.0278,
+      0.2334
+     ]
+    },
+    "faults|top1|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0334,
+     "ci": [
+      -0.0167,
+      0.084
+     ]
+    },
+    "faults|top3|Opus-A0 vs Haiku-A0": {
+     "verdict": "supported",
+     "point": 0.0567,
+     "ci": [
+      0.0079,
+      0.1085
+     ]
+    },
+    "faults|type_correct|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0583,
+     "ci": [
+      -0.0254,
+      0.1429
+     ]
+    },
+    "faults|claims_fault|Opus-A0 vs Haiku-A0": {
+     "verdict": "supported",
+     "point": 0.1417,
+     "ci": [
+      0.0608,
+      0.2242
+     ]
+    },
+    "hard|top1|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0335,
+     "ci": [
+      -0.0318,
+      0.0985
+     ]
+    },
+    "hard|top3|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.014,
+     "ci": [
+      -0.0411,
+      0.0772
+     ]
+    },
+    "hard|type_correct|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0167,
+     "ci": [
+      -0.1,
+      0.1321
+     ]
+    },
+    "hard|claims_fault|Opus-A0 vs Haiku-A0": {
+     "verdict": "supported",
+     "point": 0.15,
+     "ci": [
+      0.0328,
+      0.2679
+     ]
+    },
+    "easy|top1|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0333,
+     "ci": [
+      -0.0392,
+      0.1148
+     ]
+    },
+    "easy|top3|Opus-A0 vs Haiku-A0": {
+     "verdict": "supported",
+     "point": 0.0995,
+     "ci": [
+      0.0303,
+      0.1906
+     ]
+    },
+    "easy|type_correct|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.1,
+     "ci": [
+      -0.029,
+      0.2264
+     ]
+    },
+    "easy|claims_fault|Opus-A0 vs Haiku-A0": {
+     "verdict": "supported",
+     "point": 0.1333,
+     "ci": [
+      0.0339,
+      0.2462
+     ]
+    },
+    "distractors|claims_fault|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": -0.0333,
+     "ci": [
+      -0.1111,
+      0.0
+     ]
+    },
+    "change_overlap_faults|top1|Opus-A0 vs Haiku-A0": {
+     "verdict": "supported",
+     "point": 0.1,
+     "ci": [
+      0.0212,
+      0.2105
+     ]
+    },
+    "change_overlap_faults|top3|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0224,
+     "ci": [
+      -0.0044,
+      0.0802
+     ]
+    },
+    "change_overlap_faults|type_correct|Opus-A0 vs Haiku-A0": {
+     "verdict": "inconclusive",
+     "point": 0.0,
+     "ci": [
+      -0.1163,
+      0.125
+     ]
+    },
+    "change_overlap_faults|claims_fault|Opus-A0 vs Haiku-A0": {
+     "verdict": "supported",
+     "point": 0.175,
+     "ci": [
+      0.0244,
+      0.3489
+     ]
+    }
+   }
+  }
+ }
+}

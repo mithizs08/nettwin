@@ -1300,3 +1300,59 @@ Pre-registered expectations (each variant):
 - G13 (A2 vs GNN-s0, hard top-1, inconclusive): holds (-0.017 [-0.115, +0.079]; -0.033 [-0.150, +0.072]).
 
 All 13 expectations hold on validation. The ungrounded rates check cited ids and numbers only, not the reasoning that links them. Telemetry is synthetic, the topologies are public, and none of this is Telstra's network. Test was not run.
+
+### 2026-10-31: Phase 6 test results (Haiku 5.5 A0, A1, A2 and Opus 5.5 A0, A2; each run once, as pre-registered)
+
+Before test: the clean-clone check had finished (passed, logged above, commit d29667a), so incidents ran in parallel (6 threads). Both runs went through the frozen test path: `python scripts/phase6_agent.py --split test --model eval --threads 6`, then `--model secondary`. Both logged agent `code_sha256` 87a0082db4b3, matching `results/phase6_frozen.json`, and wrote their LOCK files. Nothing was changed between or after the runs, and no bug fix was needed. Test incidents: seed 6006, 167 in all (120 main-sample faults, 30 distractors, 17 change-overlap stratum faults). With the 23 main-sample faults that overlap a change, that gives 40 change-overlapping faults. Telemetry is synthetic, the topologies are public, and none of this is Telstra's network.
+
+- Haiku 5.5 (`results/phase6/test_claude-haiku-5-5/`): 1002 runs, all submitted, 204 forced submissions (A1 85, A2 119), 7509 executed calls, 93 refused by the 15-call budget, 106 tool calls returned an error. $1.96, 58 minutes.
+- Opus 5.5 (`results/phase6/test_claude-opus-5-5/`): 668 runs, all submitted, 60 forced submissions (all A2), 3324 executed calls, 27 refused, 15 tool calls returned an error. $32.68, 77 minutes. The pre-registration estimated $33.06 for 175 incidents, about $31.55 for 167.
+- Logged project API spend after both runs: $40.74 of $100 (including the $0.30 unlogged allowance).
+
+Test table (faults = 120 main-sample faults; distractor claims are over 30 windows; change-overlap recall is the share of the 40 change-overlapping faults with a fault claim). References are the same in both runs. Validation (Haiku, `val_haiku_v2`) is in brackets where it exists.
+
+| method | with_status: faults top-1 / top-3 | hard top-1 | distractor claims | change-overlap recall | status_blind: faults top-1 / top-3 | hard top-1 | distractor claims | change-overlap recall |
+|---|---|---|---|---|---|---|---|---|
+| B3+ | 0.438 / 0.568 (0.434 / 0.511) | 0.126 | 0.367 | 0.575 | 0.309 / 0.518 (0.235 / 0.400) | 0.126 | 0.233 | 0.425 |
+| GNN (3 seeds) | 0.575 / 0.725 (0.625 / 0.764) | 0.400 | 0.789 | 0.950 | 0.569 / 0.725 (0.619 / 0.764) | 0.400 | 0.733 | 0.925 |
+| GNN-s0 | 0.592 / 0.733 | 0.417 | 0.800 | 0.925 | 0.583 / 0.742 | 0.417 | 0.700 | 0.925 |
+| GNN + change-log rule | 0.575 / 0.725 | 0.400 | 0.000 | 0.000 | 0.569 / 0.725 | 0.400 | 0.000 | 0.000 |
+| Haiku A0 | 0.413 / 0.486 (0.421 / 0.484) | 0.140 | 0.567 | 0.800 | 0.305 / 0.371 (0.305 / 0.354) | 0.140 | 0.533 | 0.625 |
+| Haiku A1 | 0.492 / 0.597 (0.542 / 0.613) | 0.217 | 0.000 | 0.550 | 0.425 / 0.596 (0.450 / 0.588) | 0.317 | 0.100 | 0.600 |
+| Haiku A2 | 0.533 / 0.769 (0.600 / 0.735) | 0.333 | 0.033 | 0.650 | 0.525 / 0.703 (0.567 / 0.735) | 0.350 | 0.000 | 0.600 |
+| Opus A0 | 0.405 / 0.502 | 0.140 | 0.600 | 0.875 | 0.339 / 0.428 | 0.174 | 0.567 | 0.800 |
+| Opus A2 | 0.642 / 0.811 | 0.500 | 0.033 | 0.700 | 0.642 / 0.795 | 0.500 | 0.000 | 0.725 |
+
+**Agent against the GNN + change-log rule (test, paired, 95% CI).**
+- Haiku A2: localisation is inconclusive in both variants (faults top-3 +0.044 [-0.006, +0.095] with status, -0.022 [-0.079, +0.034] blind). Distractor claims are inconclusive (both about 0). Recall is higher: main-sample faults +0.219 and +0.208, change-overlapping faults +0.650 [+0.500, +0.791] and +0.600 [+0.441, +0.744]. Negative result: with status events, top-1 on the change-overlapping faults is below the rule's (-0.108 [-0.209, -0.009], contradicted; the rule's localisation is the GNN's).
+- Haiku A1: localisation is worse than the rule (faults top-3 -0.128 and -0.129, contradicted). Recall is higher (+0.128 and +0.142 on faults; +0.550 and +0.600 on change-overlapping faults).
+- Opus A2: localisation is better than the rule on faults top-3 in both variants (+0.086 [+0.036, +0.142] and +0.070 [+0.014, +0.127]) and on top-1 in status_blind (+0.072 [+0.008, +0.141]). Distractor claims are inconclusive. Recall is higher (faults +0.203 and +0.208; change-overlapping faults +0.700 and +0.725).
+- The rule itself costs the GNN recall on main-sample faults (-0.181 and -0.172, contradicted).
+
+**Recall on change-overlapping faults (negative result, both models).** Every agent with the change log stays below the plain GNN (0.950 and 0.925). The paired differences are contradicted for Haiku A1 (-0.400 and -0.325), Haiku A2 (-0.300 and -0.325) and Opus A2 (-0.250 and -0.200). Opus misses fewer of them than Haiku: Opus A2 minus Haiku A2 is +0.050 (inconclusive) with status and +0.125 [+0.028, +0.233] blind. A logged change is still too often taken as the explanation.
+
+**Pre-registered expectations on test (Haiku 5.5, each variant).**
+- G1 (A1 > A0, hard top-1): not met in both variants. Inconclusive with status (+0.076 [-0.006, +0.161]); supported blind (+0.176 [+0.072, +0.288]). Validation supported both.
+- G2 (A2 > A1, hard top-1): not met. Inconclusive in both variants (+0.117 [+0.000, +0.240] with status; +0.033 [-0.067, +0.140] blind). Validation supported both. The GNN tool's gain on test shows on faults top-3 (A2 - A1 +0.172 and +0.107, supported) and hard type accuracy with status (+0.133, supported), but not on hard top-1.
+- G3 (A2 vs GNN, hard top-1, inconclusive): holds (-0.067; -0.050).
+- G4 (A1, A2 claim fewer faults than the GNN on distractors): supported in both (A1 +0.789 and +0.633; A2 +0.756 and +0.733). This is read with the S2 wording: it measures use of the change log, the one-line rule also reaches 0 (G9), and the agent pays for it in recall on change-overlapping faults (G10).
+- G5 (A0 claims more than A1 on distractors): supported in both (+0.567; +0.433).
+- G6 (easy types with status, A1 top-1 within 0.10 of B3+): holds, A1 0.767 against B3+ 0.750 (point estimates; no paired CI is computed for this pair).
+- G7 (hard type accuracy, A2 > A0): supported in both (+0.267 [+0.122, +0.414]; +0.250 [+0.109, +0.393]).
+- G8 (lenient ungrounded rate under 10%, A1 and A2): holds (A1 1.0% and 0.9%, A2 1.2% and 0.9%; 100 of 6115 items over all Haiku conditions).
+- G9 (A1, A2 vs GNN+CL on distractor claims, inconclusive): holds in both (Haiku A1 status_blind -0.100 [-0.219, +0.000] is the closest).
+- G10 (change-overlap recall: A above GNN+CL supported, A below GNN contradicted): holds for A1 and A2 in both variants.
+- G11 (GNN+CL vs GNN, main-fault recall, contradicted): holds (-0.181; -0.172).
+- G12 (strict ungrounded rate under 10%, A1 and A2): holds, narrowly for A1 (A1 8.9% and 8.8%, A2 6.0% and 6.0%; 393 of 6115 items).
+- G13 (A2 vs GNN-s0, hard top-1, inconclusive): holds (-0.083 [-0.169, +0.000]; -0.067 [-0.170, +0.032]).
+- Summary: 11 of 13 hold on test. G1 holds only status_blind, and G2 does not hold in either variant. Both are negative results against validation, where all 13 held.
+
+**Opus 5.5 secondary result (pre-registered as A2 - A0 with paired verdicts; G1 to G13 not pre-registered for Opus).** Opus A2 beats Opus A0 on faults top-1 (+0.237; +0.303), top-3 (+0.310; +0.366), hard top-1 (+0.360; +0.326), hard type accuracy (+0.367; +0.400) and distractor claims (+0.567 in each), all supported. Fault recall: inconclusive. Ungrounded rates: lenient A0 2.2% and 2.6%, A2 1.5% and 1.1%; strict A0 2.5% and 2.9%, A2 2.7% and 3.8% (57 and 99 of 3264 items). Mean cost per run: A0 $0.023, A2 $0.072 to $0.078. Mean time per run: A2 22 to 24 s.
+
+**Haiku 5.5 against Opus 5.5 on test** (`scripts/phase6_test_compare.py` gives `results/phase6/test_haiku_vs_opus.json`). This is descriptive and not pre-registered: it reads the committed test records only and uses the same bootstrap and verdict rule.
+- A2, Opus minus Haiku, is supported on faults top-1 (+0.108 [+0.041, +0.182]; +0.117 [+0.048, +0.189]), faults top-3 (+0.042; +0.091), hard top-1 (+0.167 [+0.055, +0.283]; +0.150 [+0.045, +0.270]) and hard type accuracy (+0.150; +0.167). Distractor claims are inconclusive (both 1/30 or 0/30). On change-overlapping faults, Opus A2 localises better (top-1 +0.250 with status, supported; top-3 +0.124 and +0.100, supported) and recalls more in status_blind (+0.125, supported).
+- A0, Opus minus Haiku, mostly differs little: faults top-1 is inconclusive in both. In status_blind, Opus A0 claims faults more often (faults +0.142, supported) and its top-3 is higher (+0.057, supported).
+- Cost: Opus A2 is about 28 to 29 times Haiku A2 per run ($0.072 to $0.078 against $0.0025 to $0.0028).
+- Opus A2 is the only agent condition that beats the GNN on localisation: faults top-3 +0.086 [+0.036, +0.142] and +0.070 [+0.014, +0.127]; faults top-1 blind +0.072 [+0.008, +0.141]. Hard top-1 is inconclusive (+0.100 [+0.000, +0.204] and +0.100 [+0.000, +0.207]). Haiku A2 against the GNN is inconclusive throughout.
+
+New script, not frozen and not part of the agent: `scripts/phase6_test_compare.py` (read-only scoring of the two committed test runs). All 136 tests pass after the runs.
