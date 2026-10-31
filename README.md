@@ -1,10 +1,63 @@
 # NetTwin
 
-A knowledge-graph digital twin of a telecom backbone, with GNN anomaly localisation and an LLM root-cause agent. Telemetry is synthetic and topologies are public (Internet Topology Zoo / SNDlib via `topohub`). None of this is Telstra's network.
+A small, fully measured knowledge-graph digital twin of a telecom backbone, with GNN anomaly localisation, an LLM root-cause agent, capacity forecasting and an offline demo. A portfolio project for the UTS Telecom Research Unit Project D.A.R.T. internship.
 
-Work in progress. See `PLAN.md` for the plan and `docs/decision_log.md` for decisions.
+The full write-up is [docs/report.md](docs/report.md). `PLAN.md` is the plan, and `docs/decision_log.md` records every decision, pre-registration and audit fix by ID.
 
-## Setup
+## Read this first
+
+- **Telemetry is synthetic.** Traffic, alerts, faults and the change log come from our own simulator. Nothing here says how any method would do on a real network.
+- **Topologies are public.** They come from the Internet Topology Zoo [VERIFY] and SNDlib [VERIFY] through `topohub` [VERIFY]. Training uses generated graphs only.
+- **This is not Telstra's network,** and no Telstra data is used anywhere.
+- **Localisation uses an oracle incident window.** It starts and ends with the true fault, the same for every method. No method had to find the window itself.
+- **AARNet is the dev and demo network.** It was used during development, so its results are reported separately and never pooled with test.
+- **The audits were done by fresh Claude Code sessions, not by humans.** Each phase was audited by a new session (`docs/audit_*.md`), and every finding was fixed and logged by ID. That is not a substitute for human review.
+- **Headline results are pre-registered test results, each scored once** with frozen, hash-checked models and code. Anything else is labelled descriptive.
+- **Negative results are reported** alongside the positive ones.
+- Every number in this README and the report is checked against a results file by `scripts/check_numbers.py`.
+
+## Run the demo
+
+The demo reads only committed results. It needs no dataset and no API key.
+
+```bash
+conda env create -f environment.yml
+conda activate nettwin
+pip install -e .
+streamlit run app/streamlit_app.py
+```
+
+Pages: an incident explorer for AARNet (map, knowledge graph, telemetry, alerts, change log, GNN ranking and the recorded Haiku 5.5 and Opus 5.5 agent traces), test results, capacity forecasting, and limitations.
+
+## Headline results (pre-registered, test set, scored once)
+
+Test is seven public networks never used for design decisions (Geant2012, germany50, Garr201201, Peer1, York, Belnet2010, Ibm). CIs are 95% bootstrap intervals.
+
+**Localisation (Phase 5, 210 scenarios).** The GNN (GAT-h32, 3 seeds) reaches hard top-3 0.587 with status events, against 0.356 for the best baseline (B2) and 0.234 for B3+. On easy types with status events, the GNN and B3+ show no clear difference (top-1 0.762 vs 0.718, difference +0.044 [-0.029, 0.122]). The near-perfect link_down and node_down scores come from the simulator's down-link rendering, not hard detection. The GNN raises an alarm in 0.475 of maintenance-only hours, more than every baseline.
+
+![Phase 5 test localisation](results/figures/test_localisation_phase5.png)
+
+**The agent (Phase 6, 167 incidents, Claude Haiku 5.5 [VERIFY]).**
+- The tools do real work: the full agent (A2) beats the alerts-only agent (A0) on faults top-3 by +0.283 with status events and +0.332 status-blind.
+- Against the GNN alone, A2 shows no clear difference: +0.044 [-0.006, 0.095] and -0.022 [-0.079, 0.034].
+- On maintenance distractors, A2 and the GNN + change-log rule both sit near 0 fault claims.
+- On the 40 faults that overlap a logged change, A2 recalls fewer than the plain GNN (-0.300 and -0.325, contradicted). The agent too often takes the change as the explanation.
+- 11 of 13 pre-registered expectations held on test.
+- Opus 5.5 A2 vs A0 (pre-registered) is supported in both variants.
+- Total project API spend: $41.65 of a $100 budget.
+
+![Phase 6 test](results/figures/test_agent_phase6.png)
+
+**Capacity forecasting (Phase 8, 210 scenarios).** Will a link exceed 80% utilisation within 60 minutes? LightGBM on lag features [VERIFY] has F1 0.890, above persistence (0.807) and seasonal-naive (0.675). The frozen Phase 5 GNN encoder with a small head is below LightGBM (F1 0.863, difference -0.027, contradicted).
+
+![Phase 8 test](results/figures/test_forecast_phase8.png)
+
+**Descriptive, not pre-registered.**
+- Opus A2 is above the 3-seed GNN on faults top-3 (+0.086 and +0.070). Against GNN seed 0, the checkpoint its tool uses, this holds only for faults top-3 with status events (+0.078 [0.021, 0.142]).
+- Opus A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), at about 28 times the cost per incident.
+- The AARNet dev traces (7 incidents) are a demo, not evidence.
+
+## Setup and reproduction
 
 ```bash
 conda env create -f environment.yml
@@ -14,90 +67,36 @@ python scripts/phase0_check_env.py
 pytest
 ```
 
-## Phase 1: topology and knowledge graph
+| Phase | Command | Writes |
+|---|---|---|
+| 1 KG | `python scripts/phase1_build_kg.py` | `results/phase1_kg_summary.json`, KG figures |
+| 2 simulator | `python scripts/phase2_simulate.py` | `results/phase2_summary.json`, sanity figures |
+| 3 datasets | `python scripts/phase3_build_dataset.py --workers 6` (about 8 GB, needs the key) | `data/datasets/v1` (gitignored) |
+| 4 baselines | `python scripts/phase4_baselines.py --workers 6`, then `phase4_tables.py` | `results/phase4_tables.md` |
+| 5 GNN | `phase5_gnn.py`, `phase5_freeze.py`, `phase5_test.py`, `phase5_tables.py` | `results/phase5_*.json`, `results/phase5_tables.md` |
+| 6 agent | `phase6_agent.py --split val --model eval --name full`, `phase6_freeze.py`, `phase6_agent.py --split test --model eval`, `phase6_test_compare.py` | `results/phase6/` |
+| 7 demo traces | `python scripts/phase7_aarnet_traces.py` | `results/phase7/` |
+| 8 forecasting | `phase8_forecast.py`, then `phase8_forecast.py --test` | `results/phase8_*.json` |
+| 10 write-up | `phase10_figures.py`, `check_numbers.py` | `results/figures/test_*.png` |
 
-```bash
-python scripts/phase1_build_kg.py
-```
-
-Builds the typed knowledge graph (PoP, Link, RoutingPath, Service; Alert, Maintenance and Runbook as schema) for the dev network (AARNet) and the validation_real networks, exports Neo4j-style CSV to `data/kg/`, and writes `results/phase1_kg_summary.json`, `results/figures/aarnet_kg.png` and `results/figures/aarnet_map.png`. Services and SLAs are synthetic.
-
-## Phase 2: telemetry simulator
-
-```bash
-python scripts/phase2_simulate.py
-```
-
-Simulates synthetic traffic, routing (via the Phase 1 KG), utilisation, latency and loss with six fault types and distractors, deterministic from seed. Writes sanity figures to `results/figures/phase2_*.png`, the pre-registered difficulty targets (validation networks only) to `results/phase2_summary.json`, and demo scenarios to `data/scenarios/phase2_demo/` (observable telemetry and ground truth in separate folders). All telemetry is synthetic.
-
-## Topology splits and test-driven decisions
-
-Splits are in `PLAN.md` section 3 and `config.yaml`. AARNet is the dev / demo network: it was used to develop and test the simulator in Phases 1 and 2, so its numbers are reported separately as "seen during development". The clean test set is Geant2012, germany50 and five Topology Zoo networks picked by a rule that was pre-registered in `docs/decision_log.md` before it was run (`scripts/select_topologies.py`).
-
-Decisions that were made while looking at a test (or now-dev) topology, as PLAN.md section 3 requires us to disclose (audit IDs from `docs/audit_phases_0_2.md`):
-- L2: capacity planning from a noisy history week was triggered by AARNet peaks (median 0.78). Also confirmed on a Gabriel graph.
-- L3 / L4: the ECMP cap of 4 was checked against AARNet loads and set with AARNet, Geant2012 and germany50 ECMP counts in view.
-- L5: the routing metric floor of 1 was motivated by AARNet's 0 km links.
-- L6: the rule "0 km links get the largest adjacent capacity" was designed on AARNet. It now also runs on generated graphs with dual-router PoPs.
-- L9: per-PoP time zones were built for real geography. Generated graphs now get pseudo-longitudes, so the feature is exercised in training and validation too.
-
-## Known realistic signatures (read before Phases 4 to 6)
-
-A down interface on a reachable router reads exactly 0 traffic and 0 discards, and its one-hop probe fails. So in the default (non-blind) telemetry, "util exactly 0 with latency missing" identifies a down link almost perfectly: 99.7% of such cells are down links in the audit's re-check (`docs/audit_phases_0_2_reverify.md`, N2). This is what real SNMP shows, so it stays, but it means link_down and node_down are easy to detect from link telemetry alone, even without status events. Telemetry also changes at the fault's start step, so the status-event lag does not delay onset for a telemetry-based detector. Results for link_down and node_down must therefore be reported twice: with status events and the default telemetry, and with the status-blind variant (`spec["status_blind"] = True`, where down links are fully missing and no status or reachability events exist).
-
-## Phase 3: datasets
-
-```bash
-python scripts/phase3_build_dataset.py --estimate     # disk and time estimate first (about 8 GB, 3.6 CPU-hours)
-python scripts/phase3_build_dataset.py --workers 6    # full build into data/datasets/v1 (gitignored)
-```
-
-Builds train (generated graphs), val (generated validation graphs plus validation_real), test (the 7 test networks) and dev (AARNet) scenarios, each in a `with_status` and a `status_blind` variant, with observable data and ground truth in separate trees. The simulator is frozen first (`results/simulator_freeze.json`), and the builder refuses to run if it changed without a logged reason. Counts are in `docs/dataset_card.md` and `results/phase3_dataset_summary.json`.
+All scripts are in `scripts/`. The test scripts load frozen files only, refuse on any hash mismatch and refuse a second run. The agent scripts need `ANTHROPIC_API_KEY` in `.env` and spend money.
 
 ### Reproducing the datasets (needs the key)
 
-Scenario seeds and ids are derived from a secret 32-byte key, so the repo alone cannot re-run the sampler and recover the faults behind the observable files (`docs/audit_phase3.md`, P1). The key lives only in `.nettwin_dataset_key` at the repo root, which is gitignored. Back it up somewhere safe outside the repo: without it, the datasets can be rebuilt with the same statistics but not byte for byte.
+Scenario seeds come from a secret 32-byte key in `.nettwin_dataset_key` (gitignored), so the repo alone cannot recover the faults behind the observable files (`docs/audit_phase3.md`). To rebuild `data/datasets/v1` byte for byte:
+1. Clone the repo, create the env and run `pip install -e .`.
+2. Copy the key file into the clone root as `.nettwin_dataset_key` (one line of hex, permissions 600).
+3. Run `python scripts/phase3_build_dataset.py --workers 6`. The builder refuses without the key or if the frozen simulator changed.
 
-To reproduce `data/datasets/v1` exactly:
-1. Clone the repo, create the env, and run `pip install -e .` (see Setup).
-2. Copy your key file into the clone root as `.nettwin_dataset_key` (one line of hex, permissions 600).
-3. Run `python scripts/phase3_build_dataset.py --workers 6`. The builder refuses to run without the key, and refuses if the frozen simulator files changed.
-4. Each scenario's slot (topology and scenario number) and seed are in `data/datasets/v1/truth/<split>/<variant>/manifest.json`. `scenario_seed(key, split, topology, k)` in `src/nettwin/dataset.py` recomputes the seed from the slot.
-
-To start a fresh dataset with a new key (different random draws, same distributions), write 32 random bytes as hex to `.nettwin_dataset_key`, for example with `python -c "import secrets; print(secrets.token_hex(32))" > .nettwin_dataset_key`.
-
-## Phase 4: alerts, baselines and the evaluation harness (validation only)
+To start a fresh dataset with different draws from the same distributions, write a new key:
 
 ```bash
-python scripts/phase4_build_pretune.py --workers 6   # sensitivity data: val with the pre-tuning fault ranges (needs the key)
-python scripts/phase4_baselines.py --workers 6       # B1, B2, B3, B3+ on val (and on the sensitivity copy if built)
-python scripts/phase4_tables.py                      # results/phase4_tables.md: tables, claim and expectation verdicts
+python -c "import secrets; print(secrets.token_hex(32))" > .nettwin_dataset_key
 ```
 
-- `src/nettwin/alerts.py`: threshold alerts an operator would have (interface status, PoP reachability, high utilisation, discards, one-hop latency, probe failures, service SLA breaches), built from observable files only. Every field is causal; `alerts_at(alerts, t)` gives the list as known at step t.
-- `src/nettwin/evaluation.py`: the shared harness for Phases 4 to 6.
-  - Detection: link-level PR-AUC, root and symptomatic separately. Symptoms of concurrent faults are attributed by time and KG neighbourhood.
-  - Localisation: root-cause top-1 / top-3 on an oracle window, with expected ranks under ties and set-based scoring for concurrent faults, under three window aggregations.
-  - False alarms: rates on fault-free and maintenance-only hours.
-  - Calibration: bins and thresholds come from each method's own validation scores. A supervised model is calibrated on validation, never on its training scenarios.
-  - Breakdowns: every result is split by fault type, severity class, observability, variant, generated vs real network, root kind and concurrency, with scenario-bootstrap CIs.
-  - Verdicts: claims and expectations get a paired-bootstrap verdict (supported, contradicted or inconclusive).
-- `src/nettwin/baselines.py`: B1 EWMA z-score, B2 Isolation Forest, B3 tomography over alerts as pre-registered, and B3+, a disclosed variant whose link paths include the end routers. None uses time of day, time since the scenario start or file metadata.
-- The definitions and expectations were committed before the first validation run. The revisions after the independent audit (`docs/audit_phase4.md`) are logged by ID in `docs/decision_log.md`.
+## Where things are
 
-## Phase 5: GNN
-
-```bash
-python scripts/phase5_gnn.py            # train on train (21 runs, about 2.5 h on CPU), select on a val subset, evaluate on val
-python scripts/phase5_freeze.py         # validation only: freeze calibration and hashes, held-out headline, blanking check
-python scripts/phase5_test.py           # test and dev, once: loads frozen files only, refuses on any hash mismatch
-python scripts/phase5_tables.py         # results/phase5_tables.md
-```
-
-- `src/nettwin/gnn/`: line-graph data (links are nodes; inputs are the Phase 4 B2 window features plus static inventory features), a causal temporal encoder, GraphSAGE / GAT / GINE layers, and detection and localisation (link and PoP) heads.
-- The tuning budget and the expectations X1 to X10 were committed before training (`docs/decision_log.md`, Phase 5 pre-registration).
-- Results use the shared harness against B1, B2, B3 and B3+, with paired-bootstrap verdicts, seed variance, base rates, three window aggregations and per-network numbers.
-- The MLP ablation shows that most of the gain over the baselines comes from supervised training, not from message passing. The MLP still uses link-to-PoP pooling and graph-derived static inputs, so this is "no message passing", not "no graph".
-- The near-perfect link_down / node_down localisation is the model recognising the simulator's down-link rendering in the link telemetry, not hard detection (`docs/audit_phase5.md`, R3).
-- The detection head also raises far more false alarms in maintenance hours than any baseline. All of this is reported in the decision log.
-- Test (run once with the frozen validation calibration, after a committed pre-registration): GAT-h32 hard top-3 0.59 on 7 unseen real networks, against 0.36 for the best baseline; easy types with status events no better than B3; 48% maintenance-hour alarms. Full results in `docs/decision_log.md` and `results/phase5_tables.md`.
+- `src/nettwin/`: topology, knowledge graph, simulator, faults, alerts, baselines, evaluation harness, GNN, agent, forecasting.
+- `app/streamlit_app.py`: the demo.
+- `docs/decision_log.md`: decisions, pre-registrations, deviations and audit fixes. `docs/dataset_card.md`: the datasets. `docs/audit_*.md`: the audits.
+- `results/`: every number reported, as JSON and Markdown tables.

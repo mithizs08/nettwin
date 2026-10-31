@@ -1352,7 +1352,7 @@ Test table (faults = 120 main-sample faults; distractor claims are over 30 windo
 **Haiku 5.5 against Opus 5.5 on test** (`scripts/phase6_test_compare.py` gives `results/phase6/test_haiku_vs_opus.json`). This is descriptive and not pre-registered: it reads the committed test records only and uses the same bootstrap and verdict rule.
 - A2, Opus minus Haiku, is supported on faults top-1 (+0.108 [+0.041, +0.182]; +0.117 [+0.048, +0.189]), faults top-3 (+0.042; +0.091), hard top-1 (+0.167 [+0.055, +0.283]; +0.150 [+0.045, +0.270]) and hard type accuracy (+0.150; +0.167). Distractor claims are inconclusive (both 1/30 or 0/30). On change-overlapping faults, Opus A2 localises better (top-1 +0.250 with status, supported; top-3 +0.124 and +0.100, supported) and recalls more in status_blind (+0.125, supported).
 - A0, Opus minus Haiku: faults top-1 is inconclusive in both variants, and 8 of the 34 A0 differences are supported (audit m8): faults type accuracy with status (+0.067); and in status_blind, faults top-3 (+0.057), fault recall (+0.142), hard recall (+0.150), easy top-3 (+0.100), easy recall (+0.133), change-overlap top-1 (+0.100) and change-overlap recall (+0.175).
-- Cost: Opus A2 is about 28 to 29 times Haiku A2 per run ($0.072 to $0.078 against $0.0025 to $0.0028).
+- Cost: Opus A2 is about 28 times Haiku A2 per run ($0.072 to $0.078 against $0.0025 to $0.0028; ratio 28.3 with status events, 27.8 status-blind). Corrected in Phase 10: this line said "28 to 29 times", which the number checker showed was wrong.
 - Descriptive, not pre-registered (audit M1): Opus A2 is the only agent condition whose localisation is above the GNN (mean of 3 seeds). Against GNN seed 0, the checkpoint A2's tool uses, it holds only for faults top-3 with status events (+0.078 [+0.021, +0.142]); status-blind faults top-3 is inconclusive (+0.053 [-0.005, +0.112]) and faults top-1 is inconclusive in both variants (+0.050 [-0.025, +0.115]; +0.058 [-0.008, +0.123]). Against the 3-seed GNN: faults top-3 +0.086 [+0.036, +0.142] and +0.070 [+0.014, +0.127]; faults top-1 blind +0.072 [+0.008, +0.141]. Hard top-1 is inconclusive (+0.100 [+0.000, +0.204] and +0.100 [+0.000, +0.207]). Haiku A2 against the GNN is inconclusive throughout.
 
 The file holds 68 paired comparisons (27 supported, 41 inconclusive) with no multiple-comparison correction, so some supported verdicts are expected by chance (audit m8). New script, not frozen and not part of the agent: `scripts/phase6_test_compare.py` (read-only scoring of the two committed test runs). All 136 tests pass after the runs.
@@ -1500,3 +1500,14 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
   - The forecasting dev option now says "seen during development".
 - **m10 (README behind).** Fixed by the Phase 10 README, which covers all phases. `scripts/check_numbers.py` checks its numbers.
 - **m11 (test count).** The Phase 8 entry now says 141 tests at commit 7cba229.
+
+### 2026-10-31: Phase 10 write-up and number checker
+
+- `docs/report.md` and `README.md` written for all phases. Both lead with the limitations, headline only pre-registered test results, and label descriptive results. Citations are tagged [VERIFY] until checked by hand.
+- `scripts/phase10_figures.py` draws the three test figures in `results/figures/test_*.png` from committed results only.
+- `scripts/check_numbers.py` checks every number in both docs. First version: one flat pool of every number in `results/`. A check showed that pool held 99.9% of all 3-decimal values in [0, 1], so it could not catch a wrong number. Replaced it:
+  - a number written with a CI must match a point and CI stored together, within the results its section reports from;
+  - every other number names one results file and JSON path in `docs/number_sources.json` (proposed from the words around it, then reviewed by hand; 45 proposals were corrected);
+  - a mutation test shifts each number by one in its last digit: 356 of 362 shifted numbers are caught. The 6 that pass are stored values ending in 5, which can be written either way.
+- The checker found one wrong number: "28 to 29 times" for the Opus to Haiku cost ratio. The ratio is 28.3 and 27.8, so the docs and the entry above now say "about 28 times".
+

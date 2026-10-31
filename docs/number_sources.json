@@ -1,0 +1,1450 @@
+[
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|210|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.n_scenarios",
+  "line": "README.md:36",
+  "context": "**Localisation (Phase 5, 210 scenarios).** Th",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.587|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.hard:top3@q90.mean",
+  "line": "README.md:36",
+  "context": "se 5, 210 scenarios).** The GNN (GAT-h32, 3 seeds) reaches hard top-3 0.587 with status ev",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.356|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B2.groups.hard.localisation.q90.top3.value",
+  "line": "README.md:36",
+  "context": "AT-h32, 3 seeds) reaches hard top-3 0.587 with status events, against 0.356 for the best b",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.234|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B3+.groups.hard.localisation.q90.top3.value",
+  "line": "README.md:36",
+  "context": ".587 with status events, against 0.356 for the best baseline (B2) and 0.234 for B3+. On ea",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.762|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.easy:top1@q90.mean",
+  "line": "README.md:36",
+  "context": "s with status events, the GNN and B3+ show no clear difference (top-1 0.762 vs 0.718, diff",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.718|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B3+.groups.easy.localisation.q90.top1.value",
+  "line": "README.md:36",
+  "context": "atus events, the GNN and B3+ show no clear difference (top-1 0.762 vs 0.718, difference +0",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.475|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.all:far_maintenance_only.mean",
+  "line": "README.md:36",
+  "context": "s down-link rendering, not hard detection. The GNN raises an alarm in 0.475 of maintenance",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|167|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "n_incidents",
+  "line": "README.md:40",
+  "context": "**The agent (Phase 6, 167 incidents, Claud",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.283|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.comparisons.faults|top3|A2 vs A0.point",
+  "line": "README.md:41",
+  "context": "e full agent (A2) beats the alerts-only agent (A0) on faults top-3 by +0.283 with status e",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.332|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.faults|top3|A2 vs A0.point",
+  "line": "README.md:41",
+  "context": "erts-only agent (A0) on faults top-3 by +0.283 with status events and +0.332 status-blind.",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|40|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.change_overlap_faults.claims_fault.n",
+  "line": "README.md:44",
+  "context": "- On the 40 faults that overl",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.300|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.comparisons.change_overlap_faults|claims_fault|A2 vs GNN.point",
+  "line": "README.md:44",
+  "context": "ts that overlap a logged change, A2 recalls fewer than the plain GNN (-0.300 and -0.325, c",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.325|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.change_overlap_faults|claims_fault|A2 vs GNN.point",
+  "line": "README.md:44",
+  "context": "rlap a logged change, A2 recalls fewer than the plain GNN (-0.300 and -0.325, contradicted",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|41.65|0",
+  "source": "derived",
+  "path": "project API spend",
+  "line": "README.md:47",
+  "context": "- Total project API spend: $41.65 of a $100 bud",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|210|1",
+  "source": "phase8_test.json",
+  "path": "splits.test.n_scenarios",
+  "line": "README.md:51",
+  "context": "**Capacity forecasting (Phase 8, 210 scenarios).** Wi",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.890|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.metrics.lightgbm.all.f1.value",
+  "line": "README.md:51",
+  "context": "ilisation within 60 minutes? LightGBM on lag features [VERIFY] has F1 0.890, above persist",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.807|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.metrics.persistence.all.f1.value",
+  "line": "README.md:51",
+  "context": "s? LightGBM on lag features [VERIFY] has F1 0.890, above persistence (0.807) and seasonal-",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.675|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.metrics.seasonal_naive.all.f1.value",
+  "line": "README.md:51",
+  "context": " [VERIFY] has F1 0.890, above persistence (0.807) and seasonal-naive (0.675). The frozen P",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.863|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.metrics.gnn_head.all.f1.value",
+  "line": "README.md:51",
+  "context": "he frozen Phase 5 GNN encoder with a small head is below LightGBM (F1 0.863, difference -0",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.027|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.comparisons.all|f1|gnn_head vs lightgbm.point",
+  "line": "README.md:51",
+  "context": "GNN encoder with a small head is below LightGBM (F1 0.863, difference -0.027, contradicted",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.086|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.comparisons.faults|top3|A2 vs GNN.point",
+  "line": "README.md:56",
+  "context": "- Opus A2 is above the 3-seed GNN on faults top-3 (+0.086 and +0.070). ",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.070|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.faults|top3|A2 vs GNN.point",
+  "line": "README.md:56",
+  "context": "- Opus A2 is above the 3-seed GNN on faults top-3 (+0.086 and +0.070). Against GNN",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.108|0",
+  "source": "phase6/test_haiku_vs_opus.json",
+  "path": "variants.with_status.comparisons.faults|top1|Opus-A2 vs Haiku-A2.point",
+  "line": "README.md:57",
+  "context": "- Opus A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), ",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.117|0",
+  "source": "phase6/test_haiku_vs_opus.json",
+  "path": "variants.status_blind.comparisons.faults|top1|Opus-A2 vs Haiku-A2.point",
+  "line": "README.md:57",
+  "context": "- Opus A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), at about 28",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results (pre-registered, test set, scored once)|28|0",
+  "source": "derived",
+  "path": "opus/haiku A2 cost ratio with_status",
+  "line": "README.md:57",
+  "context": "us A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), at about 28 times the cost pe",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|Read this first: what this is and is not|24|0",
+  "source": "phase1_kg_summary.json",
+  "path": "topologies.topozoo/Aarnet.nodes_by_kind.Link",
+  "line": "docs/report.md:13",
+  "context": "- **AARNet is dev, not held-out.** AARNet (19 PoPs, 24 links) is the dem",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|What was built|1232|0",
+  "source": "phase3_dataset_summary.json",
+  "path": "splits.train.variants.with_status.scenarios",
+  "line": "docs/report.md:33",
+  "context": "| 3 | Datasets split by topology: train 1232 scenarios on ge",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|What was built|468|0",
+  "source": "phase3_dataset_summary.json",
+  "path": "splits.val.variants.with_status.scenarios",
+  "line": "docs/report.md:33",
+  "context": "lit by topology: train 1232 scenarios on generated graphs, validation 468, test 210 (7 pub",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|What was built|210|0",
+  "source": "phase3_dataset_summary.json",
+  "path": "splits.test.variants.with_status.scenarios",
+  "line": "docs/report.md:33",
+  "context": "ology: train 1232 scenarios on generated graphs, validation 468, test 210 (7 public networ",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.200|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B2.groups.hard.localisation.q90.top1.value",
+  "line": "docs/report.md:54",
+  "context": "| B2 Isolation Forest | 0.200 | 0.356 | 0.23",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.356|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B2.groups.hard.localisation.q90.top3.value",
+  "line": "docs/report.md:54",
+  "context": "| B2 Isolation Forest | 0.200 | 0.356 | 0.232 | 0.02",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.232|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B2.groups.easy.localisation.q90.top1.value",
+  "line": "docs/report.md:54",
+  "context": "| B2 Isolation Forest | 0.200 | 0.356 | 0.232 | 0.029 | 0.28",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.029|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B2.groups.hard.pr_auc_root.value",
+  "line": "docs/report.md:54",
+  "context": "| B2 Isolation Forest | 0.200 | 0.356 | 0.232 | 0.029 | 0.287 |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.287|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B2.false_alarm.maintenance_only.rate",
+  "line": "docs/report.md:54",
+  "context": "| B2 Isolation Forest | 0.200 | 0.356 | 0.232 | 0.029 | 0.287 |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.113|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B3+.groups.hard.localisation.q90.top1.value",
+  "line": "docs/report.md:55",
+  "context": "| B3+ tomography | 0.113 | 0.234 | 0.71",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.234|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B3+.groups.hard.localisation.q90.top3.value",
+  "line": "docs/report.md:55",
+  "context": "| B3+ tomography | 0.113 | 0.234 | 0.718 | 0.02",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.718|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B3+.groups.easy.localisation.q90.top1.value",
+  "line": "docs/report.md:55",
+  "context": "| B3+ tomography | 0.113 | 0.234 | 0.718 | 0.020 | 0.18",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.020|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B3+.groups.hard.pr_auc_root.value",
+  "line": "docs/report.md:55",
+  "context": "| B3+ tomography | 0.113 | 0.234 | 0.718 | 0.020 | 0.184 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.184|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B3+.false_alarm.maintenance_only.rate",
+  "line": "docs/report.md:55",
+  "context": "| B3+ tomography | 0.113 | 0.234 | 0.718 | 0.020 | 0.184 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.376|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32-mlp.hard:top1@q90.mean",
+  "line": "docs/report.md:56",
+  "context": "| MLP ablation (3 seeds) | 0.376 | 0.543 | 0.75",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.543|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32-mlp.hard:top3@q90.mean",
+  "line": "docs/report.md:56",
+  "context": "| MLP ablation (3 seeds) | 0.376 | 0.543 | 0.755 | 0.04",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.755|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32-mlp.easy:top1@q90.mean",
+  "line": "docs/report.md:56",
+  "context": "| MLP ablation (3 seeds) | 0.376 | 0.543 | 0.755 | 0.049 | 0.44",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.049|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32-mlp.hard:pr_auc_root.mean",
+  "line": "docs/report.md:56",
+  "context": "| MLP ablation (3 seeds) | 0.376 | 0.543 | 0.755 | 0.049 | 0.445 |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.445|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32-mlp.all:far_maintenance_only.mean",
+  "line": "docs/report.md:56",
+  "context": "| MLP ablation (3 seeds) | 0.376 | 0.543 | 0.755 | 0.049 | 0.445 |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.431|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.hard:top1@q90.mean",
+  "line": "docs/report.md:57",
+  "context": "| GNN GAT-h32 (3 seeds) | 0.431 | 0.587 | 0.76",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.587|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.hard:top3@q90.mean",
+  "line": "docs/report.md:57",
+  "context": "| GNN GAT-h32 (3 seeds) | 0.431 | 0.587 | 0.762 | 0.07",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.762|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.easy:top1@q90.mean",
+  "line": "docs/report.md:57",
+  "context": "| GNN GAT-h32 (3 seeds) | 0.431 | 0.587 | 0.762 | 0.074 | 0.47",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.074|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.hard:pr_auc_root.mean",
+  "line": "docs/report.md:57",
+  "context": "| GNN GAT-h32 (3 seeds) | 0.431 | 0.587 | 0.762 | 0.074 | 0.475 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.475|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.all:far_maintenance_only.mean",
+  "line": "docs/report.md:57",
+  "context": "| GNN GAT-h32 (3 seeds) | 0.431 | 0.587 | 0.762 | 0.074 | 0.475 |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.587|1",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.hard:top3@q90.mean",
+  "line": "docs/report.md:59",
+  "context": "With status events. Status-blind: GNN hard top-3 0.587, easy top-1 0.",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.770|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.status_blind.seed_summary.gat-h32.easy:top1@q90.mean",
+  "line": "docs/report.md:59",
+  "context": "With status events. Status-blind: GNN hard top-3 0.587, easy top-1 0.770; B3+ easy top-",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.401|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.status_blind.methods.B3+.groups.easy.localisation.q90.top1.value",
+  "line": "docs/report.md:59",
+  "context": " Status-blind: GNN hard top-3 0.587, easy top-1 0.770; B3+ easy top-1 0.401.",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.0025|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.gat-h32-s0.groups.hard.pr_auc_root.base_rate",
+  "line": "docs/report.md:61",
+  "context": ".431], supported. Hard root PR-AUC is low for every method (base rate 0.0025), but the GNN",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.074|1",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.hard:pr_auc_root.mean",
+  "line": "docs/report.md:61",
+  "context": "root PR-AUC is low for every method (base rate 0.0025), but the GNN's 0.074 is the highest",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.516|0",
+  "source": "derived",
+  "path": "phase5 GNN seed mean type=link_degradation top3",
+  "line": "docs/report.md:64",
+  "context": " **Hardest types for the GNN** (top-3, with status): link_degradation 0.516, routing_misco",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.516|1",
+  "source": "derived",
+  "path": "phase5 GNN seed mean type=routing_misconfig top3",
+  "line": "docs/report.md:64",
+  "context": "GNN** (top-3, with status): link_degradation 0.516, routing_misconfig 0.516 and link_flapp",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.552|0",
+  "source": "derived",
+  "path": "phase5 GNN seed mean type=link_flapping top3",
+  "line": "docs/report.md:64",
+  "context": "s): link_degradation 0.516, routing_misconfig 0.516 and link_flapping 0.552. On link_flapp",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.681|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B3.groups.type=link_flapping.localisation.q90.top3.value",
+  "line": "docs/report.md:64",
+  "context": "k_flapping 0.552. On link_flapping, B3 has the higher point estimate (0.681), but that exp",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ1 and RQ2: detection and localisation (Phase 5, 210 test scenarios)|0.475|1",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.all:far_maintenance_only.mean",
+  "line": "docs/report.md:65",
+  "context": "- **Maintenance:** the GNN raises an alarm in 0.475 of maintenance",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ3: synthetic to real|0.587|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.hard:top3@q90.mean",
+  "line": "docs/report.md:69",
+  "context": "enerated graphs. On the seven unseen public networks, its hard top-3 (0.587) is close to i",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ3: synthetic to real|0.606|0",
+  "source": "phase5_heldout_val.json",
+  "path": "variants.with_status.heldout.methods.gat-h32 (seed mean).hard:top3@q90",
+  "line": "docs/report.md:69",
+  "context": "ic networks, its hard top-3 (0.587) is close to its validation value (0.606), and per netw",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ3: synthetic to real|0.377|0",
+  "source": "derived",
+  "path": "phase5 GNN seed mean hard|network=York top3",
+  "line": "docs/report.md:69",
+  "context": "close to its validation value (0.606), and per network it ranges from 0.377 (York) to 0.70",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ3: synthetic to real|0.700|0",
+  "source": "derived",
+  "path": "phase5 GNN seed mean hard|network=Ibm top3",
+  "line": "docs/report.md:69",
+  "context": "idation value (0.606), and per network it ranges from 0.377 (York) to 0.700 (Ibm). The pre",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|167|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "n_incidents",
+  "line": "docs/report.md:80",
+  "context": "- The 167 incidents are 12",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|120|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.B1.faults.top1.n",
+  "line": "docs/report.md:80",
+  "context": "- The 167 incidents are 120 main-sample faul",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|40|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.B1.change_overlap_faults.top1.n",
+  "line": "docs/report.md:80",
+  "context": "anned outages) and 17 extra faults from a change-overlap stratum. The 40 faults that overl",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|23|0",
+  "source": "derived",
+  "path": "phase6 main-sample change-overlap faults",
+  "line": "docs/report.md:80",
+  "context": "stratum. The 40 faults that overlap a logged change are those 17 plus 23 of the 120.",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|120|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.B1.faults.top1.n",
+  "line": "docs/report.md:80",
+  "context": "he 40 faults that overlap a logged change are those 17 plus 23 of the 120.",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.438|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.B3+.faults.top1.value",
+  "line": "docs/report.md:87",
+  "context": "| B3+ | 0.438 / 0.568 | 0.36",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.568|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.B3+.faults.top3.value",
+  "line": "docs/report.md:87",
+  "context": "| B3+ | 0.438 / 0.568 | 0.367 | 0.57",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.367|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.B3+.distractors.claims_fault.value",
+  "line": "docs/report.md:87",
+  "context": "| B3+ | 0.438 / 0.568 | 0.367 | 0.575 | 0.30",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.575|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.B3+.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:87",
+  "context": "| B3+ | 0.438 / 0.568 | 0.367 | 0.575 | 0.309 / 0.51",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.309|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.B3+.faults.top1.value",
+  "line": "docs/report.md:87",
+  "context": "| B3+ | 0.438 / 0.568 | 0.367 | 0.575 | 0.309 / 0.518 | 0.23",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.518|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.B3+.faults.top3.value",
+  "line": "docs/report.md:87",
+  "context": "| B3+ | 0.438 / 0.568 | 0.367 | 0.575 | 0.309 / 0.518 | 0.233 | 0.42",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.233|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.B3+.distractors.claims_fault.value",
+  "line": "docs/report.md:87",
+  "context": "| B3+ | 0.438 / 0.568 | 0.367 | 0.575 | 0.309 / 0.518 | 0.233 | 0.425 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.425|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.B3+.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:87",
+  "context": "| B3+ | 0.438 / 0.568 | 0.367 | 0.575 | 0.309 / 0.518 | 0.233 | 0.425 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.575|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.GNN.faults.top1.value",
+  "line": "docs/report.md:88",
+  "context": "| GNN (3 seeds) | 0.575 / 0.725 | 0.78",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.725|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.GNN.faults.top3.value",
+  "line": "docs/report.md:88",
+  "context": "| GNN (3 seeds) | 0.575 / 0.725 | 0.789 | 0.95",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.789|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.GNN.distractors.claims_fault.value",
+  "line": "docs/report.md:88",
+  "context": "| GNN (3 seeds) | 0.575 / 0.725 | 0.789 | 0.950 | 0.56",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.950|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.GNN.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:88",
+  "context": "| GNN (3 seeds) | 0.575 / 0.725 | 0.789 | 0.950 | 0.569 / 0.72",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.569|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.GNN.faults.top1.value",
+  "line": "docs/report.md:88",
+  "context": "| GNN (3 seeds) | 0.575 / 0.725 | 0.789 | 0.950 | 0.569 / 0.725 | 0.73",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.725|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.GNN.faults.top3.value",
+  "line": "docs/report.md:88",
+  "context": "| GNN (3 seeds) | 0.575 / 0.725 | 0.789 | 0.950 | 0.569 / 0.725 | 0.733 | 0.92",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.733|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.GNN.distractors.claims_fault.value",
+  "line": "docs/report.md:88",
+  "context": "| GNN (3 seeds) | 0.575 / 0.725 | 0.789 | 0.950 | 0.569 / 0.725 | 0.733 | 0.925 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.925|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.GNN.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:88",
+  "context": "N (3 seeds) | 0.575 / 0.725 | 0.789 | 0.950 | 0.569 / 0.725 | 0.733 | 0.925 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.575|2",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.GNN+CL.faults.top1.value",
+  "line": "docs/report.md:89",
+  "context": "| GNN + change-log rule | 0.575 / 0.725 | 0.00",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.725|2",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.GNN+CL.faults.top3.value",
+  "line": "docs/report.md:89",
+  "context": "| GNN + change-log rule | 0.575 / 0.725 | 0.000 | 0.00",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.000|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.GNN+CL.distractors.claims_fault.value",
+  "line": "docs/report.md:89",
+  "context": "| GNN + change-log rule | 0.575 / 0.725 | 0.000 | 0.000 | 0.56",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.000|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.GNN+CL.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:89",
+  "context": "| GNN + change-log rule | 0.575 / 0.725 | 0.000 | 0.000 | 0.569 / 0.72",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.569|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.GNN+CL.faults.top1.value",
+  "line": "docs/report.md:89",
+  "context": "| GNN + change-log rule | 0.575 / 0.725 | 0.000 | 0.000 | 0.569 / 0.725 | 0.00",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.725|3",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.GNN+CL.faults.top3.value",
+  "line": "docs/report.md:89",
+  "context": "| GNN + change-log rule | 0.575 / 0.725 | 0.000 | 0.000 | 0.569 / 0.725 | 0.000 | 0.00",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.000|2",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.GNN+CL.distractors.claims_fault.value",
+  "line": "docs/report.md:89",
+  "context": "N + change-log rule | 0.575 / 0.725 | 0.000 | 0.000 | 0.569 / 0.725 | 0.000 | 0.000 |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.000|3",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.GNN+CL.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:89",
+  "context": "ge-log rule | 0.575 / 0.725 | 0.000 | 0.000 | 0.569 / 0.725 | 0.000 | 0.000 |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.413|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A0.faults.top1.value",
+  "line": "docs/report.md:90",
+  "context": "| Haiku A0 | 0.413 / 0.486 | 0.56",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.486|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A0.faults.top3.value",
+  "line": "docs/report.md:90",
+  "context": "| Haiku A0 | 0.413 / 0.486 | 0.567 | 0.80",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.567|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A0.distractors.claims_fault.value",
+  "line": "docs/report.md:90",
+  "context": "| Haiku A0 | 0.413 / 0.486 | 0.567 | 0.800 | 0.30",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.800|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A0.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:90",
+  "context": "| Haiku A0 | 0.413 / 0.486 | 0.567 | 0.800 | 0.305 / 0.37",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.305|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A0.faults.top1.value",
+  "line": "docs/report.md:90",
+  "context": "| Haiku A0 | 0.413 / 0.486 | 0.567 | 0.800 | 0.305 / 0.371 | 0.53",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.371|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A0.faults.top3.value",
+  "line": "docs/report.md:90",
+  "context": "| Haiku A0 | 0.413 / 0.486 | 0.567 | 0.800 | 0.305 / 0.371 | 0.533 | 0.62",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.533|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A0.distractors.claims_fault.value",
+  "line": "docs/report.md:90",
+  "context": "| Haiku A0 | 0.413 / 0.486 | 0.567 | 0.800 | 0.305 / 0.371 | 0.533 | 0.625 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.625|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A0.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:90",
+  "context": "| Haiku A0 | 0.413 / 0.486 | 0.567 | 0.800 | 0.305 / 0.371 | 0.533 | 0.625 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.492|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A1.faults.top1.value",
+  "line": "docs/report.md:91",
+  "context": "| Haiku A1 | 0.492 / 0.597 | 0.00",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.597|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A1.faults.top3.value",
+  "line": "docs/report.md:91",
+  "context": "| Haiku A1 | 0.492 / 0.597 | 0.000 | 0.55",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.000|4",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A1.distractors.claims_fault.value",
+  "line": "docs/report.md:91",
+  "context": "| Haiku A1 | 0.492 / 0.597 | 0.000 | 0.550 | 0.42",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.550|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A1.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:91",
+  "context": "| Haiku A1 | 0.492 / 0.597 | 0.000 | 0.550 | 0.425 / 0.59",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.425|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A1.faults.top1.value",
+  "line": "docs/report.md:91",
+  "context": "| Haiku A1 | 0.492 / 0.597 | 0.000 | 0.550 | 0.425 / 0.596 | 0.10",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.596|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A1.faults.top3.value",
+  "line": "docs/report.md:91",
+  "context": "| Haiku A1 | 0.492 / 0.597 | 0.000 | 0.550 | 0.425 / 0.596 | 0.100 | 0.60",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.100|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A1.distractors.claims_fault.value",
+  "line": "docs/report.md:91",
+  "context": "| Haiku A1 | 0.492 / 0.597 | 0.000 | 0.550 | 0.425 / 0.596 | 0.100 | 0.600 |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.600|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A1.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:91",
+  "context": "| Haiku A1 | 0.492 / 0.597 | 0.000 | 0.550 | 0.425 / 0.596 | 0.100 | 0.600 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.533|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.faults.top1.value",
+  "line": "docs/report.md:92",
+  "context": "| Haiku A2 | 0.533 / 0.769 | 0.03",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.769|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.faults.top3.value",
+  "line": "docs/report.md:92",
+  "context": "| Haiku A2 | 0.533 / 0.769 | 0.033 | 0.65",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.033|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.distractors.claims_fault.value",
+  "line": "docs/report.md:92",
+  "context": "| Haiku A2 | 0.533 / 0.769 | 0.033 | 0.650 | 0.52",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.650|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:92",
+  "context": "| Haiku A2 | 0.533 / 0.769 | 0.033 | 0.650 | 0.525 / 0.70",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.525|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A2.faults.top1.value",
+  "line": "docs/report.md:92",
+  "context": "| Haiku A2 | 0.533 / 0.769 | 0.033 | 0.650 | 0.525 / 0.703 | 0.00",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.703|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A2.faults.top3.value",
+  "line": "docs/report.md:92",
+  "context": "| Haiku A2 | 0.533 / 0.769 | 0.033 | 0.650 | 0.525 / 0.703 | 0.000 | 0.60",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.000|5",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A2.distractors.claims_fault.value",
+  "line": "docs/report.md:92",
+  "context": "| Haiku A2 | 0.533 / 0.769 | 0.033 | 0.650 | 0.525 / 0.703 | 0.000 | 0.600 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.600|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A2.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:92",
+  "context": "| Haiku A2 | 0.533 / 0.769 | 0.033 | 0.650 | 0.525 / 0.703 | 0.000 | 0.600 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.405|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.metrics.A0.faults.top1.value",
+  "line": "docs/report.md:93",
+  "context": "| Opus A0 | 0.405 / 0.502 | 0.60",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.502|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.metrics.A0.faults.top3.value",
+  "line": "docs/report.md:93",
+  "context": "| Opus A0 | 0.405 / 0.502 | 0.600 | 0.87",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.600|2",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.metrics.A0.distractors.claims_fault.value",
+  "line": "docs/report.md:93",
+  "context": "| Opus A0 | 0.405 / 0.502 | 0.600 | 0.875 | 0.33",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.875|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.metrics.A0.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:93",
+  "context": "| Opus A0 | 0.405 / 0.502 | 0.600 | 0.875 | 0.339 / 0.42",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.339|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A0.faults.top1.value",
+  "line": "docs/report.md:93",
+  "context": "| Opus A0 | 0.405 / 0.502 | 0.600 | 0.875 | 0.339 / 0.428 | 0.56",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.428|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A0.faults.top3.value",
+  "line": "docs/report.md:93",
+  "context": "| Opus A0 | 0.405 / 0.502 | 0.600 | 0.875 | 0.339 / 0.428 | 0.567 | 0.80",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.567|1",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A0.distractors.claims_fault.value",
+  "line": "docs/report.md:93",
+  "context": "| Opus A0 | 0.405 / 0.502 | 0.600 | 0.875 | 0.339 / 0.428 | 0.567 | 0.800 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.800|1",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A0.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:93",
+  "context": "| Opus A0 | 0.405 / 0.502 | 0.600 | 0.875 | 0.339 / 0.428 | 0.567 | 0.800 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.642|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.faults.top1.value",
+  "line": "docs/report.md:94",
+  "context": "| Opus A2 | 0.642 / 0.811 | 0.03",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.811|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.faults.top3.value",
+  "line": "docs/report.md:94",
+  "context": "| Opus A2 | 0.642 / 0.811 | 0.033 | 0.70",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.033|1",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.distractors.claims_fault.value",
+  "line": "docs/report.md:94",
+  "context": "| Opus A2 | 0.642 / 0.811 | 0.033 | 0.700 | 0.64",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.700|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:94",
+  "context": "| Opus A2 | 0.642 / 0.811 | 0.033 | 0.700 | 0.642 / 0.79",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.642|1",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A2.faults.top1.value",
+  "line": "docs/report.md:94",
+  "context": "| Opus A2 | 0.642 / 0.811 | 0.033 | 0.700 | 0.642 / 0.795 | 0.00",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.795|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A2.faults.top3.value",
+  "line": "docs/report.md:94",
+  "context": "| Opus A2 | 0.642 / 0.811 | 0.033 | 0.700 | 0.642 / 0.795 | 0.000 | 0.72",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.000|6",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A2.distractors.claims_fault.value",
+  "line": "docs/report.md:94",
+  "context": "| Opus A2 | 0.642 / 0.811 | 0.033 | 0.700 | 0.642 / 0.795 | 0.000 | 0.725 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.725|4",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.metrics.A2.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:94",
+  "context": "| Opus A2 | 0.642 / 0.811 | 0.033 | 0.700 | 0.642 / 0.795 | 0.000 | 0.725 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|40|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.B1.change_overlap_faults.claims_fault.n",
+  "line": "docs/report.md:96",
+  "context": " fault (lower is better). \"Change-overlap recall\" is the share of the 40 change-overlappin",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.267|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.comparisons.hard|type_correct|A2 vs A0.point",
+  "line": "docs/report.md:99",
+  "context": " +0.332 [0.241, 0.424] status-blind) and on hard fault-type accuracy (+0.267; +0.250).",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.250|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.hard|type_correct|A2 vs A0.point",
+  "line": "docs/report.md:99",
+  "context": "[0.241, 0.424] status-blind) and on hard fault-type accuracy (+0.267; +0.250).",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.078|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.comparisons.faults|top1|A1 vs A0.point",
+  "line": "docs/report.md:100",
+  "context": "- A1 beats A0 on faults top-1 in both variants (+0.078; +0.120).",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.120|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.faults|top1|A1 vs A0.point",
+  "line": "docs/report.md:100",
+  "context": "- A1 beats A0 on faults top-1 in both variants (+0.078; +0.120).",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.310|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.comparisons.faults|top3|A2 vs A0.point",
+  "line": "docs/report.md:101",
+  "context": "- Opus shows the same pattern: A2 - A0 faults top-3 +0.310 and +0.366, s",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.366|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.faults|top3|A2 vs A0.point",
+  "line": "docs/report.md:101",
+  "context": "- Opus shows the same pattern: A2 - A0 faults top-3 +0.310 and +0.366, supported.",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.128|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.comparisons.faults|top3|A1 vs GNN.point",
+  "line": "docs/report.md:106",
+  "context": "- Haiku A1 (no GNN tool) is below the GNN on faults top-3 (-0.128; -0.129, cont",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.129|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.faults|top3|A1 vs GNN.point",
+  "line": "docs/report.md:106",
+  "context": "- Haiku A1 (no GNN tool) is below the GNN on faults top-3 (-0.128; -0.129, contradicted",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.219|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.comparisons.faults|claims_fault|A2 vs GNN+CL.point",
+  "line": "docs/report.md:111",
+  "context": "- The agents recall more faults than the rule: Haiku A2 +0.219 and +0.208 on",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.208|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.faults|claims_fault|A2 vs GNN+CL.point",
+  "line": "docs/report.md:111",
+  "context": "- The agents recall more faults than the rule: Haiku A2 +0.219 and +0.208 on main-sampl",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.650|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.comparisons.change_overlap_faults|claims_fault|A2 vs GNN+CL.point",
+  "line": "docs/report.md:111",
+  "context": " than the rule: Haiku A2 +0.219 and +0.208 on main-sample faults, and +0.650 and +0.600 on",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.600|3",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.change_overlap_faults|claims_fault|A2 vs GNN+CL.point",
+  "line": "docs/report.md:111",
+  "context": "ule: Haiku A2 +0.219 and +0.208 on main-sample faults, and +0.650 and +0.600 on change-ove",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.300|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.comparisons.change_overlap_faults|claims_fault|A2 vs GNN.point",
+  "line": "docs/report.md:113",
+  "context": "ange log claims a fault less often than the plain GNN. Haiku A2 is at -0.300 and -0.325, a",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.325|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.change_overlap_faults|claims_fault|A2 vs GNN.point",
+  "line": "docs/report.md:113",
+  "context": "aims a fault less often than the plain GNN. Haiku A2 is at -0.300 and -0.325, and Opus A2 ",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.250|1",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.comparisons.change_overlap_faults|claims_fault|A2 vs GNN.point",
+  "line": "docs/report.md:113",
+  "context": " than the plain GNN. Haiku A2 is at -0.300 and -0.325, and Opus A2 at -0.250 and -0.200, a",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.200|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.comparisons.change_overlap_faults|claims_fault|A2 vs GNN.point",
+  "line": "docs/report.md:113",
+  "context": "lain GNN. Haiku A2 is at -0.300 and -0.325, and Opus A2 at -0.250 and -0.200, all contradi",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|1.0%|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.agent_cost_latency_groundedness.A1.ungrounded_item_rate",
+  "line": "docs/report.md:119",
+  "context": "| Haiku A1 | 1.0% and 0.9% | 8.9%",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.9%|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.agent_cost_latency_groundedness.A1.ungrounded_item_rate",
+  "line": "docs/report.md:119",
+  "context": "| Haiku A1 | 1.0% and 0.9% | 8.9% and 8.8%",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|8.9%|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.agent_cost_latency_groundedness.A1.ungrounded_item_rate_strict",
+  "line": "docs/report.md:119",
+  "context": "| Haiku A1 | 1.0% and 0.9% | 8.9% and 8.8% |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|8.8%|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.agent_cost_latency_groundedness.A1.ungrounded_item_rate_strict",
+  "line": "docs/report.md:119",
+  "context": "| Haiku A1 | 1.0% and 0.9% | 8.9% and 8.8% |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|1.2%|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.agent_cost_latency_groundedness.A2.ungrounded_item_rate",
+  "line": "docs/report.md:120",
+  "context": "| Haiku A2 | 1.2% and 0.9% | 6.0%",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.9%|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.agent_cost_latency_groundedness.A2.ungrounded_item_rate",
+  "line": "docs/report.md:120",
+  "context": "| Haiku A2 | 1.2% and 0.9% | 6.0% and 6.0%",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|6.0%|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.agent_cost_latency_groundedness.A2.ungrounded_item_rate_strict",
+  "line": "docs/report.md:120",
+  "context": "| Haiku A2 | 1.2% and 0.9% | 6.0% and 6.0% |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|6.0%|1",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.agent_cost_latency_groundedness.A2.ungrounded_item_rate_strict",
+  "line": "docs/report.md:120",
+  "context": "| Haiku A2 | 1.2% and 0.9% | 6.0% and 6.0% |",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.0025|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.agent_cost_latency_groundedness.A2.mean_usd",
+  "line": "docs/report.md:125",
+  "context": "- Haiku A2 cost $0.0025 to $0.0028 p",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.0028|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.status_blind.agent_cost_latency_groundedness.A2.mean_usd",
+  "line": "docs/report.md:125",
+  "context": "- Haiku A2 cost $0.0025 to $0.0028 per incident",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.072|0",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.with_status.agent_cost_latency_groundedness.A2.mean_usd",
+  "line": "docs/report.md:125",
+  "context": "- Haiku A2 cost $0.0025 to $0.0028 per incident; Opus A2 cost $0.072 to $0.078.",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|0.078|1",
+  "source": "phase6/test_claude-opus-5-5/summary.json",
+  "path": "variants.status_blind.agent_cost_latency_groundedness.A2.mean_usd",
+  "line": "docs/report.md:125",
+  "context": "Haiku A2 cost $0.0025 to $0.0028 per incident; Opus A2 cost $0.072 to $0.078.",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|1.96|0",
+  "source": "derived",
+  "path": "haiku test cost",
+  "line": "docs/report.md:126",
+  "context": "- The Haiku test run cost $1.96 and the Opus t",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|32.68|0",
+  "source": "derived",
+  "path": "opus test cost",
+  "line": "docs/report.md:126",
+  "context": "- The Haiku test run cost $1.96 and the Opus test run $32.68.",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|41.65|0",
+  "source": "derived",
+  "path": "project API spend",
+  "line": "docs/report.md:127",
+  "context": "- Total project API spend was $41.65 of a $100 bud",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ5: capacity forecasting (Phase 8, 210 test scenarios)|0.807|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.metrics.persistence.all.f1.value",
+  "line": "docs/report.md:142",
+  "context": "tence (above 0.8 now) | 0.972 [0.970, 0.975] | 0.689 [0.678, 0.700] | 0.807 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ5: capacity forecasting (Phase 8, 210 test scenarios)|0.675|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.metrics.seasonal_naive.all.f1.value",
+  "line": "docs/report.md:143",
+  "context": "(same hour yesterday) | 0.615 [0.601, 0.628] | 0.749 [0.729, 0.767] | 0.675 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ5: capacity forecasting (Phase 8, 210 test scenarios)|0.890|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.metrics.lightgbm.all.f1.value",
+  "line": "docs/report.md:144",
+  "context": "lag features [VERIFY] | 0.900 [0.895, 0.905] | 0.880 [0.873, 0.886] | 0.890 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ5: capacity forecasting (Phase 8, 210 test scenarios)|0.863|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.metrics.gnn_head.all.f1.value",
+  "line": "docs/report.md:145",
+  "context": " encoder + small head | 0.836 [0.827, 0.846] | 0.891 [0.885, 0.896] | 0.863 |",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ5: capacity forecasting (Phase 8, 210 test scenarios)|0.215|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.comparisons.all|f1|lightgbm vs seasonal_naive.point",
+  "line": "docs/report.md:147",
+  "context": "eats persistence on F1 by +0.083 [0.079, 0.088] and seasonal-naive by +0.215, both support",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|RQ5: capacity forecasting (Phase 8, 210 test scenarios)|83%|0",
+  "source": "derived",
+  "path": "phase8 fault-free share of breaches",
+  "line": "docs/report.md:150",
+  "context": "- **Window classes.** 83% of test breaches",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|RQ5: capacity forecasting (Phase 8, 210 test scenarios)|114|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.metrics.persistence.maintenance.n_breaches",
+  "line": "docs/report.md:150",
+  "context": "ows for three methods but not for persistence. The maintenance class (114 breaches) carrie",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|Descriptive results (not pre-registered)|0.167|0",
+  "source": "phase6/test_haiku_vs_opus.json",
+  "path": "variants.with_status.comparisons.hard|top1|Opus-A2 vs Haiku-A2.point",
+  "line": "docs/report.md:160",
+  "context": "+0.108 [0.041, 0.182] and +0.117 [0.048, 0.189]) and on hard top-1 (+0.167 and +0.150).",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|Descriptive results (not pre-registered)|0.150|0",
+  "source": "phase6/test_haiku_vs_opus.json",
+  "path": "variants.status_blind.comparisons.hard|top1|Opus-A2 vs Haiku-A2.point",
+  "line": "docs/report.md:160",
+  "context": "41, 0.182] and +0.117 [0.048, 0.189]) and on hard top-1 (+0.167 and +0.150).",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|Descriptive results (not pre-registered)|68|0",
+  "source": "derived",
+  "path": "haiku vs opus comparisons",
+  "line": "docs/report.md:161",
+  "context": "- The comparison file holds 68 paired comparisons ",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|Descriptive results (not pre-registered)|27|0",
+  "source": "derived",
+  "path": "haiku vs opus supported",
+  "line": "docs/report.md:161",
+  "context": "- The comparison file holds 68 paired comparisons (27 supported, 41 incon",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|Descriptive results (not pre-registered)|41|0",
+  "source": "derived",
+  "path": "haiku vs opus inconclusive",
+  "line": "docs/report.md:161",
+  "context": "- The comparison file holds 68 paired comparisons (27 supported, 41 inconclusive) with ",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|Descriptive results (not pre-registered)|28|0",
+  "source": "derived",
+  "path": "opus/haiku A2 cost ratio with_status",
+  "line": "docs/report.md:162",
+  "context": "- Opus A2 costs about 28 times as much per i",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|Descriptive results (not pre-registered)|0.92|0",
+  "source": "phase7/aarnet_dev_summary.json",
+  "path": "cost_usd",
+  "line": "docs/report.md:164",
+  "context": "type plus one drain), picked by a fixed rule, in both variants, for $0.92.",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|Descriptive results (not pre-registered)|0.500|0",
+  "source": "phase7/aarnet_dev_summary.json",
+  "path": "by_variant.with_status.haiku-A2.faults_top1",
+  "line": "docs/report.md:165",
+  "context": "- Both models had faults top-1 0.500, the same as the",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|Negative results|0.475|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.all:far_maintenance_only.mean",
+  "line": "docs/report.md:176",
+  "context": "s:** the GNN raises an alarm in about half of maintenance-only hours (0.475 with status ev",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|Negative results|0.458|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.status_blind.seed_summary.gat-h32.all:far_maintenance_only.mean",
+  "line": "docs/report.md:176",
+  "context": "rm in about half of maintenance-only hours (0.475 with status events, 0.458 status-blind),",
+  "reviewed": "corrected by hand"
+ }
+]
