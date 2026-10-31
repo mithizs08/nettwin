@@ -1,0 +1,113 @@
+{
+ "note": "Phase 8 tuning on the validation subset only. Telemetry is synthetic; topologies are public.",
+ "variant": "with_status",
+ "n_train_scenarios": 300,
+ "n_val_scenarios": 120,
+ "train_pairs": 3983000,
+ "val_pairs": 1502968,
+ "train_breach_rate": 0.01242,
+ "val_breach_rate": 0.01164,
+ "lightgbm": {
+  "runs": [
+   {
+    "config": {
+     "num_leaves": 31,
+     "learning_rate": 0.05
+    },
+    "best_iteration": 109,
+    "val_ap": 0.973
+   },
+   {
+    "config": {
+     "num_leaves": 31,
+     "learning_rate": 0.1
+    },
+    "best_iteration": 37,
+    "val_ap": 0.9716
+   },
+   {
+    "config": {
+     "num_leaves": 63,
+     "learning_rate": 0.05
+    },
+    "best_iteration": 86,
+    "val_ap": 0.973
+   },
+   {
+    "config": {
+     "num_leaves": 63,
+     "learning_rate": 0.1
+    },
+    "best_iteration": 29,
+    "val_ap": 0.9716
+   }
+  ],
+  "selected": {
+   "num_leaves": 31,
+   "learning_rate": 0.05
+  },
+  "threshold": 0.4491053119139436,
+  "val_f1_at_threshold": 0.9188,
+  "features": [
+   "u",
+   "u_1",
+   "u_2",
+   "u_3",
+   "u_6",
+   "u_12",
+   "mean12",
+   "max12",
+   "std12",
+   "mean36",
+   "max36",
+   "std36",
+   "yest_max",
+   "yest_mean",
+   "u_288",
+   "lat_ratio",
+   "discards",
+   "u_missing",
+   "lat_missing"
+  ]
+ },
+ "gnn_head": {
+  "runs": [
+   {
+    "lr": 0.001,
+    "val_ap": 0.9485
+   },
+   {
+    "lr": 0.003,
+    "val_ap": 0.9555
+   }
+  ],
+  "selected_lr": 0.003,
+  "threshold": 0.9784249067306519,
+  "val_f1_at_threshold": 0.8886,
+  "encoder": "gat-h32-s0",
+  "n_inputs": 35
+ },
+ "val_rules": {
+  "persistence": {
+   "precision": 0.9769,
+   "recall": 0.739,
+   "f1": 0.8414
+  },
+  "seasonal_naive": {
+   "precision": 0.6365,
+   "recall": 0.769,
+   "f1": 0.6965
+  },
+  "lightgbm": {
+   "precision": 0.9191,
+   "recall": 0.9184,
+   "f1": 0.9188
+  },
+  "gnn_head": {
+   "precision": 0.8853,
+   "recall": 0.892,
+   "f1": 0.8886
+  }
+ },
+ "seconds": 164.1
+}

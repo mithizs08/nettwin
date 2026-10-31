@@ -1,0 +1,16 @@
+{
+ "note": "sha256 of what scripts/phase8_forecast.py --test loads; it refuses on any difference",
+ "thresholds": {
+  "lightgbm": 0.4491053119139436,
+  "gnn_head": 0.9784249067306519
+ },
+ "encoder": "gat-h32-s0",
+ "head_inputs": 35,
+ "files": {
+  "data/models/phase8/lightgbm.txt": "77175653c7aec6fe0ed3f9a44ca705120596c44df164360345017bf1b66ad491",
+  "data/models/phase8/gnn_head.pt": "eff386cd2f44b8b364559e6438120c2efe81f9afa4665d749d66f18df7dd942e",
+  "data/models/phase5/gat-h32-s0.pt": "6d26c4d1fd24f6299d9aa02fd1eb7679d6c50ec0c45a8705c1ddf9f8786e3348",
+  "src/nettwin/forecast.py": "1d3ee50600a5602c78dd0669c5b1e8d256b2fbc35c4edba96069550a75a7a968",
+  "scripts/phase8_forecast.py": "8133118cbe04c558967866e263b0a62764741c79f4e08a2f9713ed1dd2920280"
+ }
+}
