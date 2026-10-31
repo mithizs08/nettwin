@@ -990,6 +990,63 @@ Nothing from the test or dev splits has been read for any choice in Phases 4 and
 - X9 not met: the GNN keeps its excess maintenance-hour alarms.
 - No prediction on whether test numbers will be above or below validation.
 
+### 2026-10-31: Phase 5 test results (run once, as pre-registered)
+
+`scripts/phase5_test.py` ran once at commit `f0a4461`, after the pre-registration commit. Every frozen hash matched. It scored 210 test and 30 dev scenarios per variant in 15 min (`results/phase5_test.json`; tables in `results/phase5_tables.md`). Nothing was changed after seeing the results, and no bug fix was needed. Telemetry is synthetic, the networks are public topologies, and none of this is Telstra's network.
+
+**Test headline** (7 real networks, q90 window, GNN and MLP as means of 3 seeds; held-out validation in brackets).
+
+| | B1 | B2 | B3 | B3+ | GAT-h32 | MLP ablation |
+|---|---|---|---|---|---|---|
+| Hard top-1 / top-3, with status | 0.08 / 0.23 | 0.20 / 0.36 | 0.10 / 0.23 | 0.11 / 0.23 | **0.43 / 0.59** (0.47 / 0.61) | 0.38 / 0.54 (0.46 / 0.60) |
+| Easy top-1 / top-3, with status | 0.18 / 0.40 | 0.23 / 0.49 | 0.60 / 0.82 | 0.72 / 0.82 | 0.76 / 0.86 (0.76 / 0.89) | 0.76 / 0.86 |
+| Easy top-1 / top-3, status-blind | 0.01 / 0.03 | 0.07 / 0.24 | 0.43 / 0.67 | 0.40 / 0.66 | **0.77 / 0.86** (0.76 / 0.89) | 0.76 / 0.87 |
+| Hard root PR-AUC, with status (base rate 0.0025) | 0.006 | 0.029 | 0.020 | 0.020 | **0.074** (0.074) | 0.049 |
+| Maintenance-only alarm rate, with status | 29% | 29% | 18% | 18% | **48%** (48%) | 45% |
+| Fault-free alarm rate at the frozen validation threshold, with status | 6.3% | 15.8% | 6.2% | 6.2% | 8.8% | 4.7% to 9.0% |
+
+**Verdicts on test** (paired bootstrap, GNN seed mean).
+- Hard types: every top-1 and top-3 (q90), root PR-AUC and symptomatic PR-AUC difference against B1, B2, B3 and B3+ is supported, in both variants. Hard top-3 against B2 is +0.23 (CI +0.17 to +0.30) with status and +0.25 (CI +0.19 to +0.31) status-blind.
+- Easy types with status events:
+  - GNN against B3 and B3+: top-3 inconclusive (+0.04, CI -0.03 to +0.10).
+  - Top-1 is supported against B3 (+0.16) and inconclusive against B3+.
+- Easy types status-blind: every difference is supported.
+- Maintenance-only alarms: contradicted against all four baselines in both variants. The GNN alarms more (+0.19 to +0.34).
+
+**Pre-registered replications** (test).
+
+| ID | Prediction | Test |
+|---|---|---|
+| X1 GNN beats B2, hard top-3 | met | **met** (q90 / max / mean) |
+| X2 GNN beats B2, hard root PR-AUC | met | **met** |
+| X3 easy: >= B3 - 0.05 with status, > B3 status-blind | inconclusive with status | **met**. The margin version is supported (+0.086, CI +0.024 to +0.153); the plain difference is inconclusive, as predicted |
+| X4 B3 beats the GNN on flapping, with status | met | **inconclusive**: B3 - GNN +0.13 (CI -0.04 to +0.29). Prediction missed: right direction, CI crosses 0 |
+| X6 GNN beats the MLP | not met | **inconclusive**. Hard top-3 is now supported (+0.044, CI +0.014 to +0.072 with status; +0.045 status-blind). Easy top-1 is inconclusive. Prediction missed in part |
+| X8 best symptomatic PR-AUC | (not predicted) | **met** |
+| X9 GNN alarms less than B2 in maintenance hours | not met | **not met** (contradicted) |
+
+**Dev (AARNet, 30 scenarios, seen during development; not pooled).**
+- GNN hard top-3: 0.71 with status and 0.73 status-blind, against B2's 0.50 (supported).
+- MLP hard top-3: 0.71, the same as the GNN.
+- Easy types with status: every difference against B3 and B3+ is inconclusive.
+- Maintenance alarms: 53% against 22% for B2.
+- 30 scenarios give wide CIs, so dev is a demo column, not evidence.
+
+**What this means, and what was surprising.**
+- **The hard-type gain transfers to the unseen real networks.** Hard top-3 is 0.59 on test against 0.61 on held-out validation, still about 0.23 above the best baseline. It is above every baseline on every one of the 7 test networks, from York (0.38, against B2 0.35) to Ibm and Geant2012 (0.70).
+- **On test the graph does help a little, which validation did not show.**
+  - The MLP loses 0.06 of hard top-3 from validation to test (0.60 to 0.54). The GNN loses 0.02.
+  - The GNN-minus-MLP hard top-3 gap is supported (+0.044) in both variants.
+  - So message passing may matter more on networks unlike the training graphs. It is one test set and a small effect, and easy top-1 shows no difference.
+  - The write-up should say: "on test, message passing adds about 0.04 hard top-3 over the same model without it; on validation it added nothing detectable".
+- **The validation threshold does not transfer equally.**
+  - At the frozen thresholds, fault-free alarm rates on test are 6.3% for B1, 15.8% for B2, 6.2% for B3, and 8.1% to 10.2% for the GNN seeds, instead of 5%.
+  - B2's threshold moves most. So its maintenance-hour rate (29%) is at a looser operating point than the GNN's, and the GNN's maintenance excess is if anything understated against B2.
+  - Threshold transfer across networks is a real deployment issue. It is reported, not corrected, as pre-registered.
+- **The maintenance-hour problem replicates exactly**: 48% on test, as on validation. The Phase 6 change log has to address drains as well as planned downs (validation audit-fix entry).
+- **Unobservable hard faults**: GNN top-3 0.11 to 0.16 per seed, against B2's 0.11. Still no sign of a prior-based shortcut.
+- **link_down / node_down**: top-3 0.985 to 1.000 in both variants. As corrected in R3, this is recognition of the down-link rendering, not hard detection.
+
 ## Parked ideas
 
 Ideas that came up early, with the phase they belong to. Do not act on them before that phase.

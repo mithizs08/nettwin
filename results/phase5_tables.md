@@ -392,3 +392,387 @@ Alarm rates at each method's frozen 5% fault-free threshold, in maintenance-only
 | gat-h32-s1-mlp | 0.934 (754/807) | 0.328 (809/2469) | supported (0.607 [0.571, 0.640]) | 0.482 | 320/754 | 0.511 (1440/2819) | 0.025 (1351/52982) | 0.801 | 0.467 | 0.044 |
 | gat-h32-s2-mlp | 0.838 (676/807) | 0.323 (797/2469) | supported (0.515 [0.467, 0.561]) | 0.459 | 221/676 | 0.531 (1498/2819) | 0.024 (1293/52982) | 0.700 | 0.472 | 0.041 |
 
+## Test results (run once, frozen validation calibration)
+
+Test: 7 real networks, 30 scenarios each. Dev: AARNet, seen during development, reported separately. GNN and MLP are seed means of 3 seeds. Validation columns are the held-out headline (R2).
+
+### test, with_status (210 scenarios)
+
+Base rates: root hard 0.0025, root easy 0.0004. Fault-free alarm rate at the frozen thresholds: B1 0.063, B2 0.158, B3 0.062, B3+ 0.062, gat-h32-s0 0.082, gat-h32-s1 0.102, gat-h32-s2 0.081, gat-h32-s0-mlp 0.090, gat-h32-s1-mlp 0.047, gat-h32-s2-mlp 0.080.
+
+| method | hard top-1 | hard top-3 | easy top-1 | easy top-3 | hard root PR-AUC | easy root PR-AUC | maint. alarms |
+|---|---|---|---|---|---|---|---|
+| B1 | 0.083 (val 0.136) | 0.232 (val 0.227) | 0.178 (val 0.175) | 0.401 (val 0.408) | 0.006 (val 0.005) | 0.037 (val 0.037) | 0.285 (val 0.284) |
+| B2 | 0.200 (val 0.256) | 0.356 (val 0.377) | 0.232 (val 0.249) | 0.486 (val 0.578) | 0.029 (val 0.050) | 0.046 (val 0.070) | 0.287 (val 0.212) |
+| B3 | 0.102 (val 0.119) | 0.230 (val 0.195) | 0.602 (val 0.635) | 0.823 (val 0.875) | 0.020 (val 0.033) | 0.125 (val 0.176) | 0.184 (val 0.199) |
+| B3+ | 0.113 (val 0.131) | 0.234 (val 0.197) | 0.718 (val 0.745) | 0.821 (val 0.886) | 0.020 (val 0.033) | 0.126 (val 0.176) | 0.184 (val 0.199) |
+| gat-h32 | 0.431 (val 0.473) | 0.587 (val 0.606) | 0.762 (val 0.757) | 0.859 (val 0.887) | 0.074 (val 0.074) | 0.241 (val 0.217) | 0.475 (val 0.482) |
+| gat-h32-mlp | 0.376 (val 0.462) | 0.543 (val 0.602) | 0.755 (val 0.781) | 0.858 (val 0.889) | 0.049 (val 0.062) | 0.168 (val 0.192) | 0.445 (val 0.447) |
+
+| model | metric | per seed | mean | sd | seed-mean CI |
+|---|---|---|---|---|---|
+| gat-h32 | hard:top3@q90 | 0.610, 0.576, 0.576 | 0.587 | 0.0197 | 0.587 [0.527, 0.652] |
+| gat-h32 | easy:top1@q90 | 0.751, 0.789, 0.746 | 0.7622 | 0.0236 | 0.762 [0.707, 0.821] |
+| gat-h32 | hard:pr_auc_root | 0.083, 0.066, 0.072 | 0.0736 | 0.009 | 0.074 [0.052, 0.102] |
+| gat-h32 | all:far_maintenance_only | 0.440, 0.469, 0.517 | 0.4751 |  | 0.475 [0.438, 0.512] |
+| gat-h32-mlp | hard:top3@q90 | 0.546, 0.537, 0.546 | 0.5431 | 0.0056 | 0.543 [0.480, 0.606] |
+| gat-h32-mlp | easy:top1@q90 | 0.741, 0.768, 0.757 | 0.755 | 0.0136 | 0.755 [0.698, 0.811] |
+| gat-h32-mlp | hard:pr_auc_root | 0.032, 0.057, 0.057 | 0.0488 | 0.0142 | 0.049 [0.034, 0.070] |
+| gat-h32-mlp | all:far_maintenance_only | 0.373, 0.472, 0.490 | 0.445 |  | 0.445 [0.408, 0.480] |
+
+Per type, top-3 (q90).
+
+| type | B1 | B2 | B3 | B3+ | gat-h32 |
+|---|---|---|---|---|---|
+| link_down | 0.787 | 0.934 | 0.768 | 0.760 | 1.000 |
+| node_down | 0.313 | 0.439 | 1.000 | 1.000 | 1.000 |
+| link_flapping | 0.095 | 0.069 | 0.681 | 0.681 | 0.552 |
+| link_degradation | 0.323 | 0.452 | 0.424 | 0.441 | 0.516 |
+| demand_surge | 0.174 | 0.236 | 0.162 | 0.159 | 0.718 |
+| routing_misconfig | 0.211 | 0.394 | 0.129 | 0.129 | 0.516 |
+
+Per network, top-3 (q90): hard / easy.
+
+| network | B1 | B2 | B3 | B3+ | gat-h32 |
+|---|---|---|---|---|---|
+| Belnet2010 | 0.310 / 0.290 | 0.241 / 0.333 | 0.195 / 0.963 | 0.178 / 0.889 | 0.540 / 0.877 |
+| Garr201201 | 0.176 / 0.319 | 0.206 / 0.478 | 0.275 / 0.855 | 0.285 / 0.826 | 0.696 / 0.826 |
+| Geant2012 | 0.344 / 0.348 | 0.469 / 0.522 | 0.251 / 0.841 | 0.281 / 0.870 | 0.698 / 0.855 |
+| Ibm | 0.250 / 0.520 | 0.500 / 0.640 | 0.246 / 0.880 | 0.240 / 0.900 | 0.700 / 0.920 |
+| Peer1 | 0.276 / 0.464 | 0.552 / 0.536 | 0.220 / 0.824 | 0.229 / 0.824 | 0.621 / 0.917 |
+| York | 0.087 / 0.308 | 0.348 / 0.385 | 0.269 / 0.809 | 0.269 / 0.790 | 0.377 / 0.782 |
+| germany50 | 0.143 / 0.515 | 0.179 / 0.515 | 0.146 / 0.642 | 0.146 / 0.688 | 0.393 / 0.838 |
+
+### test, status_blind (210 scenarios)
+
+Base rates: root hard 0.0025, root easy 0.0004. Fault-free alarm rate at the frozen thresholds: B1 0.063, B2 0.159, B3 0.063, B3+ 0.063, gat-h32-s0 0.085, gat-h32-s1 0.105, gat-h32-s2 0.085, gat-h32-s0-mlp 0.091, gat-h32-s1-mlp 0.049, gat-h32-s2-mlp 0.081.
+
+| method | hard top-1 | hard top-3 | easy top-1 | easy top-3 | hard root PR-AUC | easy root PR-AUC | maint. alarms |
+|---|---|---|---|---|---|---|---|
+| B1 | 0.088 (val 0.139) | 0.229 (val 0.231) | 0.011 (val 0.008) | 0.025 (val 0.027) | 0.006 (val 0.006) | 0.000 (val 0.000) | 0.225 (val 0.244) |
+| B2 | 0.198 (val 0.251) | 0.342 (val 0.389) | 0.065 (val 0.087) | 0.237 (val 0.264) | 0.027 (val 0.046) | 0.008 (val 0.013) | 0.232 (val 0.137) |
+| B3 | 0.097 (val 0.118) | 0.230 (val 0.195) | 0.429 (val 0.439) | 0.673 (val 0.707) | 0.022 (val 0.036) | 0.075 (val 0.102) | 0.114 (val 0.157) |
+| B3+ | 0.114 (val 0.131) | 0.239 (val 0.197) | 0.401 (val 0.418) | 0.662 (val 0.720) | 0.022 (val 0.036) | 0.075 (val 0.102) | 0.114 (val 0.157) |
+| gat-h32 | 0.429 (val 0.470) | 0.587 (val 0.604) | 0.770 (val 0.760) | 0.864 (val 0.885) | 0.077 (val 0.076) | 0.149 (val 0.136) | 0.458 (val 0.467) |
+| gat-h32-mlp | 0.374 (val 0.461) | 0.541 (val 0.602) | 0.757 (val 0.760) | 0.869 (val 0.891) | 0.053 (val 0.069) | 0.058 (val 0.059) | 0.439 (val 0.446) |
+
+| model | metric | per seed | mean | sd | seed-mean CI |
+|---|---|---|---|---|---|
+| gat-h32 | hard:top3@q90 | 0.610, 0.576, 0.576 | 0.587 | 0.0197 | 0.587 [0.527, 0.651] |
+| gat-h32 | easy:top1@q90 | 0.773, 0.784, 0.751 | 0.7698 | 0.0169 | 0.770 [0.715, 0.829] |
+| gat-h32 | hard:pr_auc_root | 0.087, 0.068, 0.077 | 0.0771 | 0.0094 | 0.077 [0.054, 0.107] |
+| gat-h32 | all:far_maintenance_only | 0.431, 0.463, 0.481 | 0.4582 |  | 0.458 [0.421, 0.498] |
+| gat-h32-mlp | hard:top3@q90 | 0.541, 0.532, 0.551 | 0.5415 | 0.0098 | 0.541 [0.480, 0.603] |
+| gat-h32-mlp | easy:top1@q90 | 0.746, 0.779, 0.746 | 0.7569 | 0.0191 | 0.757 [0.698, 0.816] |
+| gat-h32-mlp | hard:pr_auc_root | 0.033, 0.060, 0.065 | 0.0528 | 0.0174 | 0.053 [0.036, 0.075] |
+| gat-h32-mlp | all:far_maintenance_only | 0.389, 0.480, 0.447 | 0.4389 |  | 0.439 [0.404, 0.475] |
+
+Per type, top-3 (q90).
+
+| type | B1 | B2 | B3 | B3+ | gat-h32 |
+|---|---|---|---|---|---|
+| link_down | 0.000 | 0.492 | 0.388 | 0.388 | 1.000 |
+| node_down | 0.000 | 0.158 | 1.000 | 0.939 | 0.985 |
+| link_flapping | 0.082 | 0.054 | 0.593 | 0.629 | 0.570 |
+| link_degradation | 0.306 | 0.419 | 0.424 | 0.442 | 0.511 |
+| demand_surge | 0.181 | 0.236 | 0.162 | 0.173 | 0.722 |
+| routing_misconfig | 0.211 | 0.380 | 0.129 | 0.129 | 0.516 |
+
+Per network, top-3 (q90): hard / easy.
+
+| network | B1 | B2 | B3 | B3+ | gat-h32 |
+|---|---|---|---|---|---|
+| Belnet2010 | 0.310 / 0.038 | 0.207 / 0.058 | 0.195 / 0.885 | 0.178 / 0.846 | 0.540 / 0.872 |
+| Garr201201 | 0.162 / 0.000 | 0.176 / 0.000 | 0.275 / 0.726 | 0.285 / 0.697 | 0.696 / 0.797 |
+| Geant2012 | 0.344 / 0.000 | 0.469 / 0.455 | 0.251 / 0.641 | 0.281 / 0.610 | 0.708 / 0.894 |
+| Ibm | 0.250 / 0.000 | 0.500 / 0.536 | 0.246 / 0.720 | 0.274 / 0.680 | 0.700 / 0.920 |
+| Peer1 | 0.276 / 0.111 | 0.552 / 0.222 | 0.221 / 0.676 | 0.230 / 0.676 | 0.632 / 0.926 |
+| York | 0.087 / 0.019 | 0.304 / 0.077 | 0.269 / 0.735 | 0.269 / 0.733 | 0.348 / 0.782 |
+| germany50 | 0.143 / 0.000 | 0.179 / 0.312 | 0.146 / 0.398 | 0.146 / 0.440 | 0.393 / 0.854 |
+
+### test: paired verdicts
+
+| comparison | verdict | point [CI] |
+|---|---|---|
+| with_status|hard|top1@q90|GNN - B1 | supported | 0.348 [0.281, 0.416] |
+| with_status|hard|top3@q90|GNN - B1 | supported | 0.355 [0.279, 0.423] |
+| with_status|hard|pr_auc_root|GNN - B1 | supported | 0.068 [0.047, 0.095] |
+| with_status|hard|pr_auc_symptomatic|GNN - B1 | supported | 0.084 [0.061, 0.108] |
+| with_status|hard|top1@q90|GNN - B2 | supported | 0.231 [0.168, 0.292] |
+| with_status|hard|top3@q90|GNN - B2 | supported | 0.231 [0.168, 0.297] |
+| with_status|hard|pr_auc_root|GNN - B2 | supported | 0.044 [0.026, 0.064] |
+| with_status|hard|pr_auc_symptomatic|GNN - B2 | supported | 0.078 [0.057, 0.101] |
+| with_status|hard|top1@q90|GNN - B3 | supported | 0.329 [0.264, 0.393] |
+| with_status|hard|top3@q90|GNN - B3 | supported | 0.357 [0.276, 0.432] |
+| with_status|hard|pr_auc_root|GNN - B3 | supported | 0.054 [0.034, 0.074] |
+| with_status|hard|pr_auc_symptomatic|GNN - B3 | supported | 0.079 [0.058, 0.102] |
+| with_status|hard|top1@q90|GNN - B3+ | supported | 0.318 [0.251, 0.380] |
+| with_status|hard|top3@q90|GNN - B3+ | supported | 0.353 [0.268, 0.431] |
+| with_status|hard|pr_auc_root|GNN - B3+ | supported | 0.054 [0.034, 0.074] |
+| with_status|hard|pr_auc_symptomatic|GNN - B3+ | supported | 0.079 [0.058, 0.102] |
+| with_status|easy|top1@q90|GNN - B1 | supported | 0.584 [0.516, 0.654] |
+| with_status|easy|top3@q90|GNN - B1 | supported | 0.459 [0.388, 0.531] |
+| with_status|easy|pr_auc_root|GNN - B1 | supported | 0.204 [0.149, 0.261] |
+| with_status|easy|pr_auc_symptomatic|GNN - B1 | supported | 0.121 [0.088, 0.153] |
+| with_status|easy|top1@q90|GNN - B2 | supported | 0.530 [0.462, 0.600] |
+| with_status|easy|top3@q90|GNN - B2 | supported | 0.373 [0.306, 0.444] |
+| with_status|easy|pr_auc_root|GNN - B2 | supported | 0.194 [0.142, 0.252] |
+| with_status|easy|pr_auc_symptomatic|GNN - B2 | supported | 0.105 [0.072, 0.139] |
+| with_status|easy|top1@q90|GNN - B3 | supported | 0.160 [0.088, 0.236] |
+| with_status|easy|top3@q90|GNN - B3 | inconclusive | 0.036 [-0.026, 0.103] |
+| with_status|easy|pr_auc_root|GNN - B3 | supported | 0.115 [0.058, 0.173] |
+| with_status|easy|pr_auc_symptomatic|GNN - B3 | supported | 0.131 [0.099, 0.164] |
+| with_status|easy|top1@q90|GNN - B3+ | inconclusive | 0.044 [-0.029, 0.122] |
+| with_status|easy|top3@q90|GNN - B3+ | inconclusive | 0.039 [-0.023, 0.104] |
+| with_status|easy|pr_auc_root|GNN - B3+ | supported | 0.115 [0.058, 0.173] |
+| with_status|easy|pr_auc_symptomatic|GNN - B3+ | supported | 0.131 [0.099, 0.164] |
+| with_status|all|far_maintenance_only|B1 - GNN | contradicted | -0.190 [-0.218, -0.160] |
+| with_status|all|far_maintenance_only|B2 - GNN | contradicted | -0.188 [-0.241, -0.137] |
+| with_status|all|far_maintenance_only|B3 - GNN | contradicted | -0.291 [-0.337, -0.248] |
+| with_status|all|far_maintenance_only|B3+ - GNN | contradicted | -0.291 [-0.337, -0.248] |
+| with_status|hard|top3@q90|GNN - MLP | supported | 0.044 [0.014, 0.072] |
+| with_status|easy|top1@q90|GNN - MLP | inconclusive | 0.007 [-0.021, 0.036] |
+| with_status|hard|top3@max|GNN - MLP | supported | 0.044 [0.012, 0.077] |
+| with_status|easy|top1@max|GNN - MLP | inconclusive | 0.005 [-0.027, 0.037] |
+| with_status|hard|top3@mean|GNN - MLP | supported | 0.031 [0.001, 0.059] |
+| with_status|easy|top1@mean|GNN - MLP | inconclusive | -0.002 [-0.032, 0.030] |
+| with_status|easy|top3@q90|GNN - B3 + 0.05 | supported | 0.086 [0.024, 0.153] |
+| status_blind|hard|top1@q90|GNN - B1 | supported | 0.342 [0.273, 0.411] |
+| status_blind|hard|top3@q90|GNN - B1 | supported | 0.358 [0.283, 0.426] |
+| status_blind|hard|pr_auc_root|GNN - B1 | supported | 0.071 [0.049, 0.100] |
+| status_blind|hard|pr_auc_symptomatic|GNN - B1 | supported | 0.087 [0.063, 0.112] |
+| status_blind|hard|top1@q90|GNN - B2 | supported | 0.232 [0.171, 0.292] |
+| status_blind|hard|top3@q90|GNN - B2 | supported | 0.245 [0.185, 0.312] |
+| status_blind|hard|pr_auc_root|GNN - B2 | supported | 0.050 [0.031, 0.071] |
+| status_blind|hard|pr_auc_symptomatic|GNN - B2 | supported | 0.082 [0.059, 0.105] |
+| status_blind|hard|top1@q90|GNN - B3 | supported | 0.332 [0.264, 0.397] |
+| status_blind|hard|top3@q90|GNN - B3 | supported | 0.357 [0.278, 0.433] |
+| status_blind|hard|pr_auc_root|GNN - B3 | supported | 0.055 [0.035, 0.077] |
+| status_blind|hard|pr_auc_symptomatic|GNN - B3 | supported | 0.082 [0.060, 0.105] |
+| status_blind|hard|top1@q90|GNN - B3+ | supported | 0.316 [0.249, 0.380] |
+| status_blind|hard|top3@q90|GNN - B3+ | supported | 0.348 [0.262, 0.428] |
+| status_blind|hard|pr_auc_root|GNN - B3+ | supported | 0.055 [0.035, 0.077] |
+| status_blind|hard|pr_auc_symptomatic|GNN - B3+ | supported | 0.082 [0.060, 0.105] |
+| status_blind|easy|top1@q90|GNN - B1 | supported | 0.759 [0.703, 0.818] |
+| status_blind|easy|top3@q90|GNN - B1 | supported | 0.839 [0.790, 0.886] |
+| status_blind|easy|pr_auc_root|GNN - B1 | supported | 0.148 [0.105, 0.197] |
+| status_blind|easy|pr_auc_symptomatic|GNN - B1 | supported | 0.126 [0.092, 0.159] |
+| status_blind|easy|top1@q90|GNN - B2 | supported | 0.704 [0.636, 0.774] |
+| status_blind|easy|top3@q90|GNN - B2 | supported | 0.627 [0.556, 0.694] |
+| status_blind|easy|pr_auc_root|GNN - B2 | supported | 0.141 [0.098, 0.188] |
+| status_blind|easy|pr_auc_symptomatic|GNN - B2 | supported | 0.111 [0.076, 0.145] |
+| status_blind|easy|top1@q90|GNN - B3 | supported | 0.341 [0.270, 0.415] |
+| status_blind|easy|top3@q90|GNN - B3 | supported | 0.190 [0.118, 0.274] |
+| status_blind|easy|pr_auc_root|GNN - B3 | supported | 0.073 [0.026, 0.119] |
+| status_blind|easy|pr_auc_symptomatic|GNN - B3 | supported | 0.134 [0.099, 0.168] |
+| status_blind|easy|top1@q90|GNN - B3+ | supported | 0.369 [0.284, 0.455] |
+| status_blind|easy|top3@q90|GNN - B3+ | supported | 0.202 [0.125, 0.285] |
+| status_blind|easy|pr_auc_root|GNN - B3+ | supported | 0.074 [0.026, 0.119] |
+| status_blind|easy|pr_auc_symptomatic|GNN - B3+ | supported | 0.134 [0.099, 0.168] |
+| status_blind|all|far_maintenance_only|B1 - GNN | contradicted | -0.234 [-0.264, -0.203] |
+| status_blind|all|far_maintenance_only|B2 - GNN | contradicted | -0.226 [-0.287, -0.167] |
+| status_blind|all|far_maintenance_only|B3 - GNN | contradicted | -0.344 [-0.391, -0.302] |
+| status_blind|all|far_maintenance_only|B3+ - GNN | contradicted | -0.344 [-0.391, -0.302] |
+| status_blind|hard|top3@q90|GNN - MLP | supported | 0.045 [0.015, 0.074] |
+| status_blind|easy|top1@q90|GNN - MLP | inconclusive | 0.013 [-0.017, 0.047] |
+| status_blind|hard|top3@max|GNN - MLP | supported | 0.044 [0.011, 0.077] |
+| status_blind|easy|top1@max|GNN - MLP | inconclusive | 0.007 [-0.028, 0.048] |
+| status_blind|hard|top3@mean|GNN - MLP | inconclusive | 0.029 [-0.002, 0.058] |
+| status_blind|easy|top1@mean|GNN - MLP | inconclusive | -0.002 [-0.030, 0.029] |
+
+### test: validation expectations replicated
+
+| id | q90 | max | mean | no window |
+|---|---|---|---|---|
+| X1 | met | met | met |  |
+| X2 |  |  |  | met |
+| X3 | met | met | met |  |
+| X4 | inconclusive | inconclusive | inconclusive |  |
+| X6 | inconclusive | inconclusive | inconclusive |  |
+| X8 |  |  |  | met |
+| X9 |  |  |  | not met |
+
+### dev, with_status (30 scenarios)
+
+Base rates: root hard 0.0046, root easy 0.0006. Fault-free alarm rate at the frozen thresholds: B1 0.017, B2 0.033, B3 0.014, B3+ 0.014, gat-h32-s0 0.064, gat-h32-s1 0.099, gat-h32-s2 0.052, gat-h32-s0-mlp 0.072, gat-h32-s1-mlp 0.052, gat-h32-s2-mlp 0.047.
+
+| method | hard top-1 | hard top-3 | easy top-1 | easy top-3 | hard root PR-AUC | easy root PR-AUC | maint. alarms |
+|---|---|---|---|---|---|---|---|
+| B1 | 0.179 (val 0.136) | 0.369 (val 0.227) | 0.179 (val 0.175) | 0.441 (val 0.408) | 0.008 (val 0.005) | 0.032 (val 0.037) | 0.249 (val 0.284) |
+| B2 | 0.304 (val 0.256) | 0.500 (val 0.377) | 0.321 (val 0.249) | 0.643 (val 0.578) | 0.048 (val 0.050) | 0.125 (val 0.070) | 0.220 (val 0.212) |
+| B3 | 0.110 (val 0.119) | 0.241 (val 0.195) | 0.679 (val 0.635) | 0.857 (val 0.875) | 0.064 (val 0.033) | 0.227 (val 0.176) | 0.115 (val 0.199) |
+| B3+ | 0.145 (val 0.131) | 0.204 (val 0.197) | 0.679 (val 0.745) | 0.857 (val 0.886) | 0.064 (val 0.033) | 0.227 (val 0.176) | 0.115 (val 0.199) |
+| gat-h32 | 0.559 (val 0.473) | 0.714 (val 0.606) | 0.702 (val 0.757) | 0.845 (val 0.887) | 0.118 (val 0.074) | 0.166 (val 0.217) | 0.534 (val 0.482) |
+| gat-h32-mlp | 0.559 (val 0.462) | 0.714 (val 0.602) | 0.691 (val 0.781) | 0.810 (val 0.889) | 0.098 (val 0.062) | 0.115 (val 0.192) | 0.453 (val 0.447) |
+
+| model | metric | per seed | mean | sd | seed-mean CI |
+|---|---|---|---|---|---|
+| gat-h32 | hard:top3@q90 | 0.750, 0.714, 0.679 | 0.7143 | 0.0357 | 0.714 [0.551, 0.850] |
+| gat-h32 | easy:top1@q90 | 0.714, 0.643, 0.750 | 0.7024 | 0.0546 | 0.702 [0.545, 0.828] |
+| gat-h32 | hard:pr_auc_root | 0.119, 0.118, 0.116 | 0.1176 | 0.0012 | 0.118 [0.051, 0.200] |
+| gat-h32 | all:far_maintenance_only | 0.507, 0.550, 0.545 | 0.5343 |  | 0.534 [0.425, 0.628] |
+| gat-h32-mlp | hard:top3@q90 | 0.679, 0.679, 0.786 | 0.7143 | 0.0619 | 0.714 [0.542, 0.853] |
+| gat-h32-mlp | easy:top1@q90 | 0.714, 0.679, 0.679 | 0.6905 | 0.0206 | 0.691 [0.529, 0.833] |
+| gat-h32-mlp | hard:pr_auc_root | 0.071, 0.110, 0.112 | 0.0976 | 0.0229 | 0.098 [0.039, 0.170] |
+| gat-h32-mlp | all:far_maintenance_only | 0.368, 0.464, 0.526 | 0.453 |  | 0.453 [0.357, 0.531] |
+
+Per type, top-3 (q90).
+
+| type | B1 | B2 | B3 | B3+ | gat-h32 |
+|---|---|---|---|---|---|
+| link_down | 0.667 | 0.889 | 1.000 | 1.000 | 1.000 |
+| node_down | 0.533 | 0.800 | 1.000 | 1.000 | 1.000 |
+| link_flapping | 0.111 | 0.222 | 0.556 | 0.556 | 0.519 |
+| link_degradation | 0.571 | 0.857 | 0.571 | 0.571 | 0.952 |
+| demand_surge | 0.256 | 0.154 | 0.135 | 0.055 | 0.513 |
+| routing_misconfig | 0.375 | 0.750 | 0.125 | 0.125 | 0.833 |
+
+Per network, top-3 (q90): hard / easy.
+
+| network | B1 | B2 | B3 | B3+ | gat-h32 |
+|---|---|---|---|---|---|
+| Aarnet | 0.369 / 0.441 | 0.500 / 0.643 | 0.241 / 0.857 | 0.204 / 0.857 | 0.714 / 0.845 |
+
+### dev, status_blind (30 scenarios)
+
+Base rates: root hard 0.0046, root easy 0.0006. Fault-free alarm rate at the frozen thresholds: B1 0.018, B2 0.022, B3 0.014, B3+ 0.014, gat-h32-s0 0.064, gat-h32-s1 0.105, gat-h32-s2 0.054, gat-h32-s0-mlp 0.072, gat-h32-s1-mlp 0.053, gat-h32-s2-mlp 0.047.
+
+| method | hard top-1 | hard top-3 | easy top-1 | easy top-3 | hard root PR-AUC | easy root PR-AUC | maint. alarms |
+|---|---|---|---|---|---|---|---|
+| B1 | 0.179 (val 0.139) | 0.405 (val 0.231) | 0.037 (val 0.008) | 0.037 (val 0.027) | 0.008 (val 0.006) | 0.001 (val 0.000) | 0.168 (val 0.244) |
+| B2 | 0.304 (val 0.251) | 0.500 (val 0.389) | 0.093 (val 0.087) | 0.265 (val 0.264) | 0.050 (val 0.046) | 0.012 (val 0.013) | 0.115 (val 0.137) |
+| B3 | 0.110 (val 0.118) | 0.241 (val 0.195) | 0.481 (val 0.439) | 0.630 (val 0.707) | 0.065 (val 0.036) | 0.137 (val 0.102) | 0.086 (val 0.157) |
+| B3+ | 0.145 (val 0.131) | 0.204 (val 0.197) | 0.333 (val 0.418) | 0.630 (val 0.720) | 0.065 (val 0.036) | 0.137 (val 0.102) | 0.086 (val 0.157) |
+| gat-h32 | 0.559 (val 0.470) | 0.726 (val 0.604) | 0.667 (val 0.760) | 0.840 (val 0.885) | 0.120 (val 0.076) | 0.118 (val 0.136) | 0.536 (val 0.467) |
+| gat-h32-mlp | 0.559 (val 0.461) | 0.714 (val 0.602) | 0.630 (val 0.760) | 0.802 (val 0.891) | 0.105 (val 0.069) | 0.032 (val 0.059) | 0.461 (val 0.446) |
+
+| model | metric | per seed | mean | sd | seed-mean CI |
+|---|---|---|---|---|---|
+| gat-h32 | hard:top3@q90 | 0.750, 0.750, 0.679 | 0.7262 | 0.0412 | 0.726 [0.568, 0.853] |
+| gat-h32 | easy:top1@q90 | 0.704, 0.630, 0.667 | 0.6667 | 0.037 | 0.667 [0.515, 0.795] |
+| gat-h32 | hard:pr_auc_root | 0.123, 0.117, 0.120 | 0.12 | 0.0028 | 0.120 [0.052, 0.203] |
+| gat-h32 | all:far_maintenance_only | 0.521, 0.555, 0.531 | 0.5359 |  | 0.536 [0.432, 0.627] |
+| gat-h32-mlp | hard:top3@q90 | 0.679, 0.679, 0.786 | 0.7143 | 0.0619 | 0.714 [0.542, 0.853] |
+| gat-h32-mlp | easy:top1@q90 | 0.630, 0.667, 0.593 | 0.6296 | 0.037 | 0.630 [0.467, 0.792] |
+| gat-h32-mlp | hard:pr_auc_root | 0.072, 0.114, 0.130 | 0.1054 | 0.0297 | 0.105 [0.042, 0.182] |
+| gat-h32-mlp | all:far_maintenance_only | 0.392, 0.483, 0.507 | 0.4609 |  | 0.461 [0.363, 0.542] |
+
+Per type, top-3 (q90).
+
+| type | B1 | B2 | B3 | B3+ | gat-h32 |
+|---|---|---|---|---|---|
+| link_down | 0.000 | 0.188 | 0.625 | 0.625 | 1.000 |
+| node_down | 0.000 | 0.367 | 0.900 | 0.900 | 1.000 |
+| link_flapping | 0.111 | 0.222 | 0.333 | 0.333 | 0.519 |
+| link_degradation | 0.571 | 0.857 | 0.571 | 0.571 | 0.952 |
+| demand_surge | 0.333 | 0.154 | 0.135 | 0.055 | 0.538 |
+| routing_misconfig | 0.375 | 0.750 | 0.125 | 0.125 | 0.833 |
+
+Per network, top-3 (q90): hard / easy.
+
+| network | B1 | B2 | B3 | B3+ | gat-h32 |
+|---|---|---|---|---|---|
+| Aarnet | 0.405 / 0.037 | 0.500 / 0.265 | 0.241 / 0.630 | 0.204 / 0.630 | 0.726 / 0.840 |
+
+### dev: paired verdicts
+
+| comparison | verdict | point [CI] |
+|---|---|---|
+| with_status|hard|top1@q90|GNN - B1 | supported | 0.381 [0.167, 0.581] |
+| with_status|hard|top3@q90|GNN - B1 | supported | 0.345 [0.173, 0.511] |
+| with_status|hard|pr_auc_root|GNN - B1 | supported | 0.110 [0.045, 0.187] |
+| with_status|hard|pr_auc_symptomatic|GNN - B1 | supported | 0.181 [0.101, 0.230] |
+| with_status|hard|top1@q90|GNN - B2 | supported | 0.256 [0.101, 0.431] |
+| with_status|hard|top3@q90|GNN - B2 | supported | 0.214 [0.049, 0.387] |
+| with_status|hard|pr_auc_root|GNN - B2 | supported | 0.069 [0.011, 0.131] |
+| with_status|hard|pr_auc_symptomatic|GNN - B2 | supported | 0.165 [0.096, 0.204] |
+| with_status|hard|top1@q90|GNN - B3 | supported | 0.450 [0.274, 0.630] |
+| with_status|hard|top3@q90|GNN - B3 | supported | 0.473 [0.259, 0.663] |
+| with_status|hard|pr_auc_root|GNN - B3 | inconclusive | 0.054 [-0.045, 0.133] |
+| with_status|hard|pr_auc_symptomatic|GNN - B3 | supported | 0.175 [0.075, 0.221] |
+| with_status|hard|top1@q90|GNN - B3+ | supported | 0.414 [0.232, 0.599] |
+| with_status|hard|top3@q90|GNN - B3+ | supported | 0.510 [0.324, 0.677] |
+| with_status|hard|pr_auc_root|GNN - B3+ | inconclusive | 0.054 [-0.045, 0.133] |
+| with_status|hard|pr_auc_symptomatic|GNN - B3+ | supported | 0.175 [0.075, 0.221] |
+| with_status|easy|top1@q90|GNN - B1 | supported | 0.524 [0.352, 0.679] |
+| with_status|easy|top3@q90|GNN - B1 | supported | 0.405 [0.226, 0.608] |
+| with_status|easy|pr_auc_root|GNN - B1 | supported | 0.134 [0.048, 0.248] |
+| with_status|easy|pr_auc_symptomatic|GNN - B1 | supported | 0.046 [0.019, 0.092] |
+| with_status|easy|top1@q90|GNN - B2 | supported | 0.381 [0.180, 0.543] |
+| with_status|easy|top3@q90|GNN - B2 | supported | 0.202 [0.058, 0.347] |
+| with_status|easy|pr_auc_root|GNN - B2 | inconclusive | 0.042 [-0.048, 0.152] |
+| with_status|easy|pr_auc_symptomatic|GNN - B2 | inconclusive | 0.019 [-0.022, 0.076] |
+| with_status|easy|top1@q90|GNN - B3 | inconclusive | 0.024 [-0.173, 0.215] |
+| with_status|easy|top3@q90|GNN - B3 | inconclusive | -0.012 [-0.183, 0.143] |
+| with_status|easy|pr_auc_root|GNN - B3 | inconclusive | -0.060 [-0.204, 0.056] |
+| with_status|easy|pr_auc_symptomatic|GNN - B3 | inconclusive | -0.017 [-0.131, 0.069] |
+| with_status|easy|top1@q90|GNN - B3+ | inconclusive | 0.024 [-0.182, 0.250] |
+| with_status|easy|top3@q90|GNN - B3+ | inconclusive | -0.012 [-0.183, 0.143] |
+| with_status|easy|pr_auc_root|GNN - B3+ | inconclusive | -0.061 [-0.205, 0.056] |
+| with_status|easy|pr_auc_symptomatic|GNN - B3+ | inconclusive | -0.016 [-0.130, 0.070] |
+| with_status|all|far_maintenance_only|B1 - GNN | contradicted | -0.285 [-0.345, -0.217] |
+| with_status|all|far_maintenance_only|B2 - GNN | contradicted | -0.314 [-0.403, -0.227] |
+| with_status|all|far_maintenance_only|B3 - GNN | contradicted | -0.419 [-0.536, -0.306] |
+| with_status|all|far_maintenance_only|B3+ - GNN | contradicted | -0.419 [-0.536, -0.306] |
+| with_status|hard|top3@q90|GNN - MLP | inconclusive | 0.000 [-0.060, 0.061] |
+| with_status|easy|top1@q90|GNN - MLP | inconclusive | 0.012 [-0.103, 0.107] |
+| with_status|hard|top3@max|GNN - MLP | inconclusive | 0.000 [-0.086, 0.074] |
+| with_status|easy|top1@max|GNN - MLP | inconclusive | 0.036 [-0.074, 0.133] |
+| with_status|hard|top3@mean|GNN - MLP | inconclusive | -0.012 [-0.073, 0.046] |
+| with_status|easy|top1@mean|GNN - MLP | inconclusive | -0.024 [-0.154, 0.073] |
+| with_status|easy|top3@q90|GNN - B3 + 0.05 | inconclusive | 0.038 [-0.133, 0.193] |
+| status_blind|hard|top1@q90|GNN - B1 | supported | 0.381 [0.167, 0.581] |
+| status_blind|hard|top3@q90|GNN - B1 | supported | 0.321 [0.141, 0.500] |
+| status_blind|hard|pr_auc_root|GNN - B1 | supported | 0.112 [0.047, 0.191] |
+| status_blind|hard|pr_auc_symptomatic|GNN - B1 | supported | 0.185 [0.105, 0.233] |
+| status_blind|hard|top1@q90|GNN - B2 | supported | 0.256 [0.101, 0.431] |
+| status_blind|hard|top3@q90|GNN - B2 | supported | 0.226 [0.056, 0.400] |
+| status_blind|hard|pr_auc_root|GNN - B2 | supported | 0.070 [0.011, 0.131] |
+| status_blind|hard|pr_auc_symptomatic|GNN - B2 | supported | 0.167 [0.099, 0.206] |
+| status_blind|hard|top1@q90|GNN - B3 | supported | 0.450 [0.274, 0.630] |
+| status_blind|hard|top3@q90|GNN - B3 | supported | 0.485 [0.266, 0.674] |
+| status_blind|hard|pr_auc_root|GNN - B3 | inconclusive | 0.055 [-0.046, 0.134] |
+| status_blind|hard|pr_auc_symptomatic|GNN - B3 | supported | 0.178 [0.079, 0.223] |
+| status_blind|hard|top1@q90|GNN - B3+ | supported | 0.414 [0.232, 0.599] |
+| status_blind|hard|top3@q90|GNN - B3+ | supported | 0.522 [0.338, 0.686] |
+| status_blind|hard|pr_auc_root|GNN - B3+ | inconclusive | 0.055 [-0.046, 0.134] |
+| status_blind|hard|pr_auc_symptomatic|GNN - B3+ | supported | 0.178 [0.079, 0.223] |
+| status_blind|easy|top1@q90|GNN - B1 | supported | 0.630 [0.477, 0.770] |
+| status_blind|easy|top3@q90|GNN - B1 | supported | 0.802 [0.653, 0.923] |
+| status_blind|easy|pr_auc_root|GNN - B1 | supported | 0.117 [0.040, 0.223] |
+| status_blind|easy|pr_auc_symptomatic|GNN - B1 | supported | 0.051 [0.022, 0.098] |
+| status_blind|easy|top1@q90|GNN - B2 | supported | 0.574 [0.365, 0.737] |
+| status_blind|easy|top3@q90|GNN - B2 | supported | 0.574 [0.364, 0.750] |
+| status_blind|easy|pr_auc_root|GNN - B2 | supported | 0.106 [0.033, 0.205] |
+| status_blind|easy|pr_auc_symptomatic|GNN - B2 | inconclusive | 0.023 [-0.020, 0.082] |
+| status_blind|easy|top1@q90|GNN - B3 | inconclusive | 0.185 [-0.016, 0.377] |
+| status_blind|easy|top3@q90|GNN - B3 | supported | 0.210 [0.011, 0.430] |
+| status_blind|easy|pr_auc_root|GNN - B3 | inconclusive | -0.019 [-0.139, 0.078] |
+| status_blind|easy|pr_auc_symptomatic|GNN - B3 | inconclusive | -0.027 [-0.153, 0.066] |
+| status_blind|easy|top1@q90|GNN - B3+ | supported | 0.333 [0.106, 0.583] |
+| status_blind|easy|top3@q90|GNN - B3+ | supported | 0.210 [0.011, 0.430] |
+| status_blind|easy|pr_auc_root|GNN - B3+ | inconclusive | -0.019 [-0.139, 0.078] |
+| status_blind|easy|pr_auc_symptomatic|GNN - B3+ | inconclusive | -0.027 [-0.153, 0.066] |
+| status_blind|all|far_maintenance_only|B1 - GNN | contradicted | -0.368 [-0.440, -0.287] |
+| status_blind|all|far_maintenance_only|B2 - GNN | contradicted | -0.421 [-0.504, -0.323] |
+| status_blind|all|far_maintenance_only|B3 - GNN | contradicted | -0.450 [-0.560, -0.341] |
+| status_blind|all|far_maintenance_only|B3+ - GNN | contradicted | -0.450 [-0.560, -0.341] |
+| status_blind|hard|top3@q90|GNN - MLP | inconclusive | 0.012 [-0.038, 0.067] |
+| status_blind|easy|top1@q90|GNN - MLP | inconclusive | 0.037 [-0.106, 0.155] |
+| status_blind|hard|top3@max|GNN - MLP | inconclusive | 0.000 [-0.086, 0.074] |
+| status_blind|easy|top1@max|GNN - MLP | inconclusive | 0.062 [-0.083, 0.191] |
+| status_blind|hard|top3@mean|GNN - MLP | inconclusive | 0.000 [-0.058, 0.058] |
+| status_blind|easy|top1@mean|GNN - MLP | inconclusive | -0.000 [-0.111, 0.097] |
+
+### dev: validation expectations replicated
+
+| id | q90 | max | mean | no window |
+|---|---|---|---|---|
+| X1 | met | met | met |  |
+| X2 |  |  |  | met |
+| X3 | inconclusive | inconclusive | inconclusive |  |
+| X4 | inconclusive | inconclusive | inconclusive |  |
+| X6 | inconclusive | inconclusive | inconclusive |  |
+| X8 |  |  |  | inconclusive |
+| X9 |  |  |  | not met |
+

@@ -100,4 +100,4 @@ python scripts/phase5_tables.py         # results/phase5_tables.md
 - The MLP ablation shows that most of the gain over the baselines comes from supervised training, not from message passing. The MLP still uses link-to-PoP pooling and graph-derived static inputs, so this is "no message passing", not "no graph".
 - The near-perfect link_down / node_down localisation is the model recognising the simulator's down-link rendering in the link telemetry, not hard detection (`docs/audit_phase5.md`, R3).
 - The detection head also raises far more false alarms in maintenance hours than any baseline. All of this is reported in the decision log.
-- No test-set run yet.
+- Test (run once with the frozen validation calibration, after a committed pre-registration): GAT-h32 hard top-3 0.59 on 7 unseen real networks, against 0.36 for the best baseline; easy types with status events no better than B3; 48% maintenance-hour alarms. Full results in `docs/decision_log.md` and `results/phase5_tables.md`.
