@@ -1511,3 +1511,12 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
   - a mutation test shifts each number by one in its last digit: 356 of 362 shifted numbers are caught. The 6 that pass are stored values ending in 5, which can be written either way.
 - The checker found one wrong number: "28 to 29 times" for the Opus to Haiku cost ratio. The ratio is 28.3 and 27.8, so the docs and the entry above now say "about 28 times".
 
+
+### 2026-10-31: Pre-publication pass (citations, README, hygiene)
+
+- **Citations.** Every citation was checked against its source online (title, authors, year, venue, and that it supports the claim) and the [VERIFY] tags were removed.
+  - B3 was cited only to Duffield (2006), whose algorithm picks the smallest set of failed links consistent with the failed paths. B3 actually scores each element by coverage times specificity, which is the coverage ratio times the hit ratio of SCORE (Kompella et al., NSDI 2005; definitions checked in the paper's text). B3 now cites both: Duffield for binary tomography and Kompella for the scoring.
+  - Added: topohub's paper (Jurkiewicz, SoftwareX 2023), volumes and pages for every journal and conference entry, and the Anthropic models page with the exact model IDs. PyTorch Geometric is now cited where the GNN layers are named.
+- **README.** The first screen now says what the project is, gives the pre-registered headline results in plain language, and states the main limitation. The detailed results follow below.
+- **Number checker.** "95%" was allow-listed as the CI level. That would have skipped the GNN's 95% change-overlap recall in the new README, so the allowance now applies only when CI or bootstrap follows. Citation years are skipped by pattern instead of by the [VERIFY] tag.
+- **Hygiene.** No API keys, dataset key or `.env` values appear anywhere in the git history. `.env`, `.nettwin_dataset_key`, `data/` and `.claude/` have never been tracked, and `.claude/` is now gitignored.

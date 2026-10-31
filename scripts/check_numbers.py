@@ -16,7 +16,8 @@ The script also runs a mutation test: it shifts every checked number by one in i
 shifted numbers would still pass. That is the checker's power, printed so it is not overstated.
 
 Not checked, by rule: inline code and code blocks (commands, paths), section numbers and model versions (Haiku 5.5),
-integers 0 to 20 written as plain counts, years in lines tagged [VERIFY] (citations), and the constants in ALLOW.
+integers 0 to 20 written as plain counts, citations (years in "[Author 2011]" and the whole References section),
+and the constants in ALLOW.
 """
 import json
 import re
@@ -54,10 +55,13 @@ SOURCES = {
 SCOPES = {
     "NetTwin": ["data"], "Read this first": ["data"], "Run the demo": [], "Setup and reproduction": [],
     "Reproducing the datasets": [], "Where things are": [], "Headline results": ["p5", "p6", "p8"],
+    "Results in detail": ["p5", "p6", "p8"],
     "Descriptive, not pre-registered": ["p6", "p7"], "Why measure": [], "What was built": ["data"], "RQ1 and RQ2": ["p5"],
     "RQ3": ["p5"], "RQ1 ablation": ["p5"], "RQ4": ["p6"], "RQ5": ["p8"], "Descriptive results": ["p6", "p7", "p8"],
     "Negative results": ["p5", "p6", "p8"], "How the work was kept honest": [], "Reproduce and run": [], "References": [],
 }
+# An allowed constant that is also a plausible result counts as the constant only in this context.
+ALLOW_CONTEXT = {"95%": r"\s+(CIs?\b|bootstrap|scenario|confidence)"}
 TOKEN = re.compile(r"(?<![\w.\-/:#])([-+−]?\$?)(\d+(?:,\d{3})*(?:\.\d+)?)(%?)(?![\w/:]|\.\d|-\w)")
 TRIPLE = re.compile(r"([-+−]?\d+\.\d+)\s*\[([-+−]?\d+\.\d+),\s*([-+−]?\d+\.\d+)\]")
 
@@ -182,11 +186,12 @@ def doc_numbers():
                 sign, num, pct = m.groups()
                 if any(a <= m.start(2) < b for a, b in spans):
                     continue
-                if f"{sign.lstrip('+-−')}{num}{pct}" in ALLOW or num in ALLOW:
+                tok = f"{sign.lstrip('+-−')}{num}{pct}"
+                if (tok in ALLOW or num in ALLOW) and re.match(ALLOW_CONTEXT.get(tok, ""), line[m.end():]):
                     continue
                 if "." not in num and not pct and int(num.replace(",", "")) <= 20:
                     continue
-                if "[VERIFY]" in line and re.fullmatch(r"(19|20)\d\d", num):
+                if heading.startswith("References") or (re.fullmatch(r"(19|20)\d\d", num) and line[m.end():].startswith("]")):
                     continue
                 k = seen.get((heading, num + pct), 0)
                 seen[(heading, num + pct)] = k + 1
@@ -214,7 +219,9 @@ def words(text):
 
 
 def propose():
-    entries, prev = [], {}
+    """Propose a source per number; entries already in the manifest whose value still matches are kept as reviewed."""
+    old = {e["key"]: e for e in json.loads(MANIFEST.read_text())} if MANIFEST.exists() else {}
+    entries = []
     for key, rel, i, line, heading, files, kind, m in doc_numbers():
         if kind != "single":
             continue
@@ -237,11 +244,16 @@ def propose():
             return (3 * len(toks & near) + len(toks & ctx) - 2 * ("val" in c[0]) - 0.01 * len(c[1]), c[0] == "derived")
         cands.sort(key=score, reverse=True)
         best = cands[0] if cands else (None, None, None)
-        entries.append({"key": key, "source": best[0], "path": best[1], "n_candidates": len(cands),
-                        "line": f"{rel}:{i}", "context": line.strip()[max(0, m.start() - 70):m.start() + 20]})
+        e = {"key": key, "source": best[0], "path": best[1], "line": f"{rel}:{i}",
+             "context": line.strip()[max(0, m.start() - 70):m.start() + 20], "reviewed": "NEW, not reviewed"}
+        o = old.get(key)
+        if o and o.get("source") and same(num, bool(pct), source_values(o["source"]).get(o["path"])):
+            e.update(source=o["source"], path=o["path"], reviewed=o.get("reviewed"))
+        entries.append(e)
     MANIFEST.write_text(json.dumps(entries, indent=1) + "\n")
     for e in entries:
-        print(f"{e['line']:22s} {e['key'].split('|')[2]:8s} {e['source']}  {e['path']}  ({e['n_candidates']})   <- {e['context']}")
+        if e["reviewed"].startswith("NEW"):
+            print(f"{e['line']:22s} {e['key'].split('|')[2]:8s} {e['source']}  {e['path']}   <- {e['context']}")
 
 
 def main():
@@ -262,7 +274,7 @@ def main():
         num, pct = m.group(2), m.group(3)
         e = manifest.get(key)
         used.add(key)
-        if e is None or e["source"] is None:
+        if e is None or e["source"] is None or e.get("reviewed", "").startswith("NEW"):
             misses.append(f"{rel}:{i}: {m.group(0)} has no source in {MANIFEST.name}    | {line.strip()[:90]}")
             continue
         if e["source"] != "derived" and e["source"] not in files:

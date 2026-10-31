@@ -1,203 +1,267 @@
 [
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|210|0",
+  "key": "README.md|Headline results|59%|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.seed_summary.gat-h32.hard:top3@q90.mean",
+  "line": "README.md:11",
+  "context": " cause of hard faults:** the GNN puts the true cause in its top 3 for 59% of hard faults, ",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results|36%|0",
+  "source": "phase5_test.json",
+  "path": "splits.test.variants.with_status.methods.B2.groups.hard.localisation.q90.top3.value",
+  "line": "README.md:11",
+  "context": " GNN puts the true cause in its top 3 for 59% of hard faults, against 36% for the best cla",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "README.md|Headline results|77%|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.faults.top3.value",
+  "line": "README.md:12",
+  "context": "r:** the full Claude Haiku agent gets the root cause in its top 3 for 77% of faults, again",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results|49%|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A0.faults.top3.value",
+  "line": "README.md:12",
+  "context": "iku agent gets the root cause in its top 3 for 77% of faults, against 49% for the same mod",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Headline results|65%|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.change_overlap_faults.claims_fault.value",
+  "line": "README.md:13",
+  "context": "orrectly treats planned maintenance as maintenance, but it flags only 65% of real faults t",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "README.md|Headline results|95%|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.GNN.change_overlap_faults.claims_fault.value",
+  "line": "README.md:13",
+  "context": "s only 65% of real faults that happen during a logged change, against 95% for the GNN.",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "README.md|Headline results|0.89|0",
+  "source": "phase8_test.json",
+  "path": "splits.test.metrics.lightgbm.all.f1.value",
+  "line": "README.md:14",
+  "context": "ts which links will pass 80% utilisation within the next hour with F1 0.89, beating simple",
+  "reviewed": "corrected by hand"
+ },
+ {
+  "key": "README.md|Headline results|41.65|0",
+  "source": "derived",
+  "path": "project API spend",
+  "line": "README.md:15",
+  "context": "- **Cost:** the whole project used $41.65 of API spend.",
+  "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|210|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.n_scenarios",
-  "line": "README.md:36",
+  "line": "README.md:48",
   "context": "**Localisation (Phase 5, 210 scenarios).** Th",
   "reviewed": "corrected by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.587|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.587|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.seed_summary.gat-h32.hard:top3@q90.mean",
-  "line": "README.md:36",
+  "line": "README.md:48",
   "context": "se 5, 210 scenarios).** The GNN (GAT-h32, 3 seeds) reaches hard top-3 0.587 with status ev",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.356|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.356|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.methods.B2.groups.hard.localisation.q90.top3.value",
-  "line": "README.md:36",
+  "line": "README.md:48",
   "context": "AT-h32, 3 seeds) reaches hard top-3 0.587 with status events, against 0.356 for the best b",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.234|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.234|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.methods.B3+.groups.hard.localisation.q90.top3.value",
-  "line": "README.md:36",
+  "line": "README.md:48",
   "context": ".587 with status events, against 0.356 for the best baseline (B2) and 0.234 for B3+. On ea",
   "reviewed": "corrected by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.762|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.762|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.seed_summary.gat-h32.easy:top1@q90.mean",
-  "line": "README.md:36",
+  "line": "README.md:48",
   "context": "s with status events, the GNN and B3+ show no clear difference (top-1 0.762 vs 0.718, diff",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.718|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.718|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.methods.B3+.groups.easy.localisation.q90.top1.value",
-  "line": "README.md:36",
+  "line": "README.md:48",
   "context": "atus events, the GNN and B3+ show no clear difference (top-1 0.762 vs 0.718, difference +0",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.475|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.475|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.seed_summary.gat-h32.all:far_maintenance_only.mean",
-  "line": "README.md:36",
+  "line": "README.md:48",
   "context": "s down-link rendering, not hard detection. The GNN raises an alarm in 0.475 of maintenance",
   "reviewed": "corrected by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|167|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|167|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "n_incidents",
-  "line": "README.md:40",
+  "line": "README.md:52",
   "context": "**The agent (Phase 6, 167 incidents, Claud",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.283|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.283|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "variants.with_status.comparisons.faults|top3|A2 vs A0.point",
-  "line": "README.md:41",
+  "line": "README.md:53",
   "context": "e full agent (A2) beats the alerts-only agent (A0) on faults top-3 by +0.283 with status e",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.332|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.332|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "variants.status_blind.comparisons.faults|top3|A2 vs A0.point",
-  "line": "README.md:41",
+  "line": "README.md:53",
   "context": "erts-only agent (A0) on faults top-3 by +0.283 with status events and +0.332 status-blind.",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|40|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|40|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "variants.with_status.metrics.A2.change_overlap_faults.claims_fault.n",
-  "line": "README.md:44",
+  "line": "README.md:56",
   "context": "- On the 40 faults that overl",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.300|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.300|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "variants.with_status.comparisons.change_overlap_faults|claims_fault|A2 vs GNN.point",
-  "line": "README.md:44",
+  "line": "README.md:56",
   "context": "ts that overlap a logged change, A2 recalls fewer than the plain GNN (-0.300 and -0.325, c",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.325|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.325|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "variants.status_blind.comparisons.change_overlap_faults|claims_fault|A2 vs GNN.point",
-  "line": "README.md:44",
+  "line": "README.md:56",
   "context": "rlap a logged change, A2 recalls fewer than the plain GNN (-0.300 and -0.325, contradicted",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|41.65|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|41.65|0",
   "source": "derived",
   "path": "project API spend",
-  "line": "README.md:47",
+  "line": "README.md:59",
   "context": "- Total project API spend: $41.65 of a $100 bud",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|210|1",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|210|1",
   "source": "phase8_test.json",
   "path": "splits.test.n_scenarios",
-  "line": "README.md:51",
+  "line": "README.md:63",
   "context": "**Capacity forecasting (Phase 8, 210 scenarios).** Wi",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.890|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.890|0",
   "source": "phase8_test.json",
   "path": "splits.test.metrics.lightgbm.all.f1.value",
-  "line": "README.md:51",
-  "context": "ilisation within 60 minutes? LightGBM on lag features [VERIFY] has F1 0.890, above persist",
+  "line": "README.md:63",
+  "context": "n within 60 minutes? LightGBM on lag features [Ke et al. 2017] has F1 0.890, above persist",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.807|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.807|0",
   "source": "phase8_test.json",
   "path": "splits.test.metrics.persistence.all.f1.value",
-  "line": "README.md:51",
-  "context": "s? LightGBM on lag features [VERIFY] has F1 0.890, above persistence (0.807) and seasonal-",
+  "line": "README.md:63",
+  "context": "GBM on lag features [Ke et al. 2017] has F1 0.890, above persistence (0.807) and seasonal-",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.675|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.675|0",
   "source": "phase8_test.json",
   "path": "splits.test.metrics.seasonal_naive.all.f1.value",
-  "line": "README.md:51",
-  "context": " [VERIFY] has F1 0.890, above persistence (0.807) and seasonal-naive (0.675). The frozen P",
+  "line": "README.md:63",
+  "context": "al. 2017] has F1 0.890, above persistence (0.807) and seasonal-naive (0.675). The frozen P",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.863|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.863|0",
   "source": "phase8_test.json",
   "path": "splits.test.metrics.gnn_head.all.f1.value",
-  "line": "README.md:51",
+  "line": "README.md:63",
   "context": "he frozen Phase 5 GNN encoder with a small head is below LightGBM (F1 0.863, difference -0",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.027|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.027|0",
   "source": "phase8_test.json",
   "path": "splits.test.comparisons.all|f1|gnn_head vs lightgbm.point",
-  "line": "README.md:51",
+  "line": "README.md:63",
   "context": "GNN encoder with a small head is below LightGBM (F1 0.863, difference -0.027, contradicted",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.086|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.086|0",
   "source": "phase6/test_claude-opus-5-5/summary.json",
   "path": "variants.with_status.comparisons.faults|top3|A2 vs GNN.point",
-  "line": "README.md:56",
+  "line": "README.md:68",
   "context": "- Opus A2 is above the 3-seed GNN on faults top-3 (+0.086 and +0.070). ",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.070|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.070|0",
   "source": "phase6/test_claude-opus-5-5/summary.json",
   "path": "variants.status_blind.comparisons.faults|top3|A2 vs GNN.point",
-  "line": "README.md:56",
+  "line": "README.md:68",
   "context": "- Opus A2 is above the 3-seed GNN on faults top-3 (+0.086 and +0.070). Against GNN",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.108|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.108|0",
   "source": "phase6/test_haiku_vs_opus.json",
   "path": "variants.with_status.comparisons.faults|top1|Opus-A2 vs Haiku-A2.point",
-  "line": "README.md:57",
+  "line": "README.md:69",
   "context": "- Opus A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), ",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|0.117|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.117|0",
   "source": "phase6/test_haiku_vs_opus.json",
   "path": "variants.status_blind.comparisons.faults|top1|Opus-A2 vs Haiku-A2.point",
-  "line": "README.md:57",
+  "line": "README.md:69",
   "context": "- Opus A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), at about 28",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Headline results (pre-registered, test set, scored once)|28|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|28|0",
   "source": "derived",
   "path": "opus/haiku A2 cost ratio with_status",
-  "line": "README.md:57",
+  "line": "README.md:69",
   "context": "us A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), at about 28 times the cost pe",
-  "reviewed": "corrected by hand"
+  "reviewed": "proposal checked by hand"
  },
  {
   "key": "docs/report.md|Read this first: what this is and is not|24|0",
@@ -1332,7 +1396,7 @@
   "source": "phase8_test.json",
   "path": "splits.test.metrics.lightgbm.all.f1.value",
   "line": "docs/report.md:144",
-  "context": "lag features [VERIFY] | 0.900 [0.895, 0.905] | 0.880 [0.873, 0.886] | 0.890 |",
+  "context": "ures [Ke et al. 2017] | 0.900 [0.895, 0.905] | 0.880 [0.873, 0.886] | 0.890 |",
   "reviewed": "proposal checked by hand"
  },
  {

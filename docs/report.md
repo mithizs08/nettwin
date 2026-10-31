@@ -2,12 +2,12 @@
 
 A small, fully measured knowledge-graph digital twin of a telecom backbone, built on public data: a topology and knowledge graph layer, a telemetry simulator with injected faults, statistical and topology baselines, a graph neural network (GNN) for anomaly localisation, an LLM root-cause agent with tools, capacity forecasting, and an offline demo. Built as a portfolio project for the UTS Telecom Research Unit Project D.A.R.T. internship.
 
-Every number here comes from a committed results file. `scripts/check_numbers.py` checks this report and the README against `results/`. Citations are tagged [VERIFY] until checked by hand.
+Every number here comes from a committed results file. `scripts/check_numbers.py` checks this report and the README against `results/`. Each citation was checked against its original source on 2026-10-31 (title, authors, year, venue, and that it supports the claim).
 
 ## 1. Read this first: what this is and is not
 
 - **Synthetic telemetry.** Traffic, utilisation, latency, loss, alerts, the change log and every fault come from our own simulator (`src/nettwin/simulator.py`, `faults.py`). Real networks have messier telemetry, correlated failures and incomplete inventories. No result here says how any method would do on a real network.
-- **Public topologies.** The networks are public research and education or ISP backbones from the Internet Topology Zoo [VERIFY] and SNDlib [VERIFY], loaded through the `topohub` package [VERIFY]. Training uses generated graphs only.
+- **Public topologies.** The networks are public research and education or ISP backbones from the Internet Topology Zoo [Knight et al. 2011] and SNDlib [Orlowski et al. 2010], loaded through the `topohub` package [Jurkiewicz 2023], whose Gabriel graph generator also makes the training graphs. Training uses generated graphs only.
 - **Not Telstra's network.** There is no Telstra topology in these collections, and nothing here uses Telstra data.
 - **The oracle incident window.** Localisation (Phases 4 to 6) is scored on a window that starts and ends with the true fault (or the logged change, for distractors). Every method gets the same window, but no method had to find it. Detection without that window is measured separately (link-level PR-AUC), and it is much harder.
 - **AARNet is dev, not held-out.** AARNet (19 PoPs, 24 links) is the demo network. It was used to build and debug the simulator, so its results are reported separately and never pooled with test.
@@ -31,8 +31,8 @@ The comparison set is a statistical baseline, a topology heuristic (network tomo
 | 0 to 1 | Topology loader and typed knowledge graph: PoP, Link, RoutingPath, CustomerService with SLA, Alert, Maintenance, Runbook | `src/nettwin/topology.py`, `kg.py` |
 | 2 | Telemetry simulator (5-minute steps, 7 days per scenario, diurnal and weekly patterns, routing with ECMP, queueing latency and loss) with six fault types and maintenance distractors | `src/nettwin/simulator.py`, `faults.py` |
 | 3 | Datasets split by topology: train 1232 scenarios on generated graphs, validation 468, test 210 (7 public networks), dev 30 (AARNet), each with and without status events | `docs/dataset_card.md` |
-| 4 | Alerts, baselines B1 (EWMA z-score), B2 (Isolation Forest [VERIFY]), B3 and B3+ (tomography over alerts), and the shared evaluation harness | `src/nettwin/alerts.py`, `baselines.py`, `evaluation.py` |
-| 5 | GNN on the line graph (GraphSAGE [VERIFY], GAT [VERIFY], GINE [VERIFY]) with detection and localisation heads; MLP and shuffled-edges ablations | `src/nettwin/gnn/` |
+| 4 | Alerts, baselines B1 (EWMA z-score), B2 (Isolation Forest [Liu et al. 2008]), B3 and B3+ (binary tomography over alerts [Duffield 2006], scoring each element by the hit and coverage ratios of SCORE [Kompella et al. 2005]), and the shared evaluation harness | `src/nettwin/alerts.py`, `baselines.py`, `evaluation.py` |
+| 5 | GNN on the line graph (GraphSAGE [Hamilton et al. 2017], GAT [Velickovic et al. 2018], GINE [Hu et al. 2020], in PyTorch Geometric [Fey and Lenssen 2019]) with detection and localisation heads; MLP and shuffled-edges ablations | `src/nettwin/gnn/` |
 | 6 | Claude agent with knowledge-graph, telemetry, change-log, GNN and runbook tools; conditions A0, A1, A2 | `src/nettwin/agent/` |
 | 7 | Offline Streamlit demo and AARNet agent traces | `app/streamlit_app.py` |
 | 8 | Capacity forecasting (RQ5) | `src/nettwin/forecast.py` |
@@ -79,7 +79,7 @@ The MLP ablation keeps the same features and heads but drops message passing. Th
 **Incidents and conditions.**
 - The 167 incidents are 120 main-sample faults (20 per type), 30 maintenance distractors (15 drains, 15 planned outages) and 17 extra faults from a change-overlap stratum. The 40 faults that overlap a logged change are those 17 plus 23 of the 120.
 - A0 is the LLM with the alert list only. A1 adds knowledge-graph, telemetry and change-log tools. A2 adds the GNN and runbook tools.
-- The main model is Claude Haiku 5.5 [VERIFY], with A0, A1 and A2. The secondary model is Claude Opus 5.5 [VERIFY], with A0 and A2.
+- The main model is Claude Haiku 5.5 (`claude-haiku-5-5`), with A0, A1 and A2. The secondary model is Claude Opus 5.5 (`claude-opus-5-5`), with A0 and A2 [Anthropic 2026].
 - The agent's budget is 15 tool calls per incident.
 
 | method | with status: faults top-1 / top-3 | distractor fault claims | change-overlap recall | status-blind: faults top-1 / top-3 | distractor fault claims | change-overlap recall |
@@ -141,7 +141,7 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
 |---|---|---|---|
 | Persistence (above 0.8 now) | 0.972 [0.970, 0.975] | 0.689 [0.678, 0.700] | 0.807 |
 | Seasonal-naive (same hour yesterday) | 0.615 [0.601, 0.628] | 0.749 [0.729, 0.767] | 0.675 |
-| LightGBM on lag features [VERIFY] | 0.900 [0.895, 0.905] | 0.880 [0.873, 0.886] | 0.890 |
+| LightGBM on lag features [Ke et al. 2017] | 0.900 [0.895, 0.905] | 0.880 [0.873, 0.886] | 0.890 |
 | Frozen Phase 5 GNN encoder + small head | 0.836 [0.827, 0.846] | 0.891 [0.885, 0.896] | 0.863 |
 
 - **LightGBM** beats persistence on F1 by +0.083 [0.079, 0.088] and seasonal-naive by +0.215, both supported.
@@ -207,14 +207,17 @@ The README lists the scripts for each phase. Rebuilding the datasets byte for by
 
 ## 9. References
 
-- Knight, S., Nguyen, H. X., Falkner, N., Bowden, R., Roughan, M. (2011). The Internet Topology Zoo. IEEE Journal on Selected Areas in Communications. [VERIFY]
-- Orlowski, S., Wessaly, R., Pioro, M., Tomaszewski, A. (2010). SNDlib 1.0: Survivable Network Design Library. Networks. [VERIFY]
-- topohub: a Python package of network topologies (PyPI). [VERIFY]
-- Liu, F. T., Ting, K. M., Zhou, Z.-H. (2008). Isolation Forest. IEEE International Conference on Data Mining. [VERIFY]
-- Duffield, N. (2006). Network tomography of binary network performance characteristics. IEEE Transactions on Information Theory. [VERIFY]
-- Hamilton, W. L., Ying, R., Leskovec, J. (2017). Inductive Representation Learning on Large Graphs (GraphSAGE). NeurIPS. [VERIFY]
-- Velickovic, P., Cucurull, G., Casanova, A., Romero, A., Lio, P., Bengio, Y. (2018). Graph Attention Networks. ICLR. [VERIFY]
-- Hu, W., Liu, B., Gomes, J., Zitnik, M., Liang, P., Pande, V., Leskovec, J. (2020). Strategies for Pre-training Graph Neural Networks (GINE). ICLR. [VERIFY]
-- Fey, M., Lenssen, J. E. (2019). Fast Graph Representation Learning with PyTorch Geometric. ICLR Workshop on Representation Learning on Graphs and Manifolds. [VERIFY]
-- Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., Liu, T.-Y. (2017). LightGBM: A Highly Efficient Gradient Boosting Decision Tree. NeurIPS. [VERIFY]
-- Anthropic. Claude Haiku 5.5 and Claude Opus 5.5 model documentation and pricing (platform.claude.com, checked 2026-10-31). [VERIFY]
+Checked against the original sources on 2026-10-31.
+
+- [Anthropic 2026] Anthropic. Models overview, Claude Platform documentation. https://platform.claude.com/docs/en/models/overview (accessed 2026-10-31).
+- [Duffield 2006] Duffield, N. Network tomography of binary network performance characteristics. IEEE Transactions on Information Theory, 52(12), 5373 to 5388, 2006.
+- [Fey and Lenssen 2019] Fey, M., Lenssen, J. E. Fast graph representation learning with PyTorch Geometric. ICLR Workshop on Representation Learning on Graphs and Manifolds, 2019. arXiv:1903.02428.
+- [Hamilton et al. 2017] Hamilton, W. L., Ying, R., Leskovec, J. Inductive representation learning on large graphs. Advances in Neural Information Processing Systems 30 (NIPS 2017), 1024 to 1034.
+- [Hu et al. 2020] Hu, W., Liu, B., Gomes, J., Zitnik, M., Liang, P., Pande, V., Leskovec, J. Strategies for pre-training graph neural networks. ICLR 2020. (GINE, the edge-feature variant of GIN, as attributed by PyTorch Geometric's GINEConv.)
+- [Jurkiewicz 2023] Jurkiewicz, P. TopoHub: A repository of reference Gabriel graph and real-world topologies for networking research. SoftwareX, 24, 101540, 2023. doi:10.1016/j.softx.2023.101540.
+- [Ke et al. 2017] Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., Liu, T.-Y. LightGBM: A highly efficient gradient boosting decision tree. Advances in Neural Information Processing Systems 30 (NIPS 2017), 3146 to 3154.
+- [Knight et al. 2011] Knight, S., Nguyen, H. X., Falkner, N., Bowden, R., Roughan, M. The Internet Topology Zoo. IEEE Journal on Selected Areas in Communications, 29(9), 1765 to 1775, 2011.
+- [Kompella et al. 2005] Kompella, R. R., Yates, J., Greenberg, A., Snoeren, A. C. IP fault localization via risk modeling. 2nd USENIX Symposium on Networked Systems Design and Implementation (NSDI 2005).
+- [Liu et al. 2008] Liu, F. T., Ting, K. M., Zhou, Z.-H. Isolation forest. Eighth IEEE International Conference on Data Mining (ICDM 2008), 413 to 422.
+- [Orlowski et al. 2010] Orlowski, S., Wessaly, R., Pioro, M., Tomaszewski, A. SNDlib 1.0: Survivable network design library. Networks, 55(3), 276 to 286, 2010.
+- [Velickovic et al. 2018] Velickovic, P., Cucurull, G., Casanova, A., Romero, A., Lio, P., Bengio, Y. Graph attention networks. ICLR 2018.
