@@ -1,7 +1,6 @@
 # NetTwin
 
-<!-- LIVE DEMO LINK: paste the Streamlit Community Cloud URL on the next line, replacing the comment -->
-<!-- **Live demo:** https://YOUR-APP.streamlit.app -->
+**Live demo:** https://nettwin17.streamlit.app (runs from committed results; if it has been idle, click the wake-up button and wait a moment)
 
 ![The NetTwin incident explorer: picking a link degradation incident on AARNet, the map, the diagnoses next to the ground truth, and the Haiku 5.5 and Opus 5.5 agent tool traces](docs/demo.gif)
 
@@ -37,7 +36,7 @@ The full write-up, with every caveat and the negative results, is [docs/report.m
 
 ## Run the demo
 
-The demo reads only committed results. It needs no dataset and no API key. To run just the demo, without the heavy project environment (no torch), install its three packages:
+A hosted copy is at https://nettwin17.streamlit.app. The demo reads only committed results. It needs no dataset and no API key. To run just the demo, without the heavy project environment (no torch), install its three packages:
 
 ```bash
 pip install -r app/requirements.txt
