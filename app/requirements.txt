@@ -1,0 +1,6 @@
+# The demo app alone (Streamlit Community Cloud reads this file before the repo's environment.yml).
+# The app imports only streamlit, plotly and pandas and reads committed results/ files: no torch, no data/, no API key.
+# Same versions as the project's root requirements.txt (Python 3.11).
+streamlit==1.66.1
+plotly==7.1.0
+pandas==3.1.0

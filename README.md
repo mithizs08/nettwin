@@ -1,5 +1,12 @@
 # NetTwin
 
+<!-- LIVE DEMO LINK: paste the Streamlit Community Cloud URL on the next line, replacing the comment -->
+<!-- **Live demo:** https://YOUR-APP.streamlit.app -->
+
+![The NetTwin incident explorer: picking a link degradation incident on AARNet, the map, the diagnoses next to the ground truth, and the Haiku 5.5 and Opus 5.5 agent tool traces](docs/demo.gif)
+
+*The incident explorer on AARNet (a dev incident, seen during development): the map, each method's diagnosis next to the ground truth, and the recorded agent tool traces.*
+
 NetTwin is a small digital twin of a telecom backbone, built from public data and measured end to end. It simulates network telemetry with injected faults on real public network maps. Then it tests how well three approaches find the root cause of an incident: classic baselines, a graph neural network (GNN), and a Claude-based agent that can query the network's knowledge graph, telemetry and change log. It also forecasts link congestion. Built as a portfolio project for the UTS Telecom Research Unit Project D.A.R.T. internship.
 
 **Main limitation:** the telemetry is synthetic. It comes from our own simulator running on public topologies, not from any operator. Nothing here is Telstra's network or Telstra data. The results compare methods on realistic simulated faults; they do not show how any method would do in production.
@@ -30,7 +37,14 @@ The full write-up, with every caveat and the negative results, is [docs/report.m
 
 ## Run the demo
 
-The demo reads only committed results. It needs no dataset and no API key.
+The demo reads only committed results. It needs no dataset and no API key. To run just the demo, without the heavy project environment (no torch), install its three packages:
+
+```bash
+pip install -r app/requirements.txt
+streamlit run app/streamlit_app.py
+```
+
+Or with the full project environment:
 
 ```bash
 conda env create -f environment.yml
