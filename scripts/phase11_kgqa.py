@@ -178,7 +178,8 @@ def run(args, cfg):
     else:
         out_dir = OUT / f"val_{args.name}"
     questions = read_questions(split)
-    regenerated, kgs, _ = make_questions([n for n in networks(cfg) if n[0] == split], cfg)
+    regenerated, kgs, _ = make_questions(networks(cfg), cfg)   # all networks: each seed depends on the network's position
+    regenerated = [q for q in regenerated if q["split"] == split]
     if [{k: q[k] for k in ("qid", "question", "answer")} for q in regenerated] != \
             [{k: q[k] for k in ("qid", "question", "answer")} for q in questions]:
         sys.exit(f"questions_{split}.jsonl does not match what the KG code generates")

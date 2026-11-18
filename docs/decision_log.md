@@ -1547,3 +1547,9 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
   - E7: Q2 mean cost is below $0.01 per question.
 - **Test plan.** Prompts, tools and the runner may change only on validation. Then `--freeze` hashes `src/nettwin/kgqa.py`, the script and both question files into `results/phase11_frozen.json`. `--split test` refuses unless this entry is in the log, every hash matches, `results/phase11/test` does not exist, and all three conditions run on every test question. Test is run once and scored once; any failure is reported, not rerun.
 - **Spend guard.** The script sums every Phase 11 log and reserves $0.03 per question in flight. It stops before a question that could take Phase 11 past $3.00, or the project past $1 under its $100 budget. Expected total: about $2 for validation and test together.
+
+### 2026-11-18: Phase 11 pre-test fix to the runner (test not yet run)
+
+- The first `--split test` call stopped before any API call: its check that the committed questions match the KG code failed on 249 of 252 test questions. Cause: each network's question and change-history seed depends on its position in the combined validation-then-test list. The runner regenerated the test networks alone, so their positions (and seeds) started at 0. Validation passed only because it comes first in the list.
+- The committed question files were right (they come from `--build-questions`, which uses the full list). The runner now regenerates from the full list and keeps the requested split; both splits then match exactly, and so does `results/phase11/networks.json`.
+- Only `scripts/phase11_kgqa.py` changed. It was re-frozen into `results/phase11_frozen.json` before the test run. Validation runs are unaffected: the validation networks have the same positions either way.

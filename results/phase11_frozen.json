@@ -1,8 +1,8 @@
 {
- "frozen": "2026-11-18 16:52:10",
+ "frozen": "2026-11-18 16:54:19",
  "files": {
   "src/nettwin/kgqa.py": "2bfd9c8d341df42d0f9619eef9069487aeb8ece1c8010631893ae77f27d9b924",
-  "scripts/phase11_kgqa.py": "3edac3b49f1548025314db48b83e38178fce5500675e0b9074a6259fb25b2485",
+  "scripts/phase11_kgqa.py": "0cfcc0663e05133a1f52f48b878319cdf43267b7b9be6a88bec6ef84bf7787d2",
   "results/phase11/questions_val.jsonl": "1a90b0085914983561a6d56e57b5b65a7d81c676e34d4f7d4bc000f0b730f851",
   "results/phase11/questions_test.jsonl": "b9cfc59c51c477f6118570846e24dda713686195f7046ab631b954dd015dd403"
  }
