@@ -1,0 +1,512 @@
+{
+ "split": "val",
+ "variant": "with_status",
+ "model": "claude-haiku-5-5",
+ "gnn": "gat-h32-s0",
+ "n_scenarios": 30,
+ "scenario_days": 180.0,
+ "n_faults": 52,
+ "n_episodes": 250,
+ "metrics": {
+  "GNN": {
+   "pages_per_day": {
+    "value": 1.3889,
+    "ci": [
+     1.0056,
+     1.8057
+    ],
+    "numerator": 250.0,
+    "denominator": 180.0
+   },
+   "false_pages_per_day": {
+    "value": 0.8833,
+    "ci": [
+     0.6222,
+     1.1612
+    ],
+    "numerator": 159.0,
+    "denominator": 180.0
+   },
+   "detection_rate": {
+    "value": 0.6538,
+    "ci": [
+     0.4902,
+     0.8149
+    ],
+    "numerator": 34.0,
+    "denominator": 52.0
+   },
+   "time_to_detect_min": {
+    "value": 109.5588,
+    "ci": [
+     24.5574,
+     221.4302
+    ],
+    "numerator": 745.0,
+    "denominator": 34.0
+   },
+   "top1_at_escalation": {
+    "value": 0.6765,
+    "ci": [
+     0.5294,
+     0.8096
+    ],
+    "numerator": 23.0,
+    "denominator": 34.0
+   },
+   "top3_at_escalation": {
+    "value": 0.8235,
+    "ci": [
+     0.7026,
+     0.9375
+    ],
+    "numerator": 28.0,
+    "denominator": 34.0
+   },
+   "top3_all_faults": {
+    "value": 0.5385,
+    "ci": [
+     0.3774,
+     0.6982
+    ],
+    "numerator": 28.0,
+    "denominator": 52.0
+   },
+   "missed_during_maintenance": {
+    "value": 0.25,
+    "ci": [
+     0.0,
+     0.75
+    ],
+    "numerator": 2.0,
+    "denominator": 8.0
+   },
+   "cost_per_day_usd": {
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "numerator": 0.0,
+    "denominator": 180.0
+   }
+  },
+  "GNN+CL": {
+   "pages_per_day": {
+    "value": 1.0722,
+    "ci": [
+     0.7056,
+     1.4779
+    ],
+    "numerator": 193.0,
+    "denominator": 180.0
+   },
+   "false_pages_per_day": {
+    "value": 0.6167,
+    "ci": [
+     0.3889,
+     0.8779
+    ],
+    "numerator": 111.0,
+    "denominator": 180.0
+   },
+   "detection_rate": {
+    "value": 0.5962,
+    "ci": [
+     0.4426,
+     0.7551
+    ],
+    "numerator": 31.0,
+    "denominator": 52.0
+   },
+   "time_to_detect_min": {
+    "value": 88.871,
+    "ci": [
+     20.4231,
+     198.2866
+    ],
+    "numerator": 551.0,
+    "denominator": 31.0
+   },
+   "top1_at_escalation": {
+    "value": 0.7097,
+    "ci": [
+     0.5484,
+     0.8572
+    ],
+    "numerator": 22.0,
+    "denominator": 31.0
+   },
+   "top3_at_escalation": {
+    "value": 0.871,
+    "ci": [
+     0.7333,
+     0.9706
+    ],
+    "numerator": 27.0,
+    "denominator": 31.0
+   },
+   "top3_all_faults": {
+    "value": 0.5192,
+    "ci": [
+     0.3559,
+     0.6818
+    ],
+    "numerator": 27.0,
+    "denominator": 52.0
+   },
+   "missed_during_maintenance": {
+    "value": 0.5,
+    "ci": [
+     0.2,
+     0.8
+    ],
+    "numerator": 4.0,
+    "denominator": 8.0
+   },
+   "cost_per_day_usd": {
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "numerator": 0.0,
+    "denominator": 180.0
+   }
+  },
+  "Agent": {
+   "pages_per_day": {
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "numerator": 0.0,
+    "denominator": 180.0
+   },
+   "false_pages_per_day": {
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "numerator": 0.0,
+    "denominator": 180.0
+   },
+   "detection_rate": {
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "numerator": 0.0,
+    "denominator": 52.0
+   },
+   "time_to_detect_min": {
+    "value": null,
+    "ci": [
+     null,
+     null
+    ],
+    "numerator": 0.0,
+    "denominator": 0.0
+   },
+   "top1_at_escalation": {
+    "value": null,
+    "ci": [
+     null,
+     null
+    ],
+    "numerator": 0.0,
+    "denominator": 0.0
+   },
+   "top3_at_escalation": {
+    "value": null,
+    "ci": [
+     null,
+     null
+    ],
+    "numerator": 0.0,
+    "denominator": 0.0
+   },
+   "top3_all_faults": {
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "numerator": 0.0,
+    "denominator": 52.0
+   },
+   "missed_during_maintenance": {
+    "value": 1.0,
+    "ci": [
+     1.0,
+     1.0
+    ],
+    "numerator": 8.0,
+    "denominator": 8.0
+   },
+   "cost_per_day_usd": {
+    "value": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "numerator": 0.0,
+    "denominator": 180.0
+   }
+  }
+ },
+ "comparisons": {
+  "pages_per_day|Agent vs GNN": {
+   "verdict": "contradicted",
+   "point": -1.3889,
+   "ci": [
+    -1.8057,
+    -1.0056
+   ]
+  },
+  "false_pages_per_day|Agent vs GNN": {
+   "verdict": "contradicted",
+   "point": -0.8833,
+   "ci": [
+    -1.1613,
+    -0.6222
+   ]
+  },
+  "detection_rate|Agent vs GNN": {
+   "verdict": "contradicted",
+   "point": -0.6538,
+   "ci": [
+    -0.8149,
+    -0.4902
+   ]
+  },
+  "time_to_detect_min|Agent vs GNN": {
+   "verdict": "n/a",
+   "point": null,
+   "ci": [
+    null,
+    null
+   ]
+  },
+  "top1_at_escalation|Agent vs GNN": {
+   "verdict": "n/a",
+   "point": null,
+   "ci": [
+    null,
+    null
+   ]
+  },
+  "top3_at_escalation|Agent vs GNN": {
+   "verdict": "n/a",
+   "point": null,
+   "ci": [
+    null,
+    null
+   ]
+  },
+  "top3_all_faults|Agent vs GNN": {
+   "verdict": "contradicted",
+   "point": -0.5385,
+   "ci": [
+    -0.6982,
+    -0.3774
+   ]
+  },
+  "missed_during_maintenance|Agent vs GNN": {
+   "verdict": "supported",
+   "point": 0.75,
+   "ci": [
+    0.25,
+    1.0
+   ]
+  },
+  "pages_per_day|Agent vs GNN+CL": {
+   "verdict": "contradicted",
+   "point": -1.0722,
+   "ci": [
+    -1.4779,
+    -0.7056
+   ]
+  },
+  "false_pages_per_day|Agent vs GNN+CL": {
+   "verdict": "contradicted",
+   "point": -0.6167,
+   "ci": [
+    -0.8779,
+    -0.3889
+   ]
+  },
+  "detection_rate|Agent vs GNN+CL": {
+   "verdict": "contradicted",
+   "point": -0.5962,
+   "ci": [
+    -0.7551,
+    -0.4426
+   ]
+  },
+  "time_to_detect_min|Agent vs GNN+CL": {
+   "verdict": "n/a",
+   "point": null,
+   "ci": [
+    null,
+    null
+   ]
+  },
+  "top1_at_escalation|Agent vs GNN+CL": {
+   "verdict": "n/a",
+   "point": null,
+   "ci": [
+    null,
+    null
+   ]
+  },
+  "top3_at_escalation|Agent vs GNN+CL": {
+   "verdict": "n/a",
+   "point": null,
+   "ci": [
+    null,
+    null
+   ]
+  },
+  "top3_all_faults|Agent vs GNN+CL": {
+   "verdict": "contradicted",
+   "point": -0.5192,
+   "ci": [
+    -0.6818,
+    -0.3559
+   ]
+  },
+  "missed_during_maintenance|Agent vs GNN+CL": {
+   "verdict": "supported",
+   "point": 0.5,
+   "ci": [
+    0.2,
+    0.8
+   ]
+  },
+  "pages_per_day|GNN+CL vs GNN": {
+   "verdict": "contradicted",
+   "point": -0.3167,
+   "ci": [
+    -0.4333,
+    -0.2111
+   ]
+  },
+  "false_pages_per_day|GNN+CL vs GNN": {
+   "verdict": "contradicted",
+   "point": -0.2667,
+   "ci": [
+    -0.3722,
+    -0.1776
+   ]
+  },
+  "detection_rate|GNN+CL vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.0577,
+   "ci": [
+    -0.1277,
+    0.0
+   ]
+  },
+  "time_to_detect_min|GNN+CL vs GNN": {
+   "verdict": "inconclusive",
+   "point": -20.6879,
+   "ci": [
+    -91.665,
+    21.0264
+   ]
+  },
+  "top1_at_escalation|GNN+CL vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0332,
+   "ci": [
+    -0.0243,
+    0.1072
+   ]
+  },
+  "top3_at_escalation|GNN+CL vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0474,
+   "ci": [
+    -0.0111,
+    0.125
+   ]
+  },
+  "top3_all_faults|GNN+CL vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.0192,
+   "ci": [
+    -0.0639,
+    0.0
+   ]
+  },
+  "missed_during_maintenance|GNN+CL vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.25,
+   "ci": [
+    0.0,
+    0.429
+   ]
+  }
+ },
+ "agent": {
+  "wakes": 0,
+  "episodes": 0,
+  "rechecks": 0,
+  "first_decisions": {
+   "escalate": 0,
+   "dismiss_maintenance": 0,
+   "dismiss_noise": 0,
+   "wait": 0
+  },
+  "no_decision": 0,
+  "mean_tool_calls": null,
+  "cost_usd": 0,
+  "mean_cost_per_wake": null
+ },
+ "n_boot": 1000,
+ "seed": 42,
+ "settings": {
+  "merge_gap": 12,
+  "recheck": 6,
+  "detect_tail": 12,
+  "start": 288
+ },
+ "expectations": {
+  "P1": {
+   "expectation": "Agent pages per scenario-day below the raw GNN's",
+   "met": true
+  },
+  "P2": {
+   "expectation": "Agent false pages per scenario-day below GNN+CL's",
+   "met": true
+  },
+  "P3": {
+   "expectation": "Agent fault detection rate below the raw GNN's",
+   "met": true
+  },
+  "P4": {
+   "expectation": "Agent against GNN+CL on fault detection rate: inconclusive",
+   "met": false
+  },
+  "P5": {
+   "expectation": "Agent time to detect later than the raw GNN's, by under 30 minutes",
+   "met": false
+  },
+  "P6": {
+   "expectation": "Agent against the raw GNN on root-cause top-3 at escalation: inconclusive",
+   "met": false
+  },
+  "P7": {
+   "expectation": "Missed faults during maintenance: Agent below GNN+CL",
+   "met": false
+  },
+  "P8": {
+   "expectation": "Agent cost below $0.05 per scenario-day",
+   "met": true
+  }
+ }
+}

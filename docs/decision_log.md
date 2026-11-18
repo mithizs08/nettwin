@@ -1567,3 +1567,36 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
   - E6 met: Q2 beats Q1 in all three size groups.
   - E7 met: Q2 cost $0.0014 per question with 3.48 tool calls on average (at most 20).
 - Phase 11 spent $0.84 in all, within its $3.00 guard. Project total is now $42.50 of $100.
+
+### 2026-11-18: Phase 12 pre-registration (real-time replay without an oracle incident window; written before any API call)
+
+- **Question.** Phases 4 to 6 score localisation on an oracle window that starts and ends with the true fault. Here nothing is given: the scenario is replayed step by step, the frozen GNN raises alarms, and a Haiku 5.5 agent decides which alarms page an operator. How many pages does each policy send, how many faults does it catch, how fast, and with what root cause?
+- **Data.** with_status variant only (status events drive the live KG). Validation: 6 scenarios per real validation network, 30 in all. Test: 10 per test network, 70 in all. Both drawn with seed 12012 by `sample()`; generated graphs are not used. Each scenario is replayed from step 288 (after the one-day warm-up) to its end, 6 scenario-days.
+- **Replay** (`src/nettwin/replay.py`).
+  - Live KG: the operator inventory, changed only by observed status events (link down/up, PoP unreachable/reachable) at the step each arrives, polling lag included. The shared inventory is copied, never changed.
+  - GNN: GAT-h32 seed 0 (the checkpoint the Phase 6 agent tool uses) with its frozen validation threshold (`calibration.json`, with_status, 0.8372). A step alarms when some link's detection probability reaches the threshold. One pass over the scenario equals scoring each prefix (largest difference 1.8e-7 at four checked steps), so it is causal.
+  - Episodes: each alarm is attributed to the GNN's top-1 root element at that step. A later alarm on the same element within 12 steps (1 hour) of the episode's last alarm extends it; otherwise it opens a new episode.
+- **Policies.**
+  - GNN: every episode pages when it opens.
+  - GNN+CL: as GNN, but no page when the observed change log shows a drain or planned outage that has started and has not ended more than 12 steps before the opening step (anywhere in the network, as in the Phase 6 rule).
+  - Agent (`src/nettwin/replay_agent.py`): Haiku 5.5, effort medium, woken when an episode opens. It sees data up to that step only: alerts through `alerts_at`, the Phase 6 tools (alerts, telemetry, KG queries, change log, GNN scores and explanation, runbooks) cut at the decision step, plus `kg_current_state` (what the live KG marks as down). It submits escalate (root cause, up to 2 alternatives, fault type), dismiss_maintenance, dismiss_noise or wait. A wait is re-checked once, 6 steps (30 minutes) later, where it must escalate or dismiss. At most 10 tool calls and 80,000 tokens per wake. An escalation is a page at its decision step. The frozen Phase 6 code is used through a subclass, not changed.
+- **Metrics** (per policy; ratios of sums over scenarios, 1,000 scenario-bootstrap resamples, seed 42, paired across policies):
+  - pages per scenario-day, and false pages per scenario-day (a page during no fault's [start, end + 12 steps));
+  - fault detection rate: observable faults starting after the warm-up with a page in [start, end + 12 steps);
+  - time to detect: first such page minus the fault start, in minutes, over detected faults;
+  - root-cause top-1 and top-3 at escalation, over detected faults, from the first detecting page: the GNN's element ranking at that step for GNN and GNN+CL, the agent's root then alternatives for the agent, with the shared tie-aware credit; also top-3 over all faults (undetected count 0);
+  - missed faults during maintenance: share of faults overlapping a logged drain or planned outage with no detecting page;
+  - agent cost per scenario-day.
+  - Comparisons: Agent vs GNN, Agent vs GNN+CL, GNN+CL vs GNN. A difference A minus B is supported if its 95% CI is above 0, contradicted if below.
+- **Seen before writing this.** A no-API dry run of the replay and the two references on the 30 validation scenarios (`--dry`): 250 episodes, 52 faults; GNN 1.39 pages and 0.88 false pages per scenario-day, detection 0.654; GNN+CL 1.07 and 0.62, detection 0.596. No agent output and nothing from test.
+- **Expectations,** checked on test only:
+  - P1: Agent pages per scenario-day below the raw GNN's (Agent minus GNN contradicted).
+  - P2: Agent false pages per scenario-day below GNN+CL's.
+  - P3: Agent fault detection rate below the raw GNN's (it dismisses some real faults, as in Phase 6).
+  - P4: Agent against GNN+CL on detection rate: inconclusive.
+  - P5: Agent time to detect later than the raw GNN's (supported), by under 30 minutes.
+  - P6: Agent against the raw GNN on top-3 at escalation: inconclusive.
+  - P7: Missed faults during maintenance: Agent below GNN+CL (contradicted). Few such faults, so this may well be inconclusive.
+  - P8: Agent cost below $0.05 per scenario-day.
+- **Plan.** Smoke test on validation (one scenario per network), then a cost estimate and a stop for the user's go-ahead. Then the full validation run, development on validation only, then `--freeze` hashes the replay code, the agent subclass, the script and the shared code it calls into `results/phase12_frozen.json`. `--split test` refuses unless this entry is in the log, every hash matches (and `results/phase5_frozen.json`), `results/phase12/test` does not exist, and no `--limit` is given. Test runs once.
+- **Spend guard.** The script sums every Phase 12 agent log and reserves $0.02 per wake in flight. It stops before a wake that could take Phase 12 past $4.00, or the project within $1 of its $100 budget.
