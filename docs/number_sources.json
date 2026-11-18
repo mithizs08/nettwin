@@ -136,18 +136,42 @@
   "reviewed": "set by hand (Phase 11 and 12 audit fixes)"
  },
  {
-  "key": "README.md|Headline results|52.29|0",
+  "key": "README.md|Headline results|0.467|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A3.change_overlap.claims_fault.value",
+  "line": "README.md:23",
+  "context": "ts recall of the 15 fresh test faults that overlap a logged change at 0.467, against 0.533",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Headline results|0.533|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A2.change_overlap.claims_fault.value",
+  "line": "README.md:23",
+  "context": "e 15 fresh test faults that overlap a logged change at 0.467, against 0.533 without it (in",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Headline results|0.911|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN.change_overlap.claims_fault.value",
+  "line": "README.md:23",
+  "context": "a logged change at 0.467, against 0.533 without it (inconclusive) and 0.911 for the GNN.",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Headline results|53.03|0",
   "source": "derived",
   "path": "project API spend",
-  "line": "README.md:23",
-  "context": "- **Cost:** the whole project used $52.29 of API spend.",
-  "reviewed": "proposal checked by hand"
+  "line": "README.md:24",
+  "context": "- **Cost:** the whole project used $53.03 of API spend.",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
  },
  {
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|210|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.n_scenarios",
-  "line": "README.md:63",
+  "line": "README.md:64",
   "context": "**Localisation (Phase 5, 210 scenarios).** Th",
   "reviewed": "corrected by hand"
  },
@@ -155,7 +179,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.587|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.seed_summary.gat-h32.hard:top3@q90.mean",
-  "line": "README.md:63",
+  "line": "README.md:64",
   "context": "se 5, 210 scenarios).** The GNN (GAT-h32, 3 seeds) reaches hard top-3 0.587 with status ev",
   "reviewed": "proposal checked by hand"
  },
@@ -163,7 +187,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.356|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.methods.B2.groups.hard.localisation.q90.top3.value",
-  "line": "README.md:63",
+  "line": "README.md:64",
   "context": "AT-h32, 3 seeds) reaches hard top-3 0.587 with status events, against 0.356 for the best b",
   "reviewed": "proposal checked by hand"
  },
@@ -171,7 +195,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.234|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.methods.B3+.groups.hard.localisation.q90.top3.value",
-  "line": "README.md:63",
+  "line": "README.md:64",
   "context": ".587 with status events, against 0.356 for the best baseline (B2) and 0.234 for B3+. On ea",
   "reviewed": "corrected by hand"
  },
@@ -179,7 +203,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.762|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.seed_summary.gat-h32.easy:top1@q90.mean",
-  "line": "README.md:63",
+  "line": "README.md:64",
   "context": "s with status events, the GNN and B3+ show no clear difference (top-1 0.762 vs 0.718, diff",
   "reviewed": "proposal checked by hand"
  },
@@ -187,7 +211,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.718|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.methods.B3+.groups.easy.localisation.q90.top1.value",
-  "line": "README.md:63",
+  "line": "README.md:64",
   "context": "atus events, the GNN and B3+ show no clear difference (top-1 0.762 vs 0.718, difference +0",
   "reviewed": "proposal checked by hand"
  },
@@ -195,7 +219,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.475|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.seed_summary.gat-h32.all:far_maintenance_only.mean",
-  "line": "README.md:63",
+  "line": "README.md:64",
   "context": "s down-link rendering, not hard detection. The GNN raises an alarm in 0.475 of maintenance",
   "reviewed": "corrected by hand"
  },
@@ -203,7 +227,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|167|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "n_incidents",
-  "line": "README.md:67",
+  "line": "README.md:68",
   "context": "**The agent (Phase 6, 167 incidents, Claud",
   "reviewed": "proposal checked by hand"
  },
@@ -211,7 +235,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.283|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "variants.with_status.comparisons.faults|top3|A2 vs A0.point",
-  "line": "README.md:68",
+  "line": "README.md:69",
   "context": "e full agent (A2) beats the alerts-only agent (A0) on faults top-3 by +0.283 with status e",
   "reviewed": "proposal checked by hand"
  },
@@ -219,7 +243,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.332|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "variants.status_blind.comparisons.faults|top3|A2 vs A0.point",
-  "line": "README.md:68",
+  "line": "README.md:69",
   "context": "erts-only agent (A0) on faults top-3 by +0.283 with status events and +0.332 status-blind.",
   "reviewed": "proposal checked by hand"
  },
@@ -227,7 +251,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|40|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "variants.with_status.metrics.A2.change_overlap_faults.claims_fault.n",
-  "line": "README.md:71",
+  "line": "README.md:72",
   "context": "- On the 40 faults that overl",
   "reviewed": "proposal checked by hand"
  },
@@ -235,7 +259,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.300|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "variants.with_status.comparisons.change_overlap_faults|claims_fault|A2 vs GNN.point",
-  "line": "README.md:71",
+  "line": "README.md:72",
   "context": "ts that overlap a logged change, A2 recalls fewer than the plain GNN (-0.300 and -0.325, c",
   "reviewed": "proposal checked by hand"
  },
@@ -243,23 +267,23 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.325|0",
   "source": "phase6/test_claude-haiku-5-5/summary.json",
   "path": "variants.status_blind.comparisons.change_overlap_faults|claims_fault|A2 vs GNN.point",
-  "line": "README.md:71",
+  "line": "README.md:72",
   "context": "rlap a logged change, A2 recalls fewer than the plain GNN (-0.300 and -0.325, contradicted",
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "README.md|Results in detail (pre-registered, test set, scored once)|52.29|0",
+  "key": "README.md|Results in detail (pre-registered, test set, scored once)|53.03|0",
   "source": "derived",
   "path": "project API spend",
-  "line": "README.md:74",
-  "context": "- Total project API spend: $52.29 of a $100 bud",
-  "reviewed": "proposal checked by hand"
+  "line": "README.md:75",
+  "context": "- Total project API spend: $53.03 of a $100 bud",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
  },
  {
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|210|1",
   "source": "phase8_test.json",
   "path": "splits.test.n_scenarios",
-  "line": "README.md:78",
+  "line": "README.md:79",
   "context": "**Capacity forecasting (Phase 8, 210 scenarios).** Wi",
   "reviewed": "proposal checked by hand"
  },
@@ -267,7 +291,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.890|0",
   "source": "phase8_test.json",
   "path": "splits.test.metrics.lightgbm.all.f1.value",
-  "line": "README.md:78",
+  "line": "README.md:79",
   "context": "n within 60 minutes? LightGBM on lag features [Ke et al. 2017] has F1 0.890, above persist",
   "reviewed": "proposal checked by hand"
  },
@@ -275,7 +299,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.807|0",
   "source": "phase8_test.json",
   "path": "splits.test.metrics.persistence.all.f1.value",
-  "line": "README.md:78",
+  "line": "README.md:79",
   "context": "GBM on lag features [Ke et al. 2017] has F1 0.890, above persistence (0.807) and seasonal-",
   "reviewed": "proposal checked by hand"
  },
@@ -283,7 +307,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.675|0",
   "source": "phase8_test.json",
   "path": "splits.test.metrics.seasonal_naive.all.f1.value",
-  "line": "README.md:78",
+  "line": "README.md:79",
   "context": "al. 2017] has F1 0.890, above persistence (0.807) and seasonal-naive (0.675). The frozen P",
   "reviewed": "proposal checked by hand"
  },
@@ -291,7 +315,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.863|0",
   "source": "phase8_test.json",
   "path": "splits.test.metrics.gnn_head.all.f1.value",
-  "line": "README.md:78",
+  "line": "README.md:79",
   "context": "he frozen Phase 5 GNN encoder with a small head is below LightGBM (F1 0.863, difference -0",
   "reviewed": "proposal checked by hand"
  },
@@ -299,7 +323,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.027|0",
   "source": "phase8_test.json",
   "path": "splits.test.comparisons.all|f1|gnn_head vs lightgbm.point",
-  "line": "README.md:78",
+  "line": "README.md:79",
   "context": "GNN encoder with a small head is below LightGBM (F1 0.863, difference -0.027, contradicted",
   "reviewed": "proposal checked by hand"
  },
@@ -307,7 +331,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.086|0",
   "source": "phase6/test_claude-opus-5-5/summary.json",
   "path": "variants.with_status.comparisons.faults|top3|A2 vs GNN.point",
-  "line": "README.md:83",
+  "line": "README.md:84",
   "context": "- Opus A2 is above the 3-seed GNN on faults top-3 (+0.086 and +0.070). ",
   "reviewed": "proposal checked by hand"
  },
@@ -315,7 +339,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.070|0",
   "source": "phase6/test_claude-opus-5-5/summary.json",
   "path": "variants.status_blind.comparisons.faults|top3|A2 vs GNN.point",
-  "line": "README.md:83",
+  "line": "README.md:84",
   "context": "- Opus A2 is above the 3-seed GNN on faults top-3 (+0.086 and +0.070). Against GNN",
   "reviewed": "proposal checked by hand"
  },
@@ -323,7 +347,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.108|0",
   "source": "phase6/test_haiku_vs_opus.json",
   "path": "variants.with_status.comparisons.faults|top1|Opus-A2 vs Haiku-A2.point",
-  "line": "README.md:84",
+  "line": "README.md:85",
   "context": "- Opus A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), ",
   "reviewed": "proposal checked by hand"
  },
@@ -331,7 +355,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|0.117|0",
   "source": "phase6/test_haiku_vs_opus.json",
   "path": "variants.status_blind.comparisons.faults|top1|Opus-A2 vs Haiku-A2.point",
-  "line": "README.md:84",
+  "line": "README.md:85",
   "context": "- Opus A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), at about 28",
   "reviewed": "proposal checked by hand"
  },
@@ -339,7 +363,7 @@
   "key": "README.md|Results in detail (pre-registered, test set, scored once)|28|0",
   "source": "derived",
   "path": "opus/haiku A2 cost ratio with_status",
-  "line": "README.md:84",
+  "line": "README.md:85",
   "context": "us A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), at about 28 times the cost pe",
   "reviewed": "proposal checked by hand"
  },
@@ -347,7 +371,7 @@
   "key": "README.md|KG question answering (Phase 11)|252|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.all.Q0.em.n",
-  "line": "README.md:89",
+  "line": "README.md:90",
   "context": "all model answer exact questions about the network's inventory graph? 252 template test qu",
   "reviewed": "proposal checked by hand"
  },
@@ -355,7 +379,7 @@
   "key": "README.md|KG question answering (Phase 11)|252|1",
   "source": "phase11/test/summary.json",
   "path": "metrics.all.Q0.em.n",
-  "line": "README.md:99",
+  "line": "README.md:100",
   "context": "| all | 252 | 0.024 [0.01, 0",
   "reviewed": "proposal checked by hand"
  },
@@ -363,7 +387,7 @@
   "key": "README.md|KG question answering (Phase 11)|42|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=one_hop.Q0.f1.n",
-  "line": "README.md:100",
+  "line": "README.md:101",
   "context": "| one-hop | 42 | 0.017 [0.00, 0.",
   "reviewed": "corrected by hand"
  },
@@ -371,7 +395,7 @@
   "key": "README.md|KG question answering (Phase 11)|42|1",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=multi_hop.Q0.f1.n",
-  "line": "README.md:101",
+  "line": "README.md:102",
   "context": "| multi-hop | 42 | 0.000 [0.00, 0.",
   "reviewed": "corrected by hand"
  },
@@ -379,7 +403,7 @@
   "key": "README.md|KG question answering (Phase 11)|42|2",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=what_if.Q0.f1.n",
-  "line": "README.md:102",
+  "line": "README.md:103",
   "context": "| what-if | 42 | 0.000 [0.00, 0.",
   "reviewed": "corrected by hand"
  },
@@ -387,7 +411,7 @@
   "key": "README.md|KG question answering (Phase 11)|42|3",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=path.Q0.f1.n",
-  "line": "README.md:103",
+  "line": "README.md:104",
   "context": "| path | 42 | 0.006 [0.00, 0.",
   "reviewed": "corrected by hand"
  },
@@ -395,7 +419,7 @@
   "key": "README.md|KG question answering (Phase 11)|42|4",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=count.Q0.f1.n",
-  "line": "README.md:104",
+  "line": "README.md:105",
   "context": "| count | 42 | 0.095 [0.02, 0.",
   "reviewed": "corrected by hand"
  },
@@ -403,7 +427,7 @@
   "key": "README.md|KG question answering (Phase 11)|42|5",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=time.Q0.f1.n",
-  "line": "README.md:105",
+  "line": "README.md:106",
   "context": "| time | 42 | 0.024 [0.00, 0.",
   "reviewed": "corrected by hand"
  },
@@ -411,7 +435,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.020|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.all.Q0.em.value",
-  "line": "README.md:107",
+  "line": "README.md:108",
   "context": "- Exact match overall: Q0 0.020, Q1 0.564, Q2 ",
   "reviewed": "proposal checked by hand"
  },
@@ -419,7 +443,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.564|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.all.Q1.em.value",
-  "line": "README.md:107",
+  "line": "README.md:108",
   "context": "- Exact match overall: Q0 0.020, Q1 0.564, Q2 0.941. Q2 ",
   "reviewed": "proposal checked by hand"
  },
@@ -427,7 +451,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.941|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.all.Q2.em.value",
-  "line": "README.md:107",
+  "line": "README.md:108",
   "context": "- Exact match overall: Q0 0.020, Q1 0.564, Q2 0.941. Q2 beats Q1 b",
   "reviewed": "proposal checked by hand"
  },
@@ -435,7 +459,7 @@
   "key": "README.md|KG question answering (Phase 11)|36|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.size=medium.Q0.f1.n",
-  "line": "README.md:107",
+  "line": "README.md:108",
   "context": "ap is supported in every group. The medium group is a single network (36 questions), so it",
   "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
@@ -443,7 +467,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.00011|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q0.mean_usd",
-  "line": "README.md:110",
+  "line": "README.md:111",
   "context": "- Cost per question: Q0 $0.00011, Q1 $0.0006",
   "reviewed": "proposal checked by hand"
  },
@@ -451,7 +475,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.00063|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q1.mean_usd",
-  "line": "README.md:110",
+  "line": "README.md:111",
   "context": "- Cost per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014",
   "reviewed": "proposal checked by hand"
  },
@@ -459,7 +483,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.0014|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q2.mean_usd",
-  "line": "README.md:110",
+  "line": "README.md:111",
   "context": "- Cost per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 to",
   "reviewed": "proposal checked by hand"
  },
@@ -467,7 +491,7 @@
   "key": "README.md|KG question answering (Phase 11)|3.48|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q2.mean_tool_calls",
-  "line": "README.md:110",
+  "line": "README.md:111",
   "context": "- Cost per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 tool calls on a",
   "reviewed": "proposal checked by hand"
  },
@@ -475,7 +499,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.84|0",
   "source": "derived",
   "path": "phase11 spend",
-  "line": "README.md:110",
+  "line": "README.md:111",
   "context": "1 $0.00063, Q2 $0.0014 with 3.48 tool calls on average. Phase 11 cost $0.84 in all, valida",
   "reviewed": "corrected by hand"
  },
@@ -483,7 +507,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.487|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=what_if.Q1.f1.value",
-  "line": "README.md:111",
+  "line": "README.md:112",
   "context": "to score below 0.4 F1 on what-if, path and time questions, but scored 0.487, 0.707 and 0.5",
   "reviewed": "proposal checked by hand"
  },
@@ -491,7 +515,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.707|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=path.Q1.f1.value",
-  "line": "README.md:111",
+  "line": "README.md:112",
   "context": "e below 0.4 F1 on what-if, path and time questions, but scored 0.487, 0.707 and 0.552. Ret",
   "reviewed": "proposal checked by hand"
  },
@@ -499,7 +523,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.552|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=time.Q1.f1.value",
-  "line": "README.md:111",
+  "line": "README.md:112",
   "context": "4 F1 on what-if, path and time questions, but scored 0.487, 0.707 and 0.552. Retrieved pat",
   "reviewed": "proposal checked by hand"
  },
@@ -507,7 +531,7 @@
   "key": "README.md|Real-time replay (Phase 12)|210|0",
   "source": "phase12/test/summary.json",
   "path": "n_scenarios",
-  "line": "README.md:122",
+  "line": "README.md:123",
   "context": "Test: all 210 test scenarios, ",
   "reviewed": "proposal checked by hand"
  },
@@ -515,7 +539,7 @@
   "key": "README.md|Real-time replay (Phase 12)|1,260|0",
   "source": "phase12/test/summary.json",
   "path": "scenario_days",
-  "line": "README.md:122",
+  "line": "README.md:123",
   "context": "Test: all 210 test scenarios, 1,260 scenario-days,",
   "reviewed": "proposal checked by hand"
  },
@@ -523,7 +547,7 @@
   "key": "README.md|Real-time replay (Phase 12)|390|0",
   "source": "phase12/test/summary.json",
   "path": "n_faults",
-  "line": "README.md:122",
+  "line": "README.md:123",
   "context": "Test: all 210 test scenarios, 1,260 scenario-days, 390 observable fault",
   "reviewed": "proposal checked by hand"
  },
@@ -531,7 +555,7 @@
   "key": "README.md|Real-time replay (Phase 12)|3,884|0",
   "source": "phase12/test/summary.json",
   "path": "agent.episodes",
-  "line": "README.md:122",
+  "line": "README.md:123",
   "context": ": all 210 test scenarios, 1,260 scenario-days, 390 observable faults, 3,884 alarm episodes",
   "reviewed": "proposal checked by hand"
  },
@@ -539,7 +563,7 @@
   "key": "README.md|Real-time replay (Phase 12)|56|0",
   "source": "phase12/test/summary.json",
   "path": "metrics.GNN.missed_during_maintenance.denominator",
-  "line": "README.md:132",
+  "line": "README.md:133",
   "context": "| missed faults during maintenance (56) | 0.143 [0.06, 0",
   "reviewed": "proposal checked by hand"
  },
@@ -547,7 +571,7 @@
   "key": "README.md|Real-time replay (Phase 12)|60%|0",
   "source": "derived",
   "path": "phase12 agent page cut vs GNN",
-  "line": "README.md:135",
+  "line": "README.md:136",
   "context": "- The agent sends 60% fewer pages than",
   "reviewed": "proposal checked by hand"
  },
@@ -555,7 +579,7 @@
   "key": "README.md|Real-time replay (Phase 12)|248|0",
   "source": "phase12/test/descriptive.json",
   "path": "matched_faults.Agent vs GNN.n_both_detect",
-  "line": "README.md:137",
+  "line": "README.md:138",
   "context": "ge each policy over its own detected faults, and those differ. On the 248 faults both the ",
   "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
@@ -563,23 +587,23 @@
   "key": "README.md|Real-time replay (Phase 12)|0.585|0",
   "source": "phase12/test/descriptive.json",
   "path": "matched_faults.Agent vs GNN.top1|Agent.value",
-  "line": "README.md:137",
-  "context": "3, 0.836] for the GNN (+0.049 [0.008, 0.093]), and in first place for 0.585 against 0.625 ",
+  "line": "README.md:138",
+  "context": "3, 0.836] for the GNN (+0.049 [0.008, 0.092]), and in first place for 0.585 against 0.625 ",
   "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
  {
   "key": "README.md|Real-time replay (Phase 12)|0.625|0",
   "source": "phase12/test/descriptive.json",
   "path": "matched_faults.Agent vs GNN.top1|GNN.value",
-  "line": "README.md:137",
-  "context": "the GNN (+0.049 [0.008, 0.093]), and in first place for 0.585 against 0.625 (-0.040 [-0.10",
+  "line": "README.md:138",
+  "context": "the GNN (+0.049 [0.008, 0.092]), and in first place for 0.585 against 0.625 (-0.040 [-0.10",
   "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
  {
   "key": "README.md|Real-time replay (Phase 12)|0.375|0",
   "source": "phase12/test/descriptive.json",
   "path": "matched_faults.Agent vs GNN.top3|GNN|faults only GNN detects",
-  "line": "README.md:138",
+  "line": "README.md:139",
   "context": "s are counted: the 32 faults only the GNN detects have a GNN top-3 of 0.375. Over all faul",
   "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
@@ -587,7 +611,7 @@
   "key": "README.md|Real-time replay (Phase 12)|3.08|0",
   "source": "phase12/test/summary.json",
   "path": "metrics.GNN.pages_per_day.value",
-  "line": "README.md:141",
+  "line": "README.md:142",
   "context": "- The raw GNN pages 3.08 times per scena",
   "reviewed": "proposal checked by hand"
  },
@@ -595,7 +619,7 @@
   "key": "README.md|Real-time replay (Phase 12)|1.39|0",
   "source": "phase12/val_dev/summary.json",
   "path": "metrics.GNN.pages_per_day.value",
-  "line": "README.md:141",
+  "line": "README.md:142",
   "context": "- The raw GNN pages 3.08 times per scenario-day on test, against 1.39 on validation: ",
   "reviewed": "proposal checked by hand"
  },
@@ -603,7 +627,7 @@
   "key": "README.md|Real-time replay (Phase 12)|5,427|0",
   "source": "phase12/test/summary.json",
   "path": "agent.wakes",
-  "line": "README.md:143",
+  "line": "README.md:144",
   "context": "- Cost: the agent made 5,427 decisions for ",
   "reviewed": "proposal checked by hand"
  },
@@ -611,7 +635,7 @@
   "key": "README.md|Real-time replay (Phase 12)|0.0072|0",
   "source": "phase12/test/summary.json",
   "path": "metrics.Agent.cost_per_day_usd.value",
-  "line": "README.md:143",
+  "line": "README.md:144",
   "context": "- Cost: the agent made 5,427 decisions for $0.0072 per scenario",
   "reviewed": "proposal checked by hand"
  },
@@ -619,7 +643,7 @@
   "key": "README.md|Real-time replay (Phase 12)|9.12|0",
   "source": "derived",
   "path": "phase12 test cost",
-  "line": "README.md:143",
+  "line": "README.md:144",
   "context": " made 5,427 decisions for $0.0072 per scenario-day. The test run cost $9.12. Two changes w",
   "reviewed": "proposal checked by hand"
  },
@@ -627,9 +651,225 @@
   "key": "README.md|Real-time replay (Phase 12)|210|1",
   "source": "phase12/test/summary.json",
   "path": "n_scenarios",
-  "line": "README.md:143",
+  "line": "README.md:144",
   "context": " Two changes were made to the plan, both logged: test grew from 70 to 210 scenarios before",
   "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.74|0",
+  "source": "derived",
+  "path": "phase13 spend",
+  "line": "README.md:151",
+  "context": "nce through a frozen path, and the phase's spend guard was $2 (spent: $0.74).",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|75|0",
+  "source": "phase13/test/summary.json",
+  "path": "n_incidents",
+  "line": "README.md:152",
+  "context": "- **Test sample.** 75 incidents: 15 fau",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|30|0",
+  "source": "phase13/test/summary.json",
+  "path": "strata.other_fault",
+  "line": "README.md:152",
+  "context": "that overlap a logged change (every eligible one left after Phase 6), 30 other faults and ",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|30|1",
+  "source": "phase13/test/summary.json",
+  "path": "strata.distractor",
+  "line": "README.md:152",
+  "context": "d change (every eligible one left after Phase 6), 30 other faults and 30 change-only windo",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.911|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN.change_overlap.claims_fault.value",
+  "line": "README.md:156",
+  "context": "overlapping a change (15) | 0.533 [0.27, 0.77] | 0.467 [0.20, 0.71] | 0.911 | 0.000 | 0.35",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.000|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL.change_overlap.claims_fault.value",
+  "line": "README.md:156",
+  "context": "ing a change (15) | 0.533 [0.27, 0.77] | 0.467 [0.20, 0.71] | 0.911 | 0.000 | 0.356 |",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.356|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL+scope.change_overlap.claims_fault.value",
+  "line": "README.md:156",
+  "context": "ange (15) | 0.533 [0.27, 0.77] | 0.467 [0.20, 0.71] | 0.911 | 0.000 | 0.356 |",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.535|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A2.change_overlap.top3.value",
+  "line": "README.md:157",
+  "context": "| top-3, faults overlapping a change | 0.535 | 0.540 | 0.48",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.540|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A3.change_overlap.top3.value",
+  "line": "README.md:157",
+  "context": "| top-3, faults overlapping a change | 0.535 | 0.540 | 0.489 | 0.48",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.489|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN.change_overlap.top3.value",
+  "line": "README.md:157",
+  "context": "| top-3, faults overlapping a change | 0.535 | 0.540 | 0.489 | 0.489 | 0.48",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.489|1",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL.change_overlap.top3.value",
+  "line": "README.md:157",
+  "context": "| top-3, faults overlapping a change | 0.535 | 0.540 | 0.489 | 0.489 | 0.489 |",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.489|2",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL+scope.change_overlap.top3.value",
+  "line": "README.md:157",
+  "context": " top-3, faults overlapping a change | 0.535 | 0.540 | 0.489 | 0.489 | 0.489 |",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|30|2",
+  "source": "phase13/test/summary.json",
+  "path": "strata.other_fault",
+  "line": "README.md:158",
+  "context": "| recall, other faults (30) | 0.800 | 0.800 ",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.800|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A2.other_fault.claims_fault.value",
+  "line": "README.md:158",
+  "context": "| recall, other faults (30) | 0.800 | 0.800 | 0.68",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.800|1",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A3.other_fault.claims_fault.value",
+  "line": "README.md:158",
+  "context": "| recall, other faults (30) | 0.800 | 0.800 | 0.689 | 0.68",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.689|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN.other_fault.claims_fault.value",
+  "line": "README.md:158",
+  "context": "| recall, other faults (30) | 0.800 | 0.800 | 0.689 | 0.689 | 0.68",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.689|1",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL.other_fault.claims_fault.value",
+  "line": "README.md:158",
+  "context": "| recall, other faults (30) | 0.800 | 0.800 | 0.689 | 0.689 | 0.689 |",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.689|2",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL+scope.other_fault.claims_fault.value",
+  "line": "README.md:158",
+  "context": "| recall, other faults (30) | 0.800 | 0.800 | 0.689 | 0.689 | 0.689 |",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|30|3",
+  "source": "phase13/test/summary.json",
+  "path": "strata.distractor",
+  "line": "README.md:159",
+  "context": "| fault claims on change-only windows (30) | 0.067 | 0.033 ",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.067|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A2.distractors.claims_fault.value",
+  "line": "README.md:159",
+  "context": "| fault claims on change-only windows (30) | 0.067 | 0.033 | 0.93",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.033|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A3.distractors.claims_fault.value",
+  "line": "README.md:159",
+  "context": "| fault claims on change-only windows (30) | 0.067 | 0.033 | 0.933 | 0.00",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.933|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN.distractors.claims_fault.value",
+  "line": "README.md:159",
+  "context": "| fault claims on change-only windows (30) | 0.067 | 0.033 | 0.933 | 0.000 | 0.14",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.000|1",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL.distractors.claims_fault.value",
+  "line": "README.md:159",
+  "context": "| fault claims on change-only windows (30) | 0.067 | 0.033 | 0.933 | 0.000 | 0.144 |",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.144|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL+scope.distractors.claims_fault.value",
+  "line": "README.md:159",
+  "context": " claims on change-only windows (30) | 0.067 | 0.033 | 0.933 | 0.000 | 0.144 |",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.833|0",
+  "source": "phase13/val_dev/summary.json",
+  "path": "metrics.SCOPE.change_overlap.claims_fault.value",
+  "line": "README.md:162",
+  "context": "ly (not pre-registered).** The tool flagged 6 of the 15 test windows (0.833 on validation)",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.356|1",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL+scope.change_overlap.claims_fault.value",
+  "line": "README.md:163",
+  "context": "- The tool does help a simple rule: GNN + rule + scope check recalls 0.356 of these fault",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "README.md|Change-scope tool (Phase 13, a pre-registered follow-up)|0.144|1",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL+scope.distractors.claims_fault.value",
+  "line": "README.md:163",
+  "context": "the change-log rule recalls none, at the price of claiming a fault on 0.144 of change-only",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
  },
  {
   "key": "docs/report.md|Read this first: what this is and is not|24|0",
@@ -1760,12 +2000,12 @@
   "reviewed": "proposal checked by hand"
  },
  {
-  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|52.29|0",
+  "key": "docs/report.md|RQ4: the agent (Phase 6, 167 test incidents)|53.03|0",
   "source": "derived",
   "path": "project API spend",
   "line": "docs/report.md:127",
-  "context": "- Total project API spend was $52.29 of a $100 bud",
-  "reviewed": "proposal checked by hand"
+  "context": "- Total project API spend was $53.03 of a $100 bud",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
  },
  {
   "key": "docs/report.md|RQ5: capacity forecasting (Phase 8, 210 test scenarios)|0.807|0",
@@ -2076,7 +2316,7 @@
   "source": "phase12/test/descriptive.json",
   "path": "matched_faults.Agent vs GNN.top1|Agent.value",
   "line": "docs/report.md:181",
-  "context": " 0.786 [0.733, 0.836] for the GNN (+0.049 [0.008, 0.093]); top-1 is 0.585 against 0.625 (-",
+  "context": " 0.786 [0.733, 0.836] for the GNN (+0.049 [0.008, 0.092]); top-1 is 0.585 against 0.625 (-",
   "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
  {
@@ -2084,7 +2324,7 @@
   "source": "phase12/test/descriptive.json",
   "path": "matched_faults.Agent vs GNN.top1|GNN.value",
   "line": "docs/report.md:181",
-  "context": " 0.836] for the GNN (+0.049 [0.008, 0.093]); top-1 is 0.585 against 0.625 (-0.040 [-0.102,",
+  "context": " 0.836] for the GNN (+0.049 [0.008, 0.092]); top-1 is 0.585 against 0.625 (-0.040 [-0.102,",
   "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
  {
@@ -2160,10 +2400,186 @@
   "reviewed": "proposal checked by hand"
  },
  {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.650|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.A2.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:191",
+  "context": " Phase 6 (test recall of faults overlapping a logged change: Haiku A2 0.650 against the GN",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.950|0",
+  "source": "phase6/test_claude-haiku-5-5/summary.json",
+  "path": "variants.with_status.metrics.GNN.change_overlap_faults.claims_fault.value",
+  "line": "docs/report.md:191",
+  "context": " faults overlapping a logged change: Haiku A2 0.650 against the GNN's 0.950) and Phase 12 ",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.375|0",
+  "source": "phase12/test/summary.json",
+  "path": "metrics.Agent.missed_during_maintenance.value",
+  "line": "docs/report.md:191",
+  "context": "inst the GNN's 0.950) and Phase 12 (missed faults during maintenance: 0.375 against 0.143)",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.143|0",
+  "source": "phase12/test/summary.json",
+  "path": "metrics.GNN.missed_during_maintenance.value",
+  "line": "docs/report.md:191",
+  "context": " 0.950) and Phase 12 (missed faults during maintenance: 0.375 against 0.143) found the sam",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.687|0",
+  "source": "phase13/val_tool_dev.json",
+  "path": "grid.11.change_overlap_fault.share_flagged",
+  "line": "docs/report.md:192",
+  "context": " validation windows from the tool alone, with no API call: it flagged 0.687 of 67 change-o",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|67|0",
+  "source": "phase13/val_tool_dev.json",
+  "path": "grid.11.change_overlap_fault.n",
+  "line": "docs/report.md:192",
+  "context": "on windows from the tool alone, with no API call: it flagged 0.687 of 67 change-overlappin",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.195|0",
+  "source": "phase13/val_tool_dev.json",
+  "path": "grid.11.change_only.share_flagged",
+  "line": "docs/report.md:192",
+  "context": "API call: it flagged 0.687 of 67 change-overlapping fault windows and 0.195 of 303 change-",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|303|0",
+  "source": "phase13/val_tool_dev.json",
+  "path": "grid.11.change_only.n",
+  "line": "docs/report.md:192",
+  "context": " it flagged 0.687 of 67 change-overlapping fault windows and 0.195 of 303 change-only wind",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|30|0",
+  "source": "phase13/test/summary.json",
+  "path": "strata.other_fault",
+  "line": "docs/report.md:193",
+  "context": "t window: 15 faults overlapping a logged change (all that were left), 30 other faults, 30 ",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|30|1",
+  "source": "phase13/test/summary.json",
+  "path": "strata.distractor",
+  "line": "docs/report.md:193",
+  "context": "ts overlapping a logged change (all that were left), 30 other faults, 30 change-only windo",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|41|0",
+  "source": "phase13/test/summary.json",
+  "path": "n_scenarios",
+  "line": "docs/report.md:193",
+  "context": "e (all that were left), 30 other faults, 30 change-only windows, from 41 test scenarios. C",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.74|0",
+  "source": "derived",
+  "path": "phase13 spend",
+  "line": "docs/report.md:193",
+  "context": "from 41 test scenarios. CIs resample scenarios. Spend guard $2; spent $0.74.",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.533|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A2.change_overlap.claims_fault.value",
+  "line": "docs/report.md:195",
+  "context": "- Recall of faults overlapping a change: A2 0.533, A3 0.467, A3 mi",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.467|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A3.change_overlap.claims_fault.value",
+  "line": "docs/report.md:195",
+  "context": "- Recall of faults overlapping a change: A2 0.533, A3 0.467, A3 minus A2 -0.",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.911|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN.change_overlap.claims_fault.value",
+  "line": "docs/report.md:195",
+  "context": ", A3 0.467, A3 minus A2 -0.067 [-0.308, +0.167] (inconclusive). GNN 0.911; A3 minus GNN -0",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.067|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A2.distractors.claims_fault.value",
+  "line": "docs/report.md:196",
+  "context": "- Fault claims on change-only windows: A2 0.067, A3 0.033 (incon",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.033|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A3.distractors.claims_fault.value",
+  "line": "docs/report.md:196",
+  "context": "- Fault claims on change-only windows: A2 0.067, A3 0.033 (inconclusive).",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.800|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A2.other_fault.claims_fault.value",
+  "line": "docs/report.md:197",
+  "context": "- Other faults: recall 0.800 for both; top-3 ",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.356|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL+scope.change_overlap.claims_fault.value",
+  "line": "docs/report.md:198",
+  "context": "- The tool alone: GNN + change-log rule + scope check recalls 0.356 of the change-ov",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.000|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL.change_overlap.claims_fault.value",
+  "line": "docs/report.md:198",
+  "context": " scope check recalls 0.356 of the change-overlapping faults against 0.000 for the change-l",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.144|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.GNN+CL+scope.distractors.claims_fault.value",
+  "line": "docs/report.md:198",
+  "context": "faults against 0.000 for the change-log rule, and claims a fault on 0.144 of change-only w",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)|0.833|0",
+  "source": "phase13/val_dev/summary.json",
+  "path": "metrics.SCOPE.change_overlap.claims_fault.value",
+  "line": "docs/report.md:200",
+  "context": " pre-registered.** The tool flagged 6 of the 15 test windows, against 0.833 on the validat",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
   "key": "docs/report.md|Descriptive results (not pre-registered)|0.167|0",
   "source": "phase6/test_haiku_vs_opus.json",
   "path": "variants.with_status.comparisons.hard|top1|Opus-A2 vs Haiku-A2.point",
-  "line": "docs/report.md:196",
+  "line": "docs/report.md:210",
   "context": "+0.108 [0.041, 0.182] and +0.117 [0.048, 0.189]) and on hard top-1 (+0.167 and +0.150).",
   "reviewed": "proposal checked by hand"
  },
@@ -2171,7 +2587,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|0.150|0",
   "source": "phase6/test_haiku_vs_opus.json",
   "path": "variants.status_blind.comparisons.hard|top1|Opus-A2 vs Haiku-A2.point",
-  "line": "docs/report.md:196",
+  "line": "docs/report.md:210",
   "context": "41, 0.182] and +0.117 [0.048, 0.189]) and on hard top-1 (+0.167 and +0.150).",
   "reviewed": "proposal checked by hand"
  },
@@ -2179,7 +2595,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|68|0",
   "source": "derived",
   "path": "haiku vs opus comparisons",
-  "line": "docs/report.md:197",
+  "line": "docs/report.md:211",
   "context": "- The comparison file holds 68 paired comparisons ",
   "reviewed": "proposal checked by hand"
  },
@@ -2187,7 +2603,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|27|0",
   "source": "derived",
   "path": "haiku vs opus supported",
-  "line": "docs/report.md:197",
+  "line": "docs/report.md:211",
   "context": "- The comparison file holds 68 paired comparisons (27 supported, 41 incon",
   "reviewed": "corrected by hand"
  },
@@ -2195,7 +2611,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|41|0",
   "source": "derived",
   "path": "haiku vs opus inconclusive",
-  "line": "docs/report.md:197",
+  "line": "docs/report.md:211",
   "context": "- The comparison file holds 68 paired comparisons (27 supported, 41 inconclusive) with ",
   "reviewed": "proposal checked by hand"
  },
@@ -2203,7 +2619,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|28|0",
   "source": "derived",
   "path": "opus/haiku A2 cost ratio with_status",
-  "line": "docs/report.md:198",
+  "line": "docs/report.md:212",
   "context": "- Opus A2 costs about 28 times as much per i",
   "reviewed": "corrected by hand"
  },
@@ -2211,7 +2627,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|0.92|0",
   "source": "phase7/aarnet_dev_summary.json",
   "path": "cost_usd",
-  "line": "docs/report.md:200",
+  "line": "docs/report.md:214",
   "context": "type plus one drain), picked by a fixed rule, in both variants, for $0.92.",
   "reviewed": "corrected by hand"
  },
@@ -2219,7 +2635,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|0.500|0",
   "source": "phase7/aarnet_dev_summary.json",
   "path": "by_variant.with_status.haiku-A2.faults_top1",
-  "line": "docs/report.md:201",
+  "line": "docs/report.md:215",
   "context": "- Both models had faults top-1 0.500, the same as the",
   "reviewed": "corrected by hand"
  },
@@ -2227,7 +2643,7 @@
   "key": "docs/report.md|Negative results|0.475|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.seed_summary.gat-h32.all:far_maintenance_only.mean",
-  "line": "docs/report.md:212",
+  "line": "docs/report.md:226",
   "context": "s:** the GNN raises an alarm in about half of maintenance-only hours (0.475 with status ev",
   "reviewed": "corrected by hand"
  },
@@ -2235,7 +2651,7 @@
   "key": "docs/report.md|Negative results|0.458|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.status_blind.seed_summary.gat-h32.all:far_maintenance_only.mean",
-  "line": "docs/report.md:212",
+  "line": "docs/report.md:226",
   "context": "rm in about half of maintenance-only hours (0.475 with status events, 0.458 status-blind),",
   "reviewed": "corrected by hand"
  },
@@ -2243,7 +2659,7 @@
   "key": "docs/report.md|Negative results|0.487|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=what_if.Q1.f1.value",
-  "line": "docs/report.md:217",
+  "line": "docs/report.md:231",
   "context": " to score below 0.4 F1 on what-if, path and time questions. It scored 0.487, 0.707 and 0.5",
   "reviewed": "corrected by hand"
  },
@@ -2251,7 +2667,7 @@
   "key": "docs/report.md|Negative results|0.707|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=path.Q1.f1.value",
-  "line": "docs/report.md:217",
+  "line": "docs/report.md:231",
   "context": "re below 0.4 F1 on what-if, path and time questions. It scored 0.487, 0.707 and 0.552: ret",
   "reviewed": "proposal checked by hand"
  },
@@ -2259,7 +2675,7 @@
   "key": "docs/report.md|Negative results|4.6|0",
   "source": "phase12/test/summary.json",
   "path": "comparisons.time_to_detect_min|Agent vs GNN.point",
-  "line": "docs/report.md:218",
+  "line": "docs/report.md:232",
   "context": " was expected to page clearly later than the raw GNN. The difference, +4.6 minutes [-10.3,",
   "reviewed": "proposal checked by hand"
  },
@@ -2267,7 +2683,7 @@
   "key": "docs/report.md|Negative results|10.3|0",
   "source": "phase12/test/summary.json",
   "path": "comparisons.time_to_detect_min|Agent vs GNN.ci.0",
-  "line": "docs/report.md:218",
+  "line": "docs/report.md:232",
   "context": "to page clearly later than the raw GNN. The difference, +4.6 minutes [-10.3, 21.6], is inc",
   "reviewed": "proposal checked by hand"
  },
@@ -2275,7 +2691,7 @@
   "key": "docs/report.md|Negative results|21.6|0",
   "source": "phase12/test/summary.json",
   "path": "comparisons.time_to_detect_min|Agent vs GNN.ci.1",
-  "line": "docs/report.md:218",
+  "line": "docs/report.md:232",
   "context": " clearly later than the raw GNN. The difference, +4.6 minutes [-10.3, 21.6], is inconclusi",
   "reviewed": "proposal checked by hand"
  },
@@ -2283,8 +2699,24 @@
   "key": "docs/report.md|Negative results|0.080|0",
   "source": "phase12/test/summary.json",
   "path": "comparisons.detection_rate|Agent vs GNN.point",
-  "line": "docs/report.md:220",
+  "line": "docs/report.md:234",
   "context": "*Replay detection:** the agent catches fewer faults than the raw GNN (-0.080) and misses m",
   "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|Negative results|0.533|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A2.change_overlap.claims_fault.value",
+  "line": "docs/report.md:235",
+  "context": "hange and its top-3 on them. On 15 fresh test faults recall fell from 0.533 to 0.467 (-0.0",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
+ },
+ {
+  "key": "docs/report.md|Negative results|0.467|0",
+  "source": "phase13/test/summary.json",
+  "path": "metrics.A3.change_overlap.claims_fault.value",
+  "line": "docs/report.md:235",
+  "context": " its top-3 on them. On 15 fresh test faults recall fell from 0.533 to 0.467 (-0.067 [-0.30",
+  "reviewed": "reviewed 2026-11-18 (Phase 13)"
  }
 ]

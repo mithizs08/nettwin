@@ -47,6 +47,7 @@ ALLOW = {
     "$8.00": "Phase 12 spend guard before the mid-test change (decision log)",
     "$10.50": "Phase 12 spend guard after the mid-test change (decision log)",
     "70": "Phase 12 test sample before the pre-test design change (decision log)",
+    "$2": "Phase 13 spend guard, pre-registered (decision log)",
 }
 # Sources: (files, regex on the dotted JSON path). Only these paths can be named for a section's numbers.
 SOURCES = {
@@ -56,16 +57,17 @@ SOURCES = {
     "p8": ["phase8_test.json"],
     "p11": ["phase11/test/summary.json", "phase11/test/clustered.json"],
     "p12": ["phase12/test/summary.json", "phase12/val_dev/summary.json", "phase12/test/descriptive.json"],
+    "p13": ["phase13/test/summary.json", "phase13/val_dev/summary.json", "phase13/test/descriptive.json", "phase13/val_tool_dev.json"],
     "data": ["phase1_kg_summary.json", "phase3_dataset_summary.json"],
 }
 # Each doc heading (prefix match on its text) names the sources its numbers come from. An unmapped heading is an error.
 SCOPES = {
     "NetTwin": ["data"], "Read this first": ["data"], "Run the demo": [], "Setup and reproduction": [],
-    "Reproducing the datasets": [], "Where things are": [], "License": [], "Headline results": ["p5", "p6", "p8", "p11", "p12"], "KG question answering": ["p11"], "Real-time replay": ["p12"],
+    "Reproducing the datasets": [], "Where things are": [], "License": [], "Headline results": ["p5", "p6", "p8", "p11", "p12", "p13"], "KG question answering": ["p11"], "Real-time replay": ["p12"], "Change-scope tool": ["p6", "p12", "p13"], "A change-scope tool": ["p6", "p12", "p13"],
     "Results in detail": ["p5", "p6", "p8"],
     "Descriptive, not pre-registered": ["p6", "p7"], "Why measure": [], "What was built": ["data"], "RQ1 and RQ2": ["p5"],
     "RQ3": ["p5"], "RQ1 ablation": ["p5"], "RQ4": ["p6"], "RQ5": ["p8"], "Descriptive results": ["p6", "p7", "p8"],
-    "Negative results": ["p5", "p6", "p8", "p11", "p12"], "How the work was kept honest": [], "Reproduce and run": [], "References": [],
+    "Negative results": ["p5", "p6", "p8", "p11", "p12", "p13"], "How the work was kept honest": [], "Reproduce and run": [], "References": [],
 }
 # An allowed constant that is also a plausible result counts as the constant only in this context.
 ALLOW_CONTEXT = {"95%": r"\s+(CIs?\b|bootstrap|scenario|confidence)", "0.4": r"\s+F1", "50": r"\s+best BM25", "70": r"\s+to 210 scenarios", "60": r"(\s|-)min", "30": r"(\s|-)min"}
@@ -120,7 +122,10 @@ def derived():
     for k in ("test", "val_dev"):                                   # share of first wakes that chose to wait
         out[f"phase12 wait share {k}"] = s12[k]["agent"]["first_decisions"]["wait"] / s12[k]["agent"]["episodes"]
     out["phase12 test cost"] = p12[RES / "phase12" / "test" / "agent_log.jsonl"]
-    out["project API spend"] = sum(costs.values()) + 0.30 + out["phase11 spend"] + out["phase12 spend"]   # + $0.30 unlogged
+    p13 = {p: sum(json.loads(l)["cost_usd"] for l in p.read_text().splitlines()) for p in sorted(RES.glob("phase13/*/agent_log.jsonl"))}
+    out["phase13 spend"] = sum(p13.values())                        # every Phase 13 agent log: smoke, validation and test
+    out["phase13 test cost"] = p13[RES / "phase13" / "test" / "agent_log.jsonl"]
+    out["project API spend"] = sum(costs.values()) + 0.30 + out["phase11 spend"] + out["phase12 spend"] + out["phase13 spend"]   # + $0.30 unlogged
     t = json.loads((RES / "phase8_test.json").read_text())["splits"]["test"]["metrics"]["persistence"]
     out["phase8 fault-free share of breaches"] = t["fault_free"]["n_breaches"] / t["all"]["n_breaches"]
     hv = json.loads((RES / "phase6" / "test_haiku_vs_opus.json").read_text())["variants"]

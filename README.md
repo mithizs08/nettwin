@@ -20,7 +20,8 @@ Every result below was pre-registered: metrics and expectations were committed b
 - **Congestion forecasting:** LightGBM predicts which links will pass 80% utilisation within the next hour with F1 0.89, beating simple baselines. Reusing the GNN for this did not beat LightGBM.
 - **Questions about the network graph (Phase 11):** given query tools over the knowledge graph, Claude Haiku 5.5 answers 94% of 252 exact test questions fully right, against 56% when given retrieved graph facts and 2% with no graph.
 - **Without an oracle window (Phase 12):** replaying 210 test scenarios step by step, a Haiku 5.5 triage agent sends 60% fewer operator pages than the raw GNN alarm and catches 64% of faults against the GNN's 72%. A page counts as detecting a fault whatever element it names; counting only pages that name the true root among their top 3 (descriptive), the figures are 56% and 60%.
-- **Cost:** the whole project used $52.29 of API spend.
+- **A change-scope tool did not fix missed faults under planned work (Phase 13, pre-registered follow-up):** giving the agent a KG check of what a logged change can explain left its recall of the 15 fresh test faults that overlap a logged change at 0.467, against 0.533 without it (inconclusive) and 0.911 for the GNN.
+- **Cost:** the whole project used $53.03 of API spend.
 
 The full write-up, with every caveat and the negative results, is [docs/report.md](docs/report.md).
 
@@ -71,7 +72,7 @@ Test is seven public networks never used for design decisions (Geant2012, german
 - On the 40 faults that overlap a logged change, A2 recalls fewer than the plain GNN (-0.300 and -0.325, contradicted). The agent too often takes the change as the explanation.
 - 11 of 13 pre-registered expectations held on test.
 - Opus 5.5 A2 vs A0 (pre-registered) is supported in both variants.
-- Total project API spend: $52.29 of a $100 budget.
+- Total project API spend: $53.03 of a $100 budget.
 
 ![Phase 6 test](results/figures/test_agent_phase6.png)
 
@@ -142,6 +143,25 @@ Test: all 210 test scenarios, 1,260 scenario-days, 390 observable faults, 3,884 
 - 6 of 8 pre-registered expectations held. P5 (agent clearly later) and P6 (top-3 inconclusive) did not; P6 failed in the agent's favour, with the caveat above.
 - Cost: the agent made 5,427 decisions for $0.0072 per scenario-day. The test run cost $9.12. Two changes were made to the plan, both logged: test grew from 70 to 210 scenarios before it started, and the spend guard was raised from $8.00 to $10.50 partway through, after the agent waited more often than on validation. That change was decided after the run had produced its decision counts and spend, though before any metric was computed. Only the budget and the re-freeze rule changed; the new rule lets the script be re-frozen while a test run is unfinished, so that nothing else changed rests on the logged diff, not on the tooling.
 - The change log shows each started change's planned end, and both the change-log rule and the agent can use it. In the simulator every change ends as planned. Real change windows overrun, so this flatters both policies a little.
+
+## Change-scope tool (Phase 13, a pre-registered follow-up)
+
+Phases 6 and 12 both found that the agent misses too many real faults that overlap a logged drain or planned outage: it takes the change as the explanation. Phase 13 adds one tool, `check_change_scope` (`src/nettwin/change_scope.py`). For each logged change in the window it asks the inventory knowledge graph what the change can explain (which links lose and gain traffic when the change is applied, which services are rerouted or cut off), then lists the observed symptoms that fall outside that: another link down, a router unreachable, discards, service loss, traffic shifts on links the change does not reroute, or symptoms outside the change's time window.
+
+- **Design.** A3 is the frozen Phase 6 A2 agent (Haiku 5.5) plus the tool and one paragraph in its prompt, compared with A2 on the same incidents. The incidents are fresh: none overlaps an incident drawn in Phase 6. The tool's thresholds were chosen on validation only, from the tool alone, before any API call. Everything was pre-registered and committed first, the test ran once through a frozen path, and the phase's spend guard was $2 (spent: $0.74).
+- **Test sample.** 75 incidents: 15 faults that overlap a logged change (every eligible one left after Phase 6), 30 other faults and 30 change-only windows. With status events only.
+
+| test (95% CIs over scenarios) | A2 (Phase 6 agent) | A3 (+ change-scope tool) | GNN | GNN + change-log rule | GNN + rule + scope check |
+|---|---|---|---|---|---|
+| recall, faults overlapping a change (15) | 0.533 [0.27, 0.77] | 0.467 [0.20, 0.71] | 0.911 | 0.000 | 0.356 |
+| top-3, faults overlapping a change | 0.535 | 0.540 | 0.489 | 0.489 | 0.489 |
+| recall, other faults (30) | 0.800 | 0.800 | 0.689 | 0.689 | 0.689 |
+| fault claims on change-only windows (30) | 0.067 | 0.033 | 0.933 | 0.000 | 0.144 |
+
+- **Negative result.** A3 minus A2 on recall of faults that overlap a change is -0.067 [-0.308, +0.167], inconclusive, and the agent still recalls far fewer of them than the GNN (-0.444 [-0.750, -0.139]). 7 of 9 pre-registered expectations held; the two that matter most here (H1 recall, H4 top-3) did not.
+- **Why, descriptively (not pre-registered).** The tool flagged 6 of the 15 test windows (0.833 on validation). The test faults were mostly routing misconfigurations, demand surges and degradations, which the tool caught about half the time on validation. Where it flagged nothing, A3 tended to read that as confirmation: it answered "planned maintenance" for 8 of the 15 faults, against 4 for A2.
+- The tool does help a simple rule: GNN + rule + scope check recalls 0.356 of these faults where the change-log rule recalls none, at the price of claiming a fault on 0.144 of change-only windows.
+- Scored on oracle incident windows, like Phase 6. It was not re-tested in the Phase 12 live replay, for budget reasons. Only 15 test faults, so the CIs are wide.
 
 ## Setup and reproduction
 

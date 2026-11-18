@@ -124,7 +124,7 @@ This checks that cited elements and numbers exist. It does not check that the ex
 **Cost.**
 - Haiku A2 cost $0.0025 to $0.0028 per incident; Opus A2 cost $0.072 to $0.078.
 - The Haiku test run cost $1.96 and the Opus test run $32.68.
-- Total project API spend was $52.29 of a $100 budget.
+- Total project API spend was $53.03 of a $100 budget.
 
 **Pre-registered expectations on test** (Haiku 5.5, G1 to G13): 11 of 13 held.
 - G1 (A1 beats A0 on hard top-1) held only status-blind.
@@ -186,6 +186,20 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
 - **Planned end times.** The change log shows each started change's planned end, and the change-log rule and the agent both use it. In the simulator every change ends as planned; real change windows overrun, so this flatters both policies a little.
 - **Reading.** Most of the agent's value here is triage: it removes about 71% of the GNN's false pages, with detection within about 3 points of the change-log rule's. It does not detect faults the GNN never alarms on, and it still misses more faults during maintenance than the raw GNN.
 
+### 4.8 A change-scope tool for the agent (Phase 13, a pre-registered follow-up, 75 fresh test incidents)
+
+- **Question.** Phase 6 (test recall of faults overlapping a logged change: Haiku A2 0.650 against the GNN's 0.950) and Phase 12 (missed faults during maintenance: 0.375 against 0.143) found the same weakness: the agent takes a logged change as the explanation. Does a KG check of what the change can explain fix it?
+- **Tool.** `check_change_scope` applies each logged drain or planned outage to a copy of the inventory KG, takes the links that lose and gain traffic and the services rerouted or cut off, and lists the observed symptoms (alerts as known at the window end, and day-over-day traffic and loss shifts) outside that footprint or outside the change's time window. Its three thresholds were chosen on validation windows from the tool alone, with no API call: it flagged 0.687 of 67 change-overlapping fault windows and 0.195 of 303 change-only windows there.
+- **Design.** A3 is the frozen Phase 6 A2 plus the tool and one prompt paragraph; A2 is rerun unchanged (hash-checked). Haiku 5.5, with status events. Fresh incidents that overlap no Phase 6 incident window: 15 faults overlapping a logged change (all that were left), 30 other faults, 30 change-only windows, from 41 test scenarios. CIs resample scenarios. Spend guard $2; spent $0.74.
+- **Results** (test):
+  - Recall of faults overlapping a change: A2 0.533, A3 0.467, A3 minus A2 -0.067 [-0.308, +0.167] (inconclusive). GNN 0.911; A3 minus GNN -0.444 [-0.750, -0.139].
+  - Fault claims on change-only windows: A2 0.067, A3 0.033 (inconclusive).
+  - Other faults: recall 0.800 for both; top-3 inconclusive.
+  - The tool alone: GNN + change-log rule + scope check recalls 0.356 of the change-overlapping faults against 0.000 for the change-log rule, and claims a fault on 0.144 of change-only windows.
+  - Expectations: 7 of 9 held; H1 (A3 above A2 on that recall) and H4 (A3 above A2 on top-3) did not.
+- **Descriptive, not pre-registered.** The tool flagged 6 of the 15 test windows, against 0.833 on the validation run. The test faults were mostly routing misconfigurations, demand surges and degradations, which it caught about half the time on validation. Where it flagged nothing, A3 tended to dismiss: it answered planned maintenance for 8 of the 15, A2 for 4. The tool's "all explained" verdict reads the same when it sees no symptom at all, which is stronger than the evidence.
+- **Reading.** A negative result. The weakness is not fixed by this tool, and a check that misses the subtle fault types can make the agent more confident in the wrong answer. Scored on oracle windows like Phase 6, and not re-tested in the Phase 12 live replay, for budget reasons.
+
 ## 5. Descriptive results (not pre-registered)
 
 - **Opus A2 against the GNN.**
@@ -218,13 +232,14 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
 - **Replay time to detect (P5):** the agent was expected to page clearly later than the raw GNN. The difference, +4.6 minutes [-10.3, 21.6], is inconclusive.
 - **Replay root cause at escalation (P6):** expected level with the GNN; the agent's top-3 was better instead (+0.092 [0.046, 0.146]). That comparison averages each policy over its own detected faults. On the faults both detect (descriptive, in the Phase 12 results above) the agent's top-3 lead is about half as large and its top-1 is lower, and over all faults top-3 is level.
 - **Replay detection:** the agent catches fewer faults than the raw GNN (-0.080) and misses more faults that coincide with logged changes (+0.232 [0.129, 0.352]). Counting only pages that name the root in their top 3 (descriptive), it is also below the raw GNN (-0.038 [-0.064, -0.015]).
+- **Change-scope tool (Phase 13, H1 and H4):** the tool was expected to raise the agent's recall of faults overlapping a logged change and its top-3 on them. On 15 fresh test faults recall fell from 0.533 to 0.467 (-0.067 [-0.308, +0.167], inconclusive) and top-3 was level. The tool's sensitivity on these windows (6 of 15) was far below validation's.
 - **Phase 11 runner bug before test:** the runner's question check first regenerated the test networks with the wrong seeds and refused the run. It was fixed and re-frozen before any test question was asked (decision log).
 
 ## 7. How the work was kept honest
 
 - **Splits.** Data was split by topology first. No test topology appears in training in any form. Generated training graphs were augmented only from a reference pool that excludes test and dev networks.
 - **Pre-registration.** Expectations, metrics, tuning budgets and test plans were committed before the runs they describe. Every change has a dated entry and reason in `docs/decision_log.md`.
-- **Test once.** Models, thresholds, calibration and agent code were frozen and hash-checked before each test run (`results/phase5_frozen.json`, `results/phase6_frozen.json`, `results/phase8_frozen.json`, `results/phase11_frozen.json`, `results/phase12_frozen.json`). The test scripts refuse a second run.
+- **Test once.** Models, thresholds, calibration and agent code were frozen and hash-checked before each test run (`results/phase5_frozen.json`, `results/phase6_frozen.json`, `results/phase8_frozen.json`, `results/phase11_frozen.json`, `results/phase12_frozen.json`, `results/phase13_frozen.json`). The test scripts refuse a second run.
 - **Banned inputs.** No method sees a clock, the time since the scenario start, or file metadata. All features are causal.
 - **Disclosed weaknesses.**
   - The runbooks were written by us with knowledge of the simulator's fault types, which favours the agent.

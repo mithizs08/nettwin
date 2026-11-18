@@ -509,6 +509,63 @@ def replay():
                "marker for the agent's reason or a page's episode.")
 
 
+SCOPE_NAMES = {"A2": "A2 (Phase 6 agent)", "A3": "A3 (+ change-scope tool)", "GNN": "GNN", "GNN+CL": "GNN + change-log rule",
+               "GNN+CL+scope": "GNN + rule + scope check", "SCOPE": "scope tool alone"}
+SCOPE_ROWS = [("change_overlap", "claims_fault", "recall, faults overlapping a logged change"),
+              ("change_overlap", "top3", "top-3, faults overlapping a logged change"),
+              ("other_fault", "claims_fault", "recall, other faults"), ("other_fault", "top3", "top-3, other faults"),
+              ("distractors", "claims_fault", "fault claims on change-only windows (lower is better)")]
+
+
+def scope():
+    st.subheader("Change-scope tool (Phase 13): a pre-registered follow-up on faults hidden by planned work")
+    st.caption(HONESTY + " Phases 6 and 12 found that the agent misses real faults that overlap a logged drain or planned "
+               "outage. Phase 13 gives it one more tool: a knowledge-graph check of what each logged change can explain, "
+               "listing the observed symptoms outside it. A3 is the frozen Phase 6 A2 (Haiku 5.5) plus that tool; both ran "
+               "once on fresh test incidents never drawn in Phase 6. Scored on oracle incident windows, like Phase 6, and "
+               "not re-tested in the Phase 12 live replay, for budget reasons. 95% CIs from 1000 scenario resamples.")
+    path = RES / "phase13" / "test" / "summary.json"
+    if not path.exists():
+        st.info("results/phase13/test/summary.json is not there yet: the test set has not been scored.")
+        return
+    s = load_json("phase13/test/summary.json")
+    st.markdown(f"**{s['n_incidents']} test incidents from {s['n_scenarios']} scenarios: {s['strata']['change_overlap']} faults "
+                f"overlapping a logged change, {s['strata']['other_fault']} other faults, {s['strata']['distractor']} change-only windows**")
+    rows = []
+    for g, metric, label in SCOPE_ROWS:
+        row = {"metric": label}
+        for m, name in SCOPE_NAMES.items():
+            x = s["metrics"].get(m, {}).get(g, {}).get(metric)
+            row[name] = "" if x is None else f"{x['value']:.3f} [{x['ci'][0]:.3f}, {x['ci'][1]:.3f}]"
+        rows.append(row)
+    st.dataframe(pd.DataFrame(rows).set_index("metric"), width="stretch")
+    st.caption("For 'scope tool alone' the value is the share of windows where it listed an unexplained symptom.")
+    keep = ("A3 vs A2", "A3 vs GNN", "A3 vs GNN+CL", "GNN+CL+scope vs GNN+CL")
+    st.markdown("**Paired comparisons** (A minus B, 95% CI; on change-only windows the sign is flipped so that supported "
+                "always favours A)")
+    st.dataframe(pd.DataFrame([{"comparison": k.replace("|", ": "), "difference": c["point"],
+                                "95% CI": f"[{c['ci'][0]:+.3f}, {c['ci'][1]:+.3f}]" if c["ci"][0] is not None else "n/a",
+                                "verdict": c["verdict"]}
+                               for k, c in s["comparisons"].items()
+                               if k.split("|")[0] in ("change_overlap", "other_fault", "distractors") and k.split("|")[1] in ("claims_fault", "top3")
+                               and k.split("|")[2] in keep]), width="stretch", hide_index=True)
+    st.markdown("**Pre-registered expectations**")
+    st.dataframe(pd.DataFrame([{"expectation": k, "met on test": "yes" if v else "no"} for k, v in s["expectations"].items()]),
+                 width="stretch", hide_index=True)
+    if (RES / "phase13" / "test" / "descriptive.json").exists():
+        d = load_json("phase13/test/descriptive.json")["change_overlap"]
+        st.markdown("**Descriptive, not pre-registered:** why the tool did not help on test")
+        st.dataframe(pd.DataFrame([{"fault type": t, "faults": v["n"], "tool flagged": v["tool_flagged"]} for t, v in d["by_type"].items() if v["n"]]),
+                     width="stretch", hide_index=True)
+        f, n = d["tool_flagged"], d["tool_flagged_nothing"]
+        st.caption(f"On the {f['n']} windows the tool flagged, A2 and A3 claimed {f['A2_fault_claims']} and {f['A3_fault_claims']} "
+                   f"faults; on the {n['n']} it did not, {n['A2_fault_claims']} and {n['A3_fault_claims']}. A3 answered planned "
+                   f"maintenance for {d['A3_said_planned_maintenance']} of these faults, A2 for {d['A2_said_planned_maintenance']}.")
+    a = s["agents"]
+    st.caption(f"Phase 13 spend ${s['phase13_spend_usd']:.2f} of a $2.00 guard. A3 called the tool in "
+               f"{a['A3']['called_scope_share_change_windows']:.0%} of its runs on windows with a logged change.")
+
+
 def limitations():
     st.subheader("What this is, and what it is not")
     st.markdown(f"""
@@ -535,6 +592,9 @@ def limitations():
   replay page also shows detection with the true root in the page's top 3. The change log shows each started
   change's planned end, which the simulator always keeps and real changes often overrun, so this flatters the
   change-log rule and the agent a little.
+- **Change-scope tool (Phase 13).** A KG check of what a logged change can explain did not raise the agent's recall
+  of faults that overlap a logged change on 15 fresh test faults (inconclusive, and lower as a point estimate). The
+  tool missed most of the subtle fault types there. It was scored on oracle windows and not re-tested in the replay.
 - **Groundedness is a narrow check.** It confirms cited ids and numbers exist in the tool outputs, not that the
   explanation is right.
 - **Runbooks favour the agent.** We wrote them ourselves, with knowledge of the simulator's fault types.
@@ -546,6 +606,6 @@ st.set_page_config(page_title="NetTwin demo", layout="wide")
 st.title("NetTwin")
 st.caption("A knowledge-graph digital twin of a public backbone, with GNN localisation and an LLM root-cause agent. "
            "Offline demo from saved results.")
-page = st.sidebar.radio("Page", ["Incident explorer", "Test results", "Capacity forecasting", "KG question answering (Phase 11)", "Real-time replay (Phase 12)", "Limitations"], key="page")
+page = st.sidebar.radio("Page", ["Incident explorer", "Test results", "Capacity forecasting", "KG question answering (Phase 11)", "Real-time replay (Phase 12)", "Change-scope tool (Phase 13)", "Limitations"], key="page")
 st.sidebar.warning(HONESTY)
-{"Incident explorer": explorer, "Test results": results, "Capacity forecasting": forecasting, "KG question answering (Phase 11)": kgqa, "Real-time replay (Phase 12)": replay, "Limitations": limitations}[page]()
+{"Incident explorer": explorer, "Test results": results, "Capacity forecasting": forecasting, "KG question answering (Phase 11)": kgqa, "Real-time replay (Phase 12)": replay, "Change-scope tool (Phase 13)": scope, "Limitations": limitations}[page]()

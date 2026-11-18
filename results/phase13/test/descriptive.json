@@ -1,0 +1,64 @@
+{
+ "run": "results/phase13/test",
+ "note": "descriptive, not pre-registered; counts over incidents, no CIs",
+ "change_overlap": {
+  "tool_flagged": {
+   "n": 6,
+   "A2_fault_claims": 5,
+   "A3_fault_claims": 5,
+   "A3_claim_A2_not": 0,
+   "A2_claim_A3_not": 0
+  },
+  "tool_flagged_nothing": {
+   "n": 9,
+   "A2_fault_claims": 3,
+   "A3_fault_claims": 2,
+   "A3_claim_A2_not": 1,
+   "A2_claim_A3_not": 2
+  },
+  "by_type": {
+   "link_down": {
+    "n": 2,
+    "tool_flagged": 2
+   },
+   "node_down": {
+    "n": 1,
+    "tool_flagged": 1
+   },
+   "link_flapping": {
+    "n": 0,
+    "tool_flagged": 0
+   },
+   "link_degradation": {
+    "n": 2,
+    "tool_flagged": 0
+   },
+   "demand_surge": {
+    "n": 4,
+    "tool_flagged": 1
+   },
+   "routing_misconfig": {
+    "n": 6,
+    "tool_flagged": 2
+   }
+  },
+  "A3_said_planned_maintenance": 8,
+  "A2_said_planned_maintenance": 4
+ },
+ "distractor": {
+  "tool_flagged": {
+   "n": 5,
+   "A2_fault_claims": 1,
+   "A3_fault_claims": 1,
+   "A3_claim_A2_not": 0,
+   "A2_claim_A3_not": 0
+  },
+  "tool_flagged_nothing": {
+   "n": 25,
+   "A2_fault_claims": 1,
+   "A3_fault_claims": 0,
+   "A3_claim_A2_not": 0,
+   "A2_claim_A3_not": 1
+  }
+ }
+}
