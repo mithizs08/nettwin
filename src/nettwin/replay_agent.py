@@ -132,6 +132,8 @@ def run_wake(client, inc, ep, model, prices, prior=None, log=None, log_extra=Non
             if b.name == "submit_triage":
                 decision = dict(b.input)
                 results.append({"type": "tool_result", "tool_use_id": b.id, "content": "submitted"})
+            elif b.name not in {t["name"] for t in tools}:
+                results.append({"type": "tool_result", "tool_use_id": b.id, "is_error": True, "content": f"error: unknown tool {b.name!r}"})
             elif forced or len(calls) >= MAX_TOOL_CALLS:
                 results.append({"type": "tool_result", "tool_use_id": b.id, "is_error": True, "content": "error: no more tool calls; call submit_triage now"})
             else:

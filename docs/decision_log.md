@@ -1616,3 +1616,16 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
 - **Cost estimate:** test scales to about 3,240 wakes and $5.94 (3 x the 70-scenario estimate). With validation ($0.55) and the smoke test ($0.09), Phase 12 should cost about $6.60.
 - **Test plan and frozen path:** unchanged otherwise. `--freeze` runs after the validation run and hashes the script with this change, so the test run uses 210 scenarios and refuses on any other script. Agent wakes run in 16 parallel threads (the client retries rate-limit errors), which changes no result.
 - Everything else in the Phase 12 pre-registration stands, including P1 to P8.
+
+### 2026-11-18: Phase 12 validation run and a bug fix (no test runs)
+
+- **Bug fix during the validation run.** In one wake the model called a tool name that is not in its list. The frozen `call_tool` does not catch that error type, so the run stopped after 23 written decisions. Fix in `replay_agent.py`: an unknown tool name now returns an error result to the agent. The resume also recovers wakes that are in the agent log but whose decision was not yet written (36 such wakes), so no wake was paid twice: the log and the decisions file both hold 313 wakes. Nothing else changed.
+- **Validation** (`results/phase12/val_dev`, 30 scenarios, 180 scenario-days, 52 faults, 250 episodes, 313 wakes including 63 re-checks, $0.58):
+  - Pages per scenario-day: GNN 1.39, GNN+CL 1.07, Agent 0.81. False pages per day: 0.88, 0.62, 0.39.
+  - Detection rate: 0.654, 0.596, 0.577. Agent minus GNN -0.077, contradicted; Agent minus GNN+CL inconclusive.
+  - Time to detect: about 100 minutes for every policy, with very wide CIs (some faults are only alarmed long after they start).
+  - Top-3 at escalation: 0.824, 0.871, 0.835 (all comparisons inconclusive).
+  - Missed faults during maintenance: 8 such faults only (0.25, 0.50, 0.375; inconclusive).
+  - Agent cost $0.0032 per scenario-day.
+  - Expectations on validation (for information; they are checked on test): P1, P2, P3, P4, P6 and P8 held; P5 and P7 did not (inconclusive).
+- No design change after validation. The code is frozen next (`results/phase12_frozen.json`) and test runs once on all 210 scenarios.

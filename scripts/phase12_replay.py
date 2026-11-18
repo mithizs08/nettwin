@@ -186,6 +186,18 @@ def run(args, cfg):
         for l in dec_path.read_text().splitlines():
             r = json.loads(l)
             done[(r["scenario_id"], r["episode_id"], r["round"])] = r
+    # a wake that is in the agent log but not in decisions.jsonl (an earlier run stopped before writing it) is recovered
+    # from the log instead of being paid for again
+    if (out_dir / "agent_log.jsonl").exists():
+        with open(dec_path, "a") as df:
+            for l in (out_dir / "agent_log.jsonl").read_text().splitlines():
+                r = json.loads(l)
+                key = (r["scenario_id"], r["episode_id"], r["round"])
+                if key not in done and r["decision"] is not None:
+                    rec = {k: r[k] for k in ("scenario_id", "episode_id", "round", "t", "decision", "stop", "cost_usd", "n_tool_calls", "seconds")}
+                    rec["recovered_from_log"] = True
+                    df.write(json.dumps(rec) + "\n")
+                    done[key] = rec
     spent = {"phase": phase_spend(), "project": project_spend(), "inflight": 0.0}
     print(f"Phase 12 spend so far ${spent['phase']:.3f} of ${PHASE_BUDGET_USD:.2f}; project ${spent['project']:.2f} of ${budget}", flush=True)
     load_env()
