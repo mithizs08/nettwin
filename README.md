@@ -18,7 +18,8 @@ Every result below was pre-registered: metrics and expectations were committed b
 - **The agent's tools matter:** the full Claude Haiku 5.5 agent gets the root cause in its top 3 for 77% of faults, against 49% for the same model given only the alert list. Against the GNN on its own, the difference is not clear.
 - **The change log cuts both ways:** the agent correctly treats planned maintenance as maintenance, but it flags only 65% of real faults that happen during a logged change, against 95% for the GNN.
 - **Congestion forecasting:** LightGBM predicts which links will pass 80% utilisation within the next hour with F1 0.89, beating simple baselines. Reusing the GNN for this did not beat LightGBM.
-- **Cost:** the whole project used $41.65 of API spend.
+- **Questions about the network graph (Phase 11):** given query tools over the knowledge graph, Claude Haiku 5.5 answers 94% of 252 exact test questions fully right, against 56% when given retrieved graph facts and 2% with no graph.
+- **Cost:** the whole project used $42.50 of API spend.
 
 The full write-up, with every caveat and the negative results, is [docs/report.md](docs/report.md).
 
@@ -69,7 +70,7 @@ Test is seven public networks never used for design decisions (Geant2012, german
 - On the 40 faults that overlap a logged change, A2 recalls fewer than the plain GNN (-0.300 and -0.325, contradicted). The agent too often takes the change as the explanation.
 - 11 of 13 pre-registered expectations held on test.
 - Opus 5.5 A2 vs A0 (pre-registered) is supported in both variants.
-- Total project API spend: $41.65 of a $100 budget.
+- Total project API spend: $42.50 of a $100 budget.
 
 ![Phase 6 test](results/figures/test_agent_phase6.png)
 
@@ -81,6 +82,32 @@ Test is seven public networks never used for design decisions (Geant2012, german
 - Opus A2 is above the 3-seed GNN on faults top-3 (+0.086 and +0.070). Against GNN seed 0, the checkpoint its tool uses, this holds only for faults top-3 with status events (+0.078 [0.021, 0.142]).
 - Opus A2 is above Haiku A2 on faults top-1 (+0.108 and +0.117), at about 28 times the cost per incident.
 - The AARNet dev traces (7 incidents) are a demo, not evidence.
+
+## KG question answering (Phase 11)
+
+Can a small model answer exact questions about the network's inventory graph? 252 template test questions on the seven test networks, with exact answers computed by the knowledge-graph code. PoPs are renamed P01, P02 and so on, so no answer can come from knowing the real network. Six question types: one-hop lookups, multi-hop (which services cross this link), what-if (if this element fails, which services lose every path or get rerouted), paths (lowest and second-lowest cost), counts and time (what changed between two steps). All three conditions use Claude Haiku 5.5:
+
+- **Q0:** the question alone, no graph.
+- **Q1:** the question plus the 50 best BM25 matches from a one-fact-per-line text version of the graph.
+- **Q2:** query tools over the existing KG API, at most 20 calls per question.
+
+Set F1 on test (95% bootstrap CIs over questions; exact match in the app):
+
+| questions | n | Q0 no graph | Q1 BM25 facts | Q2 KG tools |
+|---|---|---|---|---|
+| all | 252 | 0.024 [0.01, 0.04] | 0.636 [0.58, 0.69] | 0.970 [0.95, 0.99] |
+| one-hop | 42 | 0.017 [0.00, 0.04] | 1.000 [1.00, 1.00] | 1.000 [1.00, 1.00] |
+| multi-hop | 42 | 0.000 [0.00, 0.00] | 0.522 [0.38, 0.67] | 1.000 [1.00, 1.00] |
+| what-if | 42 | 0.000 [0.00, 0.00] | 0.487 [0.35, 0.63] | 0.996 [0.99, 1.00] |
+| path | 42 | 0.006 [0.00, 0.02] | 0.707 [0.57, 0.83] | 0.927 [0.85, 0.99] |
+| count | 42 | 0.095 [0.02, 0.19] | 0.548 [0.40, 0.69] | 0.976 [0.93, 1.00] |
+| time | 42 | 0.024 [0.00, 0.07] | 0.552 [0.45, 0.66] | 0.919 [0.87, 0.96] |
+
+- Exact match overall: Q0 0.020, Q1 0.564, Q2 0.941. Q2 beats Q1 by +0.334 [0.279, 0.388] F1, and by graph size (small, medium, large) the gap is supported in every group.
+- Q2's misses are mostly second-lowest-cost paths and "which services were rerouted between two steps", where it has to map rerouted PoP pairs back to services.
+- Cost per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 tool calls on average. Phase 11 cost $0.84 in all, validation included.
+- 6 of 7 pre-registered expectations held. E4 did not: retrieval was expected to score below 0.4 F1 on what-if, path and time questions, but scored 0.487, 0.707 and 0.552. Retrieved path facts often contain the answer outright.
+- These are template questions on synthetic services and change histories over public topologies. They test whether the model can use the graph, not how it would handle an operator's free-form questions.
 
 ## Setup and reproduction
 

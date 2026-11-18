@@ -314,6 +314,68 @@ def forecasting():
                "resamples that draw no maintenance breach.")
 
 
+def kgqa():
+    st.subheader("KG question answering (Phase 11): can a small model answer exact questions about the inventory graph?")
+    st.caption(HONESTY + " 252 template test questions on seven held-out public topologies with PoPs renamed P01, P02 and so on, "
+               "exact answers from the KG code. All conditions on Haiku 5.5. Test scored once, as pre-registered. "
+               "95% CIs from 1000 question bootstrap resamples.")
+    path = RES / "phase11" / "test" / "summary.json"
+    if not path.exists():
+        st.info("results/phase11/test/summary.json is not there yet: the test set has not been scored.")
+        return
+    s = load_json("phase11/test/summary.json")
+    names = {"Q0": "Q0 closed book (no graph)", "Q1": "Q1 BM25 top-50 graph facts", "Q2": "Q2 KG query tools"}
+    metric = st.radio("Metric", ["f1", "em"], horizontal=True, key="qa_metric",
+                      format_func=lambda m: "set F1" if m == "f1" else "exact match")
+    groups = [("all", "all questions")] + [(g, g.split("=")[1].replace("_", "-")) for g in s["metrics"] if g.startswith("type=")] \
+        + [(g, g.split("=")[1] + " graphs") for g in s["metrics"] if g.startswith("size=")]
+    rows = []
+    for g, label in groups:
+        m = s["metrics"][g]
+        row = {"group": label, "n": m["Q0"][metric]["n"]}
+        for c in s["conditions"]:
+            x = m[c][metric]
+            row[names[c]] = f"{x['value']:.3f} [{x['ci'][0]:.2f}, {x['ci'][1]:.2f}]"
+        rows.append(row)
+    st.dataframe(pd.DataFrame(rows).set_index("group"), width="stretch")
+    st.markdown("**Cost and tool calls per question**")
+    st.dataframe(pd.DataFrame({names[c]: x for c, x in s["cost"].items()}).T, width="stretch")
+    st.markdown("**Pre-registered expectations**")
+    st.dataframe(pd.DataFrame([{"id": k, "expectation": e["expectation"], "met on test": "yes" if e["met"] else "no"}
+                               for k, e in s["expectations"].items()]), width="stretch", hide_index=True)
+    st.markdown("**Paired comparisons** (difference, 95% CI, verdict)")
+    st.dataframe(pd.DataFrame([{"comparison": k.replace("|", " "), "difference": c["point"],
+                                "95% CI": f"[{c['ci'][0]:+.3f}, {c['ci'][1]:+.3f}]", "verdict": c["verdict"]}
+                               for k, c in s["comparisons"].items() if "template=" not in k and f"|{metric}|" in k]),
+                 width="stretch", hide_index=True)
+
+    st.markdown("**Browse the test questions**")
+    qs = [json.loads(l) for l in (RES / "phase11" / "questions_test.jsonl").read_text().splitlines()]
+    log = {}
+    for l in (RES / "phase11" / "test" / "log.jsonl").read_text().splitlines():
+        r = json.loads(l)
+        log[(r["qid"], r["condition"])] = r
+    templates = sorted({q["template"] for q in qs})
+    t = st.selectbox("Template", templates, key="qa_template")
+    pick = [q for q in qs if q["template"] == t]
+    qid = st.selectbox("Question", [q["qid"] for q in pick], key="qa_qid",
+                       format_func=lambda i: f"{i} ({next(q['network'] for q in pick if q['qid'] == i)})")
+    q = next(q for q in pick if q["qid"] == qid)
+    st.markdown(f"> {q['question']}")
+    st.markdown(f"**Gold answer:** `{q['answer']}`")
+    for c in s["conditions"]:
+        r = log.get((qid, c))
+        if not r:
+            continue
+        ans = r["answer"] or {}
+        shown = ans.get("number") if q["answer_kind"] == "number" and ans.get("number") is not None else ans.get("items")
+        st.markdown(f"**{names[c]}:** `{shown}` (exact {r['em']:.0f}, F1 {r['f1']:.2f}, {r['n_tool_calls']} tool calls, ${r['cost_usd']:.4f})")
+        if c == "Q2" and r["calls"]:
+            with st.expander("Q2 tool calls"):
+                for k in r["calls"]:
+                    st.code(f"{k['tool']}({json.dumps(k['input'])})" + ("  -> error" if k["error"] else ""), language=None)
+
+
 def limitations():
     st.subheader("What this is, and what it is not")
     st.markdown(f"""
@@ -344,6 +406,6 @@ st.set_page_config(page_title="NetTwin demo", layout="wide")
 st.title("NetTwin")
 st.caption("A knowledge-graph digital twin of a public backbone, with GNN localisation and an LLM root-cause agent. "
            "Offline demo from saved results.")
-page = st.sidebar.radio("Page", ["Incident explorer", "Test results", "Capacity forecasting", "Limitations"], key="page")
+page = st.sidebar.radio("Page", ["Incident explorer", "Test results", "Capacity forecasting", "KG question answering (Phase 11)", "Limitations"], key="page")
 st.sidebar.warning(HONESTY)
-{"Incident explorer": explorer, "Test results": results, "Capacity forecasting": forecasting, "Limitations": limitations}[page]()
+{"Incident explorer": explorer, "Test results": results, "Capacity forecasting": forecasting, "KG question answering (Phase 11)": kgqa, "Limitations": limitations}[page]()

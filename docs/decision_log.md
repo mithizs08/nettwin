@@ -1553,3 +1553,17 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
 - The first `--split test` call stopped before any API call: its check that the committed questions match the KG code failed on 249 of 252 test questions. Cause: each network's question and change-history seed depends on its position in the combined validation-then-test list. The runner regenerated the test networks alone, so their positions (and seeds) started at 0. Validation passed only because it comes first in the list.
 - The committed question files were right (they come from `--build-questions`, which uses the full list). The runner now regenerates from the full list and keeps the requested split; both splits then match exactly, and so does `results/phase11/networks.json`.
 - Only `scripts/phase11_kgqa.py` changed. It was re-frozen into `results/phase11_frozen.json` before the test run. Validation runs are unaffected: the validation networks have the same positions either way.
+
+### 2026-11-18: Phase 11 results (KG question answering; validation for development, test scored once)
+
+- **Validation** (`results/phase11/val_dev`, 177 questions, $0.27 for all three conditions plus a $0.02 smoke test): F1 Q0 0.02, Q1 0.71, Q2 0.99. Q2's misses were mostly in "services rerouted between two steps", where it maps rerouted PoP pairs back to services. A check against the KG confirmed the gold answers were right, so nothing was changed before freezing.
+- **Test** (`results/phase11/test`, 252 questions, $0.55): set F1 Q0 0.024 [0.008, 0.042], Q1 0.636 [0.579, 0.694], Q2 0.970 [0.952, 0.986]. Exact match 0.020, 0.564 and 0.941. Every question was submitted in every condition.
+- **Expectations: 6 of 7 held.**
+  - E1 met: Q2 beats Q1, +0.334 [0.279, 0.388].
+  - E2 met: Q1 beats Q0, +0.612 [0.549, 0.671].
+  - E3 met: Q0 F1 0.024.
+  - E4 not met: Q1 scored 1.000 on one-hop questions, but 0.487 on what-if, 0.707 on path and 0.552 on time, not below 0.4. Retrieved path facts often contain the answer (shortest path F1 0.889 for Q1).
+  - E5 met: Q2 F1 1.000 on one-hop and multi-hop, 0.976 on count.
+  - E6 met: Q2 beats Q1 in all three size groups.
+  - E7 met: Q2 cost $0.0014 per question with 3.48 tool calls on average (at most 20).
+- Phase 11 spent $0.84 in all, within its $3.00 guard. Project total is now $42.50 of $100.

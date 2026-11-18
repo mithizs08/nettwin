@@ -42,6 +42,8 @@ ALLOW = {
     "32": "length in bytes of the dataset key",
     "600": "file permissions of the dataset key",
     "0.10": "X5 transfer threshold, pre-registered (Phase 5)",
+    "0.4": "E4 retrieval threshold, pre-registered (Phase 11)",
+    "50": "BM25 top-k of Q1, pre-registered (Phase 11)",
 }
 # Sources: (files, regex on the dotted JSON path). Only these paths can be named for a section's numbers.
 SOURCES = {
@@ -49,19 +51,20 @@ SOURCES = {
     "p6": ["phase6/test_claude-haiku-5-5/summary.json", "phase6/test_claude-opus-5-5/summary.json", "phase6/test_haiku_vs_opus.json"],
     "p7": ["phase7/aarnet_dev_summary.json"],
     "p8": ["phase8_test.json"],
+    "p11": ["phase11/test/summary.json"],
     "data": ["phase1_kg_summary.json", "phase3_dataset_summary.json"],
 }
 # Each doc heading (prefix match on its text) names the sources its numbers come from. An unmapped heading is an error.
 SCOPES = {
     "NetTwin": ["data"], "Read this first": ["data"], "Run the demo": [], "Setup and reproduction": [],
-    "Reproducing the datasets": [], "Where things are": [], "License": [], "Headline results": ["p5", "p6", "p8"],
+    "Reproducing the datasets": [], "Where things are": [], "License": [], "Headline results": ["p5", "p6", "p8", "p11"], "KG question answering": ["p11"],
     "Results in detail": ["p5", "p6", "p8"],
     "Descriptive, not pre-registered": ["p6", "p7"], "Why measure": [], "What was built": ["data"], "RQ1 and RQ2": ["p5"],
     "RQ3": ["p5"], "RQ1 ablation": ["p5"], "RQ4": ["p6"], "RQ5": ["p8"], "Descriptive results": ["p6", "p7", "p8"],
-    "Negative results": ["p5", "p6", "p8"], "How the work was kept honest": [], "Reproduce and run": [], "References": [],
+    "Negative results": ["p5", "p6", "p8", "p11"], "How the work was kept honest": [], "Reproduce and run": [], "References": [],
 }
 # An allowed constant that is also a plausible result counts as the constant only in this context.
-ALLOW_CONTEXT = {"95%": r"\s+(CIs?\b|bootstrap|scenario|confidence)"}
+ALLOW_CONTEXT = {"95%": r"\s+(CIs?\b|bootstrap|scenario|confidence)", "0.4": r"\s+F1", "50": r"\s+best BM25"}
 TOKEN = re.compile(r"(?<![\w.\-/:#])([-+−]?\$?)(\d+(?:,\d{3})*(?:\.\d+)?)(%?)(?![\w/:]|\.\d|-\w)")
 TRIPLE = re.compile(r"([-+−]?\d+\.\d+)\s*\[([-+−]?\d+\.\d+),\s*([-+−]?\d+\.\d+)\]")
 
@@ -98,7 +101,13 @@ def derived():
     costs = {p: sum(json.loads(l)["cost_usd"] for l in p.read_text().splitlines()) for p in logs}
     out["haiku test cost"] = costs[RES / "phase6" / "test_claude-haiku-5-5" / "agent_log.jsonl"]
     out["opus test cost"] = costs[RES / "phase6" / "test_claude-opus-5-5" / "agent_log.jsonl"]
-    out["project API spend"] = sum(costs.values()) + 0.30          # all agent logs + $0.30 unlogged allowance
+    p11 = {p: sum(json.loads(l)["cost_usd"] for l in p.read_text().splitlines()) for p in sorted(RES.glob("phase11/*/log.jsonl"))}
+    out["phase11 spend"] = sum(p11.values())                        # every Phase 11 log, validation and test
+    for split in ("val", "test"):                                   # questions per split, from the committed files
+        out[f"phase11 {split} questions"] = len((RES / "phase11" / f"questions_{split}.jsonl").read_text().splitlines())
+    out["phase11 questions"] = out["phase11 val questions"] + out["phase11 test questions"]
+    out["phase11 test cost"] = p11[RES / "phase11" / "test" / "log.jsonl"]
+    out["project API spend"] = sum(costs.values()) + 0.30 + out["phase11 spend"]   # agent logs + $0.30 unlogged + Phase 11
     t = json.loads((RES / "phase8_test.json").read_text())["splits"]["test"]["metrics"]["persistence"]
     out["phase8 fault-free share of breaches"] = t["fault_free"]["n_breaches"] / t["all"]["n_breaches"]
     hv = json.loads((RES / "phase6" / "test_haiku_vs_opus.json").read_text())["variants"]

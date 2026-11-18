@@ -17,9 +17,15 @@ def test_demo_renders_offline(monkeypatch):
             at.radio(key="variant").set_value(v)
             at.run()
             assert not at.exception, (incident, v)
-    for page in ("Test results", "Capacity forecasting", "Limitations"):
+    for page in ("Test results", "Capacity forecasting", "KG question answering (Phase 11)", "Limitations"):
         at.radio(key="page").set_value(page).run()
         assert not at.exception, page
         if page == "Capacity forecasting" and at.radio(key="fc_split") is not None:
             at.radio(key="fc_split").set_value("dev").run()
             assert not at.exception, "forecasting dev"
+        if page.startswith("KG question") and at.radio(key="qa_metric") is not None:
+            at.radio(key="qa_metric").set_value("em").run()
+            assert not at.exception, "kgqa em"
+            for t in at.selectbox(key="qa_template").options:
+                at.selectbox(key="qa_template").set_value(t).run()
+                assert not at.exception, t

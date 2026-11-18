@@ -124,7 +124,7 @@ This checks that cited elements and numbers exist. It does not check that the ex
 **Cost.**
 - Haiku A2 cost $0.0025 to $0.0028 per incident; Opus A2 cost $0.072 to $0.078.
 - The Haiku test run cost $1.96 and the Opus test run $32.68.
-- Total project API spend was $41.65 of a $100 budget.
+- Total project API spend was $42.50 of a $100 budget.
 
 **Pre-registered expectations on test** (Haiku 5.5, G1 to G13): 11 of 13 held.
 - G1 (A1 beats A0 on hard top-1) held only status-blind.
@@ -149,6 +149,20 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
 - **The frozen GNN encoder with a head** is below LightGBM (F1 -0.027 [-0.031, -0.024], contradicted). This says the frozen encoder plus a small head is worse than LightGBM on lag features. It does not test whether the embedding adds anything to those features.
 - **Window classes.** 83% of test breaches fall in fault-free windows. Recall in fault windows is lower than in fault-free windows for three methods but not for persistence. The maintenance class (114 breaches) carries no conclusion.
 - **Expectations:** 3 of 6 held.
+
+### 4.6 KG question answering (Phase 11, 252 test questions)
+
+- **Question.** Can Claude Haiku 5.5 answer exact questions about the inventory graph, and how much do retrieval and tools add over no graph? Pre-registered on 2026-11-18 before any API call (decision log).
+- **Questions.** 429 template questions (177 validation, 252 test) with exact answers from the KG code, across six types: one-hop, multi-hop, what-if, path, count and time. PoPs are renamed P01, P02 and so on and graph names are neutral, so general knowledge cannot help.
+- **Conditions.** Q0 closed book; Q1 the 50 best BM25 matches from a text version of the graph; Q2 the existing KG query API as tools (at most 20 calls).
+- **Results (set F1, 95% CI).**
+  - Overall: Q0 0.024 [0.008, 0.042], Q1 0.636 [0.579, 0.694], Q2 0.970 [0.952, 0.986]. Exact match: 0.020, 0.564 and 0.941.
+  - Q2 vs Q1: +0.334 [0.279, 0.388]; Q1 vs Q0: +0.612 [0.549, 0.671]. Q2 beats Q1 in every graph-size group (E6).
+  - Q1 matches Q2 on one-hop lookups (both 1.000) but falls on multi-hop (0.522), what-if (0.487), count (0.548) and time (0.552).
+  - Q2's weakest templates are second-lowest-cost paths (0.854) and services rerouted between two steps (0.839).
+- **Cost.** Per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 tool calls on average (at most 20). The test run cost $0.55 and the whole phase $0.84.
+- **Expectations:** 6 of 7 held. E4 did not (see section 6).
+- **Scope.** Template questions over synthetic services and change histories. They show that the agent's KG tools give exact answers a text retrieval cannot; they do not measure free-form operator questions.
 
 ## 5. Descriptive results (not pre-registered)
 
@@ -178,12 +192,14 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
 - **Easy faults with status events:** the GNN is not distinguishable from B3+ there.
 - **Synthetic-to-real transfer:** not established (X5 inconclusive).
 - **Forecasting:** the frozen GNN encoder with a head lost to LightGBM. Two other forecasting expectations were not met (F5, F6).
+- **KG question answering (E4):** BM25 retrieval was expected to score below 0.4 F1 on what-if, path and time questions. It scored 0.487, 0.707 and 0.552: retrieved path facts often contain the answer. Q2 still beats it on each of these types.
+- **Phase 11 runner bug before test:** the runner's question check first regenerated the test networks with the wrong seeds and refused the run. It was fixed and re-frozen before any test question was asked (decision log).
 
 ## 7. How the work was kept honest
 
 - **Splits.** Data was split by topology first. No test topology appears in training in any form. Generated training graphs were augmented only from a reference pool that excludes test and dev networks.
 - **Pre-registration.** Expectations, metrics, tuning budgets and test plans were committed before the runs they describe. Every change has a dated entry and reason in `docs/decision_log.md`.
-- **Test once.** Models, thresholds, calibration and agent code were frozen and hash-checked before each test run (`results/phase5_frozen.json`, `results/phase6_frozen.json`, `results/phase8_frozen.json`). The test scripts refuse a second run.
+- **Test once.** Models, thresholds, calibration and agent code were frozen and hash-checked before each test run (`results/phase5_frozen.json`, `results/phase6_frozen.json`, `results/phase8_frozen.json`, `results/phase11_frozen.json`). The test scripts refuse a second run.
 - **Banned inputs.** No method sees a clock, the time since the scenario start, or file metadata. All features are causal.
 - **Disclosed weaknesses.**
   - The runbooks were written by us with knowledge of the simulator's fault types, which favours the agent.
