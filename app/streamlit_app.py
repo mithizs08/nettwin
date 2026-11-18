@@ -318,7 +318,8 @@ def kgqa():
     st.subheader("KG question answering (Phase 11): can a small model answer exact questions about the inventory graph?")
     st.caption(HONESTY + " 252 template test questions on seven held-out public topologies with PoPs renamed P01, P02 and so on, "
                "exact answers from the KG code. All conditions on Haiku 5.5. Test scored once, as pre-registered. "
-               "95% CIs from 1000 question bootstrap resamples.")
+               "95% CIs from 1000 question bootstrap resamples. The renaming hides PoP names, not the real link lengths "
+               "and metrics, and no run with real names was made.")
     path = RES / "phase11" / "test" / "summary.json"
     if not path.exists():
         st.info("results/phase11/test/summary.json is not there yet: the test set has not been scored.")
@@ -348,6 +349,16 @@ def kgqa():
                                 "95% CI": f"[{c['ci'][0]:+.3f}, {c['ci'][1]:+.3f}]", "verdict": c["verdict"]}
                                for k, c in s["comparisons"].items() if "template=" not in k and f"|{metric}|" in k]),
                  width="stretch", hide_index=True)
+    if (RES / "phase11" / "test" / "clustered.json").exists():
+        cl = load_json("phase11/test/clustered.json")
+        st.markdown("**Network-level check** (descriptive, not pre-registered): the CIs above treat questions as independent, "
+                    "but questions on one network share its graph. Here whole networks are resampled instead (set F1).")
+        st.dataframe(pd.DataFrame([{"group": g, "networks": r["n_networks"], "questions": r["n_questions"],
+                                    "comparison": k.split("|")[1], "difference": c["point"],
+                                    "95% CI": f"[{c['ci'][0]:+.3f}, {c['ci'][1]:+.3f}]" if c["ci"][0] is not None else "n/a",
+                                    "verdict": c["verdict"]} for g, r in cl["groups"].items() for k, c in r["comparisons"].items()]),
+                     width="stretch", hide_index=True)
+        st.caption("With 7 networks these CIs are rough. The medium group is a single network, so it has no network-level CI.")
 
     st.markdown("**Browse the test questions**")
     qs = [json.loads(l) for l in (RES / "phase11" / "questions_test.jsonl").read_text().splitlines()]
@@ -379,9 +390,20 @@ def kgqa():
 REPLAY_NAMES = {"GNN": "GNN (every alarm episode pages)", "GNN+CL": "GNN + change-log rule", "Agent": "Haiku 5.5 triage agent"}
 REPLAY_METRICS = [("pages_per_day", "pages per scenario-day", 2), ("false_pages_per_day", "false pages per scenario-day", 2),
                   ("detection_rate", "fault detection rate", 3), ("time_to_detect_min", "time to detect (min)", 1),
-                  ("top1_at_escalation", "top-1 at escalation", 3), ("top3_at_escalation", "top-3 at escalation", 3),
+                  ("top1_at_escalation", "top-1 at escalation (own detected faults)", 3),
+                  ("top3_at_escalation", "top-3 at escalation (own detected faults)", 3),
                   ("top3_all_faults", "top-3 over all faults", 3), ("missed_during_maintenance", "missed faults during maintenance", 3),
                   ("cost_per_day_usd", "cost per scenario-day (USD)", 4)]
+HIGHER_BETTER = {"detection_rate", "top1_at_escalation", "top3_at_escalation", "top3_all_faults"}
+
+
+def favours(key, verdict):
+    """Which policy a paired comparison 'metric|A vs B' favours, given which direction is better for the metric."""
+    name, pair = key.split("|")
+    a, b = pair.split(" vs ")
+    if verdict not in ("supported", "contradicted"):
+        return "neither (inconclusive)"
+    return a if (verdict == "supported") == (name in HIGHER_BETTER) else b
 
 
 def replay_timeline(sc):
@@ -438,10 +460,36 @@ def replay():
             row[name] = "n/a" if x["value"] is None else f"{x['value']:.{nd}f} [{x['ci'][0]:.{nd}f}, {x['ci'][1]:.{nd}f}]"
         rows.append(row)
     st.dataframe(pd.DataFrame(rows).set_index("metric"), width="stretch")
-    st.markdown("**Paired comparisons** (A minus B, 95% CI; supported means the CI is above 0)")
+    st.caption("Detection counts any page during a fault, whatever element it names. The two 'at escalation' rows average "
+               "each policy over its own detected faults, which differ (see the same-faults comparison below).")
+    st.markdown("**Paired comparisons** (A minus B, 95% CI; the verdict is about the sign: supported means the CI is above 0, "
+                "contradicted below 0. Whether that is good depends on the metric, so the last two columns say which way is "
+                "better and which policy the result favours.)")
     st.dataframe(pd.DataFrame([{"comparison": k.replace("|", ": "), "difference": c["point"],
                                 "95% CI": f"[{c['ci'][0]:+.3f}, {c['ci'][1]:+.3f}]" if c["ci"][0] is not None else "n/a",
-                                "verdict": c["verdict"]} for k, c in s["comparisons"].items()]), width="stretch", hide_index=True)
+                                "verdict": c["verdict"], "better": "higher" if k.split("|")[0] in HIGHER_BETTER else "lower",
+                                "favours": favours(k, c["verdict"])} for k, c in s["comparisons"].items()]),
+                 width="stretch", hide_index=True)
+    if (RES / "phase12" / "test" / "descriptive.json").exists():
+        d = load_json("phase12/test/descriptive.json")
+        st.markdown("**Descriptive, not pre-registered** (from the saved test run, no API call)")
+        cr = d["correct_root_detection"]
+        st.dataframe(pd.DataFrame([{"metric": "detected with the root in the page's top 3", **{
+            REPLAY_NAMES[m]: f"{cr[m]['value']:.3f} [{cr[m]['ci'][0]:.3f}, {cr[m]['ci'][1]:.3f}]" for m in REPLAY_NAMES}}]).set_index("metric"),
+            width="stretch")
+        st.caption("A fault counts only if some page during it names the true root among its top 3 (higher is better). "
+                   + "; ".join(f"{k}: {v['point']:+.3f} [{v['ci'][0]:+.3f}, {v['ci'][1]:+.3f}], {v['verdict']}"
+                               for k, v in cr.items() if " minus " in k) + ".")
+        mrows = []
+        for pair, r in d["matched_faults"].items():
+            a, b = pair.split(" vs ")
+            for c in ("top1", "top3"):
+                x = r[f"{c}|{a} minus {b}"]
+                mrows.append({"pair": pair, "faults both detect": r["n_both_detect"], "metric": c.replace("top", "top-"),
+                              a: r[f"{c}|{a}"]["value"], b: r[f"{c}|{b}"]["value"], "difference": x["point"],
+                              "95% CI": f"[{x['ci'][0]:+.3f}, {x['ci'][1]:+.3f}]", "verdict": x["verdict"]})
+        st.markdown("Root cause on the same faults: top-1 and top-3 at the first detecting page, on the faults both policies detect (higher is better).")
+        st.dataframe(pd.DataFrame(mrows), width="stretch", hide_index=True)
     st.markdown("**Pre-registered expectations**")
     st.dataframe(pd.DataFrame([{"id": k, "expectation": e["expectation"], "met on test": "yes" if e["met"] else "no"}
                                for k, e in s["expectations"].items()]), width="stretch", hide_index=True)
@@ -483,6 +531,10 @@ def limitations():
 - **Oracle incident window (Phases 4 to 6 only).** Their localisation is scored on a window that starts and ends with
   the true fault, so no method had to find it. The real-time replay page (Phase 12) removes it: the GNN alarms step by
   step and the agent decides which alarms page an operator.
+- **Real-time replay caveats (Phase 12).** Detection counts any page during a fault, whatever element it names; the
+  replay page also shows detection with the true root in the page's top 3. The change log shows each started
+  change's planned end, which the simulator always keeps and real changes often overrun, so this flatters the
+  change-log rule and the agent a little.
 - **Groundedness is a narrow check.** It confirms cited ids and numbers exist in the tool outputs, not that the
   explanation is right.
 - **Runbooks favour the agent.** We wrote them ourselves, with knowledge of the simulator's fault types.

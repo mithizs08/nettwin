@@ -1,0 +1,24 @@
+{
+ "smoke": {
+  "scenarios": 30,
+  "episodes": 250,
+  "wakes": 313,
+  "mean_cost_per_wake": 0.00185,
+  "wakes_per_episode": 1.252,
+  "episodes_per_link_per_scenario": 0.3041,
+  "cost_usd": 0.5784
+ },
+ "val": {
+  "scenarios": 30,
+  "episodes_est": 250,
+  "wakes_est": 313,
+  "cost_est_usd": 0.58
+ },
+ "test": {
+  "scenarios": 210,
+  "episodes_est": 2701,
+  "wakes_est": 3381,
+  "cost_est_usd": 6.25
+ },
+ "total_est_usd": 6.83
+}

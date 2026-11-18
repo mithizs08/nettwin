@@ -1,0 +1,172 @@
+{
+ "run": "val_dev",
+ "pre_registered": false,
+ "n_scenarios": 30,
+ "n_boot": 1000,
+ "seed": 42,
+ "matched_faults": {
+  "Agent vs GNN": {
+   "n_both_detect": 30,
+   "n_only_Agent": 0,
+   "n_only_GNN": 4,
+   "top1|Agent": {
+    "value": 0.5667,
+    "ci": [
+     0.4192,
+     0.7274
+    ]
+   },
+   "top1|GNN": {
+    "value": 0.7667,
+    "ci": [
+     0.6154,
+     0.9
+    ]
+   },
+   "top1|Agent minus GNN": {
+    "verdict": "inconclusive",
+    "point": -0.2,
+    "ci": [
+     -0.3462,
+     0.0
+    ]
+   },
+   "top3|Agent": {
+    "value": 0.8352,
+    "ci": [
+     0.7004,
+     0.9494
+    ]
+   },
+   "top3|GNN": {
+    "value": 0.9,
+    "ci": [
+     0.7857,
+     1.0
+    ]
+   },
+   "top3|Agent minus GNN": {
+    "verdict": "inconclusive",
+    "point": -0.0648,
+    "ci": [
+     -0.1591,
+     0.0015
+    ]
+   },
+   "top3|GNN|faults only GNN detects": 0.25
+  },
+  "Agent vs GNN+CL": {
+   "n_both_detect": 28,
+   "n_only_Agent": 2,
+   "n_only_GNN+CL": 3,
+   "top1|Agent": {
+    "value": 0.5714,
+    "ci": [
+     0.4167,
+     0.7308
+    ]
+   },
+   "top1|GNN+CL": {
+    "value": 0.7857,
+    "ci": [
+     0.6111,
+     0.9231
+    ]
+   },
+   "top1|Agent minus GNN+CL": {
+    "verdict": "inconclusive",
+    "point": -0.2143,
+    "ci": [
+     -0.3751,
+     0.0
+    ]
+   },
+   "top3|Agent": {
+    "value": 0.8584,
+    "ci": [
+     0.7155,
+     0.9667
+    ]
+   },
+   "top3|GNN+CL": {
+    "value": 0.9286,
+    "ci": [
+     0.8077,
+     1.0
+    ]
+   },
+   "top3|Agent minus GNN+CL": {
+    "verdict": "inconclusive",
+    "point": -0.0702,
+    "ci": [
+     -0.1689,
+     0.0
+    ]
+   },
+   "top3|Agent|faults only Agent detects": 0.5111,
+   "top3|GNN+CL|faults only GNN+CL detects": 0.3333
+  }
+ },
+ "correct_root_detection": {
+  "definition": "share of observable faults with some page in [start, end + 12 steps) whose top 3 names the root (tie-aware credit, best page counts); other faults' roots active at the page are dropped first",
+  "n_faults": 52,
+  "GNN": {
+   "value": 0.5577,
+   "ci": [
+    0.4081,
+    0.706
+   ],
+   "numerator": 29.0
+  },
+  "GNN+CL": {
+   "value": 0.5385,
+   "ci": [
+    0.386,
+    0.6957
+   ],
+   "numerator": 28.0
+  },
+  "Agent": {
+   "value": 0.5011,
+   "ci": [
+    0.3518,
+    0.6463
+   ],
+   "numerator": 26.0567
+  },
+  "Agent minus GNN": {
+   "verdict": "inconclusive",
+   "point": -0.0566,
+   "ci": [
+    -0.1228,
+    0.0004
+   ]
+  },
+  "Agent minus GNN+CL": {
+   "verdict": "inconclusive",
+   "point": -0.0374,
+   "ci": [
+    -0.1095,
+    0.0378
+   ]
+  },
+  "GNN+CL minus GNN": {
+   "verdict": "inconclusive",
+   "point": -0.0192,
+   "ci": [
+    -0.0639,
+    0.0
+   ]
+  }
+ },
+ "run_record": {
+  "decisions": 313,
+  "agent_log_wakes": 313,
+  "recovered_from_log_flags": 22,
+  "decisions_written_before_first_recovered": 23,
+  "first_decisions": 250,
+  "first_decisions_cost_usd": 0.4614,
+  "rechecks": 63,
+  "rechecks_cost_usd": 0.1169
+ }
+}

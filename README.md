@@ -19,7 +19,7 @@ Every result below was pre-registered: metrics and expectations were committed b
 - **The change log cuts both ways:** the agent correctly treats planned maintenance as maintenance, but it flags only 65% of real faults that happen during a logged change, against 95% for the GNN.
 - **Congestion forecasting:** LightGBM predicts which links will pass 80% utilisation within the next hour with F1 0.89, beating simple baselines. Reusing the GNN for this did not beat LightGBM.
 - **Questions about the network graph (Phase 11):** given query tools over the knowledge graph, Claude Haiku 5.5 answers 94% of 252 exact test questions fully right, against 56% when given retrieved graph facts and 2% with no graph.
-- **Without an oracle window (Phase 12):** replaying 210 test scenarios step by step, a Haiku 5.5 triage agent sends 60% fewer operator pages than the raw GNN alarm and catches 64% of faults against the GNN's 72%.
+- **Without an oracle window (Phase 12):** replaying 210 test scenarios step by step, a Haiku 5.5 triage agent sends 60% fewer operator pages than the raw GNN alarm and catches 64% of faults against the GNN's 72%. A page counts as detecting a fault whatever element it names; counting only pages that name the true root among their top 3 (descriptive), the figures are 56% and 60%.
 - **Cost:** the whole project used $52.29 of API spend.
 
 The full write-up, with every caveat and the negative results, is [docs/report.md](docs/report.md).
@@ -86,13 +86,13 @@ Test is seven public networks never used for design decisions (Geant2012, german
 
 ## KG question answering (Phase 11)
 
-Can a small model answer exact questions about the network's inventory graph? 252 template test questions on the seven test networks, with exact answers computed by the knowledge-graph code. PoPs are renamed P01, P02 and so on, so no answer can come from knowing the real network. Six question types: one-hop lookups, multi-hop (which services cross this link), what-if (if this element fails, which services lose every path or get rerouted), paths (lowest and second-lowest cost), counts and time (what changed between two steps). All three conditions use Claude Haiku 5.5:
+Can a small model answer exact questions about the network's inventory graph? 252 template test questions on the seven test networks, with exact answers computed by the knowledge-graph code. PoPs are renamed P01, P02 and so on, so the model cannot look a PoP up by name. Link lengths and routing metrics are still the real ones, and no run with the real names was made, so how much the renaming hides is not measured. Six question types: one-hop lookups, multi-hop (which services cross this link), what-if (if this element fails, which services lose every path or get rerouted), paths (lowest and second-lowest cost), counts and time (what changed between two steps). All three conditions use Claude Haiku 5.5:
 
 - **Q0:** the question alone, no graph.
 - **Q1:** the question plus the 50 best BM25 matches from a one-fact-per-line text version of the graph.
 - **Q2:** query tools over the existing KG API, at most 20 calls per question.
 
-Set F1 on test (95% bootstrap CIs over questions; exact match in the app):
+Set F1 on test (95% bootstrap CIs over questions; exact match in the app). These CIs treat questions as independent, but questions on one network share its graph, so they are too narrow; a network-level check follows the table.
 
 | questions | n | Q0 no graph | Q1 BM25 facts | Q2 KG tools |
 |---|---|---|---|---|
@@ -104,7 +104,8 @@ Set F1 on test (95% bootstrap CIs over questions; exact match in the app):
 | count | 42 | 0.095 [0.02, 0.19] | 0.548 [0.40, 0.69] | 0.976 [0.93, 1.00] |
 | time | 42 | 0.024 [0.00, 0.07] | 0.552 [0.45, 0.66] | 0.919 [0.87, 0.96] |
 
-- Exact match overall: Q0 0.020, Q1 0.564, Q2 0.941. Q2 beats Q1 by +0.334 [0.279, 0.388] F1, and by graph size (small, medium, large) the gap is supported in every group.
+- Exact match overall: Q0 0.020, Q1 0.564, Q2 0.941. Q2 beats Q1 by +0.334 [0.279, 0.388] F1, and by graph size (small, medium, large) the gap is supported in every group. The medium group is a single network (36 questions), so it says nothing about medium networks in general.
+- Resampling whole networks instead of questions (descriptive, not pre-registered; 7 networks, so the CIs are rough), Q2 still beats Q1: +0.334 [0.288, 0.387]. Small and large networks keep the gap; the medium group has no network-level CI.
 - Q2's misses are mostly second-lowest-cost paths and "which services were rerouted between two steps", where it has to map rerouted PoP pairs back to services.
 - Cost per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 tool calls on average. Phase 11 cost $0.84 in all, validation included.
 - 6 of 7 pre-registered expectations held. E4 did not: retrieval was expected to score below 0.4 F1 on what-if, path and time questions, but scored 0.487, 0.707 and 0.552. Retrieved path facts often contain the answer outright.
@@ -126,17 +127,21 @@ Test: all 210 test scenarios, 1,260 scenario-days, 390 observable faults, 3,884 
 | false pages per scenario-day | 2.31 [2.00, 2.62] | 1.91 [1.61, 2.23] | 0.66 [0.55, 0.78] |
 | fault detection rate | 0.718 [0.68, 0.76] | 0.644 [0.60, 0.69] | 0.638 [0.59, 0.68] |
 | time to detect (minutes) | 65.5 [47.8, 85.2] | 62.9 [45.0, 84.1] | 70.2 [48.1, 95.8] |
-| root cause top-1 at escalation | 0.582 [0.53, 0.64] | 0.590 [0.53, 0.65] | 0.582 [0.52, 0.64] |
-| root cause top-3 at escalation | 0.739 [0.68, 0.79] | 0.745 [0.69, 0.80] | 0.832 [0.78, 0.88] |
+| root cause top-1 at escalation (own detected faults) | 0.582 [0.53, 0.64] | 0.590 [0.53, 0.65] | 0.582 [0.52, 0.64] |
+| root cause top-3 at escalation (own detected faults) | 0.739 [0.68, 0.79] | 0.745 [0.69, 0.80] | 0.832 [0.78, 0.88] |
 | missed faults during maintenance (56) | 0.143 [0.06, 0.24] | 0.518 [0.39, 0.64] | 0.375 [0.25, 0.50] |
+| detected with the root in the page's top 3 (descriptive) | 0.600 [0.55, 0.65] | 0.546 [0.50, 0.59] | 0.562 [0.51, 0.61] |
 
-- The agent sends 60% fewer pages than the raw GNN (-1.839 [-2.090, -1.592] per day) and catches fewer faults (-0.080 [-0.108, -0.051]). Against the change-log rule it detects about as many faults (-0.005 [-0.036, 0.028]) with about a third of the false pages.
-- When it escalates, its top-3 root cause is better than the GNN's ranking (+0.092 [0.046, 0.146]); top-1 is level.
+- The agent sends 60% fewer pages than the raw GNN (-1.839 [-2.090, -1.592] per day) and catches fewer faults (-0.080 [-0.108, -0.051]). Against the change-log rule its detection is within about 3 points either way (-0.005 [-0.036, 0.028], inconclusive), with about a third of the false pages.
+- Detection credits any page during a fault, whatever element the page names, which favours the policy that pages most. The last table row (descriptive, not pre-registered) counts a fault only if some page during it names the true root among its top 3. On that measure the agent is below the raw GNN (-0.038 [-0.064, -0.015]) and level with the change-log rule (+0.016 [-0.013, 0.043]).
+- Root cause on the same faults (descriptive, not pre-registered): the two "at escalation" rows average each policy over its own detected faults, and those differ. On the 248 faults both the agent and the GNN detect, the agent's first page has the root in its top 3 for 0.835 [0.788, 0.879] of them against 0.786 [0.733, 0.836] for the GNN (+0.049 [0.008, 0.092]), and in first place for 0.585 against 0.625 (-0.040 [-0.102, 0.018], inconclusive).
+- The pre-registered comparison, top-3 at escalation, gave +0.092 [0.046, 0.146] for the agent (P6 expected it level, so P6 was not met). About half of that gap is which faults are counted: the 32 faults only the GNN detects have a GNN top-3 of 0.375. Over all faults, top-3 is level (+0.000 [-0.029, 0.031]).
 - It still misses more faults during maintenance than the raw GNN, though fewer than the change-log rule.
 - Time to detect is about an hour for every policy, with wide CIs; the agent is not clearly slower.
 - The raw GNN pages 3.08 times per scenario-day on test, against 1.39 on validation: its frozen threshold does not transfer across networks.
-- 6 of 8 pre-registered expectations held. P5 (agent clearly later) and P6 (top-3 inconclusive) did not.
-- Cost: the agent made 5,427 decisions for $0.0072 per scenario-day. The test run cost $9.12. Two changes were made to the plan, both logged: test grew from 70 to 210 scenarios before it started, and the spend guard was raised from $8.00 to $10.50 partway through, without changing anything else, after the agent waited more often than on validation.
+- 6 of 8 pre-registered expectations held. P5 (agent clearly later) and P6 (top-3 inconclusive) did not; P6 failed in the agent's favour, with the caveat above.
+- Cost: the agent made 5,427 decisions for $0.0072 per scenario-day. The test run cost $9.12. Two changes were made to the plan, both logged: test grew from 70 to 210 scenarios before it started, and the spend guard was raised from $8.00 to $10.50 partway through, after the agent waited more often than on validation. That change was decided after the run had produced its decision counts and spend, though before any metric was computed. Only the budget and the re-freeze rule changed; the new rule lets the script be re-frozen while a test run is unfinished, so that nothing else changed rests on the logged diff, not on the tooling.
+- The change log shows each started change's planned end, and both the change-log rule and the agent can use it. In the simulator every change ends as planned. Real change windows overrun, so this flatters both policies a little.
 
 ## Setup and reproduction
 

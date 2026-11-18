@@ -1,0 +1,173 @@
+{
+ "run": "test",
+ "pre_registered": false,
+ "n_scenarios": 210,
+ "n_boot": 1000,
+ "seed": 42,
+ "matched_faults": {
+  "Agent vs GNN": {
+   "n_both_detect": 248,
+   "n_only_Agent": 1,
+   "n_only_GNN": 32,
+   "top1|Agent": {
+    "value": 0.5847,
+    "ci": [
+     0.5232,
+     0.6448
+    ]
+   },
+   "top1|GNN": {
+    "value": 0.625,
+    "ci": [
+     0.5688,
+     0.6822
+    ]
+   },
+   "top1|Agent minus GNN": {
+    "verdict": "inconclusive",
+    "point": -0.0403,
+    "ci": [
+     -0.1024,
+     0.0184
+    ]
+   },
+   "top3|Agent": {
+    "value": 0.8351,
+    "ci": [
+     0.7878,
+     0.879
+    ]
+   },
+   "top3|GNN": {
+    "value": 0.7863,
+    "ci": [
+     0.7328,
+     0.8359
+    ]
+   },
+   "top3|Agent minus GNN": {
+    "verdict": "supported",
+    "point": 0.0488,
+    "ci": [
+     0.0082,
+     0.0925
+    ]
+   },
+   "top3|Agent|faults only Agent detects": 0.0,
+   "top3|GNN|faults only GNN detects": 0.375
+  },
+  "Agent vs GNN+CL": {
+   "n_both_detect": 232,
+   "n_only_Agent": 17,
+   "n_only_GNN+CL": 19,
+   "top1|Agent": {
+    "value": 0.5776,
+    "ci": [
+     0.5155,
+     0.6408
+    ]
+   },
+   "top1|GNN+CL": {
+    "value": 0.6078,
+    "ci": [
+     0.5493,
+     0.6667
+    ]
+   },
+   "top1|Agent minus GNN+CL": {
+    "verdict": "inconclusive",
+    "point": -0.0302,
+    "ci": [
+     -0.0944,
+     0.0329
+    ]
+   },
+   "top3|Agent": {
+    "value": 0.828,
+    "ci": [
+     0.7802,
+     0.8744
+    ]
+   },
+   "top3|GNN+CL": {
+    "value": 0.7716,
+    "ci": [
+     0.7165,
+     0.8205
+    ]
+   },
+   "top3|Agent minus GNN+CL": {
+    "verdict": "supported",
+    "point": 0.0565,
+    "ci": [
+     0.0133,
+     0.1044
+    ]
+   },
+   "top3|Agent|faults only Agent detects": 0.8824,
+   "top3|GNN+CL|faults only GNN+CL detects": 0.4211
+  }
+ },
+ "correct_root_detection": {
+  "definition": "share of observable faults with some page in [start, end + 12 steps) whose top 3 names the root (tie-aware credit, best page counts); other faults' roots active at the page are dropped first",
+  "n_faults": 390,
+  "GNN": {
+   "value": 0.6,
+   "ci": [
+    0.5541,
+    0.6458
+   ],
+   "numerator": 234.0
+  },
+  "GNN+CL": {
+   "value": 0.5462,
+   "ci": [
+    0.4963,
+    0.5913
+   ],
+   "numerator": 213.0
+  },
+  "Agent": {
+   "value": 0.5617,
+   "ci": [
+    0.5148,
+    0.609
+   ],
+   "numerator": 219.0797
+  },
+  "Agent minus GNN": {
+   "verdict": "contradicted",
+   "point": -0.0383,
+   "ci": [
+    -0.0642,
+    -0.0152
+   ]
+  },
+  "Agent minus GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0156,
+   "ci": [
+    -0.0125,
+    0.0433
+   ]
+  },
+  "GNN+CL minus GNN": {
+   "verdict": "contradicted",
+   "point": -0.0538,
+   "ci": [
+    -0.0768,
+    -0.0338
+   ]
+  }
+ },
+ "run_record": {
+  "decisions": 5427,
+  "agent_log_wakes": 5422,
+  "recovered_from_log_flags": 0,
+  "decisions_written_before_first_recovered": null,
+  "first_decisions": 3884,
+  "first_decisions_cost_usd": 6.7256,
+  "rechecks": 1538,
+  "rechecks_cost_usd": 2.3919
+ }
+}

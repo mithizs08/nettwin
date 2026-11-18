@@ -1,0 +1,243 @@
+{
+ "run": "test",
+ "pre_registered": false,
+ "resampled_unit": "network",
+ "n_boot": 1000,
+ "seed": 42,
+ "groups": {
+  "all": {
+   "n_questions": 252,
+   "n_networks": 7,
+   "networks": [
+    "test-1",
+    "test-2",
+    "test-3",
+    "test-4",
+    "test-5",
+    "test-6",
+    "test-7"
+   ],
+   "f1": {
+    "Q0": {
+     "value": 0.0236,
+     "ci": [
+      0.0101,
+      0.0405
+     ]
+    },
+    "Q1": {
+     "value": 0.6359,
+     "ci": [
+      0.5879,
+      0.6871
+     ]
+    },
+    "Q2": {
+     "value": 0.9698,
+     "ci": [
+      0.9577,
+      0.9831
+     ]
+    }
+   },
+   "comparisons": {
+    "f1|Q2 vs Q1": {
+     "verdict": "supported",
+     "point": 0.3339,
+     "ci": [
+      0.2876,
+      0.3867
+     ]
+    },
+    "f1|Q2 vs Q0": {
+     "verdict": "supported",
+     "point": 0.9461,
+     "ci": [
+      0.9344,
+      0.9586
+     ]
+    },
+    "f1|Q1 vs Q0": {
+     "verdict": "supported",
+     "point": 0.6123,
+     "ci": [
+      0.5546,
+      0.6669
+     ]
+    }
+   }
+  },
+  "size=small": {
+   "n_questions": 108,
+   "n_networks": 3,
+   "networks": [
+    "test-4",
+    "test-6",
+    "test-7"
+   ],
+   "f1": {
+    "Q0": {
+     "value": 0.0407,
+     "ci": [
+      0.0278,
+      0.0667
+     ]
+    },
+    "Q1": {
+     "value": 0.6627,
+     "ci": [
+      0.5401,
+      0.756
+     ]
+    },
+    "Q2": {
+     "value": 0.9842,
+     "ci": [
+      0.9568,
+      1.0
+     ]
+    }
+   },
+   "comparisons": {
+    "f1|Q2 vs Q1": {
+     "verdict": "supported",
+     "point": 0.3215,
+     "ci": [
+      0.244,
+      0.4556
+     ]
+    },
+    "f1|Q2 vs Q0": {
+     "verdict": "supported",
+     "point": 0.9434,
+     "ci": [
+      0.929,
+      0.9722
+     ]
+    },
+    "f1|Q1 vs Q0": {
+     "verdict": "supported",
+     "point": 0.622,
+     "ci": [
+      0.4734,
+      0.7282
+     ]
+    }
+   }
+  },
+  "size=medium": {
+   "n_questions": 36,
+   "n_networks": 1,
+   "networks": [
+    "test-5"
+   ],
+   "f1": {
+    "Q0": {
+     "value": 0.0069,
+     "ci": [
+      null,
+      null
+     ]
+    },
+    "Q1": {
+     "value": 0.5718,
+     "ci": [
+      null,
+      null
+     ]
+    },
+    "Q2": {
+     "value": 0.9567,
+     "ci": [
+      null,
+      null
+     ]
+    }
+   },
+   "comparisons": {
+    "f1|Q2 vs Q1": {
+     "verdict": "not estimable (one network)",
+     "point": 0.3849,
+     "ci": [
+      null,
+      null
+     ]
+    },
+    "f1|Q2 vs Q0": {
+     "verdict": "not estimable (one network)",
+     "point": 0.9498,
+     "ci": [
+      null,
+      null
+     ]
+    },
+    "f1|Q1 vs Q0": {
+     "verdict": "not estimable (one network)",
+     "point": 0.5649,
+     "ci": [
+      null,
+      null
+     ]
+    }
+   }
+  },
+  "size=large": {
+   "n_questions": 108,
+   "n_networks": 3,
+   "networks": [
+    "test-1",
+    "test-2",
+    "test-3"
+   ],
+   "f1": {
+    "Q0": {
+     "value": 0.0121,
+     "ci": [
+      0.0,
+      0.0278
+     ]
+    },
+    "Q1": {
+     "value": 0.6305,
+     "ci": [
+      0.6133,
+      0.6423
+     ]
+    },
+    "Q2": {
+     "value": 0.9597,
+     "ci": [
+      0.9542,
+      0.9632
+     ]
+    }
+   },
+   "comparisons": {
+    "f1|Q2 vs Q1": {
+     "verdict": "supported",
+     "point": 0.3293,
+     "ci": [
+      0.3209,
+      0.3409
+     ]
+    },
+    "f1|Q2 vs Q0": {
+     "verdict": "supported",
+     "point": 0.9476,
+     "ci": [
+      0.9264,
+      0.9632
+     ]
+    },
+    "f1|Q1 vs Q0": {
+     "verdict": "supported",
+     "point": 0.6184,
+     "ci": [
+      0.5855,
+      0.6423
+     ]
+    }
+   }
+  }
+ }
+}

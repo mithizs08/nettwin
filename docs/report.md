@@ -153,16 +153,17 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
 ### 4.6 KG question answering (Phase 11, 252 test questions)
 
 - **Question.** Can Claude Haiku 5.5 answer exact questions about the inventory graph, and how much do retrieval and tools add over no graph? Pre-registered on 2026-11-18 before any API call (decision log).
-- **Questions.** 429 template questions (177 validation, 252 test) with exact answers from the KG code, across six types: one-hop, multi-hop, what-if, path, count and time. PoPs are renamed P01, P02 and so on and graph names are neutral, so general knowledge cannot help.
+- **Questions.** 429 template questions (177 validation, 252 test) with exact answers from the KG code, across six types: one-hop, multi-hop, what-if, path, count and time. PoPs are renamed P01, P02 and so on and graph names are neutral, so the model cannot look a PoP up by name. Link lengths and routing metrics are still the real ones, and no run with real names was made, so the effect of the renaming is not measured; Q0's 0.024 is consistent with it.
 - **Conditions.** Q0 closed book; Q1 the 50 best BM25 matches from a text version of the graph; Q2 the existing KG query API as tools (at most 20 calls).
-- **Results (set F1, 95% CI).**
+- **Results (set F1, 95% CI over questions).**
   - Overall: Q0 0.024 [0.008, 0.042], Q1 0.636 [0.579, 0.694], Q2 0.970 [0.952, 0.986]. Exact match: 0.020, 0.564 and 0.941.
-  - Q2 vs Q1: +0.334 [0.279, 0.388]; Q1 vs Q0: +0.612 [0.549, 0.671]. Q2 beats Q1 in every graph-size group (E6).
+  - Q2 vs Q1: +0.334 [0.279, 0.388]; Q1 vs Q0: +0.612 [0.549, 0.671]. Q2 beats Q1 in every graph-size group (E6), but the medium group is a single network (36 questions).
   - Q1 matches Q2 on one-hop lookups (both 1.000) but falls on multi-hop (0.522), what-if (0.487), count (0.548) and time (0.552).
   - Q2's weakest templates are second-lowest-cost paths (0.854) and services rerouted between two steps (0.839).
+  - **Clustering (descriptive, not pre-registered).** The pre-registered CIs resample questions, but questions on one network share its graph, so they are too narrow. Resampling the 7 test networks instead (`scripts/phase11_clustered.py`): Q2 vs Q1 +0.334 [0.288, 0.387], Q1 vs Q0 +0.612 [0.555, 0.667]. With 7 networks these CIs are rough, and the one-network medium group has none.
 - **Cost.** Per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 tool calls on average (at most 20). The test run cost $0.55 and the whole phase $0.84.
 - **Expectations:** 6 of 7 held. E4 did not (see section 6).
-- **Scope.** Template questions over synthetic services and change histories. They show that the agent's KG tools give exact answers a text retrieval cannot; they do not measure free-form operator questions.
+- **Scope.** Template questions over synthetic services and change histories. The Q2 tools are query wrappers written for this phase (including what-if, paths between and changes between), not the Phase 6 agent's tool set. They answer multi-hop, what-if, count and time questions that text retrieval mostly misses; on one-hop lookups retrieval was already exact (1.000). The results do not measure free-form operator questions.
 
 ### 4.7 Real-time replay without an oracle window (Phase 12, 210 test scenarios)
 
@@ -172,13 +173,18 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
 - **Results** (210 scenarios, 1,260 scenario-days, 390 faults; GNN, GNN+CL, Agent):
   - Pages per scenario-day: 3.08 [2.74, 3.43], 2.63 [2.29, 2.97], 1.24 [1.06, 1.44]. False pages: 2.31 [2.00, 2.62], 1.91 [1.61, 2.23], 0.66 [0.55, 0.78].
   - Detection rate: 0.718 [0.676, 0.761], 0.644 [0.596, 0.689], 0.638 [0.592, 0.683].
-  - Agent minus GNN: pages -1.839 [-2.090, -1.592], detection -0.080 [-0.108, -0.051], top-3 at escalation +0.092 [0.046, 0.146]. Agent minus GNN+CL: detection -0.005 [-0.036, 0.028], false pages -1.253 [-1.490, -1.020].
+  - Agent minus GNN: pages -1.839 [-2.090, -1.592], detection -0.080 [-0.108, -0.051]. Agent minus GNN+CL: detection -0.005 [-0.036, 0.028], false pages -1.253 [-1.490, -1.020].
+  - Root cause at escalation (pre-registered, each policy over its own detected faults): Agent minus GNN top-3 +0.092 [0.046, 0.146], top-1 +0.000 [-0.065, 0.066]. The policies detect different faults (GNN 280, agent 249), so this compares different sets. Over all 390 faults, top-3 is level: +0.000 [-0.029, 0.031].
   - Time to detect: 65.5 [47.8, 85.2], 62.9 [45.0, 84.1] and 70.2 [48.1, 95.8] minutes.
   - Missed faults during maintenance (56 faults): 0.143 [0.061, 0.244], 0.518 [0.393, 0.644], 0.375 [0.255, 0.500].
+- **Descriptive, not pre-registered** (`scripts/phase12_descriptive.py`, from the saved test run, no API call):
+  - Same faults: on the 248 faults both the agent and the GNN detect, top-3 at the first detecting page is 0.835 [0.788, 0.879] for the agent and 0.786 [0.733, 0.836] for the GNN (+0.049 [0.008, 0.092]); top-1 is 0.585 against 0.625 (-0.040 [-0.102, 0.018], inconclusive). The 32 faults only the GNN detects have a GNN top-3 of 0.375, which is why the pre-registered gap is larger.
+  - Detected with the root in the page's top 3: a fault counts only if some page during it names the true root among its top 3. GNN 0.600 [0.554, 0.646], GNN+CL 0.546 [0.496, 0.591], Agent 0.562 [0.515, 0.609]. Agent minus GNN -0.038 [-0.064, -0.015]; Agent minus GNN+CL +0.016 [-0.013, 0.043]. The pre-registered detection rate credits any page in the window, whatever it names, which favours the policy that pages most.
 - **Cost.** 5,427 agent decisions, $0.0072 per scenario-day. Test $9.12; Phase 12 $9.79.
 - **Expectations:** 6 of 8 held (P5 and P6 did not; section 6).
-- **Changes, both logged before they could affect a result.** Test grew from 70 to 210 scenarios before it started. The spend guard was raised from $8.00 to $10.50 mid-run, budget only, after the agent waited on 40% of first wakes (25% on validation) and the run stopped with most re-checks left.
-- **Reading.** Most of the agent's value here is triage: it removes about 71% of the GNN's false pages while keeping the change-log rule's detection. It does not detect faults the GNN never alarms on, and it still misses more faults during maintenance than the raw GNN.
+- **Changes, both logged.** Test grew from 70 to 210 scenarios before it started. The spend guard was raised from $8.00 to $10.50 mid-run, after the agent waited on 40% of first wakes (25% on validation) and the run stopped with most re-checks left. That change was decided after the run had produced its decision counts and spend, though before any metric was computed. It changed only the budget and the re-freeze rule; the new rule allows re-freezing while a test run is unfinished, so that nothing else changed rests on the logged diff (checked in `docs/audit_phases_11_12.md`), not on the tooling.
+- **Planned end times.** The change log shows each started change's planned end, and the change-log rule and the agent both use it. In the simulator every change ends as planned; real change windows overrun, so this flatters both policies a little.
+- **Reading.** Most of the agent's value here is triage: it removes about 71% of the GNN's false pages, with detection within about 3 points of the change-log rule's. It does not detect faults the GNN never alarms on, and it still misses more faults during maintenance than the raw GNN.
 
 ## 5. Descriptive results (not pre-registered)
 
@@ -210,8 +216,8 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
 - **Forecasting:** the frozen GNN encoder with a head lost to LightGBM. Two other forecasting expectations were not met (F5, F6).
 - **KG question answering (E4):** BM25 retrieval was expected to score below 0.4 F1 on what-if, path and time questions. It scored 0.487, 0.707 and 0.552: retrieved path facts often contain the answer. Q2 still beats it on each of these types.
 - **Replay time to detect (P5):** the agent was expected to page clearly later than the raw GNN. The difference, +4.6 minutes [-10.3, 21.6], is inconclusive.
-- **Replay root cause at escalation (P6):** expected level with the GNN; the agent's top-3 was better instead (+0.092 [0.046, 0.146]). Top-1 was level.
-- **Replay detection:** the agent catches fewer faults than the raw GNN (-0.080) and misses more faults that coincide with logged changes (+0.232 [0.129, 0.352]).
+- **Replay root cause at escalation (P6):** expected level with the GNN; the agent's top-3 was better instead (+0.092 [0.046, 0.146]). That comparison averages each policy over its own detected faults. On the faults both detect (descriptive, in the Phase 12 results above) the agent's top-3 lead is about half as large and its top-1 is lower, and over all faults top-3 is level.
+- **Replay detection:** the agent catches fewer faults than the raw GNN (-0.080) and misses more faults that coincide with logged changes (+0.232 [0.129, 0.352]). Counting only pages that name the root in their top 3 (descriptive), it is also below the raw GNN (-0.038 [-0.064, -0.015]).
 - **Phase 11 runner bug before test:** the runner's question check first regenerated the test networks with the wrong seeds and refused the run. It was fixed and re-frozen before any test question was asked (decision log).
 
 ## 7. How the work was kept honest
@@ -225,6 +231,8 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
   - The agent's fault claim (a classification) differs in kind from the references' (a frozen threshold).
   - Phase 8 tuning broke a tie by grid order, which was not pre-registered.
   - Phase 8 per-scenario test counts were not saved, so its CIs can be checked only by rescoring.
+  - Phase 11 CIs resample questions and ignore that questions on one network share its graph (the Phase 11 results give a network-level check).
+  - Phase 12 detection credits any page during a fault, and the change log shows planned end times that real changes would not keep (see the Phase 12 results).
 - **Audits.** Fresh Claude Code sessions audited every phase; their findings and fixes are in the decision log by ID. A final audit checked every headline number against its results file and found no mismatch. A fresh-clone check rebuilt the datasets and reproduced the Phase 8 models byte for byte.
 
 ## 8. Reproduce and run the demo

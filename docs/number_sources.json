@@ -116,8 +116,24 @@
   "source": "phase12/test/summary.json",
   "path": "metrics.GNN.detection_rate.value",
   "line": "README.md:22",
-  "context": "es than the raw GNN alarm and catches 64% of faults against the GNN's 72%.",
+  "context": "es than the raw GNN alarm and catches 64% of faults against the GNN's 72%. A page counts a",
   "reviewed": "corrected by hand"
+ },
+ {
+  "key": "README.md|Headline results|56%|1",
+  "source": "phase12/test/descriptive.json",
+  "path": "correct_root_detection.Agent.value",
+  "line": "README.md:22",
+  "context": "t name the true root among their top 3 (descriptive), the figures are 56% and 60%.",
+  "reviewed": "set by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
+  "key": "README.md|Headline results|60%|1",
+  "source": "phase12/test/descriptive.json",
+  "path": "correct_root_detection.GNN.value",
+  "line": "README.md:22",
+  "context": "he true root among their top 3 (descriptive), the figures are 56% and 60%.",
+  "reviewed": "set by hand (Phase 11 and 12 audit fixes)"
  },
  {
   "key": "README.md|Headline results|52.29|0",
@@ -416,10 +432,18 @@
   "reviewed": "proposal checked by hand"
  },
  {
+  "key": "README.md|KG question answering (Phase 11)|36|0",
+  "source": "phase11/test/summary.json",
+  "path": "metrics.size=medium.Q0.f1.n",
+  "line": "README.md:107",
+  "context": "ap is supported in every group. The medium group is a single network (36 questions), so it",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
   "key": "README.md|KG question answering (Phase 11)|0.00011|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q0.mean_usd",
-  "line": "README.md:109",
+  "line": "README.md:110",
   "context": "- Cost per question: Q0 $0.00011, Q1 $0.0006",
   "reviewed": "proposal checked by hand"
  },
@@ -427,7 +451,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.00063|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q1.mean_usd",
-  "line": "README.md:109",
+  "line": "README.md:110",
   "context": "- Cost per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014",
   "reviewed": "proposal checked by hand"
  },
@@ -435,7 +459,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.0014|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q2.mean_usd",
-  "line": "README.md:109",
+  "line": "README.md:110",
   "context": "- Cost per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 to",
   "reviewed": "proposal checked by hand"
  },
@@ -443,7 +467,7 @@
   "key": "README.md|KG question answering (Phase 11)|3.48|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q2.mean_tool_calls",
-  "line": "README.md:109",
+  "line": "README.md:110",
   "context": "- Cost per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 tool calls on a",
   "reviewed": "proposal checked by hand"
  },
@@ -451,7 +475,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.84|0",
   "source": "derived",
   "path": "phase11 spend",
-  "line": "README.md:109",
+  "line": "README.md:110",
   "context": "1 $0.00063, Q2 $0.0014 with 3.48 tool calls on average. Phase 11 cost $0.84 in all, valida",
   "reviewed": "corrected by hand"
  },
@@ -459,7 +483,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.487|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=what_if.Q1.f1.value",
-  "line": "README.md:110",
+  "line": "README.md:111",
   "context": "to score below 0.4 F1 on what-if, path and time questions, but scored 0.487, 0.707 and 0.5",
   "reviewed": "proposal checked by hand"
  },
@@ -467,7 +491,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.707|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=path.Q1.f1.value",
-  "line": "README.md:110",
+  "line": "README.md:111",
   "context": "e below 0.4 F1 on what-if, path and time questions, but scored 0.487, 0.707 and 0.552. Ret",
   "reviewed": "proposal checked by hand"
  },
@@ -475,7 +499,7 @@
   "key": "README.md|KG question answering (Phase 11)|0.552|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=time.Q1.f1.value",
-  "line": "README.md:110",
+  "line": "README.md:111",
   "context": "4 F1 on what-if, path and time questions, but scored 0.487, 0.707 and 0.552. Retrieved pat",
   "reviewed": "proposal checked by hand"
  },
@@ -483,7 +507,7 @@
   "key": "README.md|Real-time replay (Phase 12)|210|0",
   "source": "phase12/test/summary.json",
   "path": "n_scenarios",
-  "line": "README.md:121",
+  "line": "README.md:122",
   "context": "Test: all 210 test scenarios, ",
   "reviewed": "proposal checked by hand"
  },
@@ -491,7 +515,7 @@
   "key": "README.md|Real-time replay (Phase 12)|1,260|0",
   "source": "phase12/test/summary.json",
   "path": "scenario_days",
-  "line": "README.md:121",
+  "line": "README.md:122",
   "context": "Test: all 210 test scenarios, 1,260 scenario-days,",
   "reviewed": "proposal checked by hand"
  },
@@ -499,7 +523,7 @@
   "key": "README.md|Real-time replay (Phase 12)|390|0",
   "source": "phase12/test/summary.json",
   "path": "n_faults",
-  "line": "README.md:121",
+  "line": "README.md:122",
   "context": "Test: all 210 test scenarios, 1,260 scenario-days, 390 observable fault",
   "reviewed": "proposal checked by hand"
  },
@@ -507,7 +531,7 @@
   "key": "README.md|Real-time replay (Phase 12)|3,884|0",
   "source": "phase12/test/summary.json",
   "path": "agent.episodes",
-  "line": "README.md:121",
+  "line": "README.md:122",
   "context": ": all 210 test scenarios, 1,260 scenario-days, 390 observable faults, 3,884 alarm episodes",
   "reviewed": "proposal checked by hand"
  },
@@ -515,7 +539,7 @@
   "key": "README.md|Real-time replay (Phase 12)|56|0",
   "source": "phase12/test/summary.json",
   "path": "metrics.GNN.missed_during_maintenance.denominator",
-  "line": "README.md:131",
+  "line": "README.md:132",
   "context": "| missed faults during maintenance (56) | 0.143 [0.06, 0",
   "reviewed": "proposal checked by hand"
  },
@@ -523,15 +547,47 @@
   "key": "README.md|Real-time replay (Phase 12)|60%|0",
   "source": "derived",
   "path": "phase12 agent page cut vs GNN",
-  "line": "README.md:133",
+  "line": "README.md:135",
   "context": "- The agent sends 60% fewer pages than",
   "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "README.md|Real-time replay (Phase 12)|248|0",
+  "source": "phase12/test/descriptive.json",
+  "path": "matched_faults.Agent vs GNN.n_both_detect",
+  "line": "README.md:137",
+  "context": "ge each policy over its own detected faults, and those differ. On the 248 faults both the ",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
+  "key": "README.md|Real-time replay (Phase 12)|0.585|0",
+  "source": "phase12/test/descriptive.json",
+  "path": "matched_faults.Agent vs GNN.top1|Agent.value",
+  "line": "README.md:137",
+  "context": "3, 0.836] for the GNN (+0.049 [0.008, 0.093]), and in first place for 0.585 against 0.625 ",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
+  "key": "README.md|Real-time replay (Phase 12)|0.625|0",
+  "source": "phase12/test/descriptive.json",
+  "path": "matched_faults.Agent vs GNN.top1|GNN.value",
+  "line": "README.md:137",
+  "context": "the GNN (+0.049 [0.008, 0.093]), and in first place for 0.585 against 0.625 (-0.040 [-0.10",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
+  "key": "README.md|Real-time replay (Phase 12)|0.375|0",
+  "source": "phase12/test/descriptive.json",
+  "path": "matched_faults.Agent vs GNN.top3|GNN|faults only GNN detects",
+  "line": "README.md:138",
+  "context": "s are counted: the 32 faults only the GNN detects have a GNN top-3 of 0.375. Over all faul",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
  {
   "key": "README.md|Real-time replay (Phase 12)|3.08|0",
   "source": "phase12/test/summary.json",
   "path": "metrics.GNN.pages_per_day.value",
-  "line": "README.md:137",
+  "line": "README.md:141",
   "context": "- The raw GNN pages 3.08 times per scena",
   "reviewed": "proposal checked by hand"
  },
@@ -539,7 +595,7 @@
   "key": "README.md|Real-time replay (Phase 12)|1.39|0",
   "source": "phase12/val_dev/summary.json",
   "path": "metrics.GNN.pages_per_day.value",
-  "line": "README.md:137",
+  "line": "README.md:141",
   "context": "- The raw GNN pages 3.08 times per scenario-day on test, against 1.39 on validation: ",
   "reviewed": "proposal checked by hand"
  },
@@ -547,7 +603,7 @@
   "key": "README.md|Real-time replay (Phase 12)|5,427|0",
   "source": "phase12/test/summary.json",
   "path": "agent.wakes",
-  "line": "README.md:139",
+  "line": "README.md:143",
   "context": "- Cost: the agent made 5,427 decisions for ",
   "reviewed": "proposal checked by hand"
  },
@@ -555,7 +611,7 @@
   "key": "README.md|Real-time replay (Phase 12)|0.0072|0",
   "source": "phase12/test/summary.json",
   "path": "metrics.Agent.cost_per_day_usd.value",
-  "line": "README.md:139",
+  "line": "README.md:143",
   "context": "- Cost: the agent made 5,427 decisions for $0.0072 per scenario",
   "reviewed": "proposal checked by hand"
  },
@@ -563,7 +619,7 @@
   "key": "README.md|Real-time replay (Phase 12)|9.12|0",
   "source": "derived",
   "path": "phase12 test cost",
-  "line": "README.md:139",
+  "line": "README.md:143",
   "context": " made 5,427 decisions for $0.0072 per scenario-day. The test run cost $9.12. Two changes w",
   "reviewed": "proposal checked by hand"
  },
@@ -571,7 +627,7 @@
   "key": "README.md|Real-time replay (Phase 12)|210|1",
   "source": "phase12/test/summary.json",
   "path": "n_scenarios",
-  "line": "README.md:139",
+  "line": "README.md:143",
   "context": " Two changes were made to the plan, both logged: test grew from 70 to 210 scenarios before",
   "reviewed": "proposal checked by hand"
  },
@@ -1792,6 +1848,14 @@
   "reviewed": "proposal checked by hand"
  },
  {
+  "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|0.024|0",
+  "source": "phase11/test/summary.json",
+  "path": "metrics.all.Q0.f1.value",
+  "line": "docs/report.md:156",
+  "context": "l names was made, so the effect of the renaming is not measured; Q0's 0.024 is consistent ",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
   "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|0.020|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.all.Q0.em.value",
@@ -1814,6 +1878,14 @@
   "line": "docs/report.md:159",
   "context": "579, 0.694], Q2 0.970 [0.952, 0.986]. Exact match: 0.020, 0.564 and 0.941.",
   "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|36|0",
+  "source": "phase11/test/summary.json",
+  "path": "metrics.size=medium.Q0.em.n",
+  "line": "docs/report.md:160",
+  "context": "ry graph-size group (E6), but the medium group is a single network (36 questions).",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
  {
   "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|1.000|0",
@@ -1875,7 +1947,7 @@
   "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|0.00011|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q0.mean_usd",
-  "line": "docs/report.md:163",
+  "line": "docs/report.md:164",
   "context": "- **Cost.** Per question: Q0 $0.00011, Q1 $0.0006",
   "reviewed": "proposal checked by hand"
  },
@@ -1883,7 +1955,7 @@
   "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|0.00063|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q1.mean_usd",
-  "line": "docs/report.md:163",
+  "line": "docs/report.md:164",
   "context": "- **Cost.** Per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014",
   "reviewed": "proposal checked by hand"
  },
@@ -1891,7 +1963,7 @@
   "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|0.0014|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q2.mean_usd",
-  "line": "docs/report.md:163",
+  "line": "docs/report.md:164",
   "context": "- **Cost.** Per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 to",
   "reviewed": "proposal checked by hand"
  },
@@ -1899,7 +1971,7 @@
   "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|3.48|0",
   "source": "phase11/test/summary.json",
   "path": "cost.Q2.mean_tool_calls",
-  "line": "docs/report.md:163",
+  "line": "docs/report.md:164",
   "context": "- **Cost.** Per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 tool calls on a",
   "reviewed": "proposal checked by hand"
  },
@@ -1907,7 +1979,7 @@
   "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|0.55|0",
   "source": "derived",
   "path": "phase11 test cost",
-  "line": "docs/report.md:163",
+  "line": "docs/report.md:164",
   "context": ".0014 with 3.48 tool calls on average (at most 20). The test run cost $0.55 and the whole ",
   "reviewed": "corrected by hand"
  },
@@ -1915,15 +1987,23 @@
   "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|0.84|0",
   "source": "derived",
   "path": "phase11 spend",
-  "line": "docs/report.md:163",
+  "line": "docs/report.md:164",
   "context": " on average (at most 20). The test run cost $0.55 and the whole phase $0.84.",
   "reviewed": "corrected by hand"
+ },
+ {
+  "key": "docs/report.md|KG question answering (Phase 11, 252 test questions)|1.000|1",
+  "source": "phase11/test/summary.json",
+  "path": "metrics.type=one_hop.Q1.f1.value",
+  "line": "docs/report.md:166",
+  "context": "rieval mostly misses; on one-hop lookups retrieval was already exact (1.000). The results ",
+  "reviewed": "set by hand (Phase 11 and 12 audit fixes)"
  },
  {
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|288|0",
   "source": "phase12/test/summary.json",
   "path": "settings.start",
-  "line": "docs/report.md:170",
+  "line": "docs/report.md:171",
   "context": "- **Replay.** Each scenario is replayed from step 288. The live KG cha",
   "reviewed": "proposal checked by hand"
  },
@@ -1931,7 +2011,7 @@
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|210|0",
   "source": "phase12/test/summary.json",
   "path": "n_scenarios",
-  "line": "docs/report.md:172",
+  "line": "docs/report.md:173",
   "context": "- **Results** (210 scenarios, 1,260",
   "reviewed": "proposal checked by hand"
  },
@@ -1939,7 +2019,7 @@
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|1,260|0",
   "source": "phase12/test/summary.json",
   "path": "metrics.GNN.pages_per_day.denominator",
-  "line": "docs/report.md:172",
+  "line": "docs/report.md:173",
   "context": "- **Results** (210 scenarios, 1,260 scenario-days,",
   "reviewed": "proposal checked by hand"
  },
@@ -1947,23 +2027,79 @@
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|390|0",
   "source": "phase12/test/summary.json",
   "path": "metrics.GNN.detection_rate.denominator",
-  "line": "docs/report.md:172",
+  "line": "docs/report.md:173",
   "context": "- **Results** (210 scenarios, 1,260 scenario-days, 390 faults; GNN, GNN",
   "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|280|0",
+  "source": "phase12/test/summary.json",
+  "path": "metrics.GNN.detection_rate.numerator",
+  "line": "docs/report.md:177",
+  "context": "1 +0.000 [-0.065, 0.066]. The policies detect different faults (GNN 280, agent 249), so th",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
+  "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|249|0",
+  "source": "phase12/test/summary.json",
+  "path": "metrics.Agent.detection_rate.numerator",
+  "line": "docs/report.md:177",
+  "context": "0.065, 0.066]. The policies detect different faults (GNN 280, agent 249), so this compares",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
+  "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|390|1",
+  "source": "phase12/test/summary.json",
+  "path": "metrics.GNN.detection_rate.denominator",
+  "line": "docs/report.md:177",
+  "context": "lts (GNN 280, agent 249), so this compares different sets. Over all 390 faults, top-3 is l",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
  {
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|56|0",
   "source": "phase12/test/summary.json",
   "path": "metrics.GNN.missed_during_maintenance.denominator",
-  "line": "docs/report.md:177",
+  "line": "docs/report.md:179",
   "context": "- Missed faults during maintenance (56 faults): 0.143 [0.0",
   "reviewed": "proposal checked by hand"
+ },
+ {
+  "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|248|0",
+  "source": "phase12/test/descriptive.json",
+  "path": "matched_faults.Agent vs GNN.n_both_detect",
+  "line": "docs/report.md:181",
+  "context": "- Same faults: on the 248 faults both the ag",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
+  "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|0.585|0",
+  "source": "phase12/test/descriptive.json",
+  "path": "matched_faults.Agent vs GNN.top1|Agent.value",
+  "line": "docs/report.md:181",
+  "context": " 0.786 [0.733, 0.836] for the GNN (+0.049 [0.008, 0.093]); top-1 is 0.585 against 0.625 (-",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
+  "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|0.625|0",
+  "source": "phase12/test/descriptive.json",
+  "path": "matched_faults.Agent vs GNN.top1|GNN.value",
+  "line": "docs/report.md:181",
+  "context": " 0.836] for the GNN (+0.049 [0.008, 0.093]); top-1 is 0.585 against 0.625 (-0.040 [-0.102,",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
+ },
+ {
+  "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|0.375|0",
+  "source": "phase12/test/descriptive.json",
+  "path": "matched_faults.Agent vs GNN.top3|GNN|faults only GNN detects",
+  "line": "docs/report.md:181",
+  "context": "conclusive). The 32 faults only the GNN detects have a GNN top-3 of 0.375, which is why th",
+  "reviewed": "proposal checked by hand (Phase 11 and 12 audit fixes)"
  },
  {
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|5,427|0",
   "source": "phase12/test/summary.json",
   "path": "agent.wakes",
-  "line": "docs/report.md:178",
+  "line": "docs/report.md:183",
   "context": "- **Cost.** 5,427 agent decision",
   "reviewed": "proposal checked by hand"
  },
@@ -1971,7 +2107,7 @@
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|0.0072|0",
   "source": "phase12/test/summary.json",
   "path": "metrics.Agent.cost_per_day_usd.value",
-  "line": "docs/report.md:178",
+  "line": "docs/report.md:183",
   "context": "- **Cost.** 5,427 agent decisions, $0.0072 per scenario",
   "reviewed": "proposal checked by hand"
  },
@@ -1979,7 +2115,7 @@
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|9.12|0",
   "source": "phase12/test/summary.json",
   "path": "agent.cost_usd",
-  "line": "docs/report.md:178",
+  "line": "docs/report.md:183",
   "context": "- **Cost.** 5,427 agent decisions, $0.0072 per scenario-day. Test $9.12; Phase 12 $9.7",
   "reviewed": "proposal checked by hand"
  },
@@ -1987,7 +2123,7 @@
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|9.79|0",
   "source": "derived",
   "path": "phase12 spend",
-  "line": "docs/report.md:178",
+  "line": "docs/report.md:183",
   "context": "5,427 agent decisions, $0.0072 per scenario-day. Test $9.12; Phase 12 $9.79.",
   "reviewed": "proposal checked by hand"
  },
@@ -1995,31 +2131,31 @@
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|210|1",
   "source": "phase12/test/summary.json",
   "path": "n_scenarios",
-  "line": "docs/report.md:180",
-  "context": "both logged before they could affect a result.** Test grew from 70 to 210 scenarios before",
+  "line": "docs/report.md:185",
+  "context": "- **Changes, both logged.** Test grew from 70 to 210 scenarios before",
   "reviewed": "proposal checked by hand"
  },
  {
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|40%|0",
   "source": "derived",
   "path": "phase12 wait share test",
-  "line": "docs/report.md:180",
-  "context": " from $8.00 to $10.50 mid-run, budget only, after the agent waited on 40% of first wakes (",
+  "line": "docs/report.md:185",
+  "context": "rd was raised from $8.00 to $10.50 mid-run, after the agent waited on 40% of first wakes (",
   "reviewed": "proposal checked by hand"
  },
  {
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|25%|0",
   "source": "derived",
   "path": "phase12 wait share val_dev",
-  "line": "docs/report.md:180",
-  "context": "0 mid-run, budget only, after the agent waited on 40% of first wakes (25% on validation) a",
+  "line": "docs/report.md:185",
+  "context": "8.00 to $10.50 mid-run, after the agent waited on 40% of first wakes (25% on validation) a",
   "reviewed": "corrected by hand"
  },
  {
   "key": "docs/report.md|Real-time replay without an oracle window (Phase 12, 210 test scenarios)|71%|0",
   "source": "derived",
   "path": "phase12 agent false page cut vs GNN",
-  "line": "docs/report.md:181",
+  "line": "docs/report.md:187",
   "context": "Reading.** Most of the agent's value here is triage: it removes about 71% of the GNN's fal",
   "reviewed": "proposal checked by hand"
  },
@@ -2027,7 +2163,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|0.167|0",
   "source": "phase6/test_haiku_vs_opus.json",
   "path": "variants.with_status.comparisons.hard|top1|Opus-A2 vs Haiku-A2.point",
-  "line": "docs/report.md:190",
+  "line": "docs/report.md:196",
   "context": "+0.108 [0.041, 0.182] and +0.117 [0.048, 0.189]) and on hard top-1 (+0.167 and +0.150).",
   "reviewed": "proposal checked by hand"
  },
@@ -2035,7 +2171,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|0.150|0",
   "source": "phase6/test_haiku_vs_opus.json",
   "path": "variants.status_blind.comparisons.hard|top1|Opus-A2 vs Haiku-A2.point",
-  "line": "docs/report.md:190",
+  "line": "docs/report.md:196",
   "context": "41, 0.182] and +0.117 [0.048, 0.189]) and on hard top-1 (+0.167 and +0.150).",
   "reviewed": "proposal checked by hand"
  },
@@ -2043,7 +2179,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|68|0",
   "source": "derived",
   "path": "haiku vs opus comparisons",
-  "line": "docs/report.md:191",
+  "line": "docs/report.md:197",
   "context": "- The comparison file holds 68 paired comparisons ",
   "reviewed": "proposal checked by hand"
  },
@@ -2051,7 +2187,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|27|0",
   "source": "derived",
   "path": "haiku vs opus supported",
-  "line": "docs/report.md:191",
+  "line": "docs/report.md:197",
   "context": "- The comparison file holds 68 paired comparisons (27 supported, 41 incon",
   "reviewed": "corrected by hand"
  },
@@ -2059,7 +2195,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|41|0",
   "source": "derived",
   "path": "haiku vs opus inconclusive",
-  "line": "docs/report.md:191",
+  "line": "docs/report.md:197",
   "context": "- The comparison file holds 68 paired comparisons (27 supported, 41 inconclusive) with ",
   "reviewed": "proposal checked by hand"
  },
@@ -2067,7 +2203,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|28|0",
   "source": "derived",
   "path": "opus/haiku A2 cost ratio with_status",
-  "line": "docs/report.md:192",
+  "line": "docs/report.md:198",
   "context": "- Opus A2 costs about 28 times as much per i",
   "reviewed": "corrected by hand"
  },
@@ -2075,7 +2211,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|0.92|0",
   "source": "phase7/aarnet_dev_summary.json",
   "path": "cost_usd",
-  "line": "docs/report.md:194",
+  "line": "docs/report.md:200",
   "context": "type plus one drain), picked by a fixed rule, in both variants, for $0.92.",
   "reviewed": "corrected by hand"
  },
@@ -2083,7 +2219,7 @@
   "key": "docs/report.md|Descriptive results (not pre-registered)|0.500|0",
   "source": "phase7/aarnet_dev_summary.json",
   "path": "by_variant.with_status.haiku-A2.faults_top1",
-  "line": "docs/report.md:195",
+  "line": "docs/report.md:201",
   "context": "- Both models had faults top-1 0.500, the same as the",
   "reviewed": "corrected by hand"
  },
@@ -2091,7 +2227,7 @@
   "key": "docs/report.md|Negative results|0.475|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.with_status.seed_summary.gat-h32.all:far_maintenance_only.mean",
-  "line": "docs/report.md:206",
+  "line": "docs/report.md:212",
   "context": "s:** the GNN raises an alarm in about half of maintenance-only hours (0.475 with status ev",
   "reviewed": "corrected by hand"
  },
@@ -2099,7 +2235,7 @@
   "key": "docs/report.md|Negative results|0.458|0",
   "source": "phase5_test.json",
   "path": "splits.test.variants.status_blind.seed_summary.gat-h32.all:far_maintenance_only.mean",
-  "line": "docs/report.md:206",
+  "line": "docs/report.md:212",
   "context": "rm in about half of maintenance-only hours (0.475 with status events, 0.458 status-blind),",
   "reviewed": "corrected by hand"
  },
@@ -2107,7 +2243,7 @@
   "key": "docs/report.md|Negative results|0.487|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=what_if.Q1.f1.value",
-  "line": "docs/report.md:211",
+  "line": "docs/report.md:217",
   "context": " to score below 0.4 F1 on what-if, path and time questions. It scored 0.487, 0.707 and 0.5",
   "reviewed": "corrected by hand"
  },
@@ -2115,7 +2251,7 @@
   "key": "docs/report.md|Negative results|0.707|0",
   "source": "phase11/test/summary.json",
   "path": "metrics.type=path.Q1.f1.value",
-  "line": "docs/report.md:211",
+  "line": "docs/report.md:217",
   "context": "re below 0.4 F1 on what-if, path and time questions. It scored 0.487, 0.707 and 0.552: ret",
   "reviewed": "proposal checked by hand"
  },
@@ -2123,7 +2259,7 @@
   "key": "docs/report.md|Negative results|4.6|0",
   "source": "phase12/test/summary.json",
   "path": "comparisons.time_to_detect_min|Agent vs GNN.point",
-  "line": "docs/report.md:212",
+  "line": "docs/report.md:218",
   "context": " was expected to page clearly later than the raw GNN. The difference, +4.6 minutes [-10.3,",
   "reviewed": "proposal checked by hand"
  },
@@ -2131,7 +2267,7 @@
   "key": "docs/report.md|Negative results|10.3|0",
   "source": "phase12/test/summary.json",
   "path": "comparisons.time_to_detect_min|Agent vs GNN.ci.0",
-  "line": "docs/report.md:212",
+  "line": "docs/report.md:218",
   "context": "to page clearly later than the raw GNN. The difference, +4.6 minutes [-10.3, 21.6], is inc",
   "reviewed": "proposal checked by hand"
  },
@@ -2139,7 +2275,7 @@
   "key": "docs/report.md|Negative results|21.6|0",
   "source": "phase12/test/summary.json",
   "path": "comparisons.time_to_detect_min|Agent vs GNN.ci.1",
-  "line": "docs/report.md:212",
+  "line": "docs/report.md:218",
   "context": " clearly later than the raw GNN. The difference, +4.6 minutes [-10.3, 21.6], is inconclusi",
   "reviewed": "proposal checked by hand"
  },
@@ -2147,7 +2283,7 @@
   "key": "docs/report.md|Negative results|0.080|0",
   "source": "phase12/test/summary.json",
   "path": "comparisons.detection_rate|Agent vs GNN.point",
-  "line": "docs/report.md:214",
+  "line": "docs/report.md:220",
   "context": "*Replay detection:** the agent catches fewer faults than the raw GNN (-0.080) and misses m",
   "reviewed": "proposal checked by hand"
  }

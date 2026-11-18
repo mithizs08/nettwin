@@ -54,8 +54,8 @@ SOURCES = {
     "p6": ["phase6/test_claude-haiku-5-5/summary.json", "phase6/test_claude-opus-5-5/summary.json", "phase6/test_haiku_vs_opus.json"],
     "p7": ["phase7/aarnet_dev_summary.json"],
     "p8": ["phase8_test.json"],
-    "p11": ["phase11/test/summary.json"],
-    "p12": ["phase12/test/summary.json", "phase12/val_dev/summary.json"],
+    "p11": ["phase11/test/summary.json", "phase11/test/clustered.json"],
+    "p12": ["phase12/test/summary.json", "phase12/val_dev/summary.json", "phase12/test/descriptive.json"],
     "data": ["phase1_kg_summary.json", "phase3_dataset_summary.json"],
 }
 # Each doc heading (prefix match on its text) names the sources its numbers come from. An unmapped heading is an error.
