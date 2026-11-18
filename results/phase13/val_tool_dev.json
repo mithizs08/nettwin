@@ -1,0 +1,468 @@
+{
+ "split": "val",
+ "scenarios": 250,
+ "windows": 370,
+ "chosen": {
+  "service_loss_excess": 2,
+  "util_shift": 0.1,
+  "util_shift_rel": 0.3
+ },
+ "grid": [
+  {
+   "service_loss_excess": 1,
+   "util_shift": 0.05,
+   "util_shift_rel": 0.15,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.422
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.761
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.8
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.7
+   }
+  },
+  {
+   "service_loss_excess": 1,
+   "util_shift": 0.05,
+   "util_shift_rel": 0.3,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.393
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.746
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.8
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.65
+   }
+  },
+  {
+   "service_loss_excess": 1,
+   "util_shift": 0.08,
+   "util_shift_rel": 0.15,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.389
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.746
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.8
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.65
+   }
+  },
+  {
+   "service_loss_excess": 1,
+   "util_shift": 0.08,
+   "util_shift_rel": 0.3,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.376
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.731
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.8
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.6
+   }
+  },
+  {
+   "service_loss_excess": 1,
+   "util_shift": 0.1,
+   "util_shift_rel": 0.15,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.37
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.716
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.7
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.6
+   }
+  },
+  {
+   "service_loss_excess": 1,
+   "util_shift": 0.1,
+   "util_shift_rel": 0.3,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.36
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.701
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.7
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.55
+   }
+  },
+  {
+   "service_loss_excess": 2,
+   "util_shift": 0.05,
+   "util_shift_rel": 0.15,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.267
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.746
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.7
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.7
+   }
+  },
+  {
+   "service_loss_excess": 2,
+   "util_shift": 0.05,
+   "util_shift_rel": 0.3,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.234
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.731
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.7
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.65
+   }
+  },
+  {
+   "service_loss_excess": 2,
+   "util_shift": 0.08,
+   "util_shift_rel": 0.15,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.231
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.731
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.7
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.65
+   }
+  },
+  {
+   "service_loss_excess": 2,
+   "util_shift": 0.08,
+   "util_shift_rel": 0.3,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.218
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.716
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.7
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.6
+   }
+  },
+  {
+   "service_loss_excess": 2,
+   "util_shift": 0.1,
+   "util_shift_rel": 0.15,
+   "chosen": false,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.205
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.701
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.6
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.6
+   }
+  },
+  {
+   "service_loss_excess": 2,
+   "util_shift": 0.1,
+   "util_shift_rel": 0.3,
+   "chosen": true,
+   "change_only": {
+    "n": 303,
+    "share_flagged": 0.195
+   },
+   "change_overlap_fault": {
+    "n": 67,
+    "share_flagged": 0.687
+   },
+   "type=demand_surge": {
+    "n": 10,
+    "share_flagged": 0.6
+   },
+   "type=link_degradation": {
+    "n": 16,
+    "share_flagged": 0.5
+   },
+   "type=link_down": {
+    "n": 11,
+    "share_flagged": 1.0
+   },
+   "type=link_flapping": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=node_down": {
+    "n": 5,
+    "share_flagged": 1.0
+   },
+   "type=routing_misconfig": {
+    "n": 20,
+    "share_flagged": 0.55
+   }
+  }
+ ]
+}
