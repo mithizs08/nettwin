@@ -1629,3 +1629,4 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
   - Agent cost $0.0032 per scenario-day.
   - Expectations on validation (for information; they are checked on test): P1, P2, P3, P4, P6 and P8 held; P5 and P7 did not (inconclusive).
 - No design change after validation. The code is frozen next (`results/phase12_frozen.json`) and test runs once on all 210 scenarios.
+- **Pre-test addition to the test path.** `--split test --resume` continues an unfinished test run (no `summary.json` yet) under the same frozen hashes, as in Phase 6, so a stop partway (a crash or the spend guard) does not lose the run. A finished test run can never be rerun. The script was re-frozen after this change, before the test run.

@@ -132,7 +132,9 @@ def run(args, cfg):
             ("the Phase 12 pre-registration is not in docs/decision_log.md", PREREG not in (ROOT / "docs" / "decision_log.md").read_text()),
             ("results/phase12_frozen.json is missing", frozen is None),
             ("a frozen file changed", frozen is not None and any(sha256(ROOT / k) != v for k, v in frozen["files"].items())),
-            ("results/phase12/test already exists (test is run once)", (OUT / "test").exists()),
+            ("results/phase12/test already exists (test is run once; --resume continues only an unfinished run)",
+             (OUT / "test").exists() and not (args.resume and not (OUT / "test" / "summary.json").exists())),
+            ("--resume needs an unfinished test run", args.resume and not (OUT / "test").exists()),
             ("--limit is not allowed on test", bool(args.limit)),
         ) if bad]
         if problems:
@@ -411,6 +413,7 @@ def main():
     ap.add_argument("--estimate", default=None)
     ap.add_argument("--freeze", action="store_true")
     ap.add_argument("--score", default=None)
+    ap.add_argument("--resume", action="store_true", help="test only: continue an unfinished test run (same frozen code)")
     ap.add_argument("--dry", action="store_true", help="validation only: replay and score the references, no agent and no API")
     args = ap.parse_args()
     cfg = yaml.safe_load((ROOT / "config.yaml").read_text())

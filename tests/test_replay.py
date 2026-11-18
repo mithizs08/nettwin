@@ -65,7 +65,7 @@ def test_test_split_refuses_without_preregistration_and_freeze(tmp_path, monkeyp
     p12 = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(p12)
     monkeypatch.setattr(p12, "FROZEN", tmp_path / "missing.json")
-    args = type("A", (), {"split": "test", "limit": 0, "dry": False, "name": "x", "threads": 1})()
+    args = type("A", (), {"split": "test", "limit": 0, "dry": False, "resume": False, "name": "x", "threads": 1})()
     with pytest.raises(SystemExit) as e:
         p12.run(args, json.loads(json.dumps(yaml.safe_load(open("config.yaml")))))
     assert "refusing the test run" in str(e.value)
