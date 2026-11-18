@@ -1630,3 +1630,10 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
   - Expectations on validation (for information; they are checked on test): P1, P2, P3, P4, P6 and P8 held; P5 and P7 did not (inconclusive).
 - No design change after validation. The code is frozen next (`results/phase12_frozen.json`) and test runs once on all 210 scenarios.
 - **Pre-test addition to the test path.** `--split test --resume` continues an unfinished test run (no `summary.json` yet) under the same frozen hashes, as in Phase 6, so a stop partway (a crash or the spend guard) does not lose the run. A finished test run can never be rerun. The script was re-frozen after this change, before the test run.
+
+### 2026-11-18: Phase 12 mid-test change: spend guard raised to $10.50 (budget only)
+
+- **What happened.** The test run stopped at the $8.00 Phase 12 guard. The replay gave 3,884 alarm episodes on the 210 test scenarios, against about 2,700 estimated from the validation rate per link. Every episode got its first decision. But the agent chose "wait" on 1,543 of them (40%, against 25% on validation), and only 201 of those re-checks ran before the guard stopped the run. Test spend was $7.03 (Phase 12 $7.70, project about $50.20). The wakes cost as expected ($0.0017 each); there were more of them.
+- **Change, decided by the user after seeing only these counts and costs (no metric was computed):** the Phase 12 guard is raised from $8.00 to $10.50. Finishing the 1,342 missing re-checks should cost about $2.31, so Phase 12 about $10.00.
+- **Only the budget changed.** In `scripts/phase12_replay.py`, `PHASE_BUDGET_USD` is 10.50, and `--freeze` now refuses only once test has been scored (`summary.json` exists) instead of once the test folder exists, so the script could be re-frozen. Prompts, tools, the replay, the policies, the scoring and every decision already made are unchanged. The script was re-frozen and the run resumed with `--split test --resume`, which runs only the unfinished re-checks.
+- Not chosen: scoring with the missing re-checks counted as "no page", which would have biased detection and time to detect against the agent.
