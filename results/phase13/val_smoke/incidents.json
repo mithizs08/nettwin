@@ -1,0 +1,120 @@
+[
+ {
+  "scenario_id": "va00452",
+  "kind": "fault",
+  "type": "node_down",
+  "root": "pop:L4",
+  "t0": 322,
+  "t1": 345,
+  "placement": "isolated",
+  "overlaps_logged_change": true,
+  "caused_by_maintenance": false,
+  "stratum": "change_overlap",
+  "incident_id": "P001"
+ },
+ {
+  "scenario_id": "va00065",
+  "kind": "fault",
+  "type": "link_flapping",
+  "root": "link:L3--R32",
+  "t0": 632,
+  "t1": 669,
+  "placement": "maintenance_linked",
+  "overlaps_logged_change": true,
+  "caused_by_maintenance": false,
+  "stratum": "change_overlap",
+  "incident_id": "P002"
+ },
+ {
+  "scenario_id": "va00180",
+  "kind": "fault",
+  "type": "demand_surge",
+  "root": "pop:L5",
+  "t0": 1751,
+  "t1": 1804,
+  "placement": "maintenance_linked",
+  "overlaps_logged_change": true,
+  "caused_by_maintenance": false,
+  "stratum": "change_overlap",
+  "incident_id": "P016"
+ },
+ {
+  "scenario_id": "va00354",
+  "kind": "fault",
+  "type": "routing_misconfig",
+  "root": "link:R19--R2",
+  "t0": 663,
+  "t1": 1164,
+  "placement": "isolated",
+  "overlaps_logged_change": true,
+  "caused_by_maintenance": false,
+  "stratum": "change_overlap",
+  "incident_id": "P023"
+ },
+ {
+  "scenario_id": "va00393",
+  "kind": "distractor",
+  "type": "distractor_drain",
+  "root": "none",
+  "change_target": "link:Guam--Japan",
+  "t0": 900,
+  "t1": 917,
+  "stratum": "distractor",
+  "incident_id": "P049"
+ },
+ {
+  "scenario_id": "va00380",
+  "kind": "distractor",
+  "type": "distractor_drain",
+  "root": "none",
+  "change_target": "link:R14--R2",
+  "t0": 1467,
+  "t1": 1514,
+  "stratum": "distractor",
+  "incident_id": "P052"
+ },
+ {
+  "scenario_id": "va00112",
+  "kind": "distractor",
+  "type": "distractor_drain",
+  "root": "none",
+  "change_target": "link:R17--R7",
+  "t0": 617,
+  "t1": 629,
+  "stratum": "distractor",
+  "incident_id": "P054"
+ },
+ {
+  "scenario_id": "va00284",
+  "kind": "distractor",
+  "type": "distractor_down",
+  "root": "none",
+  "change_target": "link:R15--R4",
+  "t0": 1027,
+  "t1": 1040,
+  "stratum": "distractor",
+  "incident_id": "P063"
+ },
+ {
+  "scenario_id": "va00328",
+  "kind": "distractor",
+  "type": "distractor_down",
+  "root": "none",
+  "change_target": "link:L12--R20",
+  "t0": 1733,
+  "t1": 1773,
+  "stratum": "distractor",
+  "incident_id": "P065"
+ },
+ {
+  "scenario_id": "va00375",
+  "kind": "distractor",
+  "type": "distractor_down",
+  "root": "none",
+  "change_target": "link:R15--R16",
+  "t0": 1196,
+  "t1": 1213,
+  "stratum": "distractor",
+  "incident_id": "P067"
+ }
+]

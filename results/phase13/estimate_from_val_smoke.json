@@ -1,0 +1,17 @@
+{
+ "from_run": "results/phase13/val_smoke",
+ "runs": 20,
+ "mean_cost_per_run_usd": {
+  "A2": 0.00272,
+  "A3": 0.00229
+ },
+ "incidents": {
+  "val": 68,
+  "test": 75
+ },
+ "estimate_usd": {
+  "val": 0.341,
+  "test": 0.376
+ },
+ "phase13_spend_so_far_usd": 0.0501
+}

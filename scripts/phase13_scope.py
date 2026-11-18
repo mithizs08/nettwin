@@ -271,12 +271,12 @@ def run(args, cfg, acfg):
                 mean = lambda rows: {k: float(np.mean([p[k] for p in rows])) for k in rows[0]}  # noqa: E731
                 rule = [p | {"claims_fault": p["claims_fault"] and not changed} for p in per]
                 rule_scope = [p | {"claims_fault": p["claims_fault"] and (not changed or flagged)} for p in per]
-                for name, score, extra in (("GNN", mean(per), {}), ("GNN-s0", per[0], {}),
+                for name, value, extra in (("GNN", mean(per), {}), ("GNN-s0", per[0], {}),
                                            ("GNN+CL", mean(rule), {"change_log_overlap": changed}),
                                            ("GNN+CL+scope", mean(rule_scope), {"change_log_overlap": changed, "scope_flagged": flagged}),
                                            ("SCOPE", {"claims_fault": flagged}, {"n_unexplained": sc["n_unexplained"], "n_active_changes": len(sc["active_changes"])})):
                     if (inc["incident_id"], name) not in done:
-                        write(inc, name, score, extra)
+                        write(inc, name, value, extra)
             for cond in CONDITIONS:
                 if (inc["incident_id"], cond) not in done:
                     futures.append(pool.submit(agent, inc, obs, kg, elements, cond))
@@ -389,6 +389,8 @@ def main():
     elif args.score:
         d = ROOT / args.score
         s = score(d, "test" if d.name == "test" else "val")
+        if d.name != "test":
+            (d / "summary.json").write_text(json.dumps(s, indent=1) + "\n")
         print(json.dumps(s["expectations"], indent=1))
     elif args.split:
         run(args, cfg, acfg)

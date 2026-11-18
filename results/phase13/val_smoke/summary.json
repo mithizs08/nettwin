@@ -1,0 +1,1351 @@
+{
+ "split": "val",
+ "variant": "with_status",
+ "n_incidents": 10,
+ "n_scenarios": 10,
+ "strata": {
+  "change_overlap": 4,
+  "other_fault": 0,
+  "distractor": 6
+ },
+ "change_overlap_caused_by_maintenance": 0,
+ "metrics": {
+  "GNN": {
+   "change_overlap": {
+    "claims_fault": {
+     "value": 0.8333,
+     "ci": [
+      0.5476,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "change_overlap_other_element": {
+    "claims_fault": {
+     "value": 0.8333,
+     "ci": [
+      0.5476,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "all_faults": {
+    "claims_fault": {
+     "value": 0.8333,
+     "ci": [
+      0.5476,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "distractors": {
+    "claims_fault": {
+     "value": 0.7222,
+     "ci": [
+      0.4167,
+      0.9584
+     ],
+     "n": 6
+    }
+   }
+  },
+  "GNN-s0": {
+   "change_overlap": {
+    "claims_fault": {
+     "value": 0.75,
+     "ci": [
+      0.3214,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "change_overlap_other_element": {
+    "claims_fault": {
+     "value": 0.75,
+     "ci": [
+      0.3214,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "all_faults": {
+    "claims_fault": {
+     "value": 0.75,
+     "ci": [
+      0.3214,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "distractors": {
+    "claims_fault": {
+     "value": 0.6667,
+     "ci": [
+      0.25,
+      1.0
+     ],
+     "n": 6
+    }
+   }
+  },
+  "GNN+CL": {
+   "change_overlap": {
+    "claims_fault": {
+     "value": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "change_overlap_other_element": {
+    "claims_fault": {
+     "value": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "all_faults": {
+    "claims_fault": {
+     "value": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "distractors": {
+    "claims_fault": {
+     "value": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "n": 6
+    }
+   }
+  },
+  "GNN+CL+scope": {
+   "change_overlap": {
+    "claims_fault": {
+     "value": 0.5833,
+     "ci": [
+      0.0792,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "change_overlap_other_element": {
+    "claims_fault": {
+     "value": 0.5833,
+     "ci": [
+      0.0792,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "all_faults": {
+    "claims_fault": {
+     "value": 0.5833,
+     "ci": [
+      0.0792,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "distractors": {
+    "claims_fault": {
+     "value": 0.1667,
+     "ci": [
+      0.0,
+      0.5
+     ],
+     "n": 6
+    }
+   }
+  },
+  "SCOPE": {
+   "change_overlap": {
+    "claims_fault": {
+     "value": 0.75,
+     "ci": [
+      0.2375,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "change_overlap_other_element": {
+    "claims_fault": {
+     "value": 0.75,
+     "ci": [
+      0.2375,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "all_faults": {
+    "claims_fault": {
+     "value": 0.75,
+     "ci": [
+      0.2375,
+      1.0
+     ],
+     "n": 4
+    }
+   },
+   "distractors": {
+    "claims_fault": {
+     "value": 0.1667,
+     "ci": [
+      0.0,
+      0.5
+     ],
+     "n": 6
+    }
+   }
+  },
+  "A2": {
+   "change_overlap": {
+    "claims_fault": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.7546,
+     "ci": [
+      0.2516,
+      1.0
+     ],
+     "n": 4
+    },
+    "type_correct": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    }
+   },
+   "change_overlap_other_element": {
+    "claims_fault": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.7546,
+     "ci": [
+      0.2516,
+      1.0
+     ],
+     "n": 4
+    },
+    "type_correct": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    }
+   },
+   "all_faults": {
+    "claims_fault": {
+     "value": 0.5,
+     "ci": [
+      0.0,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.7546,
+     "ci": [
+      0.2516,
+      1.0
+     ],
+     "n": 4
+    },
+    "type_correct": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    }
+   },
+   "distractors": {
+    "claims_fault": {
+     "value": 0.1667,
+     "ci": [
+      0.0,
+      0.5
+     ],
+     "n": 6
+    }
+   }
+  },
+  "A3": {
+   "change_overlap": {
+    "claims_fault": {
+     "value": 0.75,
+     "ci": [
+      0.2375,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5046,
+     "ci": [
+      0.0046,
+      1.0
+     ],
+     "n": 4
+    },
+    "type_correct": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    }
+   },
+   "change_overlap_other_element": {
+    "claims_fault": {
+     "value": 0.75,
+     "ci": [
+      0.2375,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5046,
+     "ci": [
+      0.0046,
+      1.0
+     ],
+     "n": 4
+    },
+    "type_correct": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    }
+   },
+   "all_faults": {
+    "claims_fault": {
+     "value": 0.75,
+     "ci": [
+      0.2375,
+      1.0
+     ],
+     "n": 4
+    },
+    "top1": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    },
+    "top3": {
+     "value": 0.5046,
+     "ci": [
+      0.0046,
+      1.0
+     ],
+     "n": 4
+    },
+    "type_correct": {
+     "value": 0.25,
+     "ci": [
+      0.0,
+      0.6786
+     ],
+     "n": 4
+    }
+   },
+   "distractors": {
+    "claims_fault": {
+     "value": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "n": 6
+    }
+   }
+  }
+ },
+ "comparisons": {
+  "change_overlap|claims_fault|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": 0.25,
+   "ci": [
+    0.0,
+    0.7625
+   ]
+  },
+  "change_overlap|top1|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap|top3|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": -0.25,
+   "ci": [
+    -0.7625,
+    0.0
+   ]
+  },
+  "change_overlap|type_correct|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|claims_fault|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": 0.25,
+   "ci": [
+    0.0,
+    0.7625
+   ]
+  },
+  "change_overlap_other_element|top1|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|top3|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": -0.25,
+   "ci": [
+    -0.7625,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|type_correct|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|claims_fault|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": 0.25,
+   "ci": [
+    0.0,
+    0.7625
+   ]
+  },
+  "all_faults|top1|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|top3|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": -0.25,
+   "ci": [
+    -0.7625,
+    0.0
+   ]
+  },
+  "all_faults|type_correct|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "distractors|claims_fault|A3 vs A2": {
+   "verdict": "inconclusive",
+   "point": 0.1667,
+   "ci": [
+    -0.0,
+    0.5
+   ]
+  },
+  "change_overlap|claims_fault|A3 vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.0833,
+   "ci": [
+    -0.75,
+    0.4444
+   ]
+  },
+  "change_overlap|top1|A3 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap|top3|A3 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0046,
+   "ci": [
+    0.0,
+    0.0141
+   ]
+  },
+  "change_overlap_other_element|claims_fault|A3 vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.0833,
+   "ci": [
+    -0.75,
+    0.4444
+   ]
+  },
+  "change_overlap_other_element|top1|A3 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|top3|A3 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0046,
+   "ci": [
+    0.0,
+    0.0141
+   ]
+  },
+  "all_faults|claims_fault|A3 vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.0833,
+   "ci": [
+    -0.75,
+    0.4444
+   ]
+  },
+  "all_faults|top1|A3 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|top3|A3 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0046,
+   "ci": [
+    0.0,
+    0.0141
+   ]
+  },
+  "distractors|claims_fault|A3 vs GNN": {
+   "verdict": "supported",
+   "point": 0.7222,
+   "ci": [
+    0.4167,
+    0.9584
+   ]
+  },
+  "change_overlap|claims_fault|A3 vs GNN+CL": {
+   "verdict": "supported",
+   "point": 0.75,
+   "ci": [
+    0.2375,
+    1.0
+   ]
+  },
+  "change_overlap|top1|A3 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap|top3|A3 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0046,
+   "ci": [
+    0.0,
+    0.0141
+   ]
+  },
+  "change_overlap_other_element|claims_fault|A3 vs GNN+CL": {
+   "verdict": "supported",
+   "point": 0.75,
+   "ci": [
+    0.2375,
+    1.0
+   ]
+  },
+  "change_overlap_other_element|top1|A3 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|top3|A3 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0046,
+   "ci": [
+    0.0,
+    0.0141
+   ]
+  },
+  "all_faults|claims_fault|A3 vs GNN+CL": {
+   "verdict": "supported",
+   "point": 0.75,
+   "ci": [
+    0.2375,
+    1.0
+   ]
+  },
+  "all_faults|top1|A3 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|top3|A3 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0046,
+   "ci": [
+    0.0,
+    0.0141
+   ]
+  },
+  "distractors|claims_fault|A3 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": -0.0,
+   "ci": [
+    -0.0,
+    0.0
+   ]
+  },
+  "change_overlap|claims_fault|A2 vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.3333,
+   "ci": [
+    -1.0,
+    0.4444
+   ]
+  },
+  "change_overlap|top1|A2 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap|top3|A2 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.2546,
+   "ci": [
+    0.0,
+    0.766
+   ]
+  },
+  "change_overlap_other_element|claims_fault|A2 vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.3333,
+   "ci": [
+    -1.0,
+    0.4444
+   ]
+  },
+  "change_overlap_other_element|top1|A2 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|top3|A2 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.2546,
+   "ci": [
+    0.0,
+    0.766
+   ]
+  },
+  "all_faults|claims_fault|A2 vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.3333,
+   "ci": [
+    -1.0,
+    0.4444
+   ]
+  },
+  "all_faults|top1|A2 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|top3|A2 vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.2546,
+   "ci": [
+    0.0,
+    0.766
+   ]
+  },
+  "distractors|claims_fault|A2 vs GNN": {
+   "verdict": "supported",
+   "point": 0.5556,
+   "ci": [
+    0.0949,
+    0.9525
+   ]
+  },
+  "change_overlap|claims_fault|A2 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.5,
+   "ci": [
+    0.0,
+    1.0
+   ]
+  },
+  "change_overlap|top1|A2 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap|top3|A2 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.2546,
+   "ci": [
+    0.0,
+    0.766
+   ]
+  },
+  "change_overlap_other_element|claims_fault|A2 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.5,
+   "ci": [
+    0.0,
+    1.0
+   ]
+  },
+  "change_overlap_other_element|top1|A2 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|top3|A2 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.2546,
+   "ci": [
+    0.0,
+    0.766
+   ]
+  },
+  "all_faults|claims_fault|A2 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.5,
+   "ci": [
+    0.0,
+    1.0
+   ]
+  },
+  "all_faults|top1|A2 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|top3|A2 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.2546,
+   "ci": [
+    0.0,
+    0.766
+   ]
+  },
+  "distractors|claims_fault|A2 vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": -0.1667,
+   "ci": [
+    -0.5,
+    0.0
+   ]
+  },
+  "change_overlap|claims_fault|GNN+CL+scope vs GNN+CL": {
+   "verdict": "supported",
+   "point": 0.5833,
+   "ci": [
+    0.0792,
+    1.0
+   ]
+  },
+  "change_overlap|top1|GNN+CL+scope vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap|top3|GNN+CL+scope vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|claims_fault|GNN+CL+scope vs GNN+CL": {
+   "verdict": "supported",
+   "point": 0.5833,
+   "ci": [
+    0.0792,
+    1.0
+   ]
+  },
+  "change_overlap_other_element|top1|GNN+CL+scope vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|top3|GNN+CL+scope vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|claims_fault|GNN+CL+scope vs GNN+CL": {
+   "verdict": "supported",
+   "point": 0.5833,
+   "ci": [
+    0.0792,
+    1.0
+   ]
+  },
+  "all_faults|top1|GNN+CL+scope vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|top3|GNN+CL+scope vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "distractors|claims_fault|GNN+CL+scope vs GNN+CL": {
+   "verdict": "inconclusive",
+   "point": -0.1667,
+   "ci": [
+    -0.5,
+    0.0
+   ]
+  },
+  "change_overlap|claims_fault|GNN+CL+scope vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.25,
+   "ci": [
+    -0.7625,
+    0.0
+   ]
+  },
+  "change_overlap|top1|GNN+CL+scope vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap|top3|GNN+CL+scope vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|claims_fault|GNN+CL+scope vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.25,
+   "ci": [
+    -0.7625,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|top1|GNN+CL+scope vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|top3|GNN+CL+scope vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|claims_fault|GNN+CL+scope vs GNN": {
+   "verdict": "inconclusive",
+   "point": -0.25,
+   "ci": [
+    -0.7625,
+    0.0
+   ]
+  },
+  "all_faults|top1|GNN+CL+scope vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|top3|GNN+CL+scope vs GNN": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "distractors|claims_fault|GNN+CL+scope vs GNN": {
+   "verdict": "supported",
+   "point": 0.5556,
+   "ci": [
+    0.2222,
+    0.9048
+   ]
+  },
+  "change_overlap|claims_fault|A3 vs GNN+CL+scope": {
+   "verdict": "inconclusive",
+   "point": 0.1667,
+   "ci": [
+    0.0,
+    0.4524
+   ]
+  },
+  "change_overlap|top1|A3 vs GNN+CL+scope": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap|top3|A3 vs GNN+CL+scope": {
+   "verdict": "inconclusive",
+   "point": 0.0046,
+   "ci": [
+    0.0,
+    0.0141
+   ]
+  },
+  "change_overlap_other_element|claims_fault|A3 vs GNN+CL+scope": {
+   "verdict": "inconclusive",
+   "point": 0.1667,
+   "ci": [
+    0.0,
+    0.4524
+   ]
+  },
+  "change_overlap_other_element|top1|A3 vs GNN+CL+scope": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "change_overlap_other_element|top3|A3 vs GNN+CL+scope": {
+   "verdict": "inconclusive",
+   "point": 0.0046,
+   "ci": [
+    0.0,
+    0.0141
+   ]
+  },
+  "all_faults|claims_fault|A3 vs GNN+CL+scope": {
+   "verdict": "inconclusive",
+   "point": 0.1667,
+   "ci": [
+    0.0,
+    0.4524
+   ]
+  },
+  "all_faults|top1|A3 vs GNN+CL+scope": {
+   "verdict": "inconclusive",
+   "point": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "all_faults|top3|A3 vs GNN+CL+scope": {
+   "verdict": "inconclusive",
+   "point": 0.0046,
+   "ci": [
+    0.0,
+    0.0141
+   ]
+  },
+  "distractors|claims_fault|A3 vs GNN+CL+scope": {
+   "verdict": "inconclusive",
+   "point": 0.1667,
+   "ci": [
+    -0.0,
+    0.5
+   ]
+  }
+ },
+ "agents": {
+  "A2": {
+   "runs": 10,
+   "cost_usd": 0.0272,
+   "mean_cost_usd": 0.00272,
+   "mean_tool_calls": 11.9,
+   "forced_submissions": 3,
+   "refused_calls": 2,
+   "no_submission": 0,
+   "called_change_log_share": 1.0,
+   "called_scope_share_change_windows": 0.0,
+   "ungrounded_item_rate": 0.0299,
+   "ungrounded_item_rate_strict": 0.0746
+  },
+  "A3": {
+   "runs": 10,
+   "cost_usd": 0.0229,
+   "mean_cost_usd": 0.00229,
+   "mean_tool_calls": 10.3,
+   "forced_submissions": 2,
+   "refused_calls": 1,
+   "no_submission": 0,
+   "called_change_log_share": 1.0,
+   "called_scope_share_change_windows": 0.9,
+   "ungrounded_item_rate": 0.0,
+   "ungrounded_item_rate_strict": 0.0781
+  }
+ },
+ "phase13_spend_usd": 0.0501,
+ "project_spend_usd": 52.34,
+ "expectations": {
+  "H1 A3 > A2 on change-overlap fault recall (supported)": false,
+  "H2 A3 vs A2 on distractor fault claims: inconclusive": true,
+  "H3 A3 distractor fault claims at most 0.15": true,
+  "H4 A3 > A2 on change-overlap top-3 (supported)": false,
+  "H5 A3 vs A2 on other-fault recall and top-3: inconclusive": false,
+  "H6 A3 < GNN on change-overlap recall (contradicted)": false,
+  "H7 GNN+CL+scope > GNN+CL on change-overlap recall (supported)": true,
+  "H8 A3 calls check_change_scope in at least 80% of runs on windows with a logged change": true,
+  "H9 Phase 13 spend at most $2": true
+ }
+}
