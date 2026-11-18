@@ -19,7 +19,8 @@ Every result below was pre-registered: metrics and expectations were committed b
 - **The change log cuts both ways:** the agent correctly treats planned maintenance as maintenance, but it flags only 65% of real faults that happen during a logged change, against 95% for the GNN.
 - **Congestion forecasting:** LightGBM predicts which links will pass 80% utilisation within the next hour with F1 0.89, beating simple baselines. Reusing the GNN for this did not beat LightGBM.
 - **Questions about the network graph (Phase 11):** given query tools over the knowledge graph, Claude Haiku 5.5 answers 94% of 252 exact test questions fully right, against 56% when given retrieved graph facts and 2% with no graph.
-- **Cost:** the whole project used $42.50 of API spend.
+- **Without an oracle window (Phase 12):** replaying 210 test scenarios step by step, a Haiku 5.5 triage agent sends 60% fewer operator pages than the raw GNN alarm and catches 64% of faults against the GNN's 72%.
+- **Cost:** the whole project used $52.29 of API spend.
 
 The full write-up, with every caveat and the negative results, is [docs/report.md](docs/report.md).
 
@@ -28,7 +29,7 @@ The full write-up, with every caveat and the negative results, is [docs/report.m
 - **Telemetry is synthetic.** Traffic, alerts, faults and the change log come from our own simulator. Nothing here says how any method would do on a real network.
 - **Topologies are public.** They come from the Internet Topology Zoo [Knight et al. 2011] and SNDlib [Orlowski et al. 2010] through `topohub` [Jurkiewicz 2023]. Training uses generated graphs only. References are in [section 9 of the report](docs/report.md#9-references).
 - **No real operator data.** All telemetry is simulated on public network topologies. No real operator data is used, so results show behaviour in this simulator, not on a production network.
-- **Localisation uses an oracle incident window.** It starts and ends with the true fault, the same for every method. No method had to find the window itself.
+- **Phases 4 to 6 use an oracle incident window.** Their localisation is scored on a window that starts and ends with the true fault, the same for every method, so no method had to find it. Phase 12 removes the window: it replays scenarios step by step and lets the GNN and the agent decide when to page.
 - **AARNet is the dev and demo network.** It was used during development, so its results are reported separately and never pooled with test.
 - **The audits were done by fresh Claude Code sessions, not by humans.** Each phase was audited by a new session (`docs/audit_*.md`), and every finding was fixed and logged by ID in [docs/decision_log.md](docs/decision_log.md). That is not a substitute for human review.
 - **Headline results are pre-registered test results, each scored once** with frozen, hash-checked models and code. Anything else is labelled descriptive.
@@ -70,7 +71,7 @@ Test is seven public networks never used for design decisions (Geant2012, german
 - On the 40 faults that overlap a logged change, A2 recalls fewer than the plain GNN (-0.300 and -0.325, contradicted). The agent too often takes the change as the explanation.
 - 11 of 13 pre-registered expectations held on test.
 - Opus 5.5 A2 vs A0 (pre-registered) is supported in both variants.
-- Total project API spend: $42.50 of a $100 budget.
+- Total project API spend: $52.29 of a $100 budget.
 
 ![Phase 6 test](results/figures/test_agent_phase6.png)
 
@@ -108,6 +109,34 @@ Set F1 on test (95% bootstrap CIs over questions; exact match in the app):
 - Cost per question: Q0 $0.00011, Q1 $0.00063, Q2 $0.0014 with 3.48 tool calls on average. Phase 11 cost $0.84 in all, validation included.
 - 6 of 7 pre-registered expectations held. E4 did not: retrieval was expected to score below 0.4 F1 on what-if, path and time questions, but scored 0.487, 0.707 and 0.552. Retrieved path facts often contain the answer outright.
 - These are template questions on synthetic services and change histories over public topologies. They test whether the model can use the graph, not how it would handle an operator's free-form questions.
+
+## Real-time replay (Phase 12)
+
+Phases 4 to 6 score each method on an oracle window that starts and ends with the true fault. Phase 12 removes it. Each test scenario is replayed step by step from the end of its first day, as an operator would live it:
+
+- The knowledge graph updates only from link and router status events as they arrive, with their polling delays.
+- The frozen GNN scores every step and alarms at its frozen validation threshold. Repeated alarms on the same element merge into one alarm episode.
+- Three policies decide which episodes page an operator. **GNN** pages every episode. **GNN + change-log rule** stays silent while a logged drain or planned outage is active. The **agent** (Claude Haiku 5.5) is woken when an episode opens, sees only data up to that step, and escalates with a root cause, dismisses it as maintenance or noise, or waits and re-checks once 30 minutes later.
+
+Test: all 210 test scenarios, 1,260 scenario-days, 390 observable faults, 3,884 alarm episodes (95% CIs over scenarios):
+
+| metric | GNN | GNN + change-log rule | Haiku 5.5 triage agent |
+|---|---|---|---|
+| pages per scenario-day | 3.08 [2.74, 3.43] | 2.63 [2.29, 2.97] | 1.24 [1.06, 1.44] |
+| false pages per scenario-day | 2.31 [2.00, 2.62] | 1.91 [1.61, 2.23] | 0.66 [0.55, 0.78] |
+| fault detection rate | 0.718 [0.68, 0.76] | 0.644 [0.60, 0.69] | 0.638 [0.59, 0.68] |
+| time to detect (minutes) | 65.5 [47.8, 85.2] | 62.9 [45.0, 84.1] | 70.2 [48.1, 95.8] |
+| root cause top-1 at escalation | 0.582 [0.53, 0.64] | 0.590 [0.53, 0.65] | 0.582 [0.52, 0.64] |
+| root cause top-3 at escalation | 0.739 [0.68, 0.79] | 0.745 [0.69, 0.80] | 0.832 [0.78, 0.88] |
+| missed faults during maintenance (56) | 0.143 [0.06, 0.24] | 0.518 [0.39, 0.64] | 0.375 [0.25, 0.50] |
+
+- The agent sends 60% fewer pages than the raw GNN (-1.839 [-2.090, -1.592] per day) and catches fewer faults (-0.080 [-0.108, -0.051]). Against the change-log rule it detects about as many faults (-0.005 [-0.036, 0.028]) with about a third of the false pages.
+- When it escalates, its top-3 root cause is better than the GNN's ranking (+0.092 [0.046, 0.146]); top-1 is level.
+- It still misses more faults during maintenance than the raw GNN, though fewer than the change-log rule.
+- Time to detect is about an hour for every policy, with wide CIs; the agent is not clearly slower.
+- The raw GNN pages 3.08 times per scenario-day on test, against 1.39 on validation: its frozen threshold does not transfer across networks.
+- 6 of 8 pre-registered expectations held. P5 (agent clearly later) and P6 (top-3 inconclusive) did not.
+- Cost: the agent made 5,427 decisions for $0.0072 per scenario-day. The test run cost $9.12. Two changes were made to the plan, both logged: test grew from 70 to 210 scenarios before it started, and the spend guard was raised from $8.00 to $10.50 partway through, without changing anything else, after the agent waited more often than on validation.
 
 ## Setup and reproduction
 

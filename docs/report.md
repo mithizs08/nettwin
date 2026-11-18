@@ -9,7 +9,7 @@ Every number here comes from a committed results file. `scripts/check_numbers.py
 - **Synthetic telemetry.** Traffic, utilisation, latency, loss, alerts, the change log and every fault come from our own simulator (`src/nettwin/simulator.py`, `faults.py`). Real networks have messier telemetry, correlated failures and incomplete inventories. No result here says how any method would do on a real network.
 - **Public topologies.** The networks are public research and education or ISP backbones from the Internet Topology Zoo [Knight et al. 2011] and SNDlib [Orlowski et al. 2010], loaded through the `topohub` package [Jurkiewicz 2023], whose Gabriel graph generator also makes the training graphs. Training uses generated graphs only.
 - **No real operator data.** All telemetry is simulated on public network topologies. No real operator data is used, so results show behaviour in this simulator, not on a production network.
-- **The oracle incident window.** Localisation (Phases 4 to 6) is scored on a window that starts and ends with the true fault (or the logged change, for distractors). Every method gets the same window, but no method had to find it. Detection without that window is measured separately (link-level PR-AUC), and it is much harder.
+- **The oracle incident window (Phases 4 to 6 only).** Localisation in Phases 4 to 6 is scored on a window that starts and ends with the true fault (or the logged change, for distractors). Every method gets the same window, but no method had to find it. Detection without that window is measured separately (link-level PR-AUC), and it is much harder. Phase 12 (section 4, real-time replay) removes the window by replaying scenarios step by step.
 - **AARNet is dev, not held-out.** AARNet (19 PoPs, 24 links) is the demo network. It was used to build and debug the simulator, so its results are reported separately and never pooled with test.
 - **The audits were done by fresh Claude Code sessions, not by humans.** Each phase was audited by a new session with no access to the building session's context (`docs/audit_*.md`). Those audits found real problems (leakage in Phase 3, scoring asymmetries in Phase 6, overstated wording at the end), and every finding is logged and fixed by ID in `docs/decision_log.md`. They are not a substitute for human review.
 - **Pre-registered or descriptive.** Each phase's expectations, metrics and test plan were committed before any validation or test run. Section 4 reports only pre-registered test results. Section 5 holds results that were not pre-registered, and each is labelled descriptive.
@@ -124,7 +124,7 @@ This checks that cited elements and numbers exist. It does not check that the ex
 **Cost.**
 - Haiku A2 cost $0.0025 to $0.0028 per incident; Opus A2 cost $0.072 to $0.078.
 - The Haiku test run cost $1.96 and the Opus test run $32.68.
-- Total project API spend was $42.50 of a $100 budget.
+- Total project API spend was $52.29 of a $100 budget.
 
 **Pre-registered expectations on test** (Haiku 5.5, G1 to G13): 11 of 13 held.
 - G1 (A1 beats A0 on hard top-1) held only status-blind.
@@ -164,6 +164,22 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
 - **Expectations:** 6 of 7 held. E4 did not (see section 6).
 - **Scope.** Template questions over synthetic services and change histories. They show that the agent's KG tools give exact answers a text retrieval cannot; they do not measure free-form operator questions.
 
+### 4.7 Real-time replay without an oracle window (Phase 12, 210 test scenarios)
+
+- **Question.** The localisation results above give every method the true incident window. What happens when nothing is given? Pre-registered on 2026-11-18 before any API call (decision log).
+- **Replay.** Each scenario is replayed from step 288. The live KG changes only when status events arrive (with polling lag). The frozen GNN (GAT-h32 seed 0) scores each step causally and alarms at its frozen validation threshold. Alarms are attributed to the GNN's top-1 root element, and repeats on that element within an hour merge into one episode.
+- **Policies.** GNN pages every episode; GNN+CL stays silent while a logged drain or planned outage is active or ended within the hour; the Haiku 5.5 agent is woken at each episode, sees data up to that step only (the Phase 6 tools through `alerts_at`, plus the live KG), and escalates, dismisses or waits once for 30 minutes.
+- **Results** (210 scenarios, 1,260 scenario-days, 390 faults; GNN, GNN+CL, Agent):
+  - Pages per scenario-day: 3.08 [2.74, 3.43], 2.63 [2.29, 2.97], 1.24 [1.06, 1.44]. False pages: 2.31 [2.00, 2.62], 1.91 [1.61, 2.23], 0.66 [0.55, 0.78].
+  - Detection rate: 0.718 [0.676, 0.761], 0.644 [0.596, 0.689], 0.638 [0.592, 0.683].
+  - Agent minus GNN: pages -1.839 [-2.090, -1.592], detection -0.080 [-0.108, -0.051], top-3 at escalation +0.092 [0.046, 0.146]. Agent minus GNN+CL: detection -0.005 [-0.036, 0.028], false pages -1.253 [-1.490, -1.020].
+  - Time to detect: 65.5 [47.8, 85.2], 62.9 [45.0, 84.1] and 70.2 [48.1, 95.8] minutes.
+  - Missed faults during maintenance (56 faults): 0.143 [0.061, 0.244], 0.518 [0.393, 0.644], 0.375 [0.255, 0.500].
+- **Cost.** 5,427 agent decisions, $0.0072 per scenario-day. Test $9.12; Phase 12 $9.79.
+- **Expectations:** 6 of 8 held (P5 and P6 did not; section 6).
+- **Changes, both logged before they could affect a result.** Test grew from 70 to 210 scenarios before it started. The spend guard was raised from $8.00 to $10.50 mid-run, budget only, after the agent waited on 40% of first wakes (25% on validation) and the run stopped with most re-checks left.
+- **Reading.** Most of the agent's value here is triage: it removes about 71% of the GNN's false pages while keeping the change-log rule's detection. It does not detect faults the GNN never alarms on, and it still misses more faults during maintenance than the raw GNN.
+
 ## 5. Descriptive results (not pre-registered)
 
 - **Opus A2 against the GNN.**
@@ -193,13 +209,16 @@ Will a link's observed utilisation exceed 80% within the next 60 minutes? Predic
 - **Synthetic-to-real transfer:** not established (X5 inconclusive).
 - **Forecasting:** the frozen GNN encoder with a head lost to LightGBM. Two other forecasting expectations were not met (F5, F6).
 - **KG question answering (E4):** BM25 retrieval was expected to score below 0.4 F1 on what-if, path and time questions. It scored 0.487, 0.707 and 0.552: retrieved path facts often contain the answer. Q2 still beats it on each of these types.
+- **Replay time to detect (P5):** the agent was expected to page clearly later than the raw GNN. The difference, +4.6 minutes [-10.3, 21.6], is inconclusive.
+- **Replay root cause at escalation (P6):** expected level with the GNN; the agent's top-3 was better instead (+0.092 [0.046, 0.146]). Top-1 was level.
+- **Replay detection:** the agent catches fewer faults than the raw GNN (-0.080) and misses more faults that coincide with logged changes (+0.232 [0.129, 0.352]).
 - **Phase 11 runner bug before test:** the runner's question check first regenerated the test networks with the wrong seeds and refused the run. It was fixed and re-frozen before any test question was asked (decision log).
 
 ## 7. How the work was kept honest
 
 - **Splits.** Data was split by topology first. No test topology appears in training in any form. Generated training graphs were augmented only from a reference pool that excludes test and dev networks.
 - **Pre-registration.** Expectations, metrics, tuning budgets and test plans were committed before the runs they describe. Every change has a dated entry and reason in `docs/decision_log.md`.
-- **Test once.** Models, thresholds, calibration and agent code were frozen and hash-checked before each test run (`results/phase5_frozen.json`, `results/phase6_frozen.json`, `results/phase8_frozen.json`, `results/phase11_frozen.json`). The test scripts refuse a second run.
+- **Test once.** Models, thresholds, calibration and agent code were frozen and hash-checked before each test run (`results/phase5_frozen.json`, `results/phase6_frozen.json`, `results/phase8_frozen.json`, `results/phase11_frozen.json`, `results/phase12_frozen.json`). The test scripts refuse a second run.
 - **Banned inputs.** No method sees a clock, the time since the scenario start, or file metadata. All features are causal.
 - **Disclosed weaknesses.**
   - The runbooks were written by us with knowledge of the simulator's fault types, which favours the agent.

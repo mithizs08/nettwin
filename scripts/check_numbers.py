@@ -44,6 +44,9 @@ ALLOW = {
     "0.10": "X5 transfer threshold, pre-registered (Phase 5)",
     "0.4": "E4 retrieval threshold, pre-registered (Phase 11)",
     "50": "BM25 top-k of Q1, pre-registered (Phase 11)",
+    "$8.00": "Phase 12 spend guard before the mid-test change (decision log)",
+    "$10.50": "Phase 12 spend guard after the mid-test change (decision log)",
+    "70": "Phase 12 test sample before the pre-test design change (decision log)",
 }
 # Sources: (files, regex on the dotted JSON path). Only these paths can be named for a section's numbers.
 SOURCES = {
@@ -52,19 +55,20 @@ SOURCES = {
     "p7": ["phase7/aarnet_dev_summary.json"],
     "p8": ["phase8_test.json"],
     "p11": ["phase11/test/summary.json"],
+    "p12": ["phase12/test/summary.json", "phase12/val_dev/summary.json"],
     "data": ["phase1_kg_summary.json", "phase3_dataset_summary.json"],
 }
 # Each doc heading (prefix match on its text) names the sources its numbers come from. An unmapped heading is an error.
 SCOPES = {
     "NetTwin": ["data"], "Read this first": ["data"], "Run the demo": [], "Setup and reproduction": [],
-    "Reproducing the datasets": [], "Where things are": [], "License": [], "Headline results": ["p5", "p6", "p8", "p11"], "KG question answering": ["p11"],
+    "Reproducing the datasets": [], "Where things are": [], "License": [], "Headline results": ["p5", "p6", "p8", "p11", "p12"], "KG question answering": ["p11"], "Real-time replay": ["p12"],
     "Results in detail": ["p5", "p6", "p8"],
     "Descriptive, not pre-registered": ["p6", "p7"], "Why measure": [], "What was built": ["data"], "RQ1 and RQ2": ["p5"],
     "RQ3": ["p5"], "RQ1 ablation": ["p5"], "RQ4": ["p6"], "RQ5": ["p8"], "Descriptive results": ["p6", "p7", "p8"],
-    "Negative results": ["p5", "p6", "p8", "p11"], "How the work was kept honest": [], "Reproduce and run": [], "References": [],
+    "Negative results": ["p5", "p6", "p8", "p11", "p12"], "How the work was kept honest": [], "Reproduce and run": [], "References": [],
 }
 # An allowed constant that is also a plausible result counts as the constant only in this context.
-ALLOW_CONTEXT = {"95%": r"\s+(CIs?\b|bootstrap|scenario|confidence)", "0.4": r"\s+F1", "50": r"\s+best BM25"}
+ALLOW_CONTEXT = {"95%": r"\s+(CIs?\b|bootstrap|scenario|confidence)", "0.4": r"\s+F1", "50": r"\s+best BM25", "70": r"\s+to 210 scenarios", "60": r"(\s|-)min", "30": r"(\s|-)min"}
 TOKEN = re.compile(r"(?<![\w.\-/:#])([-+−]?\$?)(\d+(?:,\d{3})*(?:\.\d+)?)(%?)(?![\w/:]|\.\d|-\w)")
 TRIPLE = re.compile(r"([-+−]?\d+\.\d+)\s*\[([-+−]?\d+\.\d+),\s*([-+−]?\d+\.\d+)\]")
 
@@ -107,7 +111,16 @@ def derived():
         out[f"phase11 {split} questions"] = len((RES / "phase11" / f"questions_{split}.jsonl").read_text().splitlines())
     out["phase11 questions"] = out["phase11 val questions"] + out["phase11 test questions"]
     out["phase11 test cost"] = p11[RES / "phase11" / "test" / "log.jsonl"]
-    out["project API spend"] = sum(costs.values()) + 0.30 + out["phase11 spend"]   # agent logs + $0.30 unlogged + Phase 11
+    p12 = {p: sum(json.loads(l)["cost_usd"] for l in p.read_text().splitlines()) for p in sorted(RES.glob("phase12/*/agent_log.jsonl"))}
+    out["phase12 spend"] = sum(p12.values())                        # every Phase 12 agent log: smoke, validation and test
+    s12 = {k: json.loads((RES / "phase12" / k / "summary.json").read_text()) for k in ("test", "val_dev")}
+    m12 = s12["test"]["metrics"]
+    out["phase12 agent page cut vs GNN"] = 1 - m12["Agent"]["pages_per_day"]["value"] / m12["GNN"]["pages_per_day"]["value"]
+    out["phase12 agent false page cut vs GNN"] = 1 - m12["Agent"]["false_pages_per_day"]["value"] / m12["GNN"]["false_pages_per_day"]["value"]
+    for k in ("test", "val_dev"):                                   # share of first wakes that chose to wait
+        out[f"phase12 wait share {k}"] = s12[k]["agent"]["first_decisions"]["wait"] / s12[k]["agent"]["episodes"]
+    out["phase12 test cost"] = p12[RES / "phase12" / "test" / "agent_log.jsonl"]
+    out["project API spend"] = sum(costs.values()) + 0.30 + out["phase11 spend"] + out["phase12 spend"]   # + $0.30 unlogged
     t = json.loads((RES / "phase8_test.json").read_text())["splits"]["test"]["metrics"]["persistence"]
     out["phase8 fault-free share of breaches"] = t["fault_free"]["n_breaches"] / t["all"]["n_breaches"]
     hv = json.loads((RES / "phase6" / "test_haiku_vs_opus.json").read_text())["variants"]
@@ -196,8 +209,10 @@ def doc_numbers():
                 if any(a <= m.start(2) < b for a, b in spans):
                     continue
                 tok = f"{sign.lstrip('+-−')}{num}{pct}"
-                if (tok in ALLOW or num in ALLOW) and re.match(ALLOW_CONTEXT.get(tok, ""), line[m.end():]):
-                    continue
+                rest = line[m.end():]
+                if (tok in ALLOW and re.match(ALLOW_CONTEXT.get(tok, ""), rest)) or \
+                        (num in ALLOW and not pct and re.match(ALLOW_CONTEXT.get(num, ""), rest)):
+                    continue                                   # a percentage is allowed only if listed with its % sign
                 if "." not in num and not pct and int(num.replace(",", "")) <= 20:
                     continue
                 if heading.startswith("References") or (re.fullmatch(r"(19|20)\d\d", num) and line[m.end():].startswith("]")):

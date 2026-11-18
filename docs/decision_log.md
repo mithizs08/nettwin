@@ -1637,3 +1637,32 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
 - **Change, decided by the user after seeing only these counts and costs (no metric was computed):** the Phase 12 guard is raised from $8.00 to $10.50. Finishing the 1,342 missing re-checks should cost about $2.31, so Phase 12 about $10.00.
 - **Only the budget changed.** In `scripts/phase12_replay.py`, `PHASE_BUDGET_USD` is 10.50, and `--freeze` now refuses only once test has been scored (`summary.json` exists) instead of once the test folder exists, so the script could be re-frozen. Prompts, tools, the replay, the policies, the scoring and every decision already made are unchanged. The script was re-frozen and the run resumed with `--split test --resume`, which runs only the unfinished re-checks.
 - Not chosen: scoring with the missing re-checks counted as "no page", which would have biased detection and time to detect against the agent.
+
+### 2026-11-18: Phase 12 test results (210 scenarios, run once; resumed once after the budget change)
+
+- **Run.** 210 test scenarios (all of them), 1,260 scenario-days, 390 observable faults, 3,884 alarm episodes. Agent: 5,427 wakes (3,884 first decisions and 1,543 re-checks after a wait), 5,422 submitted and 5 re-checks that would fall after the scenario end (counted as no page). 240 wakes were recovered from the agent log on the resume rather than paid twice. Mean 7.81 tool calls per wake. Test cost $9.12; Phase 12 $9.79 in all; project $52.29 of $100.
+- **First decisions:** escalate 1,222, dismiss_maintenance 548, dismiss_noise 571, wait 1,543. Re-checks: escalate 345, dismiss_noise 1,137, dismiss_maintenance 56.
+- **Results** (95% CIs over scenarios; GNN, GNN+CL, Agent):
+  - Pages per scenario-day: 3.08 [2.74, 3.43], 2.63 [2.29, 2.97], 1.24 [1.06, 1.44].
+  - False pages per scenario-day: 2.31 [2.00, 2.62], 1.91 [1.61, 2.23], 0.66 [0.55, 0.78].
+  - Detection rate: 0.718 [0.676, 0.761], 0.644 [0.596, 0.689], 0.638 [0.592, 0.683].
+  - Time to detect (minutes): 65.5, 62.9, 70.2, all CIs wide and overlapping.
+  - Top-1 at escalation: 0.582, 0.590, 0.582. Top-3 at escalation: 0.739, 0.745, 0.832.
+  - Missed faults during maintenance (56 faults): 0.143, 0.518, 0.375.
+  - Agent cost: $0.0072 per scenario-day.
+- **Expectations: 6 of 8 held.**
+  - P1 met: Agent minus GNN pages per day -1.839 [-2.090, -1.592].
+  - P2 met: Agent minus GNN+CL false pages per day -1.253 [-1.490, -1.020].
+  - P3 met: Agent minus GNN detection -0.080 [-0.108, -0.051].
+  - P4 met: Agent minus GNN+CL detection -0.005 [-0.036, 0.028], inconclusive.
+  - P5 not met: Agent minus GNN time to detect +4.6 minutes [-10.3, 21.6], inconclusive (the agent is not clearly later).
+  - P6 not met, in the agent's favour: Agent minus GNN top-3 at escalation +0.092 [0.046, 0.146], supported, not inconclusive. Top-1 is level (+0.000 [-0.065, 0.066]) and top-3 over all faults is level, because the agent escalates fewer faults.
+  - P7 met: Agent minus GNN+CL missed faults during maintenance -0.143 [-0.268, -0.018]. The agent still misses more of these than the raw GNN (+0.232 [0.129, 0.352]).
+  - P8 met: $0.0072 per scenario-day.
+- **Reading.** The agent cuts pages by 60% against the raw GNN and false pages by 71%, at the cost of 8 points of detection, about the same detection as the change-log rule with a third of its false pages. The raw GNN pages far more on test (3.08 per day) than on validation (1.39): the frozen threshold does not transfer, as Phase 5 found.
+- **Validation and test differ in one way that mattered for cost:** the agent waited on 40% of first wakes on test against 25% on validation.
+
+### 2026-11-18: Phase 12 write-up, and a number checker fix
+
+- README and report: a Phase 12 section each, the headline bullet, the total spend ($52.29), and the limitation now says the oracle window applies to Phases 4 to 6 only (also on the app's Limitations page). The app has a "Real-time replay (Phase 12)" page with the test table, comparisons, expectations and a per-scenario timeline of alarms, agent decisions, pages and true faults.
+- **Checker bug found while adding Phase 12.** A percentage was skipped when its bare number was an allowed constant: "60%" passed because "60" (the breach horizon in minutes) is allowed, and the context rule was looked up under the wrong key. Now a percentage is skipped only if it is listed with its % sign, and the allowances for 60 and 30 apply only before "min". Three counts that the old rule skipped ("30" dev scenarios and maintenance distractors in the report) now have reviewed sources. All 372 numbers trace to a results file.

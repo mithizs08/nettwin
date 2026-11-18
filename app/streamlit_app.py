@@ -376,6 +376,91 @@ def kgqa():
                     st.code(f"{k['tool']}({json.dumps(k['input'])})" + ("  -> error" if k["error"] else ""), language=None)
 
 
+REPLAY_NAMES = {"GNN": "GNN (every alarm episode pages)", "GNN+CL": "GNN + change-log rule", "Agent": "Haiku 5.5 triage agent"}
+REPLAY_METRICS = [("pages_per_day", "pages per scenario-day", 2), ("false_pages_per_day", "false pages per scenario-day", 2),
+                  ("detection_rate", "fault detection rate", 3), ("time_to_detect_min", "time to detect (min)", 1),
+                  ("top1_at_escalation", "top-1 at escalation", 3), ("top3_at_escalation", "top-3 at escalation", 3),
+                  ("top3_all_faults", "top-3 over all faults", 3), ("missed_during_maintenance", "missed faults during maintenance", 3),
+                  ("cost_per_day_usd", "cost per scenario-day (USD)", 4)]
+
+
+def replay_timeline(sc):
+    """One scenario: true faults and logged changes as bands, GNN alarm steps, episodes, agent decisions and pages."""
+    fig = go.Figure()
+    lanes = ["true faults", "logged changes", "GNN alarms", "agent decisions", "pages: Agent", "pages: GNN+CL", "pages: GNN"]
+    for f in sc["faults"]:
+        fig.add_trace(go.Bar(base=[hours(f["t_start"])], x=[max(hours(f["t_end"] - f["t_start"]), 0.1)], y=["true faults"], orientation="h",
+                             marker_color=COL["truth"], showlegend=False, hoverinfo="text",
+                             hovertext=f"{f['id']} {f['type']} on {f['root_cause']}, hours {hours(f['t_start']):.1f} to {hours(f['t_end']):.1f}"))
+    for c in sc["changes"]:
+        fig.add_trace(go.Bar(base=[hours(c["t_start"])], x=[max(hours(c["t_end"] - c["t_start"]), 0.1)], y=["logged changes"], orientation="h",
+                             marker_color=COL["change"], showlegend=False, hoverinfo="text",
+                             hovertext=f"{c['id']} {c['action']} on {c['target']}"))
+    fig.add_trace(go.Scatter(x=[hours(t) for t in sc["alarm_steps"]], y=["GNN alarms"] * len(sc["alarm_steps"]), mode="markers",
+                             marker=dict(color=COL["gnn"], size=5, symbol="line-ns-open"), showlegend=False, hoverinfo="x"))
+    sym = {"escalate": ("triangle-up", COL["truth"]), "dismiss_maintenance": ("square", COL["change"]),
+           "dismiss_noise": ("x", "#555555"), "wait": ("circle-open", COL["haiku"])}
+    for d, (symbol, color) in sym.items():
+        rows = [r for r in sc["decisions"] if r["decision"] == d]
+        if rows:
+            fig.add_trace(go.Scatter(x=[hours(r["t"]) for r in rows], y=["agent decisions"] * len(rows), mode="markers", name=d,
+                                     marker=dict(symbol=symbol, size=10, color=color), hoverinfo="text",
+                                     hovertext=[f"{r['episode_id']} round {r['round']}: {d} ({r['root_cause']}). {r['reason']}" for r in rows]))
+    for m in ("GNN", "GNN+CL", "Agent"):
+        ps = sc["pages"][m]
+        fig.add_trace(go.Scatter(x=[hours(p["t"]) for p in ps], y=[f"pages: {m}"] * len(ps), mode="markers", showlegend=False,
+                                 marker=dict(symbol="diamond", size=9, color={"GNN": COL["gnn"], "GNN+CL": "#8c564b", "Agent": COL["haiku"]}[m]),
+                                 hoverinfo="text", hovertext=[f"{m} page, episode {p['episode_id']}" for p in ps]))
+    fig.update_layout(height=360, barmode="overlay", margin=dict(l=0, r=0, t=10, b=0), legend=dict(orientation="h", y=-0.25),
+                      xaxis_title="hours since the scenario start (replay starts at hour 24)",
+                      yaxis=dict(categoryorder="array", categoryarray=lanes[::-1]))
+    return fig
+
+
+def replay():
+    st.subheader("Real-time replay (Phase 12): alarms, triage and pages without an oracle incident window")
+    st.caption(HONESTY + " Each test scenario is replayed step by step from hour 24. The frozen GNN raises alarms, repeated "
+               "alarms on one element merge into an episode, and a policy decides which episodes page an operator. The "
+               "agent sees only data up to the step it is woken. Test scored once, as pre-registered. 95% CIs from 1000 "
+               "scenario bootstrap resamples.")
+    path = RES / "phase12" / "test" / "summary.json"
+    if not path.exists():
+        st.info("results/phase12/test/summary.json is not there yet: the test set has not been scored.")
+        return
+    s = load_json("phase12/test/summary.json")
+    st.markdown(f"**{s['n_scenarios']} test scenarios, {s['scenario_days']:.0f} scenario-days, {s['n_faults']} observable faults, "
+                f"{s['n_episodes']} GNN alarm episodes**")
+    rows = []
+    for key, label, nd in REPLAY_METRICS:
+        row = {"metric": label}
+        for m, name in REPLAY_NAMES.items():
+            x = s["metrics"][m][key]
+            row[name] = "n/a" if x["value"] is None else f"{x['value']:.{nd}f} [{x['ci'][0]:.{nd}f}, {x['ci'][1]:.{nd}f}]"
+        rows.append(row)
+    st.dataframe(pd.DataFrame(rows).set_index("metric"), width="stretch")
+    st.markdown("**Paired comparisons** (A minus B, 95% CI; supported means the CI is above 0)")
+    st.dataframe(pd.DataFrame([{"comparison": k.replace("|", ": "), "difference": c["point"],
+                                "95% CI": f"[{c['ci'][0]:+.3f}, {c['ci'][1]:+.3f}]" if c["ci"][0] is not None else "n/a",
+                                "verdict": c["verdict"]} for k, c in s["comparisons"].items()]), width="stretch", hide_index=True)
+    st.markdown("**Pre-registered expectations**")
+    st.dataframe(pd.DataFrame([{"id": k, "expectation": e["expectation"], "met on test": "yes" if e["met"] else "no"}
+                               for k, e in s["expectations"].items()]), width="stretch", hide_index=True)
+    a = s["agent"]
+    st.caption(f"Agent: {a['wakes']} wakes ({a['rechecks']} re-checks after a wait), first decisions {a['first_decisions']}, "
+               f"{a['mean_tool_calls']} tool calls per wake on average, ${a['cost_usd']:.2f} in all.")
+
+    st.markdown("**Scenario timeline**")
+    tl = load_json("phase12/test/timeline.json")
+    topo = st.selectbox("Network", sorted({x["topology"] for x in tl}), key="rp_topo")
+    pick = [x for x in tl if x["topology"] == topo]
+    sid = st.selectbox("Scenario", [x["scenario_id"] for x in pick], key="rp_scen",
+                       format_func=lambda i: f"{i} ({len(next(x for x in pick if x['scenario_id'] == i)['faults'])} faults)")
+    sc = next(x for x in pick if x["scenario_id"] == sid)
+    st.plotly_chart(replay_timeline(sc), width="stretch")
+    st.caption("Red bands are true faults (ground truth, shown only for scoring); grey bands are logged changes. Hover a "
+               "marker for the agent's reason or a page's episode.")
+
+
 def limitations():
     st.subheader("What this is, and what it is not")
     st.markdown(f"""
@@ -395,6 +480,9 @@ def limitations():
   The Haiku against Opus file makes 68 comparisons with no multiple-comparison correction.
 - **Expectations that failed on test.** A1 beating A0 on hard faults held only without status events, and A2
   beating A1 on hard faults did not hold in either variant, although both held on validation.
+- **Oracle incident window (Phases 4 to 6 only).** Their localisation is scored on a window that starts and ends with
+  the true fault, so no method had to find it. The real-time replay page (Phase 12) removes it: the GNN alarms step by
+  step and the agent decides which alarms page an operator.
 - **Groundedness is a narrow check.** It confirms cited ids and numbers exist in the tool outputs, not that the
   explanation is right.
 - **Runbooks favour the agent.** We wrote them ourselves, with knowledge of the simulator's fault types.
@@ -406,6 +494,6 @@ st.set_page_config(page_title="NetTwin demo", layout="wide")
 st.title("NetTwin")
 st.caption("A knowledge-graph digital twin of a public backbone, with GNN localisation and an LLM root-cause agent. "
            "Offline demo from saved results.")
-page = st.sidebar.radio("Page", ["Incident explorer", "Test results", "Capacity forecasting", "KG question answering (Phase 11)", "Limitations"], key="page")
+page = st.sidebar.radio("Page", ["Incident explorer", "Test results", "Capacity forecasting", "KG question answering (Phase 11)", "Real-time replay (Phase 12)", "Limitations"], key="page")
 st.sidebar.warning(HONESTY)
-{"Incident explorer": explorer, "Test results": results, "Capacity forecasting": forecasting, "KG question answering (Phase 11)": kgqa, "Limitations": limitations}[page]()
+{"Incident explorer": explorer, "Test results": results, "Capacity forecasting": forecasting, "KG question answering (Phase 11)": kgqa, "Real-time replay (Phase 12)": replay, "Limitations": limitations}[page]()
