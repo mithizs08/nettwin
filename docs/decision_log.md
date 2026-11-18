@@ -1520,3 +1520,30 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
 - **README.** The first screen now says what the project is, gives the pre-registered headline results in plain language, and states the main limitation. The detailed results follow below.
 - **Number checker.** "95%" was allow-listed as the CI level. That would have skipped the GNN's 95% change-overlap recall in the new README, so the allowance now applies only when CI or bootstrap follows. Citation years are skipped by pattern instead of by the [VERIFY] tag.
 - **Hygiene.** No API keys, dataset key or `.env` values appear anywhere in the git history. `.env`, `.nettwin_dataset_key`, `data/` and `.claude/` have never been tracked, and `.claude/` is now gitignored.
+
+### 2026-11-18: Phase 11 pre-registration (LLM question answering over the knowledge graph; written before any API call)
+
+- **Question.** Can a small model answer exact questions about a network's inventory graph, and how much do retrieval and tool use add over no graph at all?
+- **Questions.** `scripts/phase11_kgqa.py --build-questions` writes 429 template questions with exact answers from the existing KG code (`src/nettwin/kgqa.py`): 177 on the 5 validation topologies, 252 on the 7 test topologies. Twelve templates in six types, 3 questions per template per network (fewer where a template has too few valid cases):
+  - one-hop: a link's routing metric; the links attached to a PoP;
+  - multi-hop: the services whose routing paths traverse a link; the links on a service's paths;
+  - what-if: if a PoP fails, which services lose every path; if a link fails, which services are rerouted but keep a path;
+  - path: the lowest-cost path between two PoPs (single best path only); the second-lowest-cost loop-free path (strict cost gaps only);
+  - count: gold-SLA services through a PoP; routing paths on a link;
+  - time: links that changed between two steps; services whose paths changed between two steps. Each network gets a seeded change history (two link outages and one tripled metric, all restored).
+- **Neutral ids.** PoPs are relabelled P01, P02 and so on by a seeded permutation, and graph names become val-1 to val-5 and test-1 to test-7, so no answer can come from knowing the real topology.
+- **Conditions,** all on `claude-haiku-5-5`, effort medium, at most 4,000 output tokens per turn, answer through a `submit_answer` tool:
+  - Q0: closed book, the question only.
+  - Q1: the question plus the 50 best BM25 matches from a one-fact-per-line text version of the whole graph (whole element ids are kept as tokens).
+  - Q2: tools over the existing KG query API (list, element info, paths through, services on, paths between, service paths, neighbours, changes between, what-if down), at most 20 tool calls and 150,000 tokens per question.
+- **Scoring.** Exact match and set F1 per question. Paths: exact if the PoP sequence matches in either direction; F1 over the path's links. Numbers: both are 1 only if equal. Reported overall, by type, by template and by graph size (small up to 20 PoPs, medium 21 to 35, large 36 or more), with 1,000 bootstrap resamples (seed 42) over questions, paired across conditions. A difference is supported when its 95% CI excludes 0. Cost per question and tool calls per question are reported for each condition.
+- **Expectations,** checked on test only (`expectations()` in the script computes each one):
+  - E1: Q2 beats Q1 on overall F1 (supported).
+  - E2: Q1 beats Q0 on overall F1 (supported).
+  - E3: Q0 overall F1 is below 0.15.
+  - E4: Q1 F1 is at least 0.7 on one-hop questions and below 0.4 on what-if, path and time questions.
+  - E5: Q2 F1 is at least 0.8 on one-hop, multi-hop and count questions.
+  - E6: Q2 beats Q1 on F1 in every graph-size group (supported in each).
+  - E7: Q2 mean cost is below $0.01 per question.
+- **Test plan.** Prompts, tools and the runner may change only on validation. Then `--freeze` hashes `src/nettwin/kgqa.py`, the script and both question files into `results/phase11_frozen.json`. `--split test` refuses unless this entry is in the log, every hash matches, `results/phase11/test` does not exist, and all three conditions run on every test question. Test is run once and scored once; any failure is reported, not rerun.
+- **Spend guard.** The script sums every Phase 11 log and reserves $0.03 per question in flight. It stops before a question that could take Phase 11 past $3.00, or the project past $1 under its $100 budget. Expected total: about $2 for validation and test together.
