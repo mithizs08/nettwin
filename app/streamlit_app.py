@@ -4,8 +4,8 @@
 
 Incident explorer: AARNet (dev split, seen during development) incidents with the alert timeline, the change log, the
 GNN's top-ranked elements and the saved tool traces of Haiku 5.5 A2 and Opus 5.5 A2 next to the ground truth.
-Test results: the Phase 6 test table from `results/phase6/`. Telemetry is synthetic, topologies are public, and none of
-this is Telstra's network.
+Test results: the Phase 6 test table from `results/phase6/`. All telemetry is simulated on public network topologies;
+no real operator data is used.
 """
 import json
 from pathlib import Path
@@ -17,8 +17,8 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "results"
 STEP_MIN = 5
-HONESTY = ("Telemetry is synthetic (from the NetTwin simulator). Topologies are public (Internet Topology Zoo, SNDlib). "
-           "None of this is Telstra's network or Telstra data.")
+HONESTY = ("All telemetry is simulated (by the NetTwin simulator) on public network topologies (Internet Topology Zoo, "
+           "SNDlib). No real operator data is used, so results show behaviour in this simulator, not on a production network.")
 COL = {"truth": "#d62728", "gnn": "#ff7f0e", "haiku": "#1f77b4", "opus": "#9467bd", "change": "#7f7f7f", "link": "#c7c7c7"}
 MODELS = {"haiku": "Haiku 5.5 A2", "opus": "Opus 5.5 A2"}
 

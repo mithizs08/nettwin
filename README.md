@@ -8,7 +8,7 @@
 
 NetTwin is a small digital twin of a telecom backbone, built from public data and measured end to end. It simulates network telemetry with injected faults on real public network maps. Then it tests how well three approaches find the root cause of an incident: classic baselines, a graph neural network (GNN), and a Claude-based agent that can query the network's knowledge graph, telemetry and change log. It also forecasts link congestion. Built as a portfolio project for the UTS Telecom Research Unit Project D.A.R.T. internship.
 
-**Main limitation:** the telemetry is synthetic. It comes from our own simulator running on public topologies, not from any operator. Nothing here is Telstra's network or Telstra data. The results compare methods on realistic simulated faults; they do not show how any method would do in production.
+**Main limitation:** all telemetry is simulated, by our own simulator, on public network topologies. No real operator data is used, so results show behaviour in this simulator, not on a production network. They compare methods on realistic simulated faults.
 
 ## Headline results
 
@@ -27,7 +27,7 @@ The full write-up, with every caveat and the negative results, is [docs/report.m
 
 - **Telemetry is synthetic.** Traffic, alerts, faults and the change log come from our own simulator. Nothing here says how any method would do on a real network.
 - **Topologies are public.** They come from the Internet Topology Zoo [Knight et al. 2011] and SNDlib [Orlowski et al. 2010] through `topohub` [Jurkiewicz 2023]. Training uses generated graphs only. References are in [section 9 of the report](docs/report.md#9-references).
-- **This is not Telstra's network,** and no Telstra data is used anywhere.
+- **No real operator data.** All telemetry is simulated on public network topologies. No real operator data is used, so results show behaviour in this simulator, not on a production network.
 - **Localisation uses an oracle incident window.** It starts and ends with the true fault, the same for every method. No method had to find the window itself.
 - **AARNet is the dev and demo network.** It was used during development, so its results are reported separately and never pooled with test.
 - **The audits were done by fresh Claude Code sessions, not by humans.** Each phase was audited by a new session (`docs/audit_*.md`), and every finding was fixed and logged by ID in [docs/decision_log.md](docs/decision_log.md). That is not a substitute for human review.
