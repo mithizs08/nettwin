@@ -1600,3 +1600,10 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
   - P8: Agent cost below $0.05 per scenario-day.
 - **Plan.** Smoke test on validation (one scenario per network), then a cost estimate and a stop for the user's go-ahead. Then the full validation run, development on validation only, then `--freeze` hashes the replay code, the agent subclass, the script and the shared code it calls into `results/phase12_frozen.json`. `--split test` refuses unless this entry is in the log, every hash matches (and `results/phase5_frozen.json`), `results/phase12/test` does not exist, and no `--limit` is given. Test runs once.
 - **Spend guard.** The script sums every Phase 12 agent log and reserves $0.02 per wake in flight. It stops before a wake that could take Phase 12 past $4.00, or the project within $1 of its $100 budget.
+
+### 2026-11-18: Phase 12 smoke test and cost estimate (validation; waiting for the go-ahead)
+
+- 5 validation scenarios, the first sampled one per network (`results/phase12/val_smoke`). 40 alarm episodes, 50 agent wakes (10 waits re-checked), every wake submitted a decision. First decisions: 22 escalate, 7 dismiss_maintenance, 1 dismiss_noise, 10 wait. Mean 7.9 tool calls per wake; many wakes used all 10.
+- Cost $0.092, $0.0018 per wake. 8 faults only, so the smoke metrics are a crash and cost check, not a result.
+- Estimate (`--estimate`): validation 30 scenarios, about 300 wakes, $0.55. Test 70 scenarios, about 1,080 wakes (episodes scaled from the validation rate per link by each test network's link count), $1.98. Total about $2.53, within the $4.00 Phase 12 guard with the smoke test included.
+- No code changed after the smoke test.
