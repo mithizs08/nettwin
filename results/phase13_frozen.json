@@ -1,0 +1,13 @@
+{
+ "frozen": "2026-11-18 21:40:46",
+ "files": {
+  "src/nettwin/change_scope.py": "6b5f915f6642403f86b35e3d8125ddf81a289ec650b160c9845a7cb1daa60ad5",
+  "src/nettwin/scope_agent.py": "415955d2c67d7606489956cf21106ab92cb94f9bb234768c2803dee48a2551f9",
+  "scripts/phase13_scope.py": "08eb7ceb75f2ccd79955d28d05e71f21cc92b7a035553d95e948ef09253d4a4f",
+  "src/nettwin/kg.py": "811e2d4df993415a2a2be9995e5ad6b9867585cc77b48d866cdfd756a018b1ca",
+  "src/nettwin/alerts.py": "ce1aeda1056dda7e0c0367d3ec6362538513e8345a2528ec3b28d5372783d2e9",
+  "src/nettwin/evaluation.py": "f1d6ae245999355010a9c9ef024073e276df268880e1bc7b5c78521ed40d58a8",
+  "src/nettwin/observed.py": "1004b16438f8d95f1c23c6ce968cc9cca92dbb56417c8ea4bd09f8f07c680b79",
+  "agent.yaml": "8e7423f7096e30ad1b85c64b093a7f51b6fd117746311e6e8ad28750f9bf0460"
+ }
+}
