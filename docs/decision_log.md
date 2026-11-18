@@ -1607,3 +1607,12 @@ No critical findings. Nothing was re-run or re-scored. Every fix is to wording, 
 - Cost $0.092, $0.0018 per wake. 8 faults only, so the smoke metrics are a crash and cost check, not a result.
 - Estimate (`--estimate`): validation 30 scenarios, about 300 wakes, $0.55. Test 70 scenarios, about 1,080 wakes (episodes scaled from the validation rate per link by each test network's link count), $1.98. Total about $2.53, within the $4.00 Phase 12 guard with the smoke test included.
 - No code changed after the smoke test.
+
+### 2026-11-18: Phase 12 pre-test design change: all 210 test scenarios, $8 guard (before the validation run and any test run)
+
+- Decided by the user after the smoke test, before any full validation or test run. Reason: more statistical power for tighter CIs, and the budget allows it.
+- **Test sample:** all 30 scenarios of each of the 7 test networks, 210 in all, instead of 10 per network (70). `PER_NETWORK["test"]` is 30, so `sample()` returns every test scenario. Validation stays at 30 scenarios (6 per network), unchanged.
+- **Spend guard:** Phase 12 stops before any wake that could take it past $8.00 (was $4.00). The project guard (within $1 of $100) is unchanged.
+- **Cost estimate:** test scales to about 3,240 wakes and $5.94 (3 x the 70-scenario estimate). With validation ($0.55) and the smoke test ($0.09), Phase 12 should cost about $6.60.
+- **Test plan and frozen path:** unchanged otherwise. `--freeze` runs after the validation run and hashes the script with this change, so the test run uses 210 scenarios and refuses on any other script. Agent wakes run in 16 parallel threads (the client retries rate-limit errors), which changes no result.
+- Everything else in the Phase 12 pre-registration stands, including P1 to P8.
